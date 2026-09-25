@@ -358,6 +358,11 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
             <button type="button" data-apto="1" id="o_aptoSim" style="flex:1">Abater do valor da casa</button>
             <button type="button" data-apto="0" id="o_aptoNao" style="flex:1">Não usar</button>
           </div></div>
+          <div class="wide"><div class="lbl small muted" style="font-weight:600;margin-bottom:4px">O apartamento fica em terreno de marinha (paga laudêmio)?</div>
+          <div class="seg" role="group" aria-label="Terreno de marinha" style="width:100%">
+            <button type="button" data-marinha="0" id="o_marNao" style="flex:1">Não</button>
+            <button type="button" data-marinha="1" id="o_marSim" style="flex:1">Sim, paga laudêmio</button>
+          </div></div>
         </div>
         <div id="finBox">
           <h2 style="margin-top:22px">Financiamento</h2>
@@ -371,7 +376,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
         </div>
         <h2 style="margin-top:22px">Custos da compra</h2>
         <div class="custos" id="custos"></div>
-        <p class="hint">Valores aproximados. O ITBI de Florianópolis é 2% do valor da venda. Escritura e registro seguem a tabela de emolumentos de SC: confirmem com o tabelionato e o cartório de registro de imóveis.</p>
+        <p class="hint">ITBI de Florianópolis: 2% sobre o valor declarado da compra (pode ser pago em até 12 vezes). Escritura e registro seguem a tabela única de SC (LC 755/2019), por faixa de valor e com FRJ e ISS somados. Os 0,5% são uma estimativa com folga: peçam o orçamento exato ao tabelionato e ao registro de imóveis. Laudêmio de terreno de marinha é pago por quem vende.</p>
       </div>
       <div>
         <div class="box" id="o_result"></div>
@@ -1001,7 +1006,7 @@ $("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("
 
 /* ---- orçamento ---- */
 const GRUPOS=[["cartorio","Cartório e impostos","Pagos na compra, à vista ou financiado."],["financiamento","Custos do financiamento","Só entram na conta se a compra for financiada."],["outros","Outros custos","Mudança, reforma, móveis…"]];
-const DEFAULT_CFG={aptoUsar:true,aptoValor:1600000,aptoComissao:0,corretagem:6,semCorretagem:false,forma:"avista",valor:600000,entrada:120000,fgts:30000,taxa:11.5,prazo:30,renda:null,exemplo:true,
+const DEFAULT_CFG={aptoMarinha:false,aptoUsar:true,aptoValor:1600000,aptoComissao:0,corretagem:6,semCorretagem:false,forma:"avista",valor:600000,entrada:120000,fgts:30000,taxa:11.5,prazo:30,renda:null,exemplo:true,
   custos:[
     {id:"itbi",grupo:"cartorio",nome:"ITBI (imposto de transmissão)",modo:"pct",valor:2},
     {id:"escr",grupo:"cartorio",nome:"Escritura pública (tabelionato)",modo:"pct",valor:0.5,quando:"avista"},
@@ -1012,7 +1017,14 @@ const DEFAULT_CFG={aptoUsar:true,aptoValor:1600000,aptoComissao:0,corretagem:6,s
     {id:"mud",grupo:"outros",nome:"Mudança",modo:"rs",valor:3000},
     {id:"ref",grupo:"outros",nome:"Reforma e pequenos reparos",modo:"rs",valor:0}]};
 const OLD_GRUPO={itbi:"cartorio",cart:"cartorio",aval:"financiamento"};
-const cfg=()=>{const c={...DEFAULT_CFG,...(S.config.orcamento||{})};c.custos=(c.custos||[]).map(x=>x.grupo?x:{...x,grupo:OLD_GRUPO[x.id]||"outros"});return c};
+function migraCustos(list){
+  // lista antiga (antes dos grupos): "Registro e cartório" num item só e ITBI 3%
+  if(!list.some(x=>x.id==="cart"))return list;
+  const velhos=list.filter(x=>!["itbi","cart"].includes(x.id)).map(x=>x.grupo?x:{...x,grupo:OLD_GRUPO[x.id]||"outros"});
+  const novos=DEFAULT_CFG.custos.filter(d=>d.grupo==="cartorio"||!velhos.some(v=>v.id===d.id));
+  return [...novos.filter(d=>d.grupo==="cartorio"),...velhos,...novos.filter(d=>d.grupo!=="cartorio")];
+}
+const cfg=()=>{const c={...DEFAULT_CFG,...(S.config.orcamento||{})};c.custos=migraCustos(c.custos||[]).map(x=>x.grupo?x:{...x,grupo:OLD_GRUPO[x.id]||"outros"});return c};
 let cfgT;
 function setCfg(part){
   const c={...cfg(),...part,exemplo:false};
@@ -1043,7 +1055,7 @@ function calc(c){
   (c.custos||[]).forEach(x=>{if(entra(x,c))r.grupos[x.grupo]=(r.grupos[x.grupo]||0)+custoRS(x,V)});
   r.custos=Object.values(r.grupos).reduce((a,b)=>a+b,0);
   r.total=V+r.custos;
-  r.aptoLiq=c.aptoUsar?Math.max(0,(c.aptoValor||0)*(1-(c.aptoComissao||0)/100)):0;
+  r.aptoLiq=c.aptoUsar?aptoLiquido(c):0;
   r.aPagar=r.total-r.aptoLiq;
   r.bolso=F?Math.max(0,(c.entrada||0)-(c.fgts||0))+r.custos:r.total;
   r.pctFin=V?P/V:0;
@@ -1067,23 +1079,31 @@ function brkLines(c,g){
   const V=valorFinal(c);
   return (c.custos||[]).filter(x=>x.grupo===g&&entra(x,c)&&custoRS(x,V)>0).map(x=>`<div class="it"><span>${esc(x.nome)}${x.modo==="pct"?` <span class="muted">(${numIn(x.valor)}%)</span>`:""}</span><b>${money(custoRS(x,V))}</b></div>`).join("");
 }
+const laudemioRS=c=>c.aptoMarinha?(c.aptoValor||0)*0.05:0;
+const aptoLiquido=c=>Math.max(0,(c.aptoValor||0)*(1-(c.aptoComissao||0)/100)-laudemioRS(c));
 function renderAptoInfo(c){
   const A=c.aptoValor||0;
   const pct=(id,def)=>{const x=(c.custos||[]).find(k=>k.id===id);return x?x:{modo:"pct",valor:def}};
   const itens=[["ITBI (imposto de transmissão)",pct("itbi",2)],["Escritura pública (tabelionato)",pct("escr",0.5)],["Registro no cartório de imóveis",pct("reg",0.5)],["Certidões e documentos",pct("cert",0)]]
     .map(([n,x])=>({n,modo:x.modo,p:x.valor,v:custoRS(x,A)})).filter(x=>x.v>0);
   const tot=itens.reduce((a,x)=>a+x.v,0);
-  const liq=A*(1-(c.aptoComissao||0)/100);
+  const liq=aptoLiquido(c),com=A*(c.aptoComissao||0)/100,lau=laudemioRS(c);
   $("#o_aptoInfo").innerHTML=`<h2>Venda do meu apartamento</h2>
-    <p class="hint" style="margin:0 0 12px">Só para informação: não entra nas contas acima. É o que o comprador do apartamento vai gastar para passá-lo para o nome dele, calculado com as mesmas taxas da casa nova.</p>
+    <p class="hint" style="margin:0 0 12px">Os custos do comprador são só para informação e não entram nas contas de vocês: é o que ele vai gastar para passar o apartamento para o nome dele, com as mesmas taxas da casa nova. Já os custos de vocês como vendedores (comissão e laudêmio) são descontados do valor que abate na casa.</p>
     <div class="brk">
       <div class="g"><span>Valor do apartamento</span><b>${money(A)}</b></div>
       <div class="g"><span>Custos do comprador</span><b>${money(tot)}</b></div>
       ${itens.map(x=>`<div class="it"><span>${x.n}${x.modo==="pct"?` <span class="muted">(${numIn(x.p)}%)</span>`:""}</span><b>${money(x.v)}</b></div>`).join("")}
       <div class="tot"><span>O comprador desembolsa</span><b>${money(A+tot)}</b></div>
-      ${c.aptoComissao?`<div class="it" style="padding-left:0"><span>Vocês recebem (menos ${numIn(c.aptoComissao)}% de comissão)</span><b>${money(liq)}</b></div>`:""}
     </div>
-    <p class="hint" style="margin-top:12px">Vocês, como vendedores, não pagam ITBI nem escritura. Pode haver imposto de renda sobre o lucro da venda, mas há isenção quando o dinheiro é usado para comprar outro imóvel residencial em até 180 dias. Confirmem com um contador.</p>`;
+    <div class="brk" style="margin-top:14px">
+      <div class="g"><span>Custos de vocês, vendedores</span><b>${money(com+lau)}</b></div>
+      <div class="it"><span>Comissão do corretor ${c.aptoComissao?`(${numIn(c.aptoComissao)}%)`:"(venda direta)"}</span><b>${money(com)}</b></div>
+      <div class="it"><span>Laudêmio ${c.aptoMarinha?"(5%, terreno de marinha)":"(não é terreno de marinha)"}</span><b>${money(lau)}</b></div>
+      <div class="tot pay"><span>Vocês recebem</span><b>${money(liq)}</b></div>
+    </div>
+    ${c.aptoMarinha?`<p class="hint" style="margin-top:12px">O laudêmio é 5% sobre a avaliação da SPU (Secretaria do Patrimônio da União), que costuma ficar abaixo do valor de mercado. Aqui ele está calculado sobre o valor todo, por segurança. Sem o laudêmio pago e a certidão da SPU, o cartório não faz a escritura.</p>`:`<p class="hint" style="margin-top:12px">Em Florianópolis muitos imóveis perto do mar ou de mangues ficam em terreno de marinha. Confiram na matrícula ou no site da SPU. Se for o caso, quem vende paga 5% de laudêmio.</p>`}
+    <p class="hint">Vocês, como vendedores, não pagam ITBI nem escritura. Pode haver imposto de renda sobre o lucro da venda, mas há isenção quando o dinheiro é usado para comprar outro imóvel residencial em até 180 dias. Confirmem com um contador.</p>`;
 }
 function renderOrcamento(){
   const c=cfg();const F=fin(c);
@@ -1095,6 +1115,7 @@ function renderOrcamento(){
   $("#o_comc").setAttribute("aria-pressed",String(!c.semCorretagem));$("#o_semc").setAttribute("aria-pressed",String(!!c.semCorretagem));
   $("#o_avista").setAttribute("aria-pressed",String(!F));$("#o_financiado").setAttribute("aria-pressed",String(F));
   $("#finBox").hidden=!F;
+  $("#o_marNao").setAttribute("aria-pressed",String(!c.aptoMarinha));$("#o_marSim").setAttribute("aria-pressed",String(!!c.aptoMarinha));
   $("#o_aptoSim").setAttribute("aria-pressed",String(!!c.aptoUsar));$("#o_aptoNao").setAttribute("aria-pressed",String(!c.aptoUsar));
   renderAptoInfo(c);
   if(!$("#custos").contains(act))renderCustos(c);
@@ -1117,7 +1138,7 @@ function renderOrcamento(){
       ${grp("outros","Outros custos")}
       <div class="tot"><span>Total da compra</span><b>${money(r.total)}</b></div>
       <div class="small muted" style="text-align:right">Custos além do imóvel: ${money(r.custos)} (${r.V?(r.custos/r.V*100).toFixed(1).replace(".",","):"0"}% do valor)</div>
-      ${r.aptoLiq?`<div class="g ded"><span>− Meu apartamento${c.aptoComissao?` <span class="muted small">(${money(c.aptoValor)} menos ${numIn(c.aptoComissao)}% de comissão)</span>`:""}</span><b>− ${money(r.aptoLiq)}</b></div>
+      ${r.aptoLiq?`<div class="g ded"><span>− Meu apartamento${(c.aptoComissao||c.aptoMarinha)?` <span class="muted small">(${money(c.aptoValor)} menos custos da venda)</span>`:""}</span><b>− ${money(r.aptoLiq)}</b></div>
       <div class="tot pay"><span>${r.aPagar>=0?(F?"Falta cobrir (entrada + financiamento)":"A pagar em dinheiro"):"Sobra para vocês"}</span><b>${money(Math.abs(r.aPagar))}</b></div>`:""}
     </div>
     ${F?`<div class="big" style="margin-top:16px">
@@ -1163,6 +1184,7 @@ $("#p-orcamento").addEventListener("focusout",e=>{if(e.target.closest("#custos")
 $("#p-orcamento").addEventListener("click",e=>{
   const cp=e.target.closest("[data-cpct]");if(cp){setCfg({corretagem:+cp.dataset.cpct});return}
   const sc=e.target.closest("[data-semc]");if(sc){setCfg({semCorretagem:sc.dataset.semc==="1"});return}
+  const mr=e.target.closest("[data-marinha]");if(mr){setCfg({aptoMarinha:mr.dataset.marinha==="1"});return}
   const ap=e.target.closest("[data-apto]");if(ap){setCfg({aptoUsar:ap.dataset.apto==="1"});return}
   const fo=e.target.closest("[data-forma]");if(fo){setCfg({forma:fo.dataset.forma});return}
   const ad=e.target.closest("[data-addc]");if(ad){const id=newId();setCfg({custos:[...cfg().custos,{id,grupo:ad.dataset.addc,nome:"Novo custo",modo:"rs",valor:0}]});const el=$("#cn_"+id);if(el){el.focus();el.select()}return}
