@@ -116,6 +116,8 @@ legend{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:1
 .card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
 .price{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.15}
 .ppm{color:var(--muted);font-size:13px}
+.neg{font-size:13px;color:var(--ok)}
+.neg b{font-variant-numeric:tabular-nums}
 .card h3{font-size:15px;font-family:var(--body);font-weight:600;margin-top:2px}
 .loc{color:var(--muted);font-size:13px}
 .specs{list-style:none;display:flex;gap:12px;flex-wrap:wrap;padding:8px 0 0;margin:auto 0 0;border-top:1px dashed var(--line);font-size:13px;color:var(--muted)}
@@ -330,6 +332,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
             <select id="o_imovel"><option value="">Escolha um imóvel…</option></select>
           </label>
           <label class="f">Preço anunciado (R$)<input type="text" inputmode="decimal" id="o_valor" data-k="valor"></label>
+          <label class="f">Preço que achamos que fecha (R$)<input type="text" inputmode="decimal" id="o_valorNeg" data-k="valorNeg" placeholder="vazio = preço anunciado"></label>
           <div class="corret">
             <div class="lbl">Comissão do corretor (já embutida no preço anunciado)</div>
             <div class="opts" id="o_cpcts">
@@ -746,12 +749,12 @@ function renderImoveis(){
   }
   if(!list.length){box.innerHTML=`<div class="empty"><h3>Nada com esse filtro</h3><p>${UI.fav?"Marquem a estrela ★ nos imóveis que vocês mais gostaram.":"Tentem outro filtro ou busca."}</p></div>`;return}
   if(UI.view==="tabela"){
-    box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th>Piscina</th><th>Churrasq.</th><th>Gourmet + piscina</th><th>Alagamento</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
+    box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">Fecha por</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th>Piscina</th><th>Churrasq.</th><th>Gourmet + piscina</th><th>Alagamento</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
       list.map(d=>{const mens=(d.condominio||0)+(d.iptu||0)/12;return `<tr data-id="${esc(d.id)}">
         <td><button class="tstar" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="Favorita">★</button></td>
         <td><b>${esc(titleOf(d))}</b><div class="small muted">${esc(locOf(d))}</div></td>
         <td><span class="pill st-${esc(d.status||"interesse")}">${esc(STATUS[d.status]||STATUS.interesse)}</span></td>
-        <td class="n">${money(d.preco)}</td><td class="n">${d.area?numIn(d.area):"—"}</td><td class="n">${money(ppm(d))}</td>
+        <td class="n">${money(d.preco)}</td><td class="n">${d.precoNegociado?money(d.precoNegociado):"—"}</td><td class="n">${d.area?numIn(d.area):"—"}</td><td class="n">${money(ppm(d))}</td>
         <td class="n">${d.quartos??"—"}</td><td class="n">${d.vagas??"—"}</td><td class="n">${mens?money(mens):"—"}</td>
         <td>${simNao(d.piscina)||"—"}</td><td>${simNao(d.churrasqueira)||"—"}</td><td>${d.gourmetPiscina==="sim"?'<span class="lz top">Sim</span>':(simNao(d.gourmetPiscina)||"—")}</td><td>${alagaBadge(d)||"—"}</td>
         <td class="n">${d.nota?d.nota+"/5":"—"}</td>
@@ -768,6 +771,7 @@ function renderImoveis(){
         <button class="star" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="${d.favorito?"Tirar das favoritas":"Marcar como favorita"}">★</button></div>
       <div class="body">
         <div class="price">${d.preco?money(d.preco):'<span class="muted" style="font-size:16px">Preço a preencher</span>'}</div>
+        ${d.precoNegociado?`<div class="neg">Achamos que fecha por <b>${money(d.precoNegociado)}</b>${d.preco?` <span>(${d.precoNegociado<=d.preco?"−":"+"}${Math.abs((1-d.precoNegociado/d.preco)*100).toFixed(0)}%)</span>`:""}</div>`:""}
         ${ppm(d)?`<div class="ppm">${money(ppm(d))}/m²${d.condominio?" · cond. "+money(d.condominio):""}</div>`:(d.condominio?`<div class="ppm">cond. ${money(d.condominio)}</div>`:"")}
         <h3>${esc(titleOf(d))}</h3>
         ${locOf(d)?`<div class="loc">${esc(locOf(d))}</div>`:""}
@@ -811,7 +815,8 @@ function openDetail(id,preset){
       <label class="check-row" style="align-self:end;padding-bottom:8px"><input type="checkbox" id="f_fav" ${d.favorito?"checked":""}> ★ Favorita</label>
     </div></fieldset>
     <fieldset><legend>Valores</legend><div class="fields">
-      ${field("f_preco","Preço (R$)",d.preco,{num:true})}
+      ${field("f_preco","Preço anunciado (R$)",d.preco,{num:true})}
+      ${field("f_precoNegociado","Preço que achamos que fecha (R$)",d.precoNegociado,{num:true,ph:"opcional"})}
       ${field("f_condominio","Condomínio por mês (R$)",d.condominio,{num:true})}
       ${field("f_iptu","IPTU por ano (R$)",d.iptu,{num:true})}
     </div></fieldset>
@@ -863,7 +868,7 @@ function readForm(){
   const v=id=>$("#"+id).value.trim();
   const n=id=>parseNum(v(id));
   return {titulo:v("f_titulo"),tipo:v("f_tipo"),status:v("f_status")||"interesse",nota:v("f_nota")?+v("f_nota"):null,favorito:$("#f_fav").checked,
-    preco:n("f_preco"),condominio:n("f_condominio"),iptu:n("f_iptu"),area:n("f_area"),areaTerreno:n("f_areaTerreno"),
+    preco:n("f_preco"),precoNegociado:n("f_precoNegociado"),condominio:n("f_condominio"),iptu:n("f_iptu"),area:n("f_area"),areaTerreno:n("f_areaTerreno"),
     quartos:n("f_quartos"),suites:n("f_suites"),banheiros:n("f_banheiros"),vagas:n("f_vagas"),
     endereco:v("f_endereco"),bairro:v("f_bairro"),cidade:v("f_cidade"),link:v("f_link"),corretora:v("f_corretora"),contatoCorretor:v("f_contato"),
     alaga:v("f_alaga"),piscina:v("f_piscina"),churrasqueira:v("f_churrasqueira"),gourmetPiscina:v("f_gourmetPiscina"),
@@ -924,7 +929,7 @@ dlgIm.addEventListener("click",async e=>{
     if(assets&&d&&d.fotos)d.fotos.forEach(id=>assets.delete(id).catch(()=>{}));
     toast("Imóvel excluído.");return;
   }
-  if(t.id==="f_sim"){const p=parseNum($("#f_preco").value);dlgIm.close();if(p)setCfg({valor:p,entrada:Math.round(p*0.2)});setTab("orcamento");return}
+  if(t.id==="f_sim"){const p=parseNum($("#f_preco").value),pn=parseNum($("#f_precoNegociado").value);dlgIm.close();if(p)setCfg({valor:p,valorNeg:pn||null,entrada:Math.round((pn||p)*0.2)});setTab("orcamento");return}
   if(t.dataset.cover!=null){const i=+t.dataset.cover;const [x]=draft.fotos.splice(i,1);draft.fotos.unshift(x);renderThumbs();return}
   if(t.dataset.rmfoto!=null){const i=+t.dataset.rmfoto;draft.removed.push(draft.fotos[i]);draft.fotos.splice(i,1);renderThumbs();return}
 });
@@ -1034,8 +1039,9 @@ function setCfg(part){
   clearTimeout(cfgT);cfgT=setTimeout(()=>{cfgT=null;writeDoc("config","orcamento",S.config.orcamento)},800);
 }
 function custoRS(c,valor){return c.modo==="pct"?(valor||0)*(c.valor||0)/100:(c.valor||0)}
-const comissaoRS=c=>(c.valor||0)*(c.corretagem||0)/100;
-const valorFinal=c=>c.semCorretagem?(c.valor||0)-comissaoRS(c):(c.valor||0);
+const basePreco=c=>c.valorNeg||c.valor||0;
+const comissaoRS=c=>basePreco(c)*(c.corretagem||0)/100;
+const valorFinal=c=>c.semCorretagem?basePreco(c)-comissaoRS(c):basePreco(c);
 const fin=c=>c.forma==="financiado";
 function entra(x,c){if(x.grupo==="financiamento"&&!fin(c))return false;if(x.quando==="avista"&&fin(c))return false;if(x.quando==="financiado"&&!fin(c))return false;return true}
 function porQueNao(x,c){if(x.grupo==="financiamento")return "não entra: compra à vista";if(x.quando==="avista")return "não entra: no financiamento o contrato do banco substitui a escritura";return "não entra"}
@@ -1126,13 +1132,14 @@ function renderOrcamento(){
   $("#o_result").innerHTML=`
     <h2>Resultado</h2>
     <div class="precos">
-      <div class="${c.semCorretagem?"":"on"}"><span>Com corretagem</span><b>${money(c.valor)}</b></div>
+      <div class="${c.semCorretagem?"":"on"}"><span>Com corretagem</span><b>${money(basePreco(c))}</b></div>
       <div><span>Parte do corretor (${numIn(c.corretagem||0)}%)</span><b>${money(comissaoRS(c))}</b></div>
-      <div class="${c.semCorretagem?"on":""}"><span>Compra direta</span><b>${money((c.valor||0)-comissaoRS(c))}</b></div>
+      <div class="${c.semCorretagem?"on":""}"><span>Compra direta</span><b>${money(basePreco(c)-comissaoRS(c))}</b></div>
     </div>
+    ${c.valorNeg&&c.valor?`<p class="flag ok" style="margin:-6px 0 14px">Usando o preço que vocês acham que fecha: ${money(c.valorNeg)}, ${c.valorNeg<=c.valor?money(c.valor-c.valorNeg)+" ("+((1-c.valorNeg/c.valor)*100).toFixed(1).replace(".",",")+"%) abaixo":money(c.valorNeg-c.valor)+" acima"} do anunciado (${money(c.valor)}). Apaguem o campo para voltar ao preço do anúncio.</p>`:""}
     <p class="hint" style="margin:-8px 0 14px">Simulando com o valor <b>${c.semCorretagem?"sem":"com"} corretagem</b>, pagamento <b>${F?"financiado":"à vista"}</b>. Comprando direto com o vendedor, ele não paga a comissão, então dá para oferecer até ${money(comissaoRS(c))} a menos e ele recebe o mesmo.</p>
     <div class="brk">
-      <div class="g"><span>Para o vendedor<small>preço do imóvel${c.semCorretagem?", compra direta":""}</small></span><b>${money(r.V)}</b></div>
+      <div class="g"><span>Para o vendedor<small>${c.valorNeg?"preço que achamos que fecha":"preço anunciado"}${c.semCorretagem?", compra direta":""}</small></span><b>${money(r.V)}</b></div>
       ${r.grupos.cartorio>0?`<div class="g"><span>Impostos e cartório<small>nossas taxas para passar o imóvel para o nosso nome</small></span><b>${money(r.grupos.cartorio)}</b></div>${brkLines(c,"cartorio")}`:""}
       ${F&&r.grupos.financiamento>0?`<div class="g"><span>Custos do banco<small>só no financiamento</small></span><b>${money(r.grupos.financiamento)}</b></div>${brkLines(c,"financiamento")}`:""}
       ${r.grupos.outros>0?`<div class="g"><span>Outros gastos<small>mudança, reforma…</small></span><b>${money(r.grupos.outros)}</b></div>${brkLines(c,"outros")}`:""}
@@ -1176,7 +1183,7 @@ $("#p-orcamento").addEventListener("input",e=>{
 });
 $("#p-orcamento").addEventListener("change",e=>{
   const el=e.target;
-  if(el.id==="o_imovel"&&el.value){const d=S.imoveis[el.value];if(d&&d.preco)setCfg({valor:d.preco,entrada:Math.round(d.preco*0.2)});else toast("Esse imóvel ainda não tem preço cadastrado.");el.value="";return}
+  if(el.id==="o_imovel"&&el.value){const d=S.imoveis[el.value];if(d&&d.preco)setCfg({valor:d.preco,valorNeg:d.precoNegociado||null,entrada:Math.round((d.precoNegociado||d.preco)*0.2)});else toast("Esse imóvel ainda não tem preço cadastrado.");el.value="";return}
   if(el.dataset.f==="modo"){const row=el.closest("[data-cid]");const custos=cfg().custos.map(x=>x.id===row.dataset.cid?{...x,modo:el.value}:x);el.blur();setCfg({custos})}
   if(el.dataset.k)el.value=numIn(parseNum(el.value));
 });
@@ -1302,7 +1309,7 @@ $("#p-agenda").addEventListener("click",e=>{
 /* ---- export ---- */
 function csvCell(v){v=v==null?"":String(v);return /[";\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
 $("#btnCsv").onclick=async()=>{
-  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço","preco"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Piscina","piscina"],["Churrasqueira","churrasqueira"],["Gourmet integrado à piscina","gourmetPiscina"],["Alagamento","alaga"],["Nota","nota"],["Imobiliária","corretora"],["Contato","contatoCorretor"],["Link","link"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
+  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço anunciado","preco"],["Preço que achamos que fecha","precoNegociado"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Piscina","piscina"],["Churrasqueira","churrasqueira"],["Gourmet integrado à piscina","gourmetPiscina"],["Alagamento","alaga"],["Nota","nota"],["Imobiliária","corretora"],["Contato","contatoCorretor"],["Link","link"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
   const rows=[cols.map(c=>c[0]).join(";")].concat(imoveisArr().map(d=>cols.map(([,k])=>{let v=d[k];if(k==="favorito")v=v?"Sim":"";if(k==="status")v=STATUS[v]||v;if(["piscina","churrasqueira","gourmetPiscina"].includes(k))v=simNao(v);if(k==="alaga")v=ALAGA[v]||"";if(typeof v==="number")v=String(v).replace(".",",");return csvCell(v)}).join(";")));
   try{await downloads.save({filename:"casa-nova-imoveis.csv",data:"﻿"+rows.join("\n")})}catch(e){if(e&&e.code!=="declined")toast("Não deu para baixar o arquivo.")}
 };
