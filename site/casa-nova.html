@@ -123,6 +123,12 @@ legend{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:1
 .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px;font-size:12px}
 .tag{border-radius:6px;padding:1px 7px;font-weight:600;font-size:12px}
 .tag.pend{background:var(--warn-soft);color:var(--warn)}
+.lazer{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.lz{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;border-radius:7px;padding:2px 8px;font-size:12px;font-weight:700;background:var(--info-soft);color:var(--info)}
+.lz svg{flex:none}
+.lz.top{background:var(--accent);color:#1b1400}
+.lz.no{background:none;color:var(--muted);font-weight:600;text-decoration:line-through;padding-inline:2px}
+.chip.lzc[aria-pressed="true"]{background:var(--info);border-color:var(--info);color:var(--bg)}
 .dots{letter-spacing:2px;color:var(--accent);font-size:12px}
 .empty{border:1.5px dashed var(--line);border-radius:14px;padding:36px 20px;text-align:center;color:var(--muted)}
 .empty h3{color:var(--ink);font-size:19px;margin-bottom:6px}
@@ -445,7 +451,7 @@ const CORRETORAS={"zapimoveis":"ZAP Imóveis","vivareal":"Viva Real","quintoanda
 const S={imoveis:{},checklist:{},documentos:{},agenda:{},contatos:{},config:{}};
 const COLLS=Object.keys(S);
 let db=null,assets=null,sample=null,downloads=null,imgLimits=null,readOnly=false;
-const UI={tab:"imoveis",q:"",status:"ativos",fav:false,sort:"recentes",view:store.get("cn_view")||"cards"};
+const UI={tab:"imoveis",q:"",status:"ativos",fav:false,piscina:false,gourmet:false,sort:"recentes",view:store.get("cn_view")||"cards"};
 
 /* ---------- toast ---------- */
 let toastT;
@@ -499,6 +505,21 @@ const titleOf=d=>d.titulo||[d.tipo,d.bairro].filter(Boolean).join(" no ")||"Imó
 const locOf=d=>[d.bairro,d.cidade].filter(Boolean).join(" · ");
 const blob=id=>"/_blob/"+id;
 const houseSvg=`<svg width="54" height="54" viewBox="0 0 46 46" aria-hidden="true"><path d="M8 23 L23 10 L38 23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 20 V36 H33 V20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="20" y="27" width="6" height="9" fill="none" stroke="currentColor" stroke-width="2"/></svg>`;
+const LAZER=[["piscina","Piscina"],["churrasqueira","Churrasqueira"],["gourmetPiscina","Área gourmet integrada à piscina"]];
+const icoPool=`<svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 11c2 0 2-1.4 3.5-1.4S6 11 8 11s2-1.4 3.5-1.4S13 11 15 11M1 14c2 0 2-1.4 3.5-1.4S6 14 8 14s2-1.4 3.5-1.4S13 14 15 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 9V3.5a1.5 1.5 0 0 1 3 0M10 9V3.5a1.5 1.5 0 0 1 3 0M5 5.5h5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`;
+const icoGrill=`<svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h12a6 6 0 0 1-12 0Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 12l-1.5 3M11 12l1.5 3M6 1.5c-.6.8.6 1.4 0 2.5M10 1.5c-.6.8.6 1.4 0 2.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`;
+function lazerBadges(d){
+  const out=[];
+  if(d.gourmetPiscina==="sim")out.push(`<span class="lz top">${icoGrill}${icoPool}Gourmet + piscina</span>`);
+  else{
+    if(d.piscina==="sim")out.push(`<span class="lz">${icoPool}Piscina</span>`);
+    if(d.churrasqueira==="sim")out.push(`<span class="lz">${icoGrill}Churrasqueira</span>`);
+  }
+  if(d.piscina==="nao")out.push(`<span class="lz no">Sem piscina</span>`);
+  if(d.churrasqueira==="nao")out.push(`<span class="lz no">Sem churrasqueira</span>`);
+  return out.length?`<div class="lazer">${out.join("")}</div>`:"";
+}
+const simNao=v=>v==="sim"?"Sim":v==="nao"?"Não":"";
 function hostOf(url){try{return new URL(url).hostname.replace(/^www\./,"")}catch(e){return ""}}
 function corretoraOf(host){const k=Object.keys(CORRETORAS).find(k=>host.includes(k));return k?CORRETORAS[k]:host}
 function imovelOptions(sel,current){
@@ -548,7 +569,11 @@ Responda só com um objeto JSON com exatamente estas chaves. Use null quando a i
  "endereco": rua e número se houver, "bairro": string, "cidade": string no formato "Cidade - UF",
  "corretora": nome da imobiliária ou do corretor, "contatoCorretor": telefone ou e-mail,
  "resumo": 1 ou 2 frases descrevendo o imóvel,
+ "piscina": "sim", "nao" ou null,
+ "churrasqueira": "sim", "nao" ou null (churrasqueira, espaço gourmet com churrasqueira ou varanda gourmet com churrasqueira contam como "sim"),
+ "gourmetPiscina": "sim" quando o anúncio indica que a área gourmet ou a churrasqueira fica junto da piscina, no mesmo espaço de lazer (ex.: "espaço gourmet com churrasqueira e piscina", "área de lazer com piscina e churrasqueira"); "nao" quando o anúncio deixa claro que ficam separadas ou quando falta piscina ou churrasqueira; null quando não dá para saber,
  "destaques": lista de até 6 pontos positivos curtos}
+Para piscina e churrasqueira, use "nao" só se o anúncio disser que não tem; se simplesmente não mencionar, use null.
 Números sem "R$" e sem pontos de milhar (ex.: 850000).`;
   if(url)prompt+=`\n\nLink do anúncio (o próprio endereço pode trazer pistas como bairro, quartos e m²): ${url}`;
   if(texto)prompt+=`\n\nTexto copiado do anúncio:\n"""\n${texto.slice(0,20000)}\n"""`;
@@ -565,6 +590,7 @@ function applyIA(d,r,overwrite){
   const emptyV=v=>v==null||v==="";
   for(const k of NUM_KEYS){const v=parseNum(r[k]);if(v!=null&&(overwrite||(emptyV(d[k])||pal.includes(k)))){d[k]=v;n++}}
   for(const k of TXT_KEYS){const v=r[k];if(typeof v==="string"&&v.trim()&&(overwrite||(emptyV(d[k])||pal.includes(k)))){d[k]=v.trim();n++}}
+  for(const k of ["piscina","churrasqueira","gourmetPiscina"]){const v=r[k]===true?"sim":r[k]===false?"nao":r[k];if((v==="sim"||v==="nao")&&(overwrite||emptyV(d[k]))){d[k]=v;n++}}
   if(TIPOS.includes(r.tipo)&&(overwrite||(emptyV(d.tipo)||pal.includes("tipo")))){d.tipo=r.tipo;n++}
   if(Array.isArray(r.destaques)&&r.destaques.length&&emptyV(d.pros)){d.pros=r.destaques.map(x=>"• "+String(x)).join("\n");n++}
   if(typeof r.resumo==="string"&&r.resumo.trim()&&emptyV(d.notas)){d.notas=r.resumo.trim();n++}
@@ -598,6 +624,8 @@ function filtered(){
   if(UI.status==="ativos")a=a.filter(d=>d.status!=="descartado");
   else if(UI.status!=="todos")a=a.filter(d=>d.status===UI.status);
   if(UI.fav)a=a.filter(d=>d.favorito);
+  if(UI.piscina)a=a.filter(d=>d.piscina==="sim"||d.gourmetPiscina==="sim");
+  if(UI.gourmet)a=a.filter(d=>d.gourmetPiscina==="sim");
   const q=UI.q.trim().toLowerCase();
   if(q)a=a.filter(d=>[d.titulo,d.bairro,d.cidade,d.endereco,d.corretora,d.tipo].join(" ").toLowerCase().includes(q));
   const nz=(v,alt)=>v==null?alt:v;
@@ -621,7 +649,7 @@ function renderImoveis(){
     <div><b>${all.filter(d=>d.status==="proposta").length}</b><span>com proposta</span></div>`;
   const cnt=k=>k==="ativos"?ativos.length:k==="todos"?all.length:all.filter(d=>d.status===k).length;
   const chipDefs=[["ativos","No páreo"],...Object.entries(STATUS),["todos","Todos"]];
-  $("#chips").innerHTML=`<button class="chip fav" type="button" data-fav aria-pressed="${UI.fav}">★ Só favoritas</button>`+
+  $("#chips").innerHTML=`<button class="chip fav" type="button" data-fav aria-pressed="${UI.fav}">★ Só favoritas</button><button class="chip lzc" type="button" data-lz="piscina" aria-pressed="${UI.piscina}">Com piscina ${all.filter(d=>d.piscina==="sim"||d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="gourmet" aria-pressed="${UI.gourmet}">Gourmet + piscina ${all.filter(d=>d.gourmetPiscina==="sim").length}</button>`+
     chipDefs.map(([k,l])=>`<button class="chip" type="button" data-st="${k}" aria-pressed="${UI.status===k}">${esc(l)} ${cnt(k)}</button>`).join("");
   $("#v-cards").setAttribute("aria-pressed",String(UI.view==="cards"));
   $("#v-tabela").setAttribute("aria-pressed",String(UI.view==="tabela"));
@@ -633,13 +661,14 @@ function renderImoveis(){
   }
   if(!list.length){box.innerHTML=`<div class="empty"><h3>Nada com esse filtro</h3><p>${UI.fav?"Marquem a estrela ★ nos imóveis que vocês mais gostaram.":"Tentem outro filtro ou busca."}</p></div>`;return}
   if(UI.view==="tabela"){
-    box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
+    box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th>Piscina</th><th>Churrasq.</th><th>Gourmet + piscina</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
       list.map(d=>{const mens=(d.condominio||0)+(d.iptu||0)/12;return `<tr data-id="${esc(d.id)}">
         <td><button class="tstar" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="Favorita">★</button></td>
         <td><b>${esc(titleOf(d))}</b><div class="small muted">${esc(locOf(d))}</div></td>
         <td><span class="pill st-${esc(d.status||"interesse")}">${esc(STATUS[d.status]||STATUS.interesse)}</span></td>
         <td class="n">${money(d.preco)}</td><td class="n">${d.area?numIn(d.area):"—"}</td><td class="n">${money(ppm(d))}</td>
         <td class="n">${d.quartos??"—"}</td><td class="n">${d.vagas??"—"}</td><td class="n">${mens?money(mens):"—"}</td>
+        <td>${simNao(d.piscina)||"—"}</td><td>${simNao(d.churrasqueira)||"—"}</td><td>${d.gourmetPiscina==="sim"?'<span class="lz top">Sim</span>':(simNao(d.gourmetPiscina)||"—")}</td>
         <td class="n">${d.nota?d.nota+"/5":"—"}</td>
         <td>${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">${esc(d.corretora||hostOf(d.link))} ↗</a>`:"—"}</td></tr>`}).join("")
     }</tbody></table></div>`;
@@ -657,6 +686,7 @@ function renderImoveis(){
         ${ppm(d)?`<div class="ppm">${money(ppm(d))}/m²${d.condominio?" · cond. "+money(d.condominio):""}</div>`:(d.condominio?`<div class="ppm">cond. ${money(d.condominio)}</div>`:"")}
         <h3>${esc(titleOf(d))}</h3>
         ${locOf(d)?`<div class="loc">${esc(locOf(d))}</div>`:""}
+        ${lazerBadges(d)}
         <div class="meta">${d.extracao==="pendente"?`<span class="tag pend">Faltam dados</span>`:""}${d.nota?`<span class="dots" aria-label="Nota ${d.nota} de 5">${"●".repeat(d.nota)}${"○".repeat(5-d.nota)}</span>`:""}${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener" data-link>Ver anúncio ↗</a>`:""}</div>
         ${specs?`<ul class="specs">${specs}</ul>`:""}
       </div></article>`}).join("")}</div>`;
@@ -708,6 +738,9 @@ function openDetail(id,preset){
       ${field("f_banheiros","Banheiros",d.banheiros,{num:true})}
       ${field("f_vagas","Vagas",d.vagas,{num:true})}
     </div></fieldset>
+    <fieldset><legend>Lazer</legend><div class="fields">
+      ${LAZER.map(([k,l])=>`<label class="f">${l}<select id="f_${k}"><option value="">Não sei</option><option value="sim" ${d[k]==="sim"?"selected":""}>Sim</option><option value="nao" ${d[k]==="nao"?"selected":""}>Não</option></select></label>`).join("")}
+    </div></fieldset>
     <fieldset><legend>Onde fica</legend><div class="fields">
       ${field("f_endereco","Endereço",d.endereco,{wide:true})}
       ${field("f_bairro","Bairro",d.bairro)}
@@ -747,6 +780,7 @@ function readForm(){
     preco:n("f_preco"),condominio:n("f_condominio"),iptu:n("f_iptu"),area:n("f_area"),areaTerreno:n("f_areaTerreno"),
     quartos:n("f_quartos"),suites:n("f_suites"),banheiros:n("f_banheiros"),vagas:n("f_vagas"),
     endereco:v("f_endereco"),bairro:v("f_bairro"),cidade:v("f_cidade"),link:v("f_link"),corretora:v("f_corretora"),contatoCorretor:v("f_contato"),
+    piscina:v("f_piscina"),churrasqueira:v("f_churrasqueira"),gourmetPiscina:v("f_gourmetPiscina"),
     pros:$("#f_pros").value.trim(),contras:$("#f_contras").value.trim(),notas:$("#f_notas").value.trim()};
 }
 function fillForm(d){
@@ -754,6 +788,7 @@ function fillForm(d){
   set("f_titulo",d.titulo);set("f_tipo",d.tipo||"");
   ["preco","condominio","iptu","area","areaTerreno","quartos","suites","banheiros","vagas"].forEach(k=>set("f_"+k,d[k],true));
   set("f_endereco",d.endereco);set("f_bairro",d.bairro);set("f_cidade",d.cidade);set("f_corretora",d.corretora);set("f_contato",d.contatoCorretor);
+  set("f_piscina",d.piscina||"");set("f_churrasqueira",d.churrasqueira||"");set("f_gourmetPiscina",d.gourmetPiscina||"");
   set("f_pros",d.pros);set("f_notas",d.notas);
 }
 async function saveDetail(){
@@ -868,7 +903,7 @@ $("#sort").addEventListener("change",e=>{UI.sort=e.target.value;renderImoveis()}
 $$(".seg button").forEach(b=>b.onclick=()=>{UI.view=b.dataset.view;store.set("cn_view",UI.view);renderImoveis()});
 $("#chips").addEventListener("click",e=>{
   const b=e.target.closest("button");if(!b)return;
-  if(b.hasAttribute("data-fav"))UI.fav=!UI.fav;else UI.status=b.dataset.st;
+  if(b.hasAttribute("data-fav"))UI.fav=!UI.fav;else if(b.dataset.lz)UI[b.dataset.lz]=!UI[b.dataset.lz];else UI.status=b.dataset.st;
   renderImoveis();
 });
 $("#list").addEventListener("click",e=>{
@@ -1083,8 +1118,8 @@ $("#p-agenda").addEventListener("click",e=>{
 /* ---- export ---- */
 function csvCell(v){v=v==null?"":String(v);return /[";\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
 $("#btnCsv").onclick=async()=>{
-  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço","preco"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Nota","nota"],["Imobiliária","corretora"],["Contato","contatoCorretor"],["Link","link"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
-  const rows=[cols.map(c=>c[0]).join(";")].concat(imoveisArr().map(d=>cols.map(([,k])=>{let v=d[k];if(k==="favorito")v=v?"Sim":"";if(k==="status")v=STATUS[v]||v;if(typeof v==="number")v=String(v).replace(".",",");return csvCell(v)}).join(";")));
+  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço","preco"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Piscina","piscina"],["Churrasqueira","churrasqueira"],["Gourmet integrado à piscina","gourmetPiscina"],["Nota","nota"],["Imobiliária","corretora"],["Contato","contatoCorretor"],["Link","link"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
+  const rows=[cols.map(c=>c[0]).join(";")].concat(imoveisArr().map(d=>cols.map(([,k])=>{let v=d[k];if(k==="favorito")v=v?"Sim":"";if(k==="status")v=STATUS[v]||v;if(["piscina","churrasqueira","gourmetPiscina"].includes(k))v=simNao(v);if(typeof v==="number")v=String(v).replace(".",",");return csvCell(v)}).join(";")));
   try{await downloads.save({filename:"casa-nova-imoveis.csv",data:"﻿"+rows.join("\n")})}catch(e){if(e&&e.code!=="declined")toast("Não deu para baixar o arquivo.")}
 };
 $("#btnBackup").onclick=async()=>{
