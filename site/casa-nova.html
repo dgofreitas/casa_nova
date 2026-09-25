@@ -608,6 +608,13 @@ function alagaBadge(d){
   return "";
 }
 const simNao=v=>v==="sim"?"Sim":v==="nao"?"Não":"";
+function mapsUrl(d){
+  if(d.mapa&&/^https?:\/\//.test(d.mapa))return d.mapa;
+  const q=[d.endereco,d.bairro,d.cidade].filter(Boolean).join(", ");
+  if(!q||(!d.endereco&&!d.bairro))return "";
+  return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+}
+const icoPin=`<svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" style="vertical-align:-1px"><path d="M8 15s5-5.2 5-9A5 5 0 0 0 3 6c0 3.8 5 9 5 9Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="6" r="1.8" fill="currentColor"/></svg>`;
 function hostOf(url){try{return new URL(url).hostname.replace(/^www\./,"")}catch(e){return ""}}
 function corretoraOf(host){const k=Object.keys(CORRETORAS).find(k=>host.includes(k));return k?CORRETORAS[k]:host}
 function imovelOptions(sel,current){
@@ -759,7 +766,7 @@ function renderImoveis(){
         <td class="n">${d.quartos??"—"}</td><td class="n">${d.vagas??"—"}</td><td class="n">${mens?money(mens):"—"}</td>
         <td>${simNao(d.piscina)||"—"}</td><td>${simNao(d.churrasqueira)||"—"}</td><td>${d.gourmetPiscina==="sim"?'<span class="lz top">Sim</span>':(simNao(d.gourmetPiscina)||"—")}</td><td>${alagaBadge(d)||"—"}</td>
         <td class="n">${d.nota?d.nota+"/5":"—"}</td>
-        <td>${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">${esc(d.corretora||hostOf(d.link))} ↗</a>`:"—"}</td></tr>`}).join("")
+        <td>${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">${esc(d.corretora||hostOf(d.link))} ↗</a>`:"—"}${mapsUrl(d)?` · <a href="${esc(mapsUrl(d))}" target="_blank" rel="noopener">${icoPin} Mapa</a>`:""}</td></tr>`}).join("")
     }</tbody></table></div>`;
     return;
   }
@@ -777,7 +784,7 @@ function renderImoveis(){
         <h3>${esc(titleOf(d))}</h3>
         ${locOf(d)?`<div class="loc">${esc(locOf(d))}</div>`:""}
         ${lazerBadges(d)}
-        <div class="meta">${d.extracao==="pendente"?`<span class="tag pend">Faltam dados</span>`:""}${d.nota?`<span class="dots" aria-label="Nota ${d.nota} de 5">${"●".repeat(d.nota)}${"○".repeat(5-d.nota)}</span>`:""}${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener" data-link>Ver anúncio ↗</a>`:""}</div>
+        <div class="meta">${d.extracao==="pendente"?`<span class="tag pend">Faltam dados</span>`:""}${d.nota?`<span class="dots" aria-label="Nota ${d.nota} de 5">${"●".repeat(d.nota)}${"○".repeat(5-d.nota)}</span>`:""}${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener" data-link>Ver anúncio ↗</a>`:""}${mapsUrl(d)?`<a href="${esc(mapsUrl(d))}" target="_blank" rel="noopener">${icoPin} Mapa</a>`:""}</div>
         ${specs?`<ul class="specs">${specs}</ul>`:""}
       </div></article>`}).join("")}</div>`;
 }
@@ -797,7 +804,7 @@ function openDetail(id,preset){
   draft={id:cid,isNew,fotos:[...(d.fotos||[])],removed:[],palpites:[...(d.palpites||[])]};
   const pend=d.extracao==="pendente";
   $("#imBody").innerHTML=`
-    <div class="dlg-head"><div><h2 id="imTitle">${isNew?"Novo imóvel":esc(titleOf(d))}</h2>${d.link?`<a class="small" href="${esc(d.link)}" target="_blank" rel="noopener">Abrir anúncio ↗</a>`:""}</div><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
+    <div class="dlg-head"><div><h2 id="imTitle">${isNew?"Novo imóvel":esc(titleOf(d))}</h2><div class="small" style="display:flex;gap:14px;flex-wrap:wrap">${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">Abrir anúncio ↗</a>`:""}${mapsUrl(d)?`<a href="${esc(mapsUrl(d))}" target="_blank" rel="noopener">${icoPin} Ver no Google Maps</a>`:""}</div></div><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
     ${pend?`<p class="note warn" style="margin:0 0 16px">Este imóvel veio só do link. Abram o anúncio, copiem o texto (ou tirem prints) e usem “Preencher com IA” logo abaixo.</p>`:""}
     <details class="ai" ${pend?"open":""} id="aiBox" ${sample?"":"hidden"}>
       <summary>Preencher com IA</summary>
@@ -833,9 +840,11 @@ function openDetail(id,preset){
       ${LAZER.map(([k,l])=>`<label class="f">${l}<select id="f_${k}"><option value="">Não sei</option><option value="sim" ${d[k]==="sim"?"selected":""}>Sim</option><option value="nao" ${d[k]==="nao"?"selected":""}>Não</option></select></label>`).join("")}
     </div></fieldset>
     <fieldset><legend>Onde fica</legend><div class="fields">
-      ${field("f_endereco","Endereço",d.endereco,{wide:true})}
+      ${field("f_endereco","Endereço",d.endereco,{wide:true,ph:"Rua Itamirim, 123"})}
       ${field("f_bairro","Bairro",d.bairro)}
       ${field("f_cidade","Cidade",d.cidade,{ph:"Florianópolis - SC"})}
+      ${field("f_mapa","Link do Google Maps (opcional)",d.mapa,{type:"url",wide:true,ph:"Se o endereço não achar o lugar certo, cole aqui o link do ponto no Maps"})}
+      <div class="wide small" id="mapaPrev"></div>
       <label class="f">Alagamento<select id="f_alaga"><option value="">Não sei</option>${Object.entries(ALAGA).map(([k,l])=>`<option value="${k}" ${d.alaga===k?"selected":""}>${l}</option>`).join("")}</select></label>
     </div></fieldset>
     <fieldset><legend>Anúncio e corretor</legend><div class="fields">
@@ -858,7 +867,7 @@ function openDetail(id,preset){
       <div class="r"><button class="btn" type="button" data-close>Cancelar</button><button class="btn primary" type="button" id="f_save">Salvar</button></div>
     </div>`;
   if(!(imgLimits))$("#ai_printsRow").hidden=true;
-  renderThumbs();
+  renderThumbs();updMapaPrev();
   if(!dlgIm.open)dlgIm.showModal();
 }
 function renderThumbs(){
@@ -871,7 +880,7 @@ function readForm(){
   return {titulo:v("f_titulo"),tipo:v("f_tipo"),status:v("f_status")||"interesse",nota:v("f_nota")?+v("f_nota"):null,favorito:$("#f_fav").checked,
     preco:n("f_preco"),precoNegociado:n("f_precoNegociado"),condominio:n("f_condominio"),iptu:n("f_iptu"),area:n("f_area"),areaTerreno:n("f_areaTerreno"),
     quartos:n("f_quartos"),suites:n("f_suites"),banheiros:n("f_banheiros"),vagas:n("f_vagas"),
-    endereco:v("f_endereco"),bairro:v("f_bairro"),cidade:v("f_cidade"),link:v("f_link"),corretora:v("f_corretora"),contatoCorretor:v("f_contato"),
+    endereco:v("f_endereco"),mapa:v("f_mapa"),bairro:v("f_bairro"),cidade:v("f_cidade"),link:v("f_link"),corretora:v("f_corretora"),contatoCorretor:v("f_contato"),
     alaga:v("f_alaga"),piscina:v("f_piscina"),churrasqueira:v("f_churrasqueira"),gourmetPiscina:v("f_gourmetPiscina"),
     pros:$("#f_pros").value.trim(),contras:$("#f_contras").value.trim(),notas:$("#f_notas").value.trim()};
 }
@@ -934,6 +943,9 @@ dlgIm.addEventListener("click",async e=>{
   if(t.dataset.cover!=null){const i=+t.dataset.cover;const [x]=draft.fotos.splice(i,1);draft.fotos.unshift(x);renderThumbs();return}
   if(t.dataset.rmfoto!=null){const i=+t.dataset.rmfoto;draft.removed.push(draft.fotos[i]);draft.fotos.splice(i,1);renderThumbs();return}
 });
+function updMapaPrev(){const el=$("#mapaPrev");if(!el)return;const u=mapsUrl({endereco:$("#f_endereco").value.trim(),bairro:$("#f_bairro").value.trim(),cidade:$("#f_cidade").value.trim(),mapa:$("#f_mapa").value.trim()});
+  el.innerHTML=u?`<a href="${esc(u)}" target="_blank" rel="noopener">${icoPin} Conferir no Google Maps ↗</a>`:`<span class="muted">Preencham endereço ou bairro para gerar o link do mapa.</span>`}
+dlgIm.addEventListener("input",e=>{if(["f_endereco","f_bairro","f_cidade","f_mapa"].includes(e.target.id))updMapaPrev()});
 dlgIm.addEventListener("change",async e=>{
   if(e.target.id!=="f_fotos"||!assets)return;
   const files=[...e.target.files];const st=$("#fotoStatus");
@@ -1317,8 +1329,8 @@ $("#p-agenda").addEventListener("click",e=>{
 /* ---- export ---- */
 function csvCell(v){v=v==null?"":String(v);return /[";\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
 $("#btnCsv").onclick=async()=>{
-  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço anunciado","preco"],["Preço que achamos que fecha","precoNegociado"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Piscina","piscina"],["Churrasqueira","churrasqueira"],["Gourmet integrado à piscina","gourmetPiscina"],["Alagamento","alaga"],["Nota","nota"],["Imobiliária","corretora"],["Contato","contatoCorretor"],["Link","link"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
-  const rows=[cols.map(c=>c[0]).join(";")].concat(imoveisArr().map(d=>cols.map(([,k])=>{let v=d[k];if(k==="favorito")v=v?"Sim":"";if(k==="status")v=STATUS[v]||v;if(["piscina","churrasqueira","gourmetPiscina"].includes(k))v=simNao(v);if(k==="alaga")v=ALAGA[v]||"";if(typeof v==="number")v=String(v).replace(".",",");return csvCell(v)}).join(";")));
+  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço anunciado","preco"],["Preço que achamos que fecha","precoNegociado"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Piscina","piscina"],["Churrasqueira","churrasqueira"],["Gourmet integrado à piscina","gourmetPiscina"],["Alagamento","alaga"],["Nota","nota"],["Imobiliária","corretora"],["Contato","contatoCorretor"],["Link","link"],["Google Maps","_mapa"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
+  const rows=[cols.map(c=>c[0]).join(";")].concat(imoveisArr().map(d=>cols.map(([,k])=>{let v=d[k];if(k==="favorito")v=v?"Sim":"";if(k==="status")v=STATUS[v]||v;if(["piscina","churrasqueira","gourmetPiscina"].includes(k))v=simNao(v);if(k==="alaga")v=ALAGA[v]||"";if(k==="_mapa")v=mapsUrl(d);if(typeof v==="number")v=String(v).replace(".",",");return csvCell(v)}).join(";")));
   try{await downloads.save({filename:"casa-nova-imoveis.csv",data:"﻿"+rows.join("\n")})}catch(e){if(e&&e.code!=="declined")toast("Não deu para baixar o arquivo.")}
 };
 $("#btnBackup").onclick=async()=>{
