@@ -520,7 +520,7 @@ function slugInfo(url){
   o.suites=m(/(\d+)-?su[ií]tes?\b/);
   o.banheiros=m(/(\d+)-?banheiros?\b/);
   o.vagas=m(/(\d+)-?vagas?\b/);
-  o.area=m(/(\d+)-?(?:m2|m²|metros)/);
+  const pr=s.match(/(?:^|-)r\$?s?-?(\d{5,})(?:-|$)/);if(pr)o.preco=+pr[1];
   if(/apartamento|\bapto\b/.test(s))o.tipo="Apartamento";
   else if(/cobertura/.test(s))o.tipo="Cobertura";
   else if(/sobrado/.test(s))o.tipo="Sobrado";
@@ -528,9 +528,10 @@ function slugInfo(url){
   else if(/casa/.test(s))o.tipo="Casa";
   else if(/terreno|lote/.test(s))o.tipo="Terreno";
   const seg=path.split("/").filter(x=>/[a-z]{3,}/.test(x)).sort((a,b)=>b.length-a.length)[0]||"";
-  let t=seg.replace(/-?id-?\d+.*$/,"").replace(/\d{6,}/g,"").replace(/[-_]+/g," ").trim();
+  let t=seg.replace(/-?id-?\d+.*$/,"").replace(/-?rs?\$?-?\d{5,}/g,"").replace(/-?\d+-?(?:m2|m²)\b/g,"").replace(/\d{6,}/g,"").replace(/[-_]+/g," ").trim();
   if(t.split(" ").length>=3){t=t.charAt(0).toUpperCase()+t.slice(1);o.titulo=t.slice(0,90)}
   Object.keys(o).forEach(k=>{if(o[k]==null||o[k]==="")delete o[k]});
+  o.palpites=Object.keys(o).filter(k=>k!=="corretora");
   return o;
 }
 function extrairIA({url,texto,imagens}){
@@ -540,9 +541,9 @@ Responda só com um objeto JSON com exatamente estas chaves. Use null quando a i
  "tipo": um de ${JSON.stringify(TIPOS)},
  "preco": número em reais,
  "condominio": número em reais por mês,
- "iptu": número em reais POR ANO (se o anúncio der valor mensal, multiplique por 12),
- "area": área útil ou construída em m² (número),
- "areaTerreno": área do terreno em m² (número),
+ "iptu": número em reais por ano. Copie o valor como está no anúncio; só multiplique por 12 se o anúncio disser explicitamente que é mensal ("/mês", "mensal"),
+ "area": tamanho da construção em m²: use "área útil", "área construída" ou "área privativa" (número),
+ "areaTerreno": tamanho do terreno em m²: use "área total" ou "área do terreno" (número). Em casas, "área total" é o terreno e costuma ser MAIOR que a área útil; nunca repita o mesmo número nos dois campos só por falta de dado,
  "quartos": número, "suites": número, "banheiros": número, "vagas": número,
  "endereco": rua e número se houver, "bairro": string, "cidade": string no formato "Cidade - UF",
  "corretora": nome da imobiliária ou do corretor, "contatoCorretor": telefone ou e-mail,
@@ -560,12 +561,14 @@ const NUM_KEYS=["preco","condominio","iptu","area","areaTerreno","quartos","suit
 const TXT_KEYS=["titulo","endereco","bairro","cidade","corretora","contatoCorretor"];
 function applyIA(d,r,overwrite){
   if(!r||typeof r!=="object")return 0; let n=0;
-  const empty=v=>v==null||v==="";
-  for(const k of NUM_KEYS){const v=parseNum(r[k]);if(v!=null&&(overwrite||empty(d[k]))){d[k]=v;n++}}
-  for(const k of TXT_KEYS){const v=r[k];if(typeof v==="string"&&v.trim()&&(overwrite||empty(d[k]))){d[k]=v.trim();n++}}
-  if(TIPOS.includes(r.tipo)&&(overwrite||empty(d.tipo))){d.tipo=r.tipo;n++}
-  if(Array.isArray(r.destaques)&&r.destaques.length&&empty(d.pros)){d.pros=r.destaques.map(x=>"• "+String(x)).join("\n");n++}
-  if(typeof r.resumo==="string"&&r.resumo.trim()&&empty(d.notas)){d.notas=r.resumo.trim();n++}
+  const pal=d.palpites||[];
+  const emptyV=v=>v==null||v==="";
+  for(const k of NUM_KEYS){const v=parseNum(r[k]);if(v!=null&&(overwrite||(emptyV(d[k])||pal.includes(k)))){d[k]=v;n++}}
+  for(const k of TXT_KEYS){const v=r[k];if(typeof v==="string"&&v.trim()&&(overwrite||(emptyV(d[k])||pal.includes(k)))){d[k]=v.trim();n++}}
+  if(TIPOS.includes(r.tipo)&&(overwrite||(emptyV(d.tipo)||pal.includes("tipo")))){d.tipo=r.tipo;n++}
+  if(Array.isArray(r.destaques)&&r.destaques.length&&emptyV(d.pros)){d.pros=r.destaques.map(x=>"• "+String(x)).join("\n");n++}
+  if(typeof r.resumo==="string"&&r.resumo.trim()&&emptyV(d.notas)){d.notas=r.resumo.trim();n++}
+  delete d.palpites;
   return n;
 }
 
@@ -671,7 +674,7 @@ function openDetail(id,preset){
   const isNew=!id||!S.imoveis[id];
   const cid=id||newId();
   const d={status:"interesse",...(S.imoveis[cid]||{}),...(preset||{})};
-  draft={id:cid,isNew,fotos:[...(d.fotos||[])],removed:[]};
+  draft={id:cid,isNew,fotos:[...(d.fotos||[])],removed:[],palpites:[...(d.palpites||[])]};
   const pend=d.extracao==="pendente";
   $("#imBody").innerHTML=`
     <div class="dlg-head"><div><h2 id="imTitle">${isNew?"Novo imóvel":esc(titleOf(d))}</h2>${d.link?`<a class="small" href="${esc(d.link)}" target="_blank" rel="noopener">Abrir anúncio ↗</a>`:""}</div><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
@@ -698,8 +701,8 @@ function openDetail(id,preset){
       ${field("f_iptu","IPTU por ano (R$)",d.iptu,{num:true})}
     </div></fieldset>
     <fieldset><legend>Características</legend><div class="fields">
-      ${field("f_area","Área útil (m²)",d.area,{num:true})}
-      ${field("f_areaTerreno","Terreno (m²)",d.areaTerreno,{num:true})}
+      ${field("f_area","Área construída / útil (m²)",d.area,{num:true})}
+      ${field("f_areaTerreno","Área do terreno / total (m²)",d.areaTerreno,{num:true})}
       ${field("f_quartos","Quartos",d.quartos,{num:true})}
       ${field("f_suites","Suítes",d.suites,{num:true})}
       ${field("f_banheiros","Banheiros",d.banheiros,{num:true})}
@@ -759,6 +762,7 @@ async function saveDetail(){
   const old=S.imoveis[draft.id]||{};
   const data={...old,...form,fotos:draft.fotos,atualizadoEm:nowISO()};
   if(!old.criadoEm)data.criadoEm=nowISO();
+  delete data.palpites;
   if(data.extracao==="pendente"&&data.preco&&(data.area||data.quartos))data.extracao="ok";
   const ai=$("#ai_texto");if(ai&&ai.value.trim())data.anuncioTexto=ai.value.trim().slice(0,20000);
   Object.keys(data).forEach(k=>{if(data[k]===null||data[k]==="")delete data[k]});
@@ -776,9 +780,9 @@ async function runIA(){
   btn.disabled=true;st.textContent="Lendo o anúncio… pode levar até um minuto.";
   try{
     const r=await extrairIA({url,texto,imagens:files});
-    const cur=readForm();
+    const cur=readForm();cur.palpites=draft.palpites;
     const n=applyIA(cur,r,$("#ai_over").checked);
-    fillForm(cur);
+    fillForm(cur);draft.palpites=[];
     st.textContent=n?`${n} campos preenchidos. Confiram e cliquem em Salvar.`:"Não achei dados novos no anúncio.";
     if(files.length&&assets){for(const f of files){try{const u=await assets.upload(f);draft.fotos.push(u.id)}catch(e){}}renderThumbs()}
   }catch(e){st.textContent=sampleErr(e)}
