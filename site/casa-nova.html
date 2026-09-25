@@ -179,9 +179,9 @@ details.ai[open] summary{margin-bottom:10px}
 @media (max-width:860px){.two{grid-template-columns:1fr}}
 .box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
 .box h2{font-size:19px;margin-bottom:12px}
-.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:16px}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px 18px;margin-bottom:16px}
 .big div span{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
-.big div b{font-family:var(--display);font-size:24px;font-variant-numeric:tabular-nums}
+.big div b{font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
 .cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .cmp .col{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 .cmp h3{font-size:16px;margin-bottom:6px}
@@ -193,6 +193,18 @@ details.ai[open] summary{margin-bottom:10px}
 .flag{font-size:13px;border-radius:8px;padding:8px 10px;margin-top:10px}
 .flag.warn{background:var(--warn-soft);color:var(--warn)}
 .flag.ok{background:var(--ok-soft);color:var(--ok)}
+.corret{grid-column:1/-1;border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.corret .lbl{font-size:13px;color:var(--muted);font-weight:600}
+.corret .opts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.corret .opts input{width:90px}
+.corret .seg{width:100%}
+.corret .seg button{flex:1}
+.precos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:16px}
+.precos div{border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.precos div.on{border-color:var(--primary);background:var(--primary-soft)}
+.precos span{display:block;font-size:12px;color:var(--muted);font-weight:700}
+.precos b{font-variant-numeric:tabular-nums;font-size:16px}
+@media (max-width:520px){.precos{grid-template-columns:1fr}}
 
 /* checklist */
 .progress{height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin:8px 0 22px}
@@ -298,7 +310,21 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
           <label class="f wide">Preencher com um imóvel cadastrado
             <select id="o_imovel"><option value="">Escolha um imóvel…</option></select>
           </label>
-          <label class="f">Valor do imóvel (R$)<input type="text" inputmode="decimal" id="o_valor" data-k="valor"></label>
+          <label class="f">Preço anunciado (R$)<input type="text" inputmode="decimal" id="o_valor" data-k="valor"></label>
+          <div class="corret">
+            <div class="lbl">Comissão do corretor (já embutida no preço anunciado)</div>
+            <div class="opts" id="o_cpcts">
+              <button class="chip" type="button" data-cpct="4">4%</button>
+              <button class="chip" type="button" data-cpct="5">5%</button>
+              <button class="chip" type="button" data-cpct="6">6%</button>
+              <label class="small muted" style="display:flex;gap:6px;align-items:center">outra: <input type="text" inputmode="decimal" id="o_corretagem" data-k="corretagem" aria-label="Comissão em %"> %</label>
+            </div>
+            <div class="lbl">Simular com o valor final</div>
+            <div class="seg" role="group" aria-label="Valor final">
+              <button type="button" data-semc="0" id="o_comc">Com corretagem</button>
+              <button type="button" data-semc="1" id="o_semc">Sem corretagem (compra direta)</button>
+            </div>
+          </div>
           <label class="f">Entrada total (R$)<input type="text" inputmode="decimal" id="o_entrada" data-k="entrada"></label>
           <label class="f">Quanto da entrada vem do FGTS (R$)<input type="text" inputmode="decimal" id="o_fgts" data-k="fgts"></label>
           <label class="f">Juros ao ano (%)<input type="text" inputmode="decimal" id="o_taxa" data-k="taxa"></label>
@@ -934,7 +960,7 @@ $("#list").addEventListener("click",e=>{
 $("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))openDetail(e.target.dataset.id)});
 
 /* ---- orçamento ---- */
-const DEFAULT_CFG={valor:600000,entrada:120000,fgts:30000,taxa:11.5,prazo:30,renda:null,exemplo:true,
+const DEFAULT_CFG={corretagem:6,semCorretagem:false,valor:600000,entrada:120000,fgts:30000,taxa:11.5,prazo:30,renda:null,exemplo:true,
   custos:[{id:"itbi",nome:"ITBI",modo:"pct",valor:3},{id:"cart",nome:"Registro e cartório",modo:"pct",valor:1},{id:"aval",nome:"Avaliação do imóvel pelo banco",modo:"rs",valor:3500},{id:"mud",nome:"Mudança",modo:"rs",valor:3000}]};
 const cfg=()=>({...DEFAULT_CFG,...(S.config.orcamento||{})});
 let cfgT;
@@ -945,8 +971,11 @@ function setCfg(part){
   clearTimeout(cfgT);cfgT=setTimeout(()=>{cfgT=null;writeDoc("config","orcamento",S.config.orcamento)},800);
 }
 function custoRS(c,valor){return c.modo==="pct"?(valor||0)*(c.valor||0)/100:(c.valor||0)}
+const comissaoRS=c=>(c.valor||0)*(c.corretagem||0)/100;
+const valorFinal=c=>c.semCorretagem?(c.valor||0)-comissaoRS(c):(c.valor||0);
 function calc(c){
-  const P=Math.max(0,(c.valor||0)-(c.entrada||0));
+  const V=valorFinal(c);
+  const P=Math.max(0,V-(c.entrada||0));
   const n=Math.round((c.prazo||0)*12);
   const i=Math.pow(1+(c.taxa||0)/100,1/12)-1;
   const r={P,n,i};
@@ -955,9 +984,9 @@ function calc(c){
     r.priceTotal=r.price*n;r.priceJuros=r.priceTotal-P;
     const a=P/n;r.sac1=a+P*i;r.sacN=a+a*i;r.sacJuros=i*P*(n+1)/2;r.sacTotal=P+r.sacJuros;
   }
-  r.custos=(c.custos||[]).reduce((s,x)=>s+custoRS(x,c.valor),0);
+  r.custos=(c.custos||[]).reduce((s,x)=>s+custoRS(x,V),0);r.V=V;
   r.bolso=Math.max(0,(c.entrada||0)-(c.fgts||0))+r.custos;
-  r.pctFin=c.valor?P/c.valor:0;
+  r.pctFin=V?P/V:0;
   return r;
 }
 function renderOrcamento(){
@@ -966,6 +995,8 @@ function renderOrcamento(){
   const act=document.activeElement;
   $$("#p-orcamento input[data-k]").forEach(el=>{if(el!==act)el.value=numIn(c[el.dataset.k])});
   imovelOptions($("#o_imovel"),"");
+  $$("#o_cpcts [data-cpct]").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.cpct===c.corretagem)));
+  $("#o_comc").setAttribute("aria-pressed",String(!c.semCorretagem));$("#o_semc").setAttribute("aria-pressed",String(!!c.semCorretagem));
   const cBox=$("#custos");
   if(!cBox.contains(act)){
     cBox.innerHTML=(c.custos||[]).map(x=>`<div class="custo" data-cid="${esc(x.id)}">
@@ -973,13 +1004,19 @@ function renderOrcamento(){
       <input type="text" inputmode="decimal" id="cv_${esc(x.id)}" data-f="valor" value="${esc(numIn(x.valor))}" aria-label="Valor">
       <select data-f="modo" id="cm_${esc(x.id)}" aria-label="Tipo"><option value="pct" ${x.modo==="pct"?"selected":""}>%</option><option value="rs" ${x.modo==="rs"?"selected":""}>R$</option></select>
       <button class="icon-btn" type="button" data-rmc aria-label="Remover custo">✕</button>
-      ${x.modo==="pct"?`<div class="calc">${money(custoRS(x,c.valor))}</div>`:""}</div>`).join("")||`<p class="hint">Nenhum custo extra.</p>`;
+      ${x.modo==="pct"?`<div class="calc">${money(custoRS(x,valorFinal(c)))}</div>`:""}</div>`).join("")||`<p class="hint">Nenhum custo extra.</p>`;
   }
   const r=calc(c);
   const comp=c.renda&&r.sac1?r.sac1/c.renda:null;
   const compP=c.renda&&r.price?r.price/c.renda:null;
   $("#o_result").innerHTML=`
     <h2>Resultado</h2>
+    <div class="precos">
+      <div class="${c.semCorretagem?"":"on"}"><span>Com corretagem</span><b>${money(c.valor)}</b></div>
+      <div><span>Parte do corretor (${numIn(c.corretagem||0)}%)</span><b>${money(comissaoRS(c))}</b></div>
+      <div class="${c.semCorretagem?"on":""}"><span>Compra direta</span><b>${money((c.valor||0)-comissaoRS(c))}</b></div>
+    </div>
+    <p class="hint" style="margin:-8px 0 14px">Simulando com o valor <b>${c.semCorretagem?"sem":"com"} corretagem</b>: ${money(r.V)}. Comprando direto com o vendedor, ele não paga a comissão, então dá para oferecer até ${money(comissaoRS(c))} a menos e ele recebe o mesmo.</p>
     <div class="big">
       <div><span>Valor financiado</span><b>${money(r.P)}</b><div class="small muted">${Math.round(r.pctFin*100)}% do imóvel</div></div>
       <div><span>Dinheiro do bolso</span><b>${money(r.bolso)}</b><div class="small muted">entrada sem FGTS + custos</div></div>
@@ -1021,6 +1058,8 @@ $("#p-orcamento").addEventListener("change",e=>{
 });
 $("#p-orcamento").addEventListener("focusout",e=>{if(e.target.closest("#custos"))setTimeout(()=>{if(!$("#custos").contains(document.activeElement))renderOrcamento()},0)});
 $("#p-orcamento").addEventListener("click",e=>{
+  const cp=e.target.closest("[data-cpct]");if(cp){setCfg({corretagem:+cp.dataset.cpct});return}
+  const sc=e.target.closest("[data-semc]");if(sc){setCfg({semCorretagem:sc.dataset.semc==="1"});return}
   if(e.target.closest("[data-rmc]")){const id=e.target.closest("[data-cid]").dataset.cid;const custos=cfg().custos.filter(x=>x.id!==id);document.activeElement.blur();setCfg({custos})}
 });
 $("#btnCusto").onclick=()=>{const id=newId();setCfg({custos:[...cfg().custos,{id,nome:"Novo custo",modo:"rs",valor:0}]});const el=$("#cn_"+id);if(el){el.focus();el.select()}};
