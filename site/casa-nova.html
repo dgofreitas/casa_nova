@@ -1,0 +1,1117 @@
+<title>Casa Nova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400..700&display=swap">
+<style>
+:root{
+  --bg:#F3F6F2; --surface:#FFFFFF; --surface-2:#E8EEE8; --ink:#14211C; --muted:#56655F; --line:#D3DCD5;
+  --primary:#1F5B4C; --primary-ink:#FFFFFF; --primary-soft:#DCEAE4;
+  --accent:#D39409; --accent-soft:#FBEFCF;
+  --ok:#2E7A4D; --ok-soft:#DDF0E3; --warn:#9A6212; --warn-soft:#F7E8CC; --bad:#B0443A; --bad-soft:#F6DEDB; --info:#33629F; --info-soft:#DEE7F4;
+  --shadow:0 1px 2px rgba(20,33,28,.06),0 4px 14px rgba(20,33,28,.06);
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Instrument Sans","Helvetica Neue","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1512; --surface:#16201C; --surface-2:#1F2B26; --ink:#E4ECE7; --muted:#9AA9A2; --line:#2B3933;
+    --primary:#6CC0A5; --primary-ink:#0B1411; --primary-soft:#1D3A31;
+    --accent:#F2B92E; --accent-soft:#3A2F12;
+    --ok:#74C891; --ok-soft:#1C3325; --warn:#E6B05A; --warn-soft:#3A2D16; --bad:#E8847A; --bad-soft:#3D1F1C; --info:#8DB0E8; --info-soft:#1C2A40;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1512; --surface:#16201C; --surface-2:#1F2B26; --ink:#E4ECE7; --muted:#9AA9A2; --line:#2B3933;
+  --primary:#6CC0A5; --primary-ink:#0B1411; --primary-soft:#1D3A31;
+  --accent:#F2B92E; --accent-soft:#3A2F12;
+  --ok:#74C891; --ok-soft:#1C3325; --warn:#E6B05A; --warn-soft:#3A2D16; --bad:#E8847A; --bad-soft:#3D1F1C; --info:#8DB0E8; --info-soft:#1C2A40;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 64px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--primary)}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.num,.price,.ppm,td.n{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+
+/* header */
+.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{flex:none}
+.brand h1{font-size:30px;font-weight:800;line-height:1}
+.brand p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.banner{margin-top:14px;padding:10px 14px;border-radius:10px;background:var(--warn-soft);color:var(--warn);font-size:14px}
+
+.tabs{margin-top:18px;display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;background:none;border:0;padding:10px 14px;border-bottom:3px solid transparent;color:var(--muted);font-weight:600;cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tab .count{font-size:12px;font-weight:600;background:var(--surface-2);border-radius:99px;padding:1px 7px;margin-left:6px;color:var(--muted)}
+.panel{padding-top:20px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:9px;font-weight:600;cursor:pointer;text-decoration:none;color:var(--ink);white-space:nowrap}
+.btn:hover{border-color:var(--primary)}
+.btn.primary{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:none;border-color:transparent}
+.btn.danger{color:var(--bad)}
+.btn.danger.armed{background:var(--bad);color:#fff;border-color:var(--bad)}
+.btn:disabled{opacity:.55;cursor:default}
+.icon-btn{border:0;background:none;cursor:pointer;color:var(--muted);padding:4px 6px;border-radius:6px;line-height:1}
+.icon-btn:hover{color:var(--bad);background:var(--bad-soft)}
+
+/* inputs */
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);font-weight:600;min-width:0}
+input[type=text],input[type=url],input[type=search],input[type=email],input[type=tel],input[type=datetime-local],select,textarea{
+  width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--ink);font-weight:400;font-size:15px;min-width:0}
+textarea{resize:vertical;min-height:70px}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 3px var(--primary-soft)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.fields .wide{grid-column:1/-1}
+fieldset{border:0;padding:0;margin:0 0 18px}
+legend{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:10px;padding:0}
+
+/* imoveis toolbar */
+.stats{display:flex;gap:22px;flex-wrap:wrap;align-items:baseline;margin-bottom:14px}
+.stats div{display:flex;gap:6px;align-items:baseline}
+.stats b{font-family:var(--display);font-size:24px;font-weight:700}
+.stats span{color:var(--muted);font-size:14px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.toolbar .grow{flex:1 1 220px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.fav[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#1b1400}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{border:0;background:var(--surface);padding:8px 12px;cursor:pointer;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface-2);color:var(--ink)}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.card.descartado{opacity:.6}
+.ph{position:relative;aspect-ratio:4/3;max-width:100%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .dom{position:absolute;bottom:10px;left:12px;font-size:12px;font-weight:600}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px;white-space:nowrap}
+.ph .pill{position:absolute;top:10px;left:10px}
+.st-interesse{background:var(--info-soft);color:var(--info)}
+.st-visita{background:var(--warn-soft);color:var(--warn)}
+.st-visitado{background:var(--primary-soft);color:var(--primary)}
+.st-proposta{background:var(--ok-soft);color:var(--ok)}
+.st-descartado{background:var(--surface-2);color:var(--muted)}
+.star{position:absolute;top:6px;right:6px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(10,16,14,.45);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.star[aria-pressed="true"]{background:var(--accent);color:#1b1400}
+.card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.price{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.15}
+.ppm{color:var(--muted);font-size:13px}
+.card h3{font-size:15px;font-family:var(--body);font-weight:600;margin-top:2px}
+.loc{color:var(--muted);font-size:13px}
+.specs{list-style:none;display:flex;gap:12px;flex-wrap:wrap;padding:8px 0 0;margin:auto 0 0;border-top:1px dashed var(--line);font-size:13px;color:var(--muted)}
+.specs b{color:var(--ink);font-variant-numeric:tabular-nums}
+.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px;font-size:12px}
+.tag{border-radius:6px;padding:1px 7px;font-weight:600;font-size:12px}
+.tag.pend{background:var(--warn-soft);color:var(--warn)}
+.dots{letter-spacing:2px;color:var(--accent);font-size:12px}
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:36px 20px;text-align:center;color:var(--muted)}
+.empty h3{color:var(--ink);font-size:19px;margin-bottom:6px}
+.empty .btn{margin-top:14px}
+
+/* table */
+.scroll-x{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;background:var(--surface-2)}
+td.n,th.n{text-align:right}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--surface-2)}
+tbody tr:last-child td{border-bottom:0}
+.tstar{border:0;background:none;cursor:pointer;font-size:18px;color:var(--line);padding:0}
+.tstar[aria-pressed="true"]{color:var(--accent)}
+
+/* dialog */
+dialog{border:0;padding:0;border-radius:16px;background:var(--surface);color:var(--ink);width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 32px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(8,14,12,.55)}
+.dlg{padding:20px 20px 0;overflow:auto;max-height:calc(100vh - 32px)}
+.dlg-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
+.dlg-head h2{font-size:22px}
+.dlg-foot{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--line);margin:0 -20px;padding:12px 20px;display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+.dlg-foot .r{display:flex;gap:8px;flex-wrap:wrap}
+.modes{display:flex;gap:4px;background:var(--surface-2);padding:4px;border-radius:10px;margin-bottom:16px}
+.modes button{flex:1;border:0;background:none;padding:8px;border-radius:7px;font-weight:600;cursor:pointer;color:var(--muted)}
+.modes button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.hint{font-size:13px;color:var(--muted);margin:4px 0 0}
+.note{font-size:13px;border-radius:10px;padding:10px 12px;background:var(--primary-soft);color:var(--ink)}
+.note.warn{background:var(--warn-soft)}
+.status-line{font-size:14px;font-weight:600;color:var(--primary);min-height:1.5em}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.thumb{position:relative;width:96px;height:72px;border-radius:8px;overflow:hidden;border:2px solid transparent;background:var(--surface-2)}
+.thumb.cover{border-color:var(--accent)}
+.thumb img{width:100%;height:100%;object-fit:cover;cursor:pointer}
+.thumb button{position:absolute;top:2px;right:2px;border:0;border-radius:50%;width:22px;height:22px;background:rgba(0,0,0,.6);color:#fff;cursor:pointer;font-size:12px;line-height:1}
+details.ai{border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:18px}
+details.ai summary{cursor:pointer;font-weight:700;font-family:var(--display)}
+details.ai[open] summary{margin-bottom:10px}
+.check-row{display:flex;gap:8px;align-items:center;font-size:14px}
+
+/* orçamento */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.box h2{font-size:19px;margin-bottom:12px}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:16px}
+.big div span{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.big div b{font-family:var(--display);font-size:24px;font-variant-numeric:tabular-nums}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cmp .col{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cmp h3{font-size:16px;margin-bottom:6px}
+.kv{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:3px 0}
+.kv b{font-variant-numeric:tabular-nums}
+.custos{display:flex;flex-direction:column;gap:8px}
+.custo{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(0,1fr) 72px auto;gap:6px;align-items:center}
+.custo .calc{font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums;grid-column:1/-1;margin-top:-4px}
+.flag{font-size:13px;border-radius:8px;padding:8px 10px;margin-top:10px}
+.flag.warn{background:var(--warn-soft);color:var(--warn)}
+.flag.ok{background:var(--ok-soft);color:var(--ok)}
+
+/* checklist */
+.progress{height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin:8px 0 22px}
+.progress i{display:block;height:100%;background:var(--primary);border-radius:99px;transition:width .3s}
+.etapas{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.etapa{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.etapa-h{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.etapa-h .n{font-family:var(--display);font-weight:800;font-size:22px;color:var(--accent);min-width:1.1em}
+.etapa-h h3{font-size:17px;flex:1}
+.etapa-h .c{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.items{list-style:none;padding:0;margin:0 0 8px}
+.items li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px dashed var(--line)}
+.items li label{flex:1;cursor:pointer;font-size:14px}
+.items input[type=checkbox]{margin-top:4px;width:17px;height:17px;accent-color:var(--primary);flex:none}
+.items li.done label{color:var(--muted);text-decoration:line-through}
+.add-row{display:flex;gap:6px}
+.add-row input{flex:1}
+
+/* docs / agenda */
+.list{display:flex;flex-direction:column;gap:8px}
+.row{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.row .main{flex:1 1 200px;min-width:0}
+.row .main b{display:block;overflow-wrap:anywhere}
+.row.past{opacity:.6}
+.when{font-variant-numeric:tabular-nums;font-weight:700;color:var(--primary);min-width:92px}
+.group-h{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;margin:18px 0 8px}
+.group-h:first-child{margin-top:0}
+.drop{border:1.5px dashed var(--line);border-radius:12px;padding:16px;text-align:center;color:var(--muted);font-size:14px}
+.drop.over{border-color:var(--primary);background:var(--primary-soft)}
+.copy{font-size:12px;padding:3px 8px}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;max-width:calc(100vw - 32px);z-index:50;box-shadow:var(--shadow)}
+footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+@media (max-width:520px){
+  .top-actions .btn{padding:6px 10px;font-size:13px}
+  .brand h1{font-size:26px}
+  .cmp{grid-template-columns:1fr}
+  .custo{grid-template-columns:minmax(0,1fr) 72px auto}
+  .custo .nm{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true">
+        <rect x="0" y="0" width="46" height="46" rx="12" fill="var(--primary)"/>
+        <path d="M10 23 L23 12 L36 23" fill="none" stroke="var(--primary-ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 21 V34 H32 V21" fill="none" stroke="var(--primary-ink)" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="20" y="26" width="6" height="8" fill="var(--accent)"/>
+      </svg>
+      <div>
+        <h1>Casa Nova</h1>
+        <p>Tudo da nossa compra num lugar só</p>
+      </div>
+    </div>
+    <div class="top-actions" id="exportBox" hidden>
+      <button class="btn" id="btnCsv" type="button">Planilha dos imóveis</button>
+      <button class="btn" id="btnBackup" type="button">Baixar backup</button>
+    </div>
+  </header>
+  <div class="banner" id="offline" hidden>Os dados não estão sendo salvos nesta visualização. Abra o site pelo claude.ai para ver e guardar as informações de vocês.</div>
+
+  <nav class="tabs" role="tablist" id="tabs">
+    <button class="tab" role="tab" data-tab="imoveis" id="t-imoveis">Imóveis<span class="count" id="c-imoveis">0</span></button>
+    <button class="tab" role="tab" data-tab="orcamento" id="t-orcamento">Orçamento</button>
+    <button class="tab" role="tab" data-tab="checklist" id="t-checklist">Checklist<span class="count" id="c-checklist">0/0</span></button>
+    <button class="tab" role="tab" data-tab="documentos" id="t-documentos">Documentos<span class="count" id="c-documentos">0</span></button>
+    <button class="tab" role="tab" data-tab="agenda" id="t-agenda">Agenda e contatos</button>
+  </nav>
+
+  <!-- IMÓVEIS -->
+  <section class="panel" id="p-imoveis" role="tabpanel">
+    <div class="stats" id="stats"></div>
+    <div class="toolbar">
+      <input class="grow" type="search" id="q" placeholder="Buscar por bairro, cidade, rua, imobiliária…" aria-label="Buscar imóveis">
+      <select id="sort" aria-label="Ordenar" style="width:auto">
+        <option value="recentes">Mais recentes</option>
+        <option value="preco-asc">Menor preço</option>
+        <option value="preco-desc">Maior preço</option>
+        <option value="ppm-asc">Menor R$/m²</option>
+        <option value="area-desc">Maior área</option>
+        <option value="nota-desc">Melhor nota</option>
+      </select>
+      <div class="seg" role="group" aria-label="Visualização">
+        <button type="button" data-view="cards" id="v-cards">Cartões</button>
+        <button type="button" data-view="tabela" id="v-tabela">Tabela</button>
+      </div>
+      <button class="btn primary" type="button" id="btnAdd">+ Adicionar imóvel</button>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div id="list"></div>
+  </section>
+
+  <!-- ORÇAMENTO -->
+  <section class="panel" id="p-orcamento" role="tabpanel" hidden>
+    <div class="two">
+      <div class="box">
+        <h2>Dados do financiamento</h2>
+        <p class="note warn" id="o_exemplo" hidden>Estes são valores de exemplo. Troque pelos de vocês e tudo é salvo automaticamente.</p>
+        <div class="fields" style="margin-top:12px">
+          <label class="f wide">Preencher com um imóvel cadastrado
+            <select id="o_imovel"><option value="">Escolha um imóvel…</option></select>
+          </label>
+          <label class="f">Valor do imóvel (R$)<input type="text" inputmode="decimal" id="o_valor" data-k="valor"></label>
+          <label class="f">Entrada total (R$)<input type="text" inputmode="decimal" id="o_entrada" data-k="entrada"></label>
+          <label class="f">Quanto da entrada vem do FGTS (R$)<input type="text" inputmode="decimal" id="o_fgts" data-k="fgts"></label>
+          <label class="f">Juros ao ano (%)<input type="text" inputmode="decimal" id="o_taxa" data-k="taxa"></label>
+          <label class="f">Prazo (anos)<input type="text" inputmode="numeric" id="o_prazo" data-k="prazo"></label>
+          <label class="f">Renda bruta do casal por mês (R$)<input type="text" inputmode="decimal" id="o_renda" data-k="renda"></label>
+        </div>
+        <h2 style="margin-top:22px">Custos além do imóvel</h2>
+        <div class="custos" id="custos"></div>
+        <button class="btn" type="button" id="btnCusto" style="margin-top:10px">+ Adicionar custo</button>
+        <p class="hint">O ITBI costuma ficar entre 2% e 3% do valor, conforme a cidade. Cartório e avaliação são estimativas: confirmem com o banco e o cartório.</p>
+      </div>
+      <div class="box" id="o_result"></div>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section class="panel" id="p-checklist" role="tabpanel" hidden>
+    <div id="ck"></div>
+  </section>
+
+  <!-- DOCUMENTOS -->
+  <section class="panel" id="p-documentos" role="tabpanel" hidden>
+    <div class="box" id="docForm" style="margin-bottom:18px">
+      <h2>Guardar documentos</h2>
+      <div class="fields">
+        <label class="f">Categoria
+          <select id="d_cat"></select>
+        </label>
+        <label class="f">Imóvel (opcional)
+          <select id="d_imovel"><option value="">Nenhum</option></select>
+        </label>
+      </div>
+      <div class="drop" id="drop" style="margin-top:12px">
+        Arraste PDFs ou fotos para cá, ou
+        <label class="btn" style="margin-left:6px">Escolher arquivos<input type="file" id="d_files" multiple accept="application/pdf,image/png,image/jpeg,image/webp,image/gif" hidden></label>
+        <div class="status-line" id="d_status"></div>
+      </div>
+      <p class="hint">Aceita PDF, JPG, PNG e WEBP de até 20 MB. Não guardem aqui senhas nem dados de cartão.</p>
+    </div>
+    <div id="docList"></div>
+  </section>
+
+  <!-- AGENDA -->
+  <section class="panel" id="p-agenda" role="tabpanel" hidden>
+    <div class="two">
+      <div>
+        <div class="box" style="margin-bottom:14px">
+          <h2>Nova visita ou compromisso</h2>
+          <form id="agForm" class="fields">
+            <label class="f wide">O quê<input type="text" id="ag_titulo" placeholder="Visita à casa do Jardim, reunião no banco…" required></label>
+            <label class="f">Quando<input type="datetime-local" id="ag_quando" required></label>
+            <label class="f">Imóvel (opcional)<select id="ag_imovel"><option value="">Nenhum</option></select></label>
+            <label class="f wide">Observações<input type="text" id="ag_notas" placeholder="Levar documentos, perguntar do IPTU…"></label>
+            <div class="wide"><button class="btn primary" type="submit">Adicionar à agenda</button></div>
+          </form>
+        </div>
+        <div id="agList"></div>
+      </div>
+      <div>
+        <div class="box" style="margin-bottom:14px">
+          <h2>Novo contato</h2>
+          <form id="ctForm" class="fields">
+            <label class="f">Nome<input type="text" id="ct_nome" required></label>
+            <label class="f">Quem é<select id="ct_papel"></select></label>
+            <label class="f">Telefone<input type="tel" id="ct_tel"></label>
+            <label class="f">E-mail<input type="email" id="ct_email"></label>
+            <label class="f wide">Observações<input type="text" id="ct_notas" placeholder="Agência, imobiliária, melhor horário…"></label>
+            <div class="wide"><button class="btn primary" type="submit">Salvar contato</button></div>
+          </form>
+        </div>
+        <div id="ctList"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Link sem os dados preenchidos? Abra o imóvel, cole o texto do anúncio ou envie prints em “Preencher com IA”.
+    Os dados ficam salvos para quem tem acesso a este site.
+  </footer>
+</div>
+
+<!-- Adicionar -->
+<dialog id="dlgAdd" aria-labelledby="addTitle">
+  <div class="dlg">
+    <div class="dlg-head"><h2 id="addTitle">Adicionar imóvel</h2><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
+    <div class="modes" role="group">
+      <button type="button" id="m-link" aria-pressed="true">Pelo link do anúncio</button>
+      <button type="button" id="m-manual" aria-pressed="false">Cadastrar à mão</button>
+    </div>
+    <div id="addLink">
+      <div class="fields">
+        <label class="f wide">Link do anúncio<input type="url" id="a_link" placeholder="https://www.zapimoveis.com.br/imovel/…"></label>
+        <label class="f wide">Texto do anúncio (opcional, mas é o que traz os detalhes)
+          <textarea id="a_texto" rows="5" placeholder="No anúncio, selecione tudo (Ctrl+A), copie e cole aqui."></textarea>
+        </label>
+        <label class="f wide">Prints do anúncio (opcional)
+          <input type="file" id="a_prints" multiple accept="image/png,image/jpeg,image/webp,image/gif">
+        </label>
+        <label class="check-row wide" id="a_guardarRow"><input type="checkbox" id="a_guardar" checked> Guardar os prints como fotos do imóvel</label>
+      </div>
+      <p class="hint" id="a_hint">O site não consegue abrir o link sozinho, então ele tira do endereço o que dá (quartos, m², vagas, imobiliária). Com o texto ou os prints, a IA preenche preço, condomínio, IPTU, bairro e o resto.</p>
+      <div class="status-line" id="a_status"></div>
+    </div>
+    <div id="addManual" hidden>
+      <p>Abre o formulário completo em branco para vocês preencherem.</p>
+    </div>
+    <div class="dlg-foot">
+      <span></span>
+      <div class="r">
+        <button class="btn" type="button" data-close>Cancelar</button>
+        <button class="btn primary" type="button" id="a_go">Adicionar</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Detalhe -->
+<dialog id="dlgImovel" aria-labelledby="imTitle">
+  <div class="dlg" id="imBody"></div>
+</dialog>
+
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+(function(){
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const nowISO=()=>new Date().toISOString();
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+const BRL=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0});
+const NUM=new Intl.NumberFormat("pt-BR",{maximumFractionDigits:2});
+const money=n=>(n==null||!isFinite(n))?"—":BRL.format(n);
+const numIn=n=>(n==null||!isFinite(n))?"":NUM.format(n);
+function parseNum(v){
+  if(v==null)return null; if(typeof v==="number")return isFinite(v)?v:null;
+  let s=String(v).replace(/R\$|\s|%/g,""); if(!s)return null;
+  if(s.includes(",")) s=s.replace(/\./g,"").replace(",",".");
+  else if(/^\d{1,3}(\.\d{3})+$/.test(s)) s=s.replace(/\./g,"");
+  const n=parseFloat(s); return isFinite(n)?n:null;
+}
+
+const TIPOS=["Casa","Casa em condomínio","Sobrado","Apartamento","Cobertura","Terreno","Outro"];
+const STATUS={interesse:"Na mira",visita:"Visita marcada",visitado:"Visitado",proposta:"Proposta feita",descartado:"Descartado"};
+const ETAPAS=[["preparacao","Preparação"],["busca","Busca e visitas"],["proposta","Proposta e negociação"],["documentacao","Documentação e certidões"],["financiamento","Financiamento"],["registro","Escritura e registro"],["mudanca","Mudança"]];
+const DOC_CATS=["Nossos documentos","Documentos do imóvel","Certidões","Proposta e contrato","Financiamento","Comprovantes e recibos","Outros"];
+const PAPEIS=["Corretor(a)","Banco","Cartório","Vendedor(a)","Advogado(a)","Vistoria","Mudança","Outro"];
+const CORRETORAS={"zapimoveis":"ZAP Imóveis","vivareal":"Viva Real","quintoandar":"QuintoAndar","imovelweb":"Imovelweb","olx":"OLX","lopes":"Lopes","chavesnamao":"Chaves na Mão","loft":"Loft","netimoveis":"Netimóveis","wimoveis":"Wimóveis","123i":"123i","mercadolivre":"Mercado Livre"};
+
+const S={imoveis:{},checklist:{},documentos:{},agenda:{},contatos:{},config:{}};
+const COLLS=Object.keys(S);
+let db=null,assets=null,sample=null,downloads=null,imgLimits=null,readOnly=false;
+const UI={tab:"imoveis",q:"",status:"ativos",fav:false,sort:"recentes",view:store.get("cn_view")||"cards"};
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>{t.hidden=true},4200)}
+
+/* ---------- store ---------- */
+const chains={};
+function writeDoc(coll,id,data){
+  if(!db)return Promise.resolve(true);
+  const path=coll+"/"+id;
+  const p=(chains[path]||Promise.resolve()).then(()=>db.doc(path).set(data)).then(()=>true,e=>{writeErr(e);return false});
+  chains[path]=p; return p;
+}
+function save(coll,id,data){S[coll]={...S[coll],[id]:data};render();return writeDoc(coll,id,data)}
+function patch(coll,id,part){return save(coll,id,{...(S[coll][id]||{}),...part})}
+async function remove(coll,id){
+  const m={...S[coll]};delete m[id];S[coll]=m;render();
+  if(!db)return;
+  try{await db.doc(coll+"/"+id).delete()}catch(e){writeErr(e)}
+}
+function writeErr(e){
+  const c=e&&e.code;
+  if(c==="invalid_argument"){readOnly=true;toast("Seu acesso é só de leitura. Peça ao dono do site acesso de Editor.")}
+  else if(c==="quota_exceeded")toast("O limite de itens foi atingido. Apaguem itens antigos para cadastrar novos.");
+  else if(c==="revoked")toast("O acesso a este site mudou. Recarregue a página.");
+  else toast("Não deu para salvar agora. Tentem de novo em instantes.");
+}
+function assetErr(e){
+  const c=e&&e.code;
+  if(c==="too_large")return "Arquivo grande demais (máximo 20 MB).";
+  if(c==="unsupported_type")return "Formato não aceito. Use PDF, JPG, PNG ou WEBP.";
+  if(c==="quota_or_state")return "O espaço para arquivos acabou.";
+  if(c==="rate_limited")return "Muitos envios seguidos. Espere um pouco e tente de novo.";
+  return "Não deu para enviar o arquivo. Tente de novo.";
+}
+function sampleErr(e){
+  const c=e&&e.code;
+  if(c==="not_granted"||c==="sampling_disabled")return "A IA não foi liberada para este site, então os dados não foram preenchidos.";
+  if(c==="rate_limited")return "Limite de uso da IA atingido por agora. Tente mais tarde.";
+  if(c==="image_rejected")return "Um dos prints não foi aceito. Tente outra imagem.";
+  if(c==="prompt_too_large")return "Texto longo demais. Cole só a parte principal do anúncio.";
+  if(c==="invalid_json"||c==="empty_completion")return "A IA não conseguiu ler o anúncio. Tente colar o texto de novo.";
+  if(c==="cancelled")return "Leitura cancelada.";
+  return "A IA não respondeu agora. Tente de novo em instantes.";
+}
+
+/* ---------- helpers ---------- */
+const imoveisArr=()=>Object.entries(S.imoveis).map(([id,d])=>({id,...d}));
+const ppm=d=>(d.preco&&d.area)?d.preco/d.area:null;
+const titleOf=d=>d.titulo||[d.tipo,d.bairro].filter(Boolean).join(" no ")||"Imóvel sem nome";
+const locOf=d=>[d.bairro,d.cidade].filter(Boolean).join(" · ");
+const blob=id=>"/_blob/"+id;
+const houseSvg=`<svg width="54" height="54" viewBox="0 0 46 46" aria-hidden="true"><path d="M8 23 L23 10 L38 23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 20 V36 H33 V20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="20" y="27" width="6" height="9" fill="none" stroke="currentColor" stroke-width="2"/></svg>`;
+function hostOf(url){try{return new URL(url).hostname.replace(/^www\./,"")}catch(e){return ""}}
+function corretoraOf(host){const k=Object.keys(CORRETORAS).find(k=>host.includes(k));return k?CORRETORAS[k]:host}
+function imovelOptions(sel,current){
+  const opts=imoveisArr().sort((a,b)=>titleOf(a).localeCompare(titleOf(b))).map(d=>`<option value="${esc(d.id)}">${esc(titleOf(d))}${d.preco?" · "+money(d.preco):""}</option>`).join("");
+  const first=sel.options[0]?sel.options[0].outerHTML:"";
+  const v=current!==undefined?current:sel.value;
+  sel.innerHTML=first+opts; sel.value=v; if(sel.value!==v)sel.value="";
+}
+
+/* ---------- extração do link ---------- */
+function slugInfo(url){
+  const o={};let u;try{u=new URL(url)}catch(e){return o}
+  const host=u.hostname.replace(/^www\./,"");
+  o.corretora=corretoraOf(host);
+  const path=decodeURIComponent(u.pathname).toLowerCase();
+  const s=path.replace(/[_/+]+/g,"-");
+  const m=re=>{const x=s.match(re);return x?+x[1]:null};
+  o.quartos=m(/(\d+)-?(?:quartos?|dormitorios?|dorms?)\b/);
+  o.suites=m(/(\d+)-?su[ií]tes?\b/);
+  o.banheiros=m(/(\d+)-?banheiros?\b/);
+  o.vagas=m(/(\d+)-?vagas?\b/);
+  o.area=m(/(\d+)-?(?:m2|m²|metros)/);
+  if(/apartamento|\bapto\b/.test(s))o.tipo="Apartamento";
+  else if(/cobertura/.test(s))o.tipo="Cobertura";
+  else if(/sobrado/.test(s))o.tipo="Sobrado";
+  else if(/casa.*condominio|condominio.*casa/.test(s))o.tipo="Casa em condomínio";
+  else if(/casa/.test(s))o.tipo="Casa";
+  else if(/terreno|lote/.test(s))o.tipo="Terreno";
+  const seg=path.split("/").filter(x=>/[a-z]{3,}/.test(x)).sort((a,b)=>b.length-a.length)[0]||"";
+  let t=seg.replace(/-?id-?\d+.*$/,"").replace(/\d{6,}/g,"").replace(/[-_]+/g," ").trim();
+  if(t.split(" ").length>=3){t=t.charAt(0).toUpperCase()+t.slice(1);o.titulo=t.slice(0,90)}
+  Object.keys(o).forEach(k=>{if(o[k]==null||o[k]==="")delete o[k]});
+  return o;
+}
+function extrairIA({url,texto,imagens}){
+  let prompt=`Você extrai dados de anúncios de imóveis à venda no Brasil.
+Responda só com um objeto JSON com exatamente estas chaves. Use null quando a informação não aparecer; não invente.
+{"titulo": string curta (ex.: "Casa 3 quartos com quintal"),
+ "tipo": um de ${JSON.stringify(TIPOS)},
+ "preco": número em reais,
+ "condominio": número em reais por mês,
+ "iptu": número em reais POR ANO (se o anúncio der valor mensal, multiplique por 12),
+ "area": área útil ou construída em m² (número),
+ "areaTerreno": área do terreno em m² (número),
+ "quartos": número, "suites": número, "banheiros": número, "vagas": número,
+ "endereco": rua e número se houver, "bairro": string, "cidade": string no formato "Cidade - UF",
+ "corretora": nome da imobiliária ou do corretor, "contatoCorretor": telefone ou e-mail,
+ "resumo": 1 ou 2 frases descrevendo o imóvel,
+ "destaques": lista de até 6 pontos positivos curtos}
+Números sem "R$" e sem pontos de milhar (ex.: 850000).`;
+  if(url)prompt+=`\n\nLink do anúncio (o próprio endereço pode trazer pistas como bairro, quartos e m²): ${url}`;
+  if(texto)prompt+=`\n\nTexto copiado do anúncio:\n"""\n${texto.slice(0,20000)}\n"""`;
+  if(imagens&&imagens.length)prompt+=`\n\nAs imagens anexadas são prints do anúncio. Leia os dados delas.`;
+  const opts={};
+  if(imagens&&imagens.length)opts.images=imagens.slice(0,(imgLimits&&imgLimits.maxCount)||4);
+  return sample.json(prompt,opts);
+}
+const NUM_KEYS=["preco","condominio","iptu","area","areaTerreno","quartos","suites","banheiros","vagas"];
+const TXT_KEYS=["titulo","endereco","bairro","cidade","corretora","contatoCorretor"];
+function applyIA(d,r,overwrite){
+  if(!r||typeof r!=="object")return 0; let n=0;
+  const empty=v=>v==null||v==="";
+  for(const k of NUM_KEYS){const v=parseNum(r[k]);if(v!=null&&(overwrite||empty(d[k]))){d[k]=v;n++}}
+  for(const k of TXT_KEYS){const v=r[k];if(typeof v==="string"&&v.trim()&&(overwrite||empty(d[k]))){d[k]=v.trim();n++}}
+  if(TIPOS.includes(r.tipo)&&(overwrite||empty(d.tipo))){d.tipo=r.tipo;n++}
+  if(Array.isArray(r.destaques)&&r.destaques.length&&empty(d.pros)){d.pros=r.destaques.map(x=>"• "+String(x)).join("\n");n++}
+  if(typeof r.resumo==="string"&&r.resumo.trim()&&empty(d.notas)){d.notas=r.resumo.trim();n++}
+  return n;
+}
+
+/* ---------- render ---------- */
+function render(){
+  const all=imoveisArr();
+  $("#c-imoveis").textContent=all.filter(d=>d.status!=="descartado").length;
+  const ck=Object.values(S.checklist);
+  $("#c-checklist").textContent=ck.filter(x=>x.feito).length+"/"+ck.length;
+  $("#c-documentos").textContent=Object.keys(S.documentos).length;
+  if(UI.tab==="imoveis")renderImoveis();
+  if(UI.tab==="orcamento")renderOrcamento();
+  if(UI.tab==="checklist")renderChecklist();
+  if(UI.tab==="documentos")renderDocs();
+  if(UI.tab==="agenda")renderAgenda();
+}
+function setTab(t){
+  UI.tab=t;store.set("cn_tab",t);
+  $$(".tab").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===t)));
+  $$(".panel").forEach(p=>{p.hidden=p.id!=="p-"+t});
+  render();
+}
+
+/* ---- imóveis ---- */
+function filtered(){
+  let a=imoveisArr();
+  if(UI.status==="ativos")a=a.filter(d=>d.status!=="descartado");
+  else if(UI.status!=="todos")a=a.filter(d=>d.status===UI.status);
+  if(UI.fav)a=a.filter(d=>d.favorito);
+  const q=UI.q.trim().toLowerCase();
+  if(q)a=a.filter(d=>[d.titulo,d.bairro,d.cidade,d.endereco,d.corretora,d.tipo].join(" ").toLowerCase().includes(q));
+  const nz=(v,alt)=>v==null?alt:v;
+  const S_={
+    "recentes":(x,y)=>String(y.criadoEm||"").localeCompare(String(x.criadoEm||"")),
+    "preco-asc":(x,y)=>nz(x.preco,1e15)-nz(y.preco,1e15),
+    "preco-desc":(x,y)=>nz(y.preco,-1)-nz(x.preco,-1),
+    "ppm-asc":(x,y)=>nz(ppm(x),1e15)-nz(ppm(y),1e15),
+    "area-desc":(x,y)=>nz(y.area,-1)-nz(x.area,-1),
+    "nota-desc":(x,y)=>nz(y.nota,-1)-nz(x.nota,-1)
+  };
+  return a.sort(S_[UI.sort]||S_.recentes);
+}
+function renderImoveis(){
+  const all=imoveisArr();
+  const ativos=all.filter(d=>d.status!=="descartado");
+  $("#stats").innerHTML=`
+    <div><b>${ativos.length}</b><span>no páreo</span></div>
+    <div><b>${all.filter(d=>d.favorito).length}</b><span>favoritas</span></div>
+    <div><b>${all.filter(d=>d.status==="visitado").length}</b><span>visitadas</span></div>
+    <div><b>${all.filter(d=>d.status==="proposta").length}</b><span>com proposta</span></div>`;
+  const cnt=k=>k==="ativos"?ativos.length:k==="todos"?all.length:all.filter(d=>d.status===k).length;
+  const chipDefs=[["ativos","No páreo"],...Object.entries(STATUS),["todos","Todos"]];
+  $("#chips").innerHTML=`<button class="chip fav" type="button" data-fav aria-pressed="${UI.fav}">★ Só favoritas</button>`+
+    chipDefs.map(([k,l])=>`<button class="chip" type="button" data-st="${k}" aria-pressed="${UI.status===k}">${esc(l)} ${cnt(k)}</button>`).join("");
+  $("#v-cards").setAttribute("aria-pressed",String(UI.view==="cards"));
+  $("#v-tabela").setAttribute("aria-pressed",String(UI.view==="tabela"));
+  const list=filtered();
+  const box=$("#list");
+  if(!all.length){
+    box.innerHTML=`<div class="empty"><h3>Nenhum imóvel ainda</h3><p>Colem o link de um anúncio (com o texto ou prints, a IA preenche o resto) ou cadastrem à mão.</p><button class="btn primary" type="button" data-add>+ Adicionar o primeiro imóvel</button></div>`;
+    return;
+  }
+  if(!list.length){box.innerHTML=`<div class="empty"><h3>Nada com esse filtro</h3><p>${UI.fav?"Marquem a estrela ★ nos imóveis que vocês mais gostaram.":"Tentem outro filtro ou busca."}</p></div>`;return}
+  if(UI.view==="tabela"){
+    box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
+      list.map(d=>{const mens=(d.condominio||0)+(d.iptu||0)/12;return `<tr data-id="${esc(d.id)}">
+        <td><button class="tstar" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="Favorita">★</button></td>
+        <td><b>${esc(titleOf(d))}</b><div class="small muted">${esc(locOf(d))}</div></td>
+        <td><span class="pill st-${esc(d.status||"interesse")}">${esc(STATUS[d.status]||STATUS.interesse)}</span></td>
+        <td class="n">${money(d.preco)}</td><td class="n">${d.area?numIn(d.area):"—"}</td><td class="n">${money(ppm(d))}</td>
+        <td class="n">${d.quartos??"—"}</td><td class="n">${d.vagas??"—"}</td><td class="n">${mens?money(mens):"—"}</td>
+        <td class="n">${d.nota?d.nota+"/5":"—"}</td>
+        <td>${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">${esc(d.corretora||hostOf(d.link))} ↗</a>`:"—"}</td></tr>`}).join("")
+    }</tbody></table></div>`;
+    return;
+  }
+  box.innerHTML=`<div class="grid">${list.map(d=>{
+    const st=d.status||"interesse";
+    const foto=(d.fotos&&d.fotos[0])?`<img src="${blob(d.fotos[0])}" alt="" loading="lazy">`:houseSvg+(d.link?`<span class="dom">${esc(d.corretora||hostOf(d.link))}</span>`:"");
+    const specs=[d.area&&`<li><b>${numIn(d.area)}</b> m²</li>`,d.quartos!=null&&`<li><b>${d.quartos}</b> quartos</li>`,d.suites&&`<li><b>${d.suites}</b> suítes</li>`,d.vagas!=null&&`<li><b>${d.vagas}</b> vagas</li>`].filter(Boolean).join("");
+    return `<article class="card ${st==="descartado"?"descartado":""}" data-id="${esc(d.id)}" tabindex="0">
+      <div class="ph">${foto}<span class="pill st-${esc(st)}">${esc(STATUS[st]||"")}</span>
+        <button class="star" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="${d.favorito?"Tirar das favoritas":"Marcar como favorita"}">★</button></div>
+      <div class="body">
+        <div class="price">${d.preco?money(d.preco):'<span class="muted" style="font-size:16px">Preço a preencher</span>'}</div>
+        ${ppm(d)?`<div class="ppm">${money(ppm(d))}/m²${d.condominio?" · cond. "+money(d.condominio):""}</div>`:(d.condominio?`<div class="ppm">cond. ${money(d.condominio)}</div>`:"")}
+        <h3>${esc(titleOf(d))}</h3>
+        ${locOf(d)?`<div class="loc">${esc(locOf(d))}</div>`:""}
+        <div class="meta">${d.extracao==="pendente"?`<span class="tag pend">Faltam dados</span>`:""}${d.nota?`<span class="dots" aria-label="Nota ${d.nota} de 5">${"●".repeat(d.nota)}${"○".repeat(5-d.nota)}</span>`:""}${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener" data-link>Ver anúncio ↗</a>`:""}</div>
+        ${specs?`<ul class="specs">${specs}</ul>`:""}
+      </div></article>`}).join("")}</div>`;
+}
+
+/* ---- detalhe ---- */
+let draft=null;
+const dlgIm=$("#dlgImovel");
+function field(id,label,val,opts={}){
+  const {type="text",wide=false,num=false,ph=""}=opts;
+  const v=num?numIn(val):(val??"");
+  return `<label class="f ${wide?"wide":""}">${label}<input type="${type}" id="${id}" ${num?'inputmode="decimal"':""} value="${esc(v)}" placeholder="${esc(ph)}"></label>`;
+}
+function openDetail(id,preset){
+  const isNew=!id||!S.imoveis[id];
+  const cid=id||newId();
+  const d={status:"interesse",...(S.imoveis[cid]||{}),...(preset||{})};
+  draft={id:cid,isNew,fotos:[...(d.fotos||[])],removed:[]};
+  const pend=d.extracao==="pendente";
+  $("#imBody").innerHTML=`
+    <div class="dlg-head"><div><h2 id="imTitle">${isNew?"Novo imóvel":esc(titleOf(d))}</h2>${d.link?`<a class="small" href="${esc(d.link)}" target="_blank" rel="noopener">Abrir anúncio ↗</a>`:""}</div><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
+    ${pend?`<p class="note warn" style="margin:0 0 16px">Este imóvel veio só do link. Abram o anúncio, copiem o texto (ou tirem prints) e usem “Preencher com IA” logo abaixo.</p>`:""}
+    <details class="ai" ${pend?"open":""} id="aiBox" ${sample?"":"hidden"}>
+      <summary>Preencher com IA</summary>
+      <div class="fields">
+        <label class="f wide">Texto do anúncio<textarea id="ai_texto" rows="4" placeholder="Cole aqui o texto copiado do anúncio">${esc(d.anuncioTexto||"")}</textarea></label>
+        <label class="f wide" id="ai_printsRow">Prints do anúncio<input type="file" id="ai_prints" multiple accept="image/png,image/jpeg,image/webp,image/gif"></label>
+        <label class="check-row wide"><input type="checkbox" id="ai_over"> Substituir campos que já estão preenchidos</label>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap"><button class="btn primary" type="button" id="ai_go">Ler anúncio e preencher</button><span class="status-line" id="ai_status"></span></div>
+    </details>
+    <fieldset><legend>O básico</legend><div class="fields">
+      ${field("f_titulo","Nome para vocês reconhecerem",d.titulo,{wide:true,ph:"Casa amarela perto do parque"})}
+      <label class="f">Tipo<select id="f_tipo"><option value="">—</option>${TIPOS.map(t=>`<option ${d.tipo===t?"selected":""}>${t}</option>`).join("")}</select></label>
+      <label class="f">Status<select id="f_status">${Object.entries(STATUS).map(([k,l])=>`<option value="${k}" ${d.status===k?"selected":""}>${l}</option>`).join("")}</select></label>
+      <label class="f">Nota do casal<select id="f_nota"><option value="">Sem nota</option>${[1,2,3,4,5].map(n=>`<option value="${n}" ${d.nota===n?"selected":""}>${n} de 5</option>`).join("")}</select></label>
+      <label class="check-row" style="align-self:end;padding-bottom:8px"><input type="checkbox" id="f_fav" ${d.favorito?"checked":""}> ★ Favorita</label>
+    </div></fieldset>
+    <fieldset><legend>Valores</legend><div class="fields">
+      ${field("f_preco","Preço (R$)",d.preco,{num:true})}
+      ${field("f_condominio","Condomínio por mês (R$)",d.condominio,{num:true})}
+      ${field("f_iptu","IPTU por ano (R$)",d.iptu,{num:true})}
+    </div></fieldset>
+    <fieldset><legend>Características</legend><div class="fields">
+      ${field("f_area","Área útil (m²)",d.area,{num:true})}
+      ${field("f_areaTerreno","Terreno (m²)",d.areaTerreno,{num:true})}
+      ${field("f_quartos","Quartos",d.quartos,{num:true})}
+      ${field("f_suites","Suítes",d.suites,{num:true})}
+      ${field("f_banheiros","Banheiros",d.banheiros,{num:true})}
+      ${field("f_vagas","Vagas",d.vagas,{num:true})}
+    </div></fieldset>
+    <fieldset><legend>Onde fica</legend><div class="fields">
+      ${field("f_endereco","Endereço",d.endereco,{wide:true})}
+      ${field("f_bairro","Bairro",d.bairro)}
+      ${field("f_cidade","Cidade",d.cidade,{ph:"Campinas - SP"})}
+    </div></fieldset>
+    <fieldset><legend>Anúncio e corretor</legend><div class="fields">
+      ${field("f_link","Link do anúncio",d.link,{type:"url",wide:true})}
+      ${field("f_corretora","Imobiliária ou corretor",d.corretora)}
+      ${field("f_contato","Contato do corretor",d.contatoCorretor)}
+    </div></fieldset>
+    <fieldset><legend>O que achamos</legend><div class="fields">
+      <label class="f">Prós<textarea id="f_pros" rows="4">${esc(d.pros||"")}</textarea></label>
+      <label class="f">Contras<textarea id="f_contras" rows="4">${esc(d.contras||"")}</textarea></label>
+      <label class="f wide">Observações<textarea id="f_notas" rows="3">${esc(d.notas||"")}</textarea></label>
+    </div></fieldset>
+    <fieldset><legend>Fotos</legend>
+      <div class="thumbs" id="thumbs"></div>
+      <div style="margin-top:10px" id="fotoUp" ${assets?"":"hidden"}><label class="btn">+ Adicionar fotos<input type="file" id="f_fotos" multiple accept="image/png,image/jpeg,image/webp,image/gif" hidden></label> <span class="hint">Clique numa foto para ela virar a capa.</span></div>
+      <div class="status-line" id="fotoStatus"></div>
+    </fieldset>
+    <div class="dlg-foot">
+      <div class="r">${isNew?"":`<button class="btn danger" type="button" id="f_del">Excluir</button>`}${S.imoveis[cid]||preset?`<button class="btn ghost" type="button" id="f_sim">Simular financiamento</button>`:""}</div>
+      <div class="r"><button class="btn" type="button" data-close>Cancelar</button><button class="btn primary" type="button" id="f_save">Salvar</button></div>
+    </div>`;
+  if(!(imgLimits))$("#ai_printsRow").hidden=true;
+  renderThumbs();
+  if(!dlgIm.open)dlgIm.showModal();
+}
+function renderThumbs(){
+  const t=$("#thumbs");if(!t)return;
+  t.innerHTML=draft.fotos.length?draft.fotos.map((id,i)=>`<div class="thumb ${i===0?"cover":""}"><img src="${blob(id)}" alt="Foto ${i+1}" data-cover="${i}"><button type="button" data-rmfoto="${i}" aria-label="Remover foto">✕</button></div>`).join(""):`<span class="hint">Nenhuma foto ainda.</span>`;
+}
+function readForm(){
+  const v=id=>$("#"+id).value.trim();
+  const n=id=>parseNum(v(id));
+  return {titulo:v("f_titulo"),tipo:v("f_tipo"),status:v("f_status")||"interesse",nota:v("f_nota")?+v("f_nota"):null,favorito:$("#f_fav").checked,
+    preco:n("f_preco"),condominio:n("f_condominio"),iptu:n("f_iptu"),area:n("f_area"),areaTerreno:n("f_areaTerreno"),
+    quartos:n("f_quartos"),suites:n("f_suites"),banheiros:n("f_banheiros"),vagas:n("f_vagas"),
+    endereco:v("f_endereco"),bairro:v("f_bairro"),cidade:v("f_cidade"),link:v("f_link"),corretora:v("f_corretora"),contatoCorretor:v("f_contato"),
+    pros:$("#f_pros").value.trim(),contras:$("#f_contras").value.trim(),notas:$("#f_notas").value.trim()};
+}
+function fillForm(d){
+  const set=(id,val,num)=>{const el=$("#"+id);if(el)el.value=num?numIn(val):(val??"")};
+  set("f_titulo",d.titulo);set("f_tipo",d.tipo||"");
+  ["preco","condominio","iptu","area","areaTerreno","quartos","suites","banheiros","vagas"].forEach(k=>set("f_"+k,d[k],true));
+  set("f_endereco",d.endereco);set("f_bairro",d.bairro);set("f_cidade",d.cidade);set("f_corretora",d.corretora);set("f_contato",d.contatoCorretor);
+  set("f_pros",d.pros);set("f_notas",d.notas);
+}
+async function saveDetail(){
+  if(readOnly){toast("Seu acesso é só de leitura.");return}
+  const form=readForm();
+  const old=S.imoveis[draft.id]||{};
+  const data={...old,...form,fotos:draft.fotos,atualizadoEm:nowISO()};
+  if(!old.criadoEm)data.criadoEm=nowISO();
+  if(data.extracao==="pendente"&&data.preco&&(data.area||data.quartos))data.extracao="ok";
+  const ai=$("#ai_texto");if(ai&&ai.value.trim())data.anuncioTexto=ai.value.trim().slice(0,20000);
+  Object.keys(data).forEach(k=>{if(data[k]===null||data[k]==="")delete data[k]});
+  dlgIm.close();
+  const ok=await save("imoveis",draft.id,data);
+  if(ok){toast("Imóvel salvo.");if(assets)draft.removed.forEach(id=>assets.delete(id).catch(()=>{}))}
+}
+async function runIA(){
+  if(!sample)return;
+  const st=$("#ai_status"),btn=$("#ai_go");
+  const texto=$("#ai_texto").value.trim();
+  const files=[...($("#ai_prints")?.files||[])];
+  const url=$("#f_link").value.trim();
+  if(!texto&&!files.length){st.textContent="Cole o texto do anúncio ou escolha prints.";return}
+  btn.disabled=true;st.textContent="Lendo o anúncio… pode levar até um minuto.";
+  try{
+    const r=await extrairIA({url,texto,imagens:files});
+    const cur=readForm();
+    const n=applyIA(cur,r,$("#ai_over").checked);
+    fillForm(cur);
+    st.textContent=n?`${n} campos preenchidos. Confiram e cliquem em Salvar.`:"Não achei dados novos no anúncio.";
+    if(files.length&&assets){for(const f of files){try{const u=await assets.upload(f);draft.fotos.push(u.id)}catch(e){}}renderThumbs()}
+  }catch(e){st.textContent=sampleErr(e)}
+  finally{btn.disabled=false}
+}
+dlgIm.addEventListener("click",async e=>{
+  if(e.target===dlgIm||e.target.closest("[data-close]")){dlgIm.close();return}
+  const t=e.target;
+  if(t.id==="f_save")return saveDetail();
+  if(t.id==="ai_go")return runIA();
+  if(t.id==="f_del"){
+    if(!t.classList.contains("armed")){t.classList.add("armed");t.textContent="Confirmar exclusão";setTimeout(()=>{if(t.isConnected){t.classList.remove("armed");t.textContent="Excluir"}},4000);return}
+    const d=S.imoveis[draft.id];dlgIm.close();await remove("imoveis",draft.id);
+    if(assets&&d&&d.fotos)d.fotos.forEach(id=>assets.delete(id).catch(()=>{}));
+    toast("Imóvel excluído.");return;
+  }
+  if(t.id==="f_sim"){const p=parseNum($("#f_preco").value);dlgIm.close();if(p)setCfg({valor:p,entrada:Math.round(p*0.2)});setTab("orcamento");return}
+  if(t.dataset.cover!=null){const i=+t.dataset.cover;const [x]=draft.fotos.splice(i,1);draft.fotos.unshift(x);renderThumbs();return}
+  if(t.dataset.rmfoto!=null){const i=+t.dataset.rmfoto;draft.removed.push(draft.fotos[i]);draft.fotos.splice(i,1);renderThumbs();return}
+});
+dlgIm.addEventListener("change",async e=>{
+  if(e.target.id!=="f_fotos"||!assets)return;
+  const files=[...e.target.files];const st=$("#fotoStatus");
+  for(let i=0;i<files.length;i++){
+    st.textContent=`Enviando foto ${i+1} de ${files.length}…`;
+    try{const r=await assets.upload(files[i]);draft.fotos.push(r.id);renderThumbs();
+      if(!draft.isNew&&S.imoveis[draft.id])patch("imoveis",draft.id,{fotos:[...draft.fotos]});
+    }catch(err){toast(assetErr(err))}
+  }
+  st.textContent="";e.target.value="";
+});
+
+/* ---- adicionar ---- */
+const dlgAdd=$("#dlgAdd");let addMode="link";
+function openAdd(){
+  if(readOnly){toast("Seu acesso é só de leitura.");return}
+  ["a_link","a_texto"].forEach(id=>$("#"+id).value="");$("#a_prints").value="";$("#a_status").textContent="";
+  setAddMode("link");
+  $("#a_prints").closest("label").hidden=!(sample&&imgLimits);
+  $("#a_guardarRow").hidden=!(sample&&imgLimits&&assets);
+  $("#a_hint").textContent=sample?"O site não consegue abrir o link sozinho, então ele tira do endereço o que dá (quartos, m², vagas, imobiliária). Com o texto ou os prints, a IA preenche preço, condomínio, IPTU, bairro e o resto.":"O site não consegue abrir o link sozinho, então ele tira do endereço o que dá (quartos, m², vagas, imobiliária). O resto vocês completam no formulário.";
+  dlgAdd.showModal();
+}
+function setAddMode(m){addMode=m;$("#m-link").setAttribute("aria-pressed",String(m==="link"));$("#m-manual").setAttribute("aria-pressed",String(m==="manual"));$("#addLink").hidden=m!=="link";$("#addManual").hidden=m!=="manual";$("#a_go").textContent=m==="link"?"Adicionar":"Abrir formulário"}
+$("#m-link").onclick=()=>setAddMode("link");$("#m-manual").onclick=()=>setAddMode("manual");
+dlgAdd.addEventListener("click",e=>{if(e.target===dlgAdd||e.target.closest("[data-close]"))dlgAdd.close()});
+$("#a_go").onclick=async()=>{
+  if(addMode==="manual"){dlgAdd.close();openDetail(null);return}
+  const url=$("#a_link").value.trim(),texto=$("#a_texto").value.trim();
+  const files=sample&&imgLimits?[...$("#a_prints").files]:[];
+  const st=$("#a_status"),btn=$("#a_go");
+  if(!url&&!texto&&!files.length){st.textContent="Cole o link do anúncio.";return}
+  const id=newId();
+  const d={status:"interesse",...slugInfo(url),origem:"link",extracao:"pendente",criadoEm:nowISO(),atualizadoEm:nowISO()};
+  if(url)d.link=url;
+  if(texto)d.anuncioTexto=texto.slice(0,20000);
+  btn.disabled=true;
+  let iaMsg="";
+  if(sample&&(texto||files.length)){
+    st.textContent="Lendo o anúncio com a IA… pode levar até um minuto.";
+    try{const r=await extrairIA({url,texto,imagens:files});applyIA(d,r,true);d.extracao="ok"}
+    catch(e){iaMsg=sampleErr(e)}
+  }
+  const fotos=[];
+  if(files.length&&assets&&$("#a_guardar").checked){
+    st.textContent="Guardando os prints…";
+    for(const f of files){try{const u=await assets.upload(f);fotos.push(u.id)}catch(e){}}
+  }
+  if(fotos.length)d.fotos=fotos;
+  Object.keys(d).forEach(k=>{if(d[k]==null||d[k]==="")delete d[k]});
+  btn.disabled=false;
+  const ok=await save("imoveis",id,d);
+  dlgAdd.close();
+  if(!ok)return;
+  openDetail(id);
+  toast(iaMsg||(d.extracao==="ok"?"Dados lidos do anúncio. Confiram e salvem.":"Link salvo. Completem os dados quando puderem."));
+};
+
+/* ---- eventos da lista ---- */
+$("#btnAdd").onclick=openAdd;
+$("#q").addEventListener("input",e=>{UI.q=e.target.value;renderImoveis()});
+$("#sort").addEventListener("change",e=>{UI.sort=e.target.value;renderImoveis()});
+$$(".seg button").forEach(b=>b.onclick=()=>{UI.view=b.dataset.view;store.set("cn_view",UI.view);renderImoveis()});
+$("#chips").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.hasAttribute("data-fav"))UI.fav=!UI.fav;else UI.status=b.dataset.st;
+  renderImoveis();
+});
+$("#list").addEventListener("click",e=>{
+  if(e.target.closest("[data-add]"))return openAdd();
+  const s=e.target.closest("[data-star]");
+  if(s){const id=s.dataset.star;if(readOnly)return toast("Seu acesso é só de leitura.");patch("imoveis",id,{favorito:!S.imoveis[id].favorito});return}
+  if(e.target.closest("a"))return;
+  const c=e.target.closest("[data-id]");if(c)openDetail(c.dataset.id);
+});
+$("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))openDetail(e.target.dataset.id)});
+
+/* ---- orçamento ---- */
+const DEFAULT_CFG={valor:600000,entrada:120000,fgts:30000,taxa:11.5,prazo:30,renda:null,exemplo:true,
+  custos:[{id:"itbi",nome:"ITBI",modo:"pct",valor:3},{id:"cart",nome:"Registro e cartório",modo:"pct",valor:1},{id:"aval",nome:"Avaliação do imóvel pelo banco",modo:"rs",valor:3500},{id:"mud",nome:"Mudança",modo:"rs",valor:3000}]};
+const cfg=()=>({...DEFAULT_CFG,...(S.config.orcamento||{})});
+let cfgT;
+function setCfg(part){
+  const c={...cfg(),...part,exemplo:false};
+  S.config={...S.config,orcamento:c};
+  renderOrcamento();
+  clearTimeout(cfgT);cfgT=setTimeout(()=>{cfgT=null;writeDoc("config","orcamento",S.config.orcamento)},800);
+}
+function custoRS(c,valor){return c.modo==="pct"?(valor||0)*(c.valor||0)/100:(c.valor||0)}
+function calc(c){
+  const P=Math.max(0,(c.valor||0)-(c.entrada||0));
+  const n=Math.round((c.prazo||0)*12);
+  const i=Math.pow(1+(c.taxa||0)/100,1/12)-1;
+  const r={P,n,i};
+  if(P>0&&n>0){
+    r.price=i>0?P*i/(1-Math.pow(1+i,-n)):P/n;
+    r.priceTotal=r.price*n;r.priceJuros=r.priceTotal-P;
+    const a=P/n;r.sac1=a+P*i;r.sacN=a+a*i;r.sacJuros=i*P*(n+1)/2;r.sacTotal=P+r.sacJuros;
+  }
+  r.custos=(c.custos||[]).reduce((s,x)=>s+custoRS(x,c.valor),0);
+  r.bolso=Math.max(0,(c.entrada||0)-(c.fgts||0))+r.custos;
+  r.pctFin=c.valor?P/c.valor:0;
+  return r;
+}
+function renderOrcamento(){
+  const c=cfg();
+  $("#o_exemplo").hidden=!c.exemplo;
+  const act=document.activeElement;
+  $$("#p-orcamento input[data-k]").forEach(el=>{if(el!==act)el.value=numIn(c[el.dataset.k])});
+  imovelOptions($("#o_imovel"),"");
+  const cBox=$("#custos");
+  if(!cBox.contains(act)){
+    cBox.innerHTML=(c.custos||[]).map(x=>`<div class="custo" data-cid="${esc(x.id)}">
+      <input class="nm" type="text" id="cn_${esc(x.id)}" data-f="nome" value="${esc(x.nome)}" aria-label="Nome do custo">
+      <input type="text" inputmode="decimal" id="cv_${esc(x.id)}" data-f="valor" value="${esc(numIn(x.valor))}" aria-label="Valor">
+      <select data-f="modo" id="cm_${esc(x.id)}" aria-label="Tipo"><option value="pct" ${x.modo==="pct"?"selected":""}>%</option><option value="rs" ${x.modo==="rs"?"selected":""}>R$</option></select>
+      <button class="icon-btn" type="button" data-rmc aria-label="Remover custo">✕</button>
+      ${x.modo==="pct"?`<div class="calc">${money(custoRS(x,c.valor))}</div>`:""}</div>`).join("")||`<p class="hint">Nenhum custo extra.</p>`;
+  }
+  const r=calc(c);
+  const comp=c.renda&&r.sac1?r.sac1/c.renda:null;
+  const compP=c.renda&&r.price?r.price/c.renda:null;
+  $("#o_result").innerHTML=`
+    <h2>Resultado</h2>
+    <div class="big">
+      <div><span>Valor financiado</span><b>${money(r.P)}</b><div class="small muted">${Math.round(r.pctFin*100)}% do imóvel</div></div>
+      <div><span>Dinheiro do bolso</span><b>${money(r.bolso)}</b><div class="small muted">entrada sem FGTS + custos</div></div>
+      <div><span>Custos extras</span><b>${money(r.custos)}</b></div>
+    </div>
+    ${r.pctFin>0.8?`<div class="flag warn">Os bancos costumam financiar até 80% do valor do imóvel. Com esta entrada, vocês financiariam ${Math.round(r.pctFin*100)}%.</div>`:""}
+    ${r.sac1?`<div class="cmp" style="margin-top:14px">
+      <div class="col"><h3>SAC</h3><p class="small muted" style="margin:0 0 6px">Parcela começa mais alta e vai caindo.</p>
+        <div class="kv"><span>1ª parcela</span><b>${money(r.sac1)}</b></div>
+        <div class="kv"><span>Última parcela</span><b>${money(r.sacN)}</b></div>
+        <div class="kv"><span>Total de juros</span><b>${money(r.sacJuros)}</b></div>
+        <div class="kv"><span>Total pago ao banco</span><b>${money(r.sacTotal)}</b></div>
+        ${comp!=null?`<div class="kv"><span>1ª parcela / renda</span><b>${(comp*100).toFixed(1).replace(".",",")}%</b></div>`:""}</div>
+      <div class="col"><h3>Price</h3><p class="small muted" style="margin:0 0 6px">Parcela igual do começo ao fim.</p>
+        <div class="kv"><span>Parcela</span><b>${money(r.price)}</b></div>
+        <div class="kv"><span>Total de juros</span><b>${money(r.priceJuros)}</b></div>
+        <div class="kv"><span>Total pago ao banco</span><b>${money(r.priceTotal)}</b></div>
+        <div class="kv"><span>Diferença de juros</span><b>+${money(r.priceJuros-r.sacJuros)}</b></div>
+        ${compP!=null?`<div class="kv"><span>Parcela / renda</span><b>${(compP*100).toFixed(1).replace(".",",")}%</b></div>`:""}</div>
+    </div>
+    ${comp!=null?(comp>0.3?`<div class="flag warn">A 1ª parcela do SAC passa de 30% da renda, que é o limite usual dos bancos. Renda mínima aproximada: ${money(r.sac1/0.3)}.</div>`:`<div class="flag ok">A 1ª parcela cabe no limite usual de 30% da renda.</div>`):`<p class="hint">Informem a renda do casal para ver se a parcela cabe no limite de 30% que os bancos usam.</p>`}`
+    :`<p class="hint">Preencham valor, entrada, juros e prazo para ver as parcelas.</p>`}
+    <p class="hint" style="margin-top:14px">As parcelas não incluem os seguros obrigatórios (MIP e DFI) nem a taxa de administração, que o banco soma a cada mês. Juros efetivos convertidos para taxa mensal.</p>`;
+}
+$("#p-orcamento").addEventListener("input",e=>{
+  const el=e.target;
+  if(el.dataset.k){setCfg({[el.dataset.k]:parseNum(el.value)});return}
+  const row=el.closest("[data-cid]");
+  if(row&&el.dataset.f){
+    const c=cfg();const custos=(c.custos||[]).map(x=>x.id===row.dataset.cid?{...x,[el.dataset.f]:el.dataset.f==="valor"?parseNum(el.value):el.value}:x);
+    setCfg({custos});
+  }
+});
+$("#p-orcamento").addEventListener("change",e=>{
+  const el=e.target;
+  if(el.id==="o_imovel"&&el.value){const d=S.imoveis[el.value];if(d&&d.preco)setCfg({valor:d.preco,entrada:Math.round(d.preco*0.2)});else toast("Esse imóvel ainda não tem preço cadastrado.");el.value="";return}
+  if(el.dataset.f==="modo"){const row=el.closest("[data-cid]");const custos=cfg().custos.map(x=>x.id===row.dataset.cid?{...x,modo:el.value}:x);el.blur();setCfg({custos})}
+  if(el.dataset.k)el.value=numIn(parseNum(el.value));
+});
+$("#p-orcamento").addEventListener("focusout",e=>{if(e.target.closest("#custos"))setTimeout(()=>{if(!$("#custos").contains(document.activeElement))renderOrcamento()},0)});
+$("#p-orcamento").addEventListener("click",e=>{
+  if(e.target.closest("[data-rmc]")){const id=e.target.closest("[data-cid]").dataset.cid;const custos=cfg().custos.filter(x=>x.id!==id);document.activeElement.blur();setCfg({custos})}
+});
+$("#btnCusto").onclick=()=>{const id=newId();setCfg({custos:[...cfg().custos,{id,nome:"Novo custo",modo:"rs",valor:0}]});const el=$("#cn_"+id);if(el){el.focus();el.select()}};
+
+/* ---- checklist ---- */
+function renderChecklist(){
+  const box=$("#ck");
+  const drafts={};$$("input[data-draft]",box).forEach(i=>drafts[i.id]=i.value);
+  const act=document.activeElement&&document.activeElement.id;
+  const items=Object.entries(S.checklist).map(([id,d])=>({id,...d}));
+  const done=items.filter(x=>x.feito).length;
+  const pct=items.length?Math.round(done/items.length*100):0;
+  box.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h2 style="font-size:22px">Do sonho às chaves</h2><span class="muted num">${done} de ${items.length} etapas concluídas · ${pct}%</span></div>
+    <div class="progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
+    <div class="etapas">${ETAPAS.map(([k,l],idx)=>{
+      const its=items.filter(x=>(x.etapa||"preparacao")===k).sort((a,b)=>(a.ordem??99)-(b.ordem??99)||String(a.criadoEm||"").localeCompare(String(b.criadoEm||"")));
+      return `<section class="etapa"><div class="etapa-h"><span class="n">${idx+1}</span><h3>${l}</h3><span class="c">${its.filter(x=>x.feito).length}/${its.length}</span></div>
+      <ul class="items">${its.map(x=>`<li class="${x.feito?"done":""}"><input type="checkbox" id="ck_${esc(x.id)}" data-ck="${esc(x.id)}" ${x.feito?"checked":""}><label for="ck_${esc(x.id)}">${esc(x.texto)}</label><button class="icon-btn" type="button" data-rmck="${esc(x.id)}" aria-label="Remover item">✕</button></li>`).join("")}</ul>
+      <form class="add-row" data-etapa="${k}"><input type="text" id="cknew_${k}" data-draft placeholder="Adicionar item…" aria-label="Novo item em ${l}"><button class="btn" type="submit">+</button></form></section>`}).join("")}</div>`;
+  Object.entries(drafts).forEach(([id,v])=>{const el=$("#"+id);if(el)el.value=v});
+  if(act&&act.startsWith("cknew_")){const el=$("#"+act);if(el)el.focus()}
+}
+$("#ck").addEventListener("change",e=>{const id=e.target.dataset.ck;if(id)patch("checklist",id,{feito:e.target.checked,feitoEm:e.target.checked?nowISO():null})});
+$("#ck").addEventListener("click",e=>{const b=e.target.closest("[data-rmck]");if(b)remove("checklist",b.dataset.rmck)});
+$("#ck").addEventListener("submit",e=>{
+  e.preventDefault();const f=e.target;const inp=$("input",f);const t=inp.value.trim();if(!t)return;
+  const k=f.dataset.etapa;const n=Object.values(S.checklist).filter(x=>x.etapa===k).length;
+  inp.value="";save("checklist",newId(),{texto:t,etapa:k,feito:false,ordem:100+n,criadoEm:nowISO()});
+});
+
+/* ---- documentos ---- */
+function fmtSize(b){return b>1048576?(b/1048576).toFixed(1).replace(".",",")+" MB":Math.max(1,Math.round(b/1024))+" KB"}
+function fmtDate(s){try{return new Date(s).toLocaleDateString("pt-BR")}catch(e){return ""}}
+function renderDocs(){
+  $("#docForm").hidden=!assets;
+  imovelOptions($("#d_imovel"));
+  const docs=Object.entries(S.documentos).map(([id,d])=>({id,...d}));
+  const box=$("#docList");
+  if(!docs.length){box.innerHTML=`<div class="empty"><h3>Nenhum documento guardado</h3><p>Matrícula, certidões, proposta, contrato, holerites: guardem tudo aqui para achar rápido.</p></div>`;return}
+  box.innerHTML=DOC_CATS.map(cat=>{
+    const its=docs.filter(d=>(d.categoria||"Outros")===cat).sort((a,b)=>String(b.criadoEm).localeCompare(String(a.criadoEm)));
+    if(!its.length)return "";
+    return `<h3 class="group-h">${esc(cat)}</h3><div class="list">${its.map(d=>{const im=d.imovelId&&S.imoveis[d.imovelId];return `<div class="row">
+      <span class="pill ${d.contentType==="application/pdf"?"st-proposta":"st-visitado"}">${d.contentType==="application/pdf"?"PDF":"Imagem"}</span>
+      <div class="main"><b>${esc(d.nome)}</b><span class="small muted">${fmtSize(d.tamanho||0)} · ${fmtDate(d.criadoEm)}${im?" · "+esc(titleOf(im)):""}</span></div>
+      <a class="btn" href="${blob(d.assetId)}" target="_blank" rel="noopener">Abrir</a>
+      ${assets?`<button class="btn danger" type="button" data-rmdoc="${esc(d.id)}">Excluir</button>`:""}</div>`}).join("")}</div>`}).join("");
+}
+async function uploadDocs(files){
+  if(!assets||readOnly){toast("Seu acesso não permite enviar arquivos.");return}
+  const st=$("#d_status");const cat=$("#d_cat").value;const imovelId=$("#d_imovel").value;
+  for(let i=0;i<files.length;i++){
+    const f=files[i];st.textContent=`Enviando ${i+1} de ${files.length}: ${f.name}`;
+    try{const r=await assets.upload(f);
+      await save("documentos",newId(),{nome:f.name,categoria:cat,imovelId:imovelId||null,assetId:r.id,contentType:r.contentType,tamanho:r.sizeBytes,criadoEm:nowISO()});
+    }catch(e){toast(f.name+": "+assetErr(e))}
+  }
+  st.textContent="";$("#d_files").value="";
+}
+$("#d_cat").innerHTML=DOC_CATS.map(c=>`<option>${c}</option>`).join("");
+$("#d_files").addEventListener("change",e=>uploadDocs([...e.target.files]));
+const drop=$("#drop");
+drop.addEventListener("dragover",e=>{e.preventDefault();drop.classList.add("over")});
+drop.addEventListener("dragleave",()=>drop.classList.remove("over"));
+drop.addEventListener("drop",e=>{e.preventDefault();drop.classList.remove("over");uploadDocs([...e.dataTransfer.files])});
+$("#docList").addEventListener("click",async e=>{
+  const b=e.target.closest("[data-rmdoc]");if(!b)return;
+  if(!b.classList.contains("armed")){b.classList.add("armed");b.textContent="Confirmar";setTimeout(()=>{if(b.isConnected){b.classList.remove("armed");b.textContent="Excluir"}},4000);return}
+  const id=b.dataset.rmdoc;const d=S.documentos[id];await remove("documentos",id);
+  if(assets&&d&&d.assetId)assets.delete(d.assetId).catch(()=>{});
+  toast("Documento excluído.");
+});
+
+/* ---- agenda e contatos ---- */
+function fmtWhen(s){try{const d=new Date(s);return d.toLocaleDateString("pt-BR",{weekday:"short",day:"2-digit",month:"short"})+" · "+d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}catch(e){return s}}
+function renderAgenda(){
+  imovelOptions($("#ag_imovel"));
+  if(!$("#ct_papel").options.length)$("#ct_papel").innerHTML=PAPEIS.map(p=>`<option>${p}</option>`).join("");
+  const now=Date.now();
+  const ag=Object.entries(S.agenda).map(([id,d])=>({id,...d})).sort((a,b)=>String(a.quando).localeCompare(String(b.quando)));
+  const fut=ag.filter(x=>new Date(x.quando).getTime()>=now-3600e3&&!x.feito),past=ag.filter(x=>!fut.includes(x)).reverse();
+  const row=x=>{const im=x.imovelId&&S.imoveis[x.imovelId];return `<div class="row ${fut.includes(x)?"":"past"}">
+    <span class="when">${esc(fmtWhen(x.quando))}</span>
+    <div class="main"><b>${esc(x.titulo)}</b>${im||x.notas?`<span class="small muted">${im?`<a href="#" data-openim="${esc(x.imovelId)}">${esc(titleOf(im))}</a>`:""}${im&&x.notas?" · ":""}${esc(x.notas||"")}</span>`:""}</div>
+    <label class="check-row small"><input type="checkbox" data-agdone="${esc(x.id)}" ${x.feito?"checked":""}> Feito</label>
+    <button class="icon-btn" type="button" data-rmag="${esc(x.id)}" aria-label="Remover">✕</button></div>`};
+  $("#agList").innerHTML=ag.length?`<h3 class="group-h">Próximos</h3>${fut.length?`<div class="list">${fut.map(row).join("")}</div>`:`<p class="hint">Nada marcado.</p>`}${past.length?`<h3 class="group-h">Já passou</h3><div class="list">${past.map(row).join("")}</div>`:""}`:`<div class="empty"><h3>Agenda vazia</h3><p>Marquem visitas, reuniões no banco e idas ao cartório.</p></div>`;
+  const ct=Object.entries(S.contatos).map(([id,d])=>({id,...d})).sort((a,b)=>String(a.nome).localeCompare(String(b.nome)));
+  $("#ctList").innerHTML=ct.length?`<div class="list">${ct.map(c=>`<div class="row"><div class="main"><b>${esc(c.nome)}</b><span class="small muted">${esc(c.papel||"")}${c.notas?" · "+esc(c.notas):""}</span>
+      <div class="small" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">${c.telefone?`<span class="num">${esc(c.telefone)}</span> <button class="btn copy" type="button" data-copy="${esc(c.telefone)}">Copiar</button>`:""}${c.email?`<span>${esc(c.email)}</span> <button class="btn copy" type="button" data-copy="${esc(c.email)}">Copiar</button>`:""}</div></div>
+      <button class="icon-btn" type="button" data-rmct="${esc(c.id)}" aria-label="Remover contato">✕</button></div>`).join("")}</div>`:`<div class="empty"><h3>Sem contatos</h3><p>Corretores, gerente do banco, cartório, vendedores.</p></div>`;
+}
+$("#agForm").addEventListener("submit",e=>{e.preventDefault();
+  save("agenda",newId(),{titulo:$("#ag_titulo").value.trim(),quando:$("#ag_quando").value,imovelId:$("#ag_imovel").value||null,notas:$("#ag_notas").value.trim(),feito:false,criadoEm:nowISO()});
+  e.target.reset();toast("Adicionado à agenda.");
+});
+$("#ctForm").addEventListener("submit",e=>{e.preventDefault();
+  save("contatos",newId(),{nome:$("#ct_nome").value.trim(),papel:$("#ct_papel").value,telefone:$("#ct_tel").value.trim(),email:$("#ct_email").value.trim(),notas:$("#ct_notas").value.trim(),criadoEm:nowISO()});
+  e.target.reset();toast("Contato salvo.");
+});
+$("#p-agenda").addEventListener("change",e=>{const id=e.target.dataset.agdone;if(id)patch("agenda",id,{feito:e.target.checked})});
+$("#p-agenda").addEventListener("click",e=>{
+  const t=e.target;
+  if(t.dataset.rmag)return remove("agenda",t.dataset.rmag);
+  if(t.dataset.rmct)return remove("contatos",t.dataset.rmct);
+  if(t.dataset.openim){e.preventDefault();return openDetail(t.dataset.openim)}
+  if(t.dataset.copy!=null){
+    const v=t.dataset.copy;
+    navigator.clipboard.writeText(v).then(()=>toast("Copiado."),()=>{const r=document.createRange();r.selectNodeContents(t.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Texto selecionado. Use Ctrl+C para copiar.")});
+  }
+});
+
+/* ---- export ---- */
+function csvCell(v){v=v==null?"":String(v);return /[";\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+$("#btnCsv").onclick=async()=>{
+  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço","preco"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Nota","nota"],["Imobiliária","corretora"],["Contato","contatoCorretor"],["Link","link"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
+  const rows=[cols.map(c=>c[0]).join(";")].concat(imoveisArr().map(d=>cols.map(([,k])=>{let v=d[k];if(k==="favorito")v=v?"Sim":"";if(k==="status")v=STATUS[v]||v;if(typeof v==="number")v=String(v).replace(".",",");return csvCell(v)}).join(";")));
+  try{await downloads.save({filename:"casa-nova-imoveis.csv",data:"﻿"+rows.join("\n")})}catch(e){if(e&&e.code!=="declined")toast("Não deu para baixar o arquivo.")}
+};
+$("#btnBackup").onclick=async()=>{
+  const data=JSON.stringify({exportadoEm:nowISO(),...S},null,2);
+  try{await downloads.save({filename:"casa-nova-backup-"+new Date().toISOString().slice(0,10)+".json",data})}catch(e){if(e&&e.code!=="declined")toast("Não deu para baixar o arquivo.")}
+};
+
+/* ---------- boot ---------- */
+$$(".tab").forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$$("dialog[open]").forEach(d=>d.close())});
+const savedTab=store.get("cn_tab");
+const hash=(location.hash||"").slice(1);
+setTab(["imoveis","orcamento","checklist","documentos","agenda"].includes(hash)?hash:(savedTab||"imoveis"));
+
+async function boot(){
+  const C=window.claude;
+  if(!C||!C.use){$("#offline").hidden=false;return}
+  const use=n=>C.use(n).catch(()=>null);
+  [db,assets,sample,downloads]=await Promise.all([use("db"),use("assets"),use("sample"),use("downloads")]);
+  if(sample){try{const l=await sample.limits();imgLimits=l&&l.images?l.images:null}catch(e){imgLimits=null}}
+  $("#exportBox").hidden=!downloads;
+  if(!db){$("#offline").hidden=false;render();return}
+  COLLS.forEach(c=>{
+    db.collection(c).onSnapshot(snap=>{
+      const m={};snap.docs.forEach(d=>{m[d.id]=d.data()});
+      if(c==="config"&&cfgT&&S.config.orcamento)m.orcamento=S.config.orcamento; // mantém edição em andamento
+      S[c]=m;render();
+    },err=>{if(err&&err.code==="revoked")toast("O acesso a este site mudou. Recarregue a página.");else toast("A conexão com os dados caiu. Recarregue a página.")});
+  });
+  render();
+}
+boot();
+})();
+</script>
