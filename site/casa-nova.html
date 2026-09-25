@@ -206,6 +206,8 @@ details.ai[open] summary{margin-bottom:10px}
 .brk .g:first-child{padding-top:0}
 .brk .it{padding-left:14px;color:var(--muted);font-size:13px}
 .brk .it b{font-weight:500}
+.brk .ded{color:var(--ok)}
+.brk .tot.pay{border-top:1px dashed var(--line);margin-top:4px;color:var(--primary)}
 .brk .tot{border-top:2px solid var(--ink);margin-top:10px;padding-top:8px;font-family:var(--display);font-size:20px;font-weight:800}
 .flag.warn{background:var(--warn-soft);color:var(--warn)}
 .flag.ok{background:var(--ok-soft);color:var(--ok)}
@@ -347,6 +349,16 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
             </div>
           </div>
         </div>
+        <h2 style="margin-top:22px">Meu apartamento</h2>
+        <p class="hint" style="margin:0 0 10px">Entra como parte do pagamento da casa nova.</p>
+        <div class="fields">
+          <label class="f">Valor do apartamento (R$)<input type="text" inputmode="decimal" id="o_aptoValor" data-k="aptoValor"></label>
+          <label class="f">Comissão na venda (%)<input type="text" inputmode="decimal" id="o_aptoComissao" data-k="aptoComissao" placeholder="0 se vender direto"></label>
+          <div class="wide"><div class="seg" role="group" aria-label="Usar o apartamento na compra" style="width:100%">
+            <button type="button" data-apto="1" id="o_aptoSim" style="flex:1">Abater do valor da casa</button>
+            <button type="button" data-apto="0" id="o_aptoNao" style="flex:1">Não usar</button>
+          </div></div>
+        </div>
         <div id="finBox">
           <h2 style="margin-top:22px">Financiamento</h2>
           <div class="fields">
@@ -361,7 +373,10 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
         <div class="custos" id="custos"></div>
         <p class="hint">Valores aproximados. O ITBI de Florianópolis é 2% do valor da venda. Escritura e registro seguem a tabela de emolumentos de SC: confirmem com o tabelionato e o cartório de registro de imóveis.</p>
       </div>
-      <div class="box" id="o_result"></div>
+      <div>
+        <div class="box" id="o_result"></div>
+        <div class="box" id="o_aptoInfo" style="margin-top:16px"></div>
+      </div>
     </div>
   </section>
 
@@ -986,7 +1001,7 @@ $("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("
 
 /* ---- orçamento ---- */
 const GRUPOS=[["cartorio","Cartório e impostos","Pagos na compra, à vista ou financiado."],["financiamento","Custos do financiamento","Só entram na conta se a compra for financiada."],["outros","Outros custos","Mudança, reforma, móveis…"]];
-const DEFAULT_CFG={corretagem:6,semCorretagem:false,forma:"avista",valor:600000,entrada:120000,fgts:30000,taxa:11.5,prazo:30,renda:null,exemplo:true,
+const DEFAULT_CFG={aptoUsar:true,aptoValor:1600000,aptoComissao:0,corretagem:6,semCorretagem:false,forma:"avista",valor:600000,entrada:120000,fgts:30000,taxa:11.5,prazo:30,renda:null,exemplo:true,
   custos:[
     {id:"itbi",grupo:"cartorio",nome:"ITBI (imposto de transmissão)",modo:"pct",valor:2},
     {id:"escr",grupo:"cartorio",nome:"Escritura pública (tabelionato)",modo:"pct",valor:0.5,quando:"avista"},
@@ -1028,6 +1043,8 @@ function calc(c){
   (c.custos||[]).forEach(x=>{if(entra(x,c))r.grupos[x.grupo]=(r.grupos[x.grupo]||0)+custoRS(x,V)});
   r.custos=Object.values(r.grupos).reduce((a,b)=>a+b,0);
   r.total=V+r.custos;
+  r.aptoLiq=c.aptoUsar?Math.max(0,(c.aptoValor||0)*(1-(c.aptoComissao||0)/100)):0;
+  r.aPagar=r.total-r.aptoLiq;
   r.bolso=F?Math.max(0,(c.entrada||0)-(c.fgts||0))+r.custos:r.total;
   r.pctFin=V?P/V:0;
   return r;
@@ -1050,6 +1067,24 @@ function brkLines(c,g){
   const V=valorFinal(c);
   return (c.custos||[]).filter(x=>x.grupo===g&&entra(x,c)&&custoRS(x,V)>0).map(x=>`<div class="it"><span>${esc(x.nome)}${x.modo==="pct"?` <span class="muted">(${numIn(x.valor)}%)</span>`:""}</span><b>${money(custoRS(x,V))}</b></div>`).join("");
 }
+function renderAptoInfo(c){
+  const A=c.aptoValor||0;
+  const pct=(id,def)=>{const x=(c.custos||[]).find(k=>k.id===id);return x?x:{modo:"pct",valor:def}};
+  const itens=[["ITBI (imposto de transmissão)",pct("itbi",2)],["Escritura pública (tabelionato)",pct("escr",0.5)],["Registro no cartório de imóveis",pct("reg",0.5)],["Certidões e documentos",pct("cert",0)]]
+    .map(([n,x])=>({n,modo:x.modo,p:x.valor,v:custoRS(x,A)})).filter(x=>x.v>0);
+  const tot=itens.reduce((a,x)=>a+x.v,0);
+  const liq=A*(1-(c.aptoComissao||0)/100);
+  $("#o_aptoInfo").innerHTML=`<h2>Venda do meu apartamento</h2>
+    <p class="hint" style="margin:0 0 12px">Só para informação: não entra nas contas acima. É o que o comprador do apartamento vai gastar para passá-lo para o nome dele, calculado com as mesmas taxas da casa nova.</p>
+    <div class="brk">
+      <div class="g"><span>Valor do apartamento</span><b>${money(A)}</b></div>
+      <div class="g"><span>Custos do comprador</span><b>${money(tot)}</b></div>
+      ${itens.map(x=>`<div class="it"><span>${x.n}${x.modo==="pct"?` <span class="muted">(${numIn(x.p)}%)</span>`:""}</span><b>${money(x.v)}</b></div>`).join("")}
+      <div class="tot"><span>O comprador desembolsa</span><b>${money(A+tot)}</b></div>
+      ${c.aptoComissao?`<div class="it" style="padding-left:0"><span>Vocês recebem (menos ${numIn(c.aptoComissao)}% de comissão)</span><b>${money(liq)}</b></div>`:""}
+    </div>
+    <p class="hint" style="margin-top:12px">Vocês, como vendedores, não pagam ITBI nem escritura. Pode haver imposto de renda sobre o lucro da venda, mas há isenção quando o dinheiro é usado para comprar outro imóvel residencial em até 180 dias. Confirmem com um contador.</p>`;
+}
 function renderOrcamento(){
   const c=cfg();const F=fin(c);
   $("#o_exemplo").hidden=!c.exemplo;
@@ -1060,6 +1095,8 @@ function renderOrcamento(){
   $("#o_comc").setAttribute("aria-pressed",String(!c.semCorretagem));$("#o_semc").setAttribute("aria-pressed",String(!!c.semCorretagem));
   $("#o_avista").setAttribute("aria-pressed",String(!F));$("#o_financiado").setAttribute("aria-pressed",String(F));
   $("#finBox").hidden=!F;
+  $("#o_aptoSim").setAttribute("aria-pressed",String(!!c.aptoUsar));$("#o_aptoNao").setAttribute("aria-pressed",String(!c.aptoUsar));
+  renderAptoInfo(c);
   if(!$("#custos").contains(act))renderCustos(c);
   const r=calc(c);
   const comp=c.renda&&r.sac1?r.sac1/c.renda:null;
@@ -1080,6 +1117,8 @@ function renderOrcamento(){
       ${grp("outros","Outros custos")}
       <div class="tot"><span>Total da compra</span><b>${money(r.total)}</b></div>
       <div class="small muted" style="text-align:right">Custos além do imóvel: ${money(r.custos)} (${r.V?(r.custos/r.V*100).toFixed(1).replace(".",","):"0"}% do valor)</div>
+      ${r.aptoLiq?`<div class="g ded"><span>− Meu apartamento${c.aptoComissao?` <span class="muted small">(${money(c.aptoValor)} menos ${numIn(c.aptoComissao)}% de comissão)</span>`:""}</span><b>− ${money(r.aptoLiq)}</b></div>
+      <div class="tot pay"><span>${r.aPagar>=0?(F?"Falta cobrir (entrada + financiamento)":"A pagar em dinheiro"):"Sobra para vocês"}</span><b>${money(Math.abs(r.aPagar))}</b></div>`:""}
     </div>
     ${F?`<div class="big" style="margin-top:16px">
       <div><span>Financiado pelo banco</span><b>${money(r.P)}</b><div class="small muted">${Math.round(r.pctFin*100)}% do imóvel</div></div>
@@ -1103,7 +1142,7 @@ function renderOrcamento(){
     <p class="hint">Somem às parcelas cerca de ${money(r.seguros)} por mês de seguros obrigatórios (MIP e DFI) e taxa de administração, no começo do contrato. É uma estimativa: o valor real depende da idade de vocês e do banco.</p>
     ${comp!=null?(comp>0.3?`<div class="flag warn">A 1ª parcela do SAC passa de 30% da renda, que é o limite usual dos bancos. Renda mínima aproximada: ${money(r.sac1/0.3)}.</div>`:`<div class="flag ok">A 1ª parcela cabe no limite usual de 30% da renda.</div>`):`<p class="hint">Informem a renda do casal para ver se a parcela cabe no limite de 30% que os bancos usam.</p>`}`
     :`<p class="hint">Preencham entrada, juros e prazo para ver as parcelas.</p>`}`
-    :`<div class="big" style="margin-top:16px"><div><span>Dinheiro necessário à vista</span><b>${money(r.total)}</b><div class="small muted">imóvel + todos os custos</div></div></div>`}`;
+    :`<div class="big" style="margin-top:16px"><div><span>${r.aPagar>=0?"Dinheiro necessário à vista":"Sobra depois da troca"}</span><b>${money(Math.abs(r.aPagar))}</b><div class="small muted">${r.aptoLiq?"imóvel + custos − meu apartamento":"imóvel + todos os custos"}</div></div></div>`}`;
 }
 $("#p-orcamento").addEventListener("input",e=>{
   const el=e.target;
@@ -1124,6 +1163,7 @@ $("#p-orcamento").addEventListener("focusout",e=>{if(e.target.closest("#custos")
 $("#p-orcamento").addEventListener("click",e=>{
   const cp=e.target.closest("[data-cpct]");if(cp){setCfg({corretagem:+cp.dataset.cpct});return}
   const sc=e.target.closest("[data-semc]");if(sc){setCfg({semCorretagem:sc.dataset.semc==="1"});return}
+  const ap=e.target.closest("[data-apto]");if(ap){setCfg({aptoUsar:ap.dataset.apto==="1"});return}
   const fo=e.target.closest("[data-forma]");if(fo){setCfg({forma:fo.dataset.forma});return}
   const ad=e.target.closest("[data-addc]");if(ad){const id=newId();setCfg({custos:[...cfg().custos,{id,grupo:ad.dataset.addc,nome:"Novo custo",modo:"rs",valor:0}]});const el=$("#cn_"+id);if(el){el.focus();el.select()}return}
   if(e.target.closest("[data-rmc]")){const id=e.target.closest("[data-cid]").dataset.cid;const custos=cfg().custos.filter(x=>x.id!==id);document.activeElement.blur();setCfg({custos})}
