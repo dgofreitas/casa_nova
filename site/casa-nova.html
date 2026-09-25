@@ -89,6 +89,7 @@ legend{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:1
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
 .toolbar .grow{flex:1 1 220px}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.chip-sep{flex-basis:100%;height:0}
 .chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted)}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .chip.fav[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#1b1400}
@@ -132,6 +133,7 @@ legend{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:1
 .lz.no{background:none;color:var(--muted);font-weight:600;text-decoration:line-through;padding-inline:2px}
 .lz.alaga{background:var(--warn-soft);color:var(--warn)}
 .lz.alaga.grave{background:var(--bad-soft);color:var(--bad)}
+.lz.ct{background:var(--primary-soft);color:var(--primary)}
 .lz.seco{background:var(--ok-soft);color:var(--ok)}
 .chip.lzc[aria-pressed="true"]{background:var(--info);border-color:var(--info);color:var(--bg)}
 .dots{letter-spacing:2px;color:var(--accent);font-size:12px}
@@ -174,6 +176,8 @@ dialog::backdrop{background:rgba(8,14,12,.55)}
 details.ai{border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:18px}
 details.ai summary{cursor:pointer;font-weight:700;font-family:var(--display)}
 details.ai[open] summary{margin-bottom:10px}
+.ctgrp{margin-bottom:12px}
+.ctgrp h4{margin:0 0 6px;font-size:14px;font-family:var(--display)}
 .check-row{display:flex;gap:8px;align-items:center;font-size:14px}
 
 /* orçamento */
@@ -530,7 +534,7 @@ const CORRETORAS={"zapimoveis":"ZAP Imóveis","vivareal":"Viva Real","quintoanda
 const S={imoveis:{},checklist:{},documentos:{},agenda:{},contatos:{},config:{}};
 const COLLS=Object.keys(S);
 let db=null,assets=null,sample=null,downloads=null,imgLimits=null,readOnly=false;
-const UI={tab:"imoveis",q:"",status:"ativos",fav:false,piscina:false,gourmet:false,semAlaga:false,sort:"recentes",view:store.get("cn_view")||"cards"};
+const UI={tab:"imoveis",q:"",status:"ativos",fav:false,piscina:false,gourmet:false,semAlaga:false,comVend:false,comViz:false,sort:"recentes",view:store.get("cn_view")||"cards"};
 
 /* ---------- toast ---------- */
 let toastT;
@@ -597,6 +601,8 @@ function lazerBadges(d){
   if(d.piscina==="nao")out.push(`<span class="lz no">Sem piscina</span>`);
   if(d.churrasqueira==="nao")out.push(`<span class="lz no">Sem churrasqueira</span>`);
   const al=alagaBadge(d);if(al)out.unshift(al);
+  if(temViz(d))out.push(`<span class="lz ct">${icoPhone}Vizinho</span>`);
+  if(temVend(d))out.push(`<span class="lz ct">${icoPhone}Vendedor</span>`);
   return out.length?`<div class="lazer">${out.join("")}</div>`:"";
 }
 const ALAGA={nao:"Não alaga",rua:"A rua alaga às vezes",imovel:"O imóvel alaga"};
@@ -607,6 +613,9 @@ function alagaBadge(d){
   if(d.alaga==="nao")return `<span class="lz seco">${icoDrop}Não alaga</span>`;
   return "";
 }
+const temVend=d=>!!(d.vendTel||d.vendEmail);
+const temViz=d=>!!(d.vizTel||d.vizEmail);
+const icoPhone=`<svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 1.5h2.2l1.1 3-1.5 1a8 8 0 0 0 4.2 4.2l1-1.5 3 1.1v2.2a1.5 1.5 0 0 1-1.6 1.5A12 12 0 0 1 2 3.1a1.5 1.5 0 0 1 1.5-1.6Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
 const simNao=v=>v==="sim"?"Sim":v==="nao"?"Não":"";
 function mapsUrl(d){
   if(d.mapa&&/^https?:\/\//.test(d.mapa))return d.mapa;
@@ -722,8 +731,10 @@ function filtered(){
   if(UI.piscina)a=a.filter(d=>d.piscina==="sim"||d.gourmetPiscina==="sim");
   if(UI.gourmet)a=a.filter(d=>d.gourmetPiscina==="sim");
   if(UI.semAlaga)a=a.filter(d=>d.alaga!=="rua"&&d.alaga!=="imovel");
+  if(UI.comVend)a=a.filter(temVend);
+  if(UI.comViz)a=a.filter(temViz);
   const q=UI.q.trim().toLowerCase();
-  if(q)a=a.filter(d=>[d.titulo,d.bairro,d.cidade,d.endereco,d.corretora,d.tipo].join(" ").toLowerCase().includes(q));
+  if(q)a=a.filter(d=>[d.titulo,d.bairro,d.cidade,d.endereco,d.corretora,d.tipo,d.vendNome,d.vizNome].join(" ").toLowerCase().includes(q));
   const nz=(v,alt)=>v==null?alt:v;
   const S_={
     "recentes":(x,y)=>String(y.criadoEm||"").localeCompare(String(x.criadoEm||"")),
@@ -745,7 +756,7 @@ function renderImoveis(){
     <div><b>${all.filter(d=>d.status==="proposta").length}</b><span>com proposta</span></div>`;
   const cnt=k=>k==="ativos"?ativos.length:k==="todos"?all.length:all.filter(d=>d.status===k).length;
   const chipDefs=[["ativos","No páreo"],...Object.entries(STATUS),["todos","Todos"]];
-  $("#chips").innerHTML=`<button class="chip fav" type="button" data-fav aria-pressed="${UI.fav}">★ Só favoritas</button><button class="chip lzc" type="button" data-lz="piscina" aria-pressed="${UI.piscina}">Com piscina ${all.filter(d=>d.piscina==="sim"||d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="gourmet" aria-pressed="${UI.gourmet}">Gourmet + piscina ${all.filter(d=>d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="semAlaga" aria-pressed="${UI.semAlaga}">Esconder os que alagam</button>`+
+  $("#chips").innerHTML=`<button class="chip fav" type="button" data-fav aria-pressed="${UI.fav}">★ Só favoritas</button><button class="chip lzc" type="button" data-lz="piscina" aria-pressed="${UI.piscina}">Com piscina ${all.filter(d=>d.piscina==="sim"||d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="gourmet" aria-pressed="${UI.gourmet}">Gourmet + piscina ${all.filter(d=>d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="semAlaga" aria-pressed="${UI.semAlaga}">Esconder os que alagam</button><button class="chip lzc" type="button" data-lz="comVend" aria-pressed="${UI.comVend}">Com contato do vendedor ${all.filter(temVend).length}</button><button class="chip lzc" type="button" data-lz="comViz" aria-pressed="${UI.comViz}">Com contato do vizinho ${all.filter(temViz).length}</button><span class="chip-sep"></span>`+
     chipDefs.map(([k,l])=>`<button class="chip" type="button" data-st="${k}" aria-pressed="${UI.status===k}">${esc(l)} ${cnt(k)}</button>`).join("");
   $("#v-cards").setAttribute("aria-pressed",String(UI.view==="cards"));
   $("#v-tabela").setAttribute("aria-pressed",String(UI.view==="tabela"));
@@ -757,14 +768,14 @@ function renderImoveis(){
   }
   if(!list.length){box.innerHTML=`<div class="empty"><h3>Nada com esse filtro</h3><p>${UI.fav?"Marquem a estrela ★ nos imóveis que vocês mais gostaram.":"Tentem outro filtro ou busca."}</p></div>`;return}
   if(UI.view==="tabela"){
-    box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">Fecha por</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th>Piscina</th><th>Churrasq.</th><th>Gourmet + piscina</th><th>Alagamento</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
+    box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">Fecha por</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th>Piscina</th><th>Churrasq.</th><th>Gourmet + piscina</th><th>Alagamento</th><th>Contatos</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
       list.map(d=>{const mens=(d.condominio||0)+(d.iptu||0)/12;return `<tr data-id="${esc(d.id)}">
         <td><button class="tstar" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="Favorita">★</button></td>
         <td><b>${esc(titleOf(d))}</b><div class="small muted">${esc(locOf(d))}</div></td>
         <td><span class="pill st-${esc(d.status||"interesse")}">${esc(STATUS[d.status]||STATUS.interesse)}</span></td>
         <td class="n">${money(d.preco)}</td><td class="n">${d.precoNegociado?money(d.precoNegociado):"—"}</td><td class="n">${d.area?numIn(d.area):"—"}</td><td class="n">${money(ppm(d))}</td>
         <td class="n">${d.quartos??"—"}</td><td class="n">${d.vagas??"—"}</td><td class="n">${mens?money(mens):"—"}</td>
-        <td>${simNao(d.piscina)||"—"}</td><td>${simNao(d.churrasqueira)||"—"}</td><td>${d.gourmetPiscina==="sim"?'<span class="lz top">Sim</span>':(simNao(d.gourmetPiscina)||"—")}</td><td>${alagaBadge(d)||"—"}</td>
+        <td>${simNao(d.piscina)||"—"}</td><td>${simNao(d.churrasqueira)||"—"}</td><td>${d.gourmetPiscina==="sim"?'<span class="lz top">Sim</span>':(simNao(d.gourmetPiscina)||"—")}</td><td>${alagaBadge(d)||"—"}</td><td>${[temVend(d)?"Vendedor":"",temViz(d)?"Vizinho":""].filter(Boolean).join(" + ")||"—"}</td>
         <td class="n">${d.nota?d.nota+"/5":"—"}</td>
         <td>${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">${esc(d.corretora||hostOf(d.link))} ↗</a>`:"—"}${mapsUrl(d)?` · <a href="${esc(mapsUrl(d))}" target="_blank" rel="noopener">${icoPin} Mapa</a>`:""}</td></tr>`}).join("")
     }</tbody></table></div>`;
@@ -847,6 +858,20 @@ function openDetail(id,preset){
       <div class="wide small" id="mapaPrev"></div>
       <label class="f">Alagamento<select id="f_alaga"><option value="">Não sei</option>${Object.entries(ALAGA).map(([k,l])=>`<option value="${k}" ${d.alaga===k?"selected":""}>${l}</option>`).join("")}</select></label>
     </div></fieldset>
+    <fieldset><legend>Contatos do imóvel</legend>
+      <p class="hint" style="margin:-4px 0 10px">Um imóvel conta como “com contato” quando tem telefone ou e-mail.</p>
+      <div class="ctgrp"><h4>Vendedor (dono)</h4><div class="fields">
+        ${field("f_vendNome","Nome",d.vendNome)}
+        ${field("f_vendTel","Telefone / WhatsApp",d.vendTel,{type:"tel"})}
+        ${field("f_vendEmail","E-mail",d.vendEmail,{type:"email"})}
+      </div></div>
+      <div class="ctgrp"><h4>Vizinho</h4><div class="fields">
+        ${field("f_vizNome","Nome",d.vizNome)}
+        ${field("f_vizTel","Telefone / WhatsApp",d.vizTel,{type:"tel"})}
+        ${field("f_vizEmail","E-mail",d.vizEmail,{type:"email"})}
+        ${field("f_vizObs","Quem é",d.vizObs,{wide:true,ph:"Casa ao lado, nº 45 · foi quem passou o contato do dono"})}
+      </div></div>
+    </fieldset>
     <fieldset><legend>Anúncio e corretor</legend><div class="fields">
       ${field("f_link","Link do anúncio",d.link,{type:"url",wide:true})}
       ${field("f_corretora","Imobiliária ou corretor",d.corretora)}
@@ -880,7 +905,7 @@ function readForm(){
   return {titulo:v("f_titulo"),tipo:v("f_tipo"),status:v("f_status")||"interesse",nota:v("f_nota")?+v("f_nota"):null,favorito:$("#f_fav").checked,
     preco:n("f_preco"),precoNegociado:n("f_precoNegociado"),condominio:n("f_condominio"),iptu:n("f_iptu"),area:n("f_area"),areaTerreno:n("f_areaTerreno"),
     quartos:n("f_quartos"),suites:n("f_suites"),banheiros:n("f_banheiros"),vagas:n("f_vagas"),
-    endereco:v("f_endereco"),mapa:v("f_mapa"),bairro:v("f_bairro"),cidade:v("f_cidade"),link:v("f_link"),corretora:v("f_corretora"),contatoCorretor:v("f_contato"),
+    endereco:v("f_endereco"),mapa:v("f_mapa"),bairro:v("f_bairro"),cidade:v("f_cidade"),link:v("f_link"),corretora:v("f_corretora"),contatoCorretor:v("f_contato"),vendNome:v("f_vendNome"),vendTel:v("f_vendTel"),vendEmail:v("f_vendEmail"),vizNome:v("f_vizNome"),vizTel:v("f_vizTel"),vizEmail:v("f_vizEmail"),vizObs:v("f_vizObs"),
     alaga:v("f_alaga"),piscina:v("f_piscina"),churrasqueira:v("f_churrasqueira"),gourmetPiscina:v("f_gourmetPiscina"),
     pros:$("#f_pros").value.trim(),contras:$("#f_contras").value.trim(),notas:$("#f_notas").value.trim()};
 }
@@ -1329,7 +1354,7 @@ $("#p-agenda").addEventListener("click",e=>{
 /* ---- export ---- */
 function csvCell(v){v=v==null?"":String(v);return /[";\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
 $("#btnCsv").onclick=async()=>{
-  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço anunciado","preco"],["Preço que achamos que fecha","precoNegociado"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Piscina","piscina"],["Churrasqueira","churrasqueira"],["Gourmet integrado à piscina","gourmetPiscina"],["Alagamento","alaga"],["Nota","nota"],["Imobiliária","corretora"],["Contato","contatoCorretor"],["Link","link"],["Google Maps","_mapa"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
+  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço anunciado","preco"],["Preço que achamos que fecha","precoNegociado"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Piscina","piscina"],["Churrasqueira","churrasqueira"],["Gourmet integrado à piscina","gourmetPiscina"],["Alagamento","alaga"],["Nota","nota"],["Imobiliária","corretora"],["Contato do corretor","contatoCorretor"],["Vendedor","vendNome"],["Telefone do vendedor","vendTel"],["E-mail do vendedor","vendEmail"],["Vizinho","vizNome"],["Telefone do vizinho","vizTel"],["E-mail do vizinho","vizEmail"],["Quem é o vizinho","vizObs"],["Link","link"],["Google Maps","_mapa"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
   const rows=[cols.map(c=>c[0]).join(";")].concat(imoveisArr().map(d=>cols.map(([,k])=>{let v=d[k];if(k==="favorito")v=v?"Sim":"";if(k==="status")v=STATUS[v]||v;if(["piscina","churrasqueira","gourmetPiscina"].includes(k))v=simNao(v);if(k==="alaga")v=ALAGA[v]||"";if(k==="_mapa")v=mapsUrl(d);if(typeof v==="number")v=String(v).replace(".",",");return csvCell(v)}).join(";")));
   try{await downloads.save({filename:"casa-nova-imoveis.csv",data:"﻿"+rows.join("\n")})}catch(e){if(e&&e.code!=="declined")toast("Não deu para baixar o arquivo.")}
 };
