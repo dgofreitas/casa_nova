@@ -203,6 +203,7 @@ details.ai[open] summary{margin-bottom:10px}
 .brk>div{display:flex;justify-content:space-between;gap:10px}
 .brk b{font-variant-numeric:tabular-nums;white-space:nowrap}
 .brk .g{font-weight:700;padding-top:8px}
+.brk .g small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
 .brk .g:first-child{padding-top:0}
 .brk .it{padding-left:14px;color:var(--muted);font-size:13px}
 .brk .it b{font-weight:500}
@@ -1122,7 +1123,6 @@ function renderOrcamento(){
   const r=calc(c);
   const comp=c.renda&&r.sac1?r.sac1/c.renda:null;
   const compP=c.renda&&r.price?r.price/c.renda:null;
-  const grp=(g,l)=>r.grupos[g]>0?`<div class="g"><span>${l}</span><b>${money(r.grupos[g])}</b></div>${brkLines(c,g)}`:"";
   $("#o_result").innerHTML=`
     <h2>Resultado</h2>
     <div class="precos">
@@ -1132,12 +1132,12 @@ function renderOrcamento(){
     </div>
     <p class="hint" style="margin:-8px 0 14px">Simulando com o valor <b>${c.semCorretagem?"sem":"com"} corretagem</b>, pagamento <b>${F?"financiado":"à vista"}</b>. Comprando direto com o vendedor, ele não paga a comissão, então dá para oferecer até ${money(comissaoRS(c))} a menos e ele recebe o mesmo.</p>
     <div class="brk">
-      <div class="g"><span>Imóvel</span><b>${money(r.V)}</b></div>
-      ${grp("cartorio","Cartório e impostos")}
-      ${F?grp("financiamento","Custos do financiamento"):""}
-      ${grp("outros","Outros custos")}
+      <div class="g"><span>Para o vendedor<small>preço do imóvel${c.semCorretagem?", compra direta":""}</small></span><b>${money(r.V)}</b></div>
+      ${r.grupos.cartorio>0?`<div class="g"><span>Impostos e cartório<small>nossas taxas para passar o imóvel para o nosso nome</small></span><b>${money(r.grupos.cartorio)}</b></div>${brkLines(c,"cartorio")}`:""}
+      ${F&&r.grupos.financiamento>0?`<div class="g"><span>Custos do banco<small>só no financiamento</small></span><b>${money(r.grupos.financiamento)}</b></div>${brkLines(c,"financiamento")}`:""}
+      ${r.grupos.outros>0?`<div class="g"><span>Outros gastos<small>mudança, reforma…</small></span><b>${money(r.grupos.outros)}</b></div>${brkLines(c,"outros")}`:""}
       <div class="tot"><span>Total da compra</span><b>${money(r.total)}</b></div>
-      <div class="small muted" style="text-align:right">Custos além do imóvel: ${money(r.custos)} (${r.V?(r.custos/r.V*100).toFixed(1).replace(".",","):"0"}% do valor)</div>
+      <div class="small muted" style="text-align:right">Tudo o que não vai para o vendedor: ${money(r.custos)} (${r.V?(r.custos/r.V*100).toFixed(1).replace(".",","):"0"}% do valor)</div>
       ${r.aptoLiq?`<div class="g ded"><span>− Meu apartamento${(c.aptoComissao||c.aptoMarinha)?` <span class="muted small">(${money(c.aptoValor)} menos custos da venda)</span>`:""}</span><b>− ${money(r.aptoLiq)}</b></div>
       <div class="tot pay"><span>${r.aPagar>=0?(F?"Falta cobrir (entrada + financiamento)":"A pagar em dinheiro"):"Sobra para vocês"}</span><b>${money(Math.abs(r.aPagar))}</b></div>`:""}
     </div>
@@ -1163,7 +1163,7 @@ function renderOrcamento(){
     <p class="hint">Somem às parcelas cerca de ${money(r.seguros)} por mês de seguros obrigatórios (MIP e DFI) e taxa de administração, no começo do contrato. É uma estimativa: o valor real depende da idade de vocês e do banco.</p>
     ${comp!=null?(comp>0.3?`<div class="flag warn">A 1ª parcela do SAC passa de 30% da renda, que é o limite usual dos bancos. Renda mínima aproximada: ${money(r.sac1/0.3)}.</div>`:`<div class="flag ok">A 1ª parcela cabe no limite usual de 30% da renda.</div>`):`<p class="hint">Informem a renda do casal para ver se a parcela cabe no limite de 30% que os bancos usam.</p>`}`
     :`<p class="hint">Preencham entrada, juros e prazo para ver as parcelas.</p>`}`
-    :`<div class="big" style="margin-top:16px"><div><span>${r.aPagar>=0?"Dinheiro necessário à vista":"Sobra depois da troca"}</span><b>${money(Math.abs(r.aPagar))}</b><div class="small muted">${r.aptoLiq?"imóvel + custos − meu apartamento":"imóvel + todos os custos"}</div></div></div>`}`;
+    :r.aptoLiq?"":`<div class="big" style="margin-top:16px"><div><span>${r.aPagar>=0?"Dinheiro necessário à vista":"Sobra depois da troca"}</span><b>${money(Math.abs(r.aPagar))}</b><div class="small muted">${r.aptoLiq?"imóvel + custos − meu apartamento":"imóvel + todos os custos"}</div></div></div>`}`;
 }
 $("#p-orcamento").addEventListener("input",e=>{
   const el=e.target;
