@@ -188,9 +188,25 @@ details.ai[open] summary{margin-bottom:10px}
 .kv{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:3px 0}
 .kv b{font-variant-numeric:tabular-nums}
 .custos{display:flex;flex-direction:column;gap:8px}
-.custo{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(0,1fr) 72px auto;gap:6px;align-items:center}
+.custo{display:grid;grid-template-columns:minmax(0,1fr) 72px auto;gap:6px;align-items:center}
+.custo .nm{grid-column:1/-1}
 .custo .calc{font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums;grid-column:1/-1;margin-top:-4px}
 .flag{font-size:13px;border-radius:8px;padding:8px 10px;margin-top:10px}
+.cgrp{border-top:1px solid var(--line);padding-top:12px;margin-top:4px;display:flex;flex-direction:column;gap:8px}
+.cgrp:first-child{border-top:0;padding-top:0;margin-top:0}
+.cgrp-h h3{font-size:15px}
+.cgrp-h{display:flex;flex-direction:column}
+.cgrp .btn{align-self:flex-start;padding:4px 8px;font-size:13px;color:var(--primary)}
+.custo.off input,.custo.off select{opacity:.5}
+.custo.off .calc{font-style:italic}
+.brk{display:flex;flex-direction:column;gap:2px;font-size:14px}
+.brk>div{display:flex;justify-content:space-between;gap:10px}
+.brk b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.brk .g{font-weight:700;padding-top:8px}
+.brk .g:first-child{padding-top:0}
+.brk .it{padding-left:14px;color:var(--muted);font-size:13px}
+.brk .it b{font-weight:500}
+.brk .tot{border-top:2px solid var(--ink);margin-top:10px;padding-top:8px;font-family:var(--display);font-size:20px;font-weight:800}
 .flag.warn{background:var(--warn-soft);color:var(--warn)}
 .flag.ok{background:var(--ok-soft);color:var(--ok)}
 .corret{grid-column:1/-1;border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
@@ -304,7 +320,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
   <section class="panel" id="p-orcamento" role="tabpanel" hidden>
     <div class="two">
       <div class="box">
-        <h2>Dados do financiamento</h2>
+        <h2>O imóvel</h2>
         <p class="note warn" id="o_exemplo" hidden>Estes são valores de exemplo. Troque pelos de vocês e tudo é salvo automaticamente.</p>
         <div class="fields" style="margin-top:12px">
           <label class="f wide">Preencher com um imóvel cadastrado
@@ -324,17 +340,26 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
               <button type="button" data-semc="0" id="o_comc">Com corretagem</button>
               <button type="button" data-semc="1" id="o_semc">Sem corretagem (compra direta)</button>
             </div>
+            <div class="lbl">Forma de pagamento</div>
+            <div class="seg" role="group" aria-label="Forma de pagamento">
+              <button type="button" data-forma="avista" id="o_avista">À vista</button>
+              <button type="button" data-forma="financiado" id="o_financiado">Financiado</button>
+            </div>
           </div>
-          <label class="f">Entrada total (R$)<input type="text" inputmode="decimal" id="o_entrada" data-k="entrada"></label>
-          <label class="f">Quanto da entrada vem do FGTS (R$)<input type="text" inputmode="decimal" id="o_fgts" data-k="fgts"></label>
-          <label class="f">Juros ao ano (%)<input type="text" inputmode="decimal" id="o_taxa" data-k="taxa"></label>
-          <label class="f">Prazo (anos)<input type="text" inputmode="numeric" id="o_prazo" data-k="prazo"></label>
-          <label class="f">Renda bruta do casal por mês (R$)<input type="text" inputmode="decimal" id="o_renda" data-k="renda"></label>
         </div>
-        <h2 style="margin-top:22px">Custos além do imóvel</h2>
+        <div id="finBox">
+          <h2 style="margin-top:22px">Financiamento</h2>
+          <div class="fields">
+            <label class="f">Entrada total (R$)<input type="text" inputmode="decimal" id="o_entrada" data-k="entrada"></label>
+            <label class="f">Quanto da entrada vem do FGTS (R$)<input type="text" inputmode="decimal" id="o_fgts" data-k="fgts"></label>
+            <label class="f">Juros ao ano (%)<input type="text" inputmode="decimal" id="o_taxa" data-k="taxa"></label>
+            <label class="f">Prazo (anos)<input type="text" inputmode="numeric" id="o_prazo" data-k="prazo"></label>
+            <label class="f">Renda bruta do casal por mês (R$)<input type="text" inputmode="decimal" id="o_renda" data-k="renda"></label>
+          </div>
+        </div>
+        <h2 style="margin-top:22px">Custos da compra</h2>
         <div class="custos" id="custos"></div>
-        <button class="btn" type="button" id="btnCusto" style="margin-top:10px">+ Adicionar custo</button>
-        <p class="hint">O ITBI costuma ficar entre 2% e 3% do valor, conforme a cidade. Cartório e avaliação são estimativas: confirmem com o banco e o cartório.</p>
+        <p class="hint">Valores aproximados. O ITBI de Florianópolis é 2% do valor da venda. Escritura e registro seguem a tabela de emolumentos de SC: confirmem com o tabelionato e o cartório de registro de imóveis.</p>
       </div>
       <div class="box" id="o_result"></div>
     </div>
@@ -960,9 +985,19 @@ $("#list").addEventListener("click",e=>{
 $("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))openDetail(e.target.dataset.id)});
 
 /* ---- orçamento ---- */
-const DEFAULT_CFG={corretagem:6,semCorretagem:false,valor:600000,entrada:120000,fgts:30000,taxa:11.5,prazo:30,renda:null,exemplo:true,
-  custos:[{id:"itbi",nome:"ITBI",modo:"pct",valor:3},{id:"cart",nome:"Registro e cartório",modo:"pct",valor:1},{id:"aval",nome:"Avaliação do imóvel pelo banco",modo:"rs",valor:3500},{id:"mud",nome:"Mudança",modo:"rs",valor:3000}]};
-const cfg=()=>({...DEFAULT_CFG,...(S.config.orcamento||{})});
+const GRUPOS=[["cartorio","Cartório e impostos","Pagos na compra, à vista ou financiado."],["financiamento","Custos do financiamento","Só entram na conta se a compra for financiada."],["outros","Outros custos","Mudança, reforma, móveis…"]];
+const DEFAULT_CFG={corretagem:6,semCorretagem:false,forma:"avista",valor:600000,entrada:120000,fgts:30000,taxa:11.5,prazo:30,renda:null,exemplo:true,
+  custos:[
+    {id:"itbi",grupo:"cartorio",nome:"ITBI (imposto de transmissão)",modo:"pct",valor:2},
+    {id:"escr",grupo:"cartorio",nome:"Escritura pública (tabelionato)",modo:"pct",valor:0.5,quando:"avista"},
+    {id:"reg",grupo:"cartorio",nome:"Registro no cartório de imóveis",modo:"pct",valor:0.5},
+    {id:"cert",grupo:"cartorio",nome:"Certidões e documentos",modo:"rs",valor:600},
+    {id:"aval",grupo:"financiamento",nome:"Avaliação do imóvel pelo banco",modo:"rs",valor:3500},
+    {id:"tarif",grupo:"financiamento",nome:"Tarifas do banco (análise e contrato)",modo:"rs",valor:1500},
+    {id:"mud",grupo:"outros",nome:"Mudança",modo:"rs",valor:3000},
+    {id:"ref",grupo:"outros",nome:"Reforma e pequenos reparos",modo:"rs",valor:0}]};
+const OLD_GRUPO={itbi:"cartorio",cart:"cartorio",aval:"financiamento"};
+const cfg=()=>{const c={...DEFAULT_CFG,...(S.config.orcamento||{})};c.custos=(c.custos||[]).map(x=>x.grupo?x:{...x,grupo:OLD_GRUPO[x.id]||"outros"});return c};
 let cfgT;
 function setCfg(part){
   const c={...cfg(),...part,exemplo:false};
@@ -973,42 +1008,63 @@ function setCfg(part){
 function custoRS(c,valor){return c.modo==="pct"?(valor||0)*(c.valor||0)/100:(c.valor||0)}
 const comissaoRS=c=>(c.valor||0)*(c.corretagem||0)/100;
 const valorFinal=c=>c.semCorretagem?(c.valor||0)-comissaoRS(c):(c.valor||0);
+const fin=c=>c.forma==="financiado";
+function entra(x,c){if(x.grupo==="financiamento"&&!fin(c))return false;if(x.quando==="avista"&&fin(c))return false;if(x.quando==="financiado"&&!fin(c))return false;return true}
+function porQueNao(x,c){if(x.grupo==="financiamento")return "não entra: compra à vista";if(x.quando==="avista")return "não entra: no financiamento o contrato do banco substitui a escritura";return "não entra"}
 function calc(c){
   const V=valorFinal(c);
-  const P=Math.max(0,V-(c.entrada||0));
+  const F=fin(c);
+  const P=F?Math.max(0,V-(c.entrada||0)):0;
   const n=Math.round((c.prazo||0)*12);
   const i=Math.pow(1+(c.taxa||0)/100,1/12)-1;
-  const r={P,n,i};
-  if(P>0&&n>0){
+  const r={P,n,i,V};
+  if(F&&P>0&&n>0){
     r.price=i>0?P*i/(1-Math.pow(1+i,-n)):P/n;
     r.priceTotal=r.price*n;r.priceJuros=r.priceTotal-P;
     const a=P/n;r.sac1=a+P*i;r.sacN=a+a*i;r.sacJuros=i*P*(n+1)/2;r.sacTotal=P+r.sacJuros;
+    r.seguros=P*0.00035+25;
   }
-  r.custos=(c.custos||[]).reduce((s,x)=>s+custoRS(x,V),0);r.V=V;
-  r.bolso=Math.max(0,(c.entrada||0)-(c.fgts||0))+r.custos;
+  r.grupos={};GRUPOS.forEach(([g])=>r.grupos[g]=0);
+  (c.custos||[]).forEach(x=>{if(entra(x,c))r.grupos[x.grupo]=(r.grupos[x.grupo]||0)+custoRS(x,V)});
+  r.custos=Object.values(r.grupos).reduce((a,b)=>a+b,0);
+  r.total=V+r.custos;
+  r.bolso=F?Math.max(0,(c.entrada||0)-(c.fgts||0))+r.custos:r.total;
   r.pctFin=V?P/V:0;
   return r;
 }
+function renderCustos(c){
+  const V=valorFinal(c);
+  $("#custos").innerHTML=GRUPOS.map(([g,l,d])=>{
+    const its=(c.custos||[]).filter(x=>x.grupo===g);
+    const off=g==="financiamento"&&!fin(c);
+    return `<div class="cgrp ${off?"off":""}"><div class="cgrp-h"><h3>${l}</h3><span class="small muted">${d}</span></div>
+      ${its.map(x=>{const on=entra(x,c);return `<div class="custo ${on?"":"off"}" data-cid="${esc(x.id)}">
+        <input class="nm" type="text" id="cn_${esc(x.id)}" data-f="nome" value="${esc(x.nome)}" aria-label="Nome do custo">
+        <input type="text" inputmode="decimal" id="cv_${esc(x.id)}" data-f="valor" value="${esc(numIn(x.valor))}" aria-label="Valor">
+        <select data-f="modo" id="cm_${esc(x.id)}" aria-label="Tipo"><option value="pct" ${x.modo==="pct"?"selected":""}>%</option><option value="rs" ${x.modo==="rs"?"selected":""}>R$</option></select>
+        <button class="icon-btn" type="button" data-rmc aria-label="Remover custo">✕</button>
+        ${on?(x.modo==="pct"?`<div class="calc">${money(custoRS(x,V))}</div>`:""):`<div class="calc">${porQueNao(x,c)}</div>`}</div>`}).join("")}
+      <button class="btn ghost small" type="button" data-addc="${g}">+ Adicionar em ${l.toLowerCase()}</button></div>`}).join("");
+}
+function brkLines(c,g){
+  const V=valorFinal(c);
+  return (c.custos||[]).filter(x=>x.grupo===g&&entra(x,c)&&custoRS(x,V)>0).map(x=>`<div class="it"><span>${esc(x.nome)}${x.modo==="pct"?` <span class="muted">(${numIn(x.valor)}%)</span>`:""}</span><b>${money(custoRS(x,V))}</b></div>`).join("");
+}
 function renderOrcamento(){
-  const c=cfg();
+  const c=cfg();const F=fin(c);
   $("#o_exemplo").hidden=!c.exemplo;
   const act=document.activeElement;
   $$("#p-orcamento input[data-k]").forEach(el=>{if(el!==act)el.value=numIn(c[el.dataset.k])});
   imovelOptions($("#o_imovel"),"");
   $$("#o_cpcts [data-cpct]").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.cpct===c.corretagem)));
   $("#o_comc").setAttribute("aria-pressed",String(!c.semCorretagem));$("#o_semc").setAttribute("aria-pressed",String(!!c.semCorretagem));
-  const cBox=$("#custos");
-  if(!cBox.contains(act)){
-    cBox.innerHTML=(c.custos||[]).map(x=>`<div class="custo" data-cid="${esc(x.id)}">
-      <input class="nm" type="text" id="cn_${esc(x.id)}" data-f="nome" value="${esc(x.nome)}" aria-label="Nome do custo">
-      <input type="text" inputmode="decimal" id="cv_${esc(x.id)}" data-f="valor" value="${esc(numIn(x.valor))}" aria-label="Valor">
-      <select data-f="modo" id="cm_${esc(x.id)}" aria-label="Tipo"><option value="pct" ${x.modo==="pct"?"selected":""}>%</option><option value="rs" ${x.modo==="rs"?"selected":""}>R$</option></select>
-      <button class="icon-btn" type="button" data-rmc aria-label="Remover custo">✕</button>
-      ${x.modo==="pct"?`<div class="calc">${money(custoRS(x,valorFinal(c)))}</div>`:""}</div>`).join("")||`<p class="hint">Nenhum custo extra.</p>`;
-  }
+  $("#o_avista").setAttribute("aria-pressed",String(!F));$("#o_financiado").setAttribute("aria-pressed",String(F));
+  $("#finBox").hidden=!F;
+  if(!$("#custos").contains(act))renderCustos(c);
   const r=calc(c);
   const comp=c.renda&&r.sac1?r.sac1/c.renda:null;
   const compP=c.renda&&r.price?r.price/c.renda:null;
+  const grp=(g,l)=>r.grupos[g]>0?`<div class="g"><span>${l}</span><b>${money(r.grupos[g])}</b></div>${brkLines(c,g)}`:"";
   $("#o_result").innerHTML=`
     <h2>Resultado</h2>
     <div class="precos">
@@ -1016,11 +1072,18 @@ function renderOrcamento(){
       <div><span>Parte do corretor (${numIn(c.corretagem||0)}%)</span><b>${money(comissaoRS(c))}</b></div>
       <div class="${c.semCorretagem?"on":""}"><span>Compra direta</span><b>${money((c.valor||0)-comissaoRS(c))}</b></div>
     </div>
-    <p class="hint" style="margin:-8px 0 14px">Simulando com o valor <b>${c.semCorretagem?"sem":"com"} corretagem</b>: ${money(r.V)}. Comprando direto com o vendedor, ele não paga a comissão, então dá para oferecer até ${money(comissaoRS(c))} a menos e ele recebe o mesmo.</p>
-    <div class="big">
-      <div><span>Valor financiado</span><b>${money(r.P)}</b><div class="small muted">${Math.round(r.pctFin*100)}% do imóvel</div></div>
+    <p class="hint" style="margin:-8px 0 14px">Simulando com o valor <b>${c.semCorretagem?"sem":"com"} corretagem</b>, pagamento <b>${F?"financiado":"à vista"}</b>. Comprando direto com o vendedor, ele não paga a comissão, então dá para oferecer até ${money(comissaoRS(c))} a menos e ele recebe o mesmo.</p>
+    <div class="brk">
+      <div class="g"><span>Imóvel</span><b>${money(r.V)}</b></div>
+      ${grp("cartorio","Cartório e impostos")}
+      ${F?grp("financiamento","Custos do financiamento"):""}
+      ${grp("outros","Outros custos")}
+      <div class="tot"><span>Total da compra</span><b>${money(r.total)}</b></div>
+      <div class="small muted" style="text-align:right">Custos além do imóvel: ${money(r.custos)} (${r.V?(r.custos/r.V*100).toFixed(1).replace(".",","):"0"}% do valor)</div>
+    </div>
+    ${F?`<div class="big" style="margin-top:16px">
+      <div><span>Financiado pelo banco</span><b>${money(r.P)}</b><div class="small muted">${Math.round(r.pctFin*100)}% do imóvel</div></div>
       <div><span>Dinheiro do bolso</span><b>${money(r.bolso)}</b><div class="small muted">entrada sem FGTS + custos</div></div>
-      <div><span>Custos extras</span><b>${money(r.custos)}</b></div>
     </div>
     ${r.pctFin>0.8?`<div class="flag warn">Os bancos costumam financiar até 80% do valor do imóvel. Com esta entrada, vocês financiariam ${Math.round(r.pctFin*100)}%.</div>`:""}
     ${r.sac1?`<div class="cmp" style="margin-top:14px">
@@ -1037,9 +1100,10 @@ function renderOrcamento(){
         <div class="kv"><span>Diferença de juros</span><b>+${money(r.priceJuros-r.sacJuros)}</b></div>
         ${compP!=null?`<div class="kv"><span>Parcela / renda</span><b>${(compP*100).toFixed(1).replace(".",",")}%</b></div>`:""}</div>
     </div>
+    <p class="hint">Somem às parcelas cerca de ${money(r.seguros)} por mês de seguros obrigatórios (MIP e DFI) e taxa de administração, no começo do contrato. É uma estimativa: o valor real depende da idade de vocês e do banco.</p>
     ${comp!=null?(comp>0.3?`<div class="flag warn">A 1ª parcela do SAC passa de 30% da renda, que é o limite usual dos bancos. Renda mínima aproximada: ${money(r.sac1/0.3)}.</div>`:`<div class="flag ok">A 1ª parcela cabe no limite usual de 30% da renda.</div>`):`<p class="hint">Informem a renda do casal para ver se a parcela cabe no limite de 30% que os bancos usam.</p>`}`
-    :`<p class="hint">Preencham valor, entrada, juros e prazo para ver as parcelas.</p>`}
-    <p class="hint" style="margin-top:14px">As parcelas não incluem os seguros obrigatórios (MIP e DFI) nem a taxa de administração, que o banco soma a cada mês. Juros efetivos convertidos para taxa mensal.</p>`;
+    :`<p class="hint">Preencham entrada, juros e prazo para ver as parcelas.</p>`}`
+    :`<div class="big" style="margin-top:16px"><div><span>Dinheiro necessário à vista</span><b>${money(r.total)}</b><div class="small muted">imóvel + todos os custos</div></div></div>`}`;
 }
 $("#p-orcamento").addEventListener("input",e=>{
   const el=e.target;
@@ -1060,9 +1124,10 @@ $("#p-orcamento").addEventListener("focusout",e=>{if(e.target.closest("#custos")
 $("#p-orcamento").addEventListener("click",e=>{
   const cp=e.target.closest("[data-cpct]");if(cp){setCfg({corretagem:+cp.dataset.cpct});return}
   const sc=e.target.closest("[data-semc]");if(sc){setCfg({semCorretagem:sc.dataset.semc==="1"});return}
+  const fo=e.target.closest("[data-forma]");if(fo){setCfg({forma:fo.dataset.forma});return}
+  const ad=e.target.closest("[data-addc]");if(ad){const id=newId();setCfg({custos:[...cfg().custos,{id,grupo:ad.dataset.addc,nome:"Novo custo",modo:"rs",valor:0}]});const el=$("#cn_"+id);if(el){el.focus();el.select()}return}
   if(e.target.closest("[data-rmc]")){const id=e.target.closest("[data-cid]").dataset.cid;const custos=cfg().custos.filter(x=>x.id!==id);document.activeElement.blur();setCfg({custos})}
 });
-$("#btnCusto").onclick=()=>{const id=newId();setCfg({custos:[...cfg().custos,{id,nome:"Novo custo",modo:"rs",valor:0}]});const el=$("#cn_"+id);if(el){el.focus();el.select()}};
 
 /* ---- checklist ---- */
 function renderChecklist(){
