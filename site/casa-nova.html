@@ -128,6 +128,9 @@ legend{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:1
 .lz svg{flex:none}
 .lz.top{background:var(--accent);color:#1b1400}
 .lz.no{background:none;color:var(--muted);font-weight:600;text-decoration:line-through;padding-inline:2px}
+.lz.alaga{background:var(--warn-soft);color:var(--warn)}
+.lz.alaga.grave{background:var(--bad-soft);color:var(--bad)}
+.lz.seco{background:var(--ok-soft);color:var(--ok)}
 .chip.lzc[aria-pressed="true"]{background:var(--info);border-color:var(--info);color:var(--bg)}
 .dots{letter-spacing:2px;color:var(--accent);font-size:12px}
 .empty{border:1.5px dashed var(--line);border-radius:14px;padding:36px 20px;text-align:center;color:var(--muted)}
@@ -451,7 +454,7 @@ const CORRETORAS={"zapimoveis":"ZAP Imóveis","vivareal":"Viva Real","quintoanda
 const S={imoveis:{},checklist:{},documentos:{},agenda:{},contatos:{},config:{}};
 const COLLS=Object.keys(S);
 let db=null,assets=null,sample=null,downloads=null,imgLimits=null,readOnly=false;
-const UI={tab:"imoveis",q:"",status:"ativos",fav:false,piscina:false,gourmet:false,sort:"recentes",view:store.get("cn_view")||"cards"};
+const UI={tab:"imoveis",q:"",status:"ativos",fav:false,piscina:false,gourmet:false,semAlaga:false,sort:"recentes",view:store.get("cn_view")||"cards"};
 
 /* ---------- toast ---------- */
 let toastT;
@@ -517,7 +520,16 @@ function lazerBadges(d){
   }
   if(d.piscina==="nao")out.push(`<span class="lz no">Sem piscina</span>`);
   if(d.churrasqueira==="nao")out.push(`<span class="lz no">Sem churrasqueira</span>`);
+  const al=alagaBadge(d);if(al)out.unshift(al);
   return out.length?`<div class="lazer">${out.join("")}</div>`:"";
+}
+const ALAGA={nao:"Não alaga",rua:"A rua alaga às vezes",imovel:"O imóvel alaga"};
+const icoDrop=`<svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5C6 4.5 3.5 7 3.5 10a4.5 4.5 0 0 0 9 0c0-3-2.5-5.5-4.5-8.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+function alagaBadge(d){
+  if(d.alaga==="rua")return `<span class="lz alaga">${icoDrop}Rua alaga</span>`;
+  if(d.alaga==="imovel")return `<span class="lz alaga grave">${icoDrop}Imóvel alaga</span>`;
+  if(d.alaga==="nao")return `<span class="lz seco">${icoDrop}Não alaga</span>`;
+  return "";
 }
 const simNao=v=>v==="sim"?"Sim":v==="nao"?"Não":"";
 function hostOf(url){try{return new URL(url).hostname.replace(/^www\./,"")}catch(e){return ""}}
@@ -626,6 +638,7 @@ function filtered(){
   if(UI.fav)a=a.filter(d=>d.favorito);
   if(UI.piscina)a=a.filter(d=>d.piscina==="sim"||d.gourmetPiscina==="sim");
   if(UI.gourmet)a=a.filter(d=>d.gourmetPiscina==="sim");
+  if(UI.semAlaga)a=a.filter(d=>d.alaga!=="rua"&&d.alaga!=="imovel");
   const q=UI.q.trim().toLowerCase();
   if(q)a=a.filter(d=>[d.titulo,d.bairro,d.cidade,d.endereco,d.corretora,d.tipo].join(" ").toLowerCase().includes(q));
   const nz=(v,alt)=>v==null?alt:v;
@@ -649,7 +662,7 @@ function renderImoveis(){
     <div><b>${all.filter(d=>d.status==="proposta").length}</b><span>com proposta</span></div>`;
   const cnt=k=>k==="ativos"?ativos.length:k==="todos"?all.length:all.filter(d=>d.status===k).length;
   const chipDefs=[["ativos","No páreo"],...Object.entries(STATUS),["todos","Todos"]];
-  $("#chips").innerHTML=`<button class="chip fav" type="button" data-fav aria-pressed="${UI.fav}">★ Só favoritas</button><button class="chip lzc" type="button" data-lz="piscina" aria-pressed="${UI.piscina}">Com piscina ${all.filter(d=>d.piscina==="sim"||d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="gourmet" aria-pressed="${UI.gourmet}">Gourmet + piscina ${all.filter(d=>d.gourmetPiscina==="sim").length}</button>`+
+  $("#chips").innerHTML=`<button class="chip fav" type="button" data-fav aria-pressed="${UI.fav}">★ Só favoritas</button><button class="chip lzc" type="button" data-lz="piscina" aria-pressed="${UI.piscina}">Com piscina ${all.filter(d=>d.piscina==="sim"||d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="gourmet" aria-pressed="${UI.gourmet}">Gourmet + piscina ${all.filter(d=>d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="semAlaga" aria-pressed="${UI.semAlaga}">Esconder os que alagam</button>`+
     chipDefs.map(([k,l])=>`<button class="chip" type="button" data-st="${k}" aria-pressed="${UI.status===k}">${esc(l)} ${cnt(k)}</button>`).join("");
   $("#v-cards").setAttribute("aria-pressed",String(UI.view==="cards"));
   $("#v-tabela").setAttribute("aria-pressed",String(UI.view==="tabela"));
@@ -661,14 +674,14 @@ function renderImoveis(){
   }
   if(!list.length){box.innerHTML=`<div class="empty"><h3>Nada com esse filtro</h3><p>${UI.fav?"Marquem a estrela ★ nos imóveis que vocês mais gostaram.":"Tentem outro filtro ou busca."}</p></div>`;return}
   if(UI.view==="tabela"){
-    box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th>Piscina</th><th>Churrasq.</th><th>Gourmet + piscina</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
+    box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th>Piscina</th><th>Churrasq.</th><th>Gourmet + piscina</th><th>Alagamento</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
       list.map(d=>{const mens=(d.condominio||0)+(d.iptu||0)/12;return `<tr data-id="${esc(d.id)}">
         <td><button class="tstar" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="Favorita">★</button></td>
         <td><b>${esc(titleOf(d))}</b><div class="small muted">${esc(locOf(d))}</div></td>
         <td><span class="pill st-${esc(d.status||"interesse")}">${esc(STATUS[d.status]||STATUS.interesse)}</span></td>
         <td class="n">${money(d.preco)}</td><td class="n">${d.area?numIn(d.area):"—"}</td><td class="n">${money(ppm(d))}</td>
         <td class="n">${d.quartos??"—"}</td><td class="n">${d.vagas??"—"}</td><td class="n">${mens?money(mens):"—"}</td>
-        <td>${simNao(d.piscina)||"—"}</td><td>${simNao(d.churrasqueira)||"—"}</td><td>${d.gourmetPiscina==="sim"?'<span class="lz top">Sim</span>':(simNao(d.gourmetPiscina)||"—")}</td>
+        <td>${simNao(d.piscina)||"—"}</td><td>${simNao(d.churrasqueira)||"—"}</td><td>${d.gourmetPiscina==="sim"?'<span class="lz top">Sim</span>':(simNao(d.gourmetPiscina)||"—")}</td><td>${alagaBadge(d)||"—"}</td>
         <td class="n">${d.nota?d.nota+"/5":"—"}</td>
         <td>${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">${esc(d.corretora||hostOf(d.link))} ↗</a>`:"—"}</td></tr>`}).join("")
     }</tbody></table></div>`;
@@ -744,7 +757,8 @@ function openDetail(id,preset){
     <fieldset><legend>Onde fica</legend><div class="fields">
       ${field("f_endereco","Endereço",d.endereco,{wide:true})}
       ${field("f_bairro","Bairro",d.bairro)}
-      ${field("f_cidade","Cidade",d.cidade,{ph:"Campinas - SP"})}
+      ${field("f_cidade","Cidade",d.cidade,{ph:"Florianópolis - SC"})}
+      <label class="f">Alagamento<select id="f_alaga"><option value="">Não sei</option>${Object.entries(ALAGA).map(([k,l])=>`<option value="${k}" ${d.alaga===k?"selected":""}>${l}</option>`).join("")}</select></label>
     </div></fieldset>
     <fieldset><legend>Anúncio e corretor</legend><div class="fields">
       ${field("f_link","Link do anúncio",d.link,{type:"url",wide:true})}
@@ -780,7 +794,7 @@ function readForm(){
     preco:n("f_preco"),condominio:n("f_condominio"),iptu:n("f_iptu"),area:n("f_area"),areaTerreno:n("f_areaTerreno"),
     quartos:n("f_quartos"),suites:n("f_suites"),banheiros:n("f_banheiros"),vagas:n("f_vagas"),
     endereco:v("f_endereco"),bairro:v("f_bairro"),cidade:v("f_cidade"),link:v("f_link"),corretora:v("f_corretora"),contatoCorretor:v("f_contato"),
-    piscina:v("f_piscina"),churrasqueira:v("f_churrasqueira"),gourmetPiscina:v("f_gourmetPiscina"),
+    alaga:v("f_alaga"),piscina:v("f_piscina"),churrasqueira:v("f_churrasqueira"),gourmetPiscina:v("f_gourmetPiscina"),
     pros:$("#f_pros").value.trim(),contras:$("#f_contras").value.trim(),notas:$("#f_notas").value.trim()};
 }
 function fillForm(d){
@@ -798,6 +812,10 @@ async function saveDetail(){
   const data={...old,...form,fotos:draft.fotos,atualizadoEm:nowISO()};
   if(!old.criadoEm)data.criadoEm=nowISO();
   delete data.palpites;
+  {const L={rua:"• A rua alaga às vezes",imovel:"• O imóvel alaga"};
+   let c=(data.contras||"").split("\n").filter(x=>!Object.values(L).includes(x.trim())).join("\n").trim();
+   if(L[data.alaga])c=L[data.alaga]+(c?"\n"+c:"");
+   data.contras=c;}
   if(data.extracao==="pendente"&&data.preco&&(data.area||data.quartos))data.extracao="ok";
   const ai=$("#ai_texto");if(ai&&ai.value.trim())data.anuncioTexto=ai.value.trim().slice(0,20000);
   Object.keys(data).forEach(k=>{if(data[k]===null||data[k]==="")delete data[k]});
@@ -1118,8 +1136,8 @@ $("#p-agenda").addEventListener("click",e=>{
 /* ---- export ---- */
 function csvCell(v){v=v==null?"":String(v);return /[";\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
 $("#btnCsv").onclick=async()=>{
-  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço","preco"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Piscina","piscina"],["Churrasqueira","churrasqueira"],["Gourmet integrado à piscina","gourmetPiscina"],["Nota","nota"],["Imobiliária","corretora"],["Contato","contatoCorretor"],["Link","link"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
-  const rows=[cols.map(c=>c[0]).join(";")].concat(imoveisArr().map(d=>cols.map(([,k])=>{let v=d[k];if(k==="favorito")v=v?"Sim":"";if(k==="status")v=STATUS[v]||v;if(["piscina","churrasqueira","gourmetPiscina"].includes(k))v=simNao(v);if(typeof v==="number")v=String(v).replace(".",",");return csvCell(v)}).join(";")));
+  const cols=[["Favorita","favorito"],["Nome","titulo"],["Status","status"],["Tipo","tipo"],["Preço","preco"],["Condomínio/mês","condominio"],["IPTU/ano","iptu"],["Área m²","area"],["Terreno m²","areaTerreno"],["Quartos","quartos"],["Suítes","suites"],["Banheiros","banheiros"],["Vagas","vagas"],["Endereço","endereco"],["Bairro","bairro"],["Cidade","cidade"],["Piscina","piscina"],["Churrasqueira","churrasqueira"],["Gourmet integrado à piscina","gourmetPiscina"],["Alagamento","alaga"],["Nota","nota"],["Imobiliária","corretora"],["Contato","contatoCorretor"],["Link","link"],["Prós","pros"],["Contras","contras"],["Observações","notas"]];
+  const rows=[cols.map(c=>c[0]).join(";")].concat(imoveisArr().map(d=>cols.map(([,k])=>{let v=d[k];if(k==="favorito")v=v?"Sim":"";if(k==="status")v=STATUS[v]||v;if(["piscina","churrasqueira","gourmetPiscina"].includes(k))v=simNao(v);if(k==="alaga")v=ALAGA[v]||"";if(typeof v==="number")v=String(v).replace(".",",");return csvCell(v)}).join(";")));
   try{await downloads.save({filename:"casa-nova-imoveis.csv",data:"﻿"+rows.join("\n")})}catch(e){if(e&&e.code!=="declined")toast("Não deu para baixar o arquivo.")}
 };
 $("#btnBackup").onclick=async()=>{
