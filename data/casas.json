@@ -1,0 +1,5610 @@
+{
+ "eventos": {
+  "baixou": [],
+  "baseInicial": true,
+  "novos": [
+   "daga:1613",
+   "daga:1718",
+   "daga:1674",
+   "daga:1044",
+   "daga:1557",
+   "daga:1673",
+   "daga:1635",
+   "daga:1675",
+   "daga:1258",
+   "daga:1727",
+   "quadra:CA1404-QUB",
+   "quadra:CA1418-QUB",
+   "quadra:CA1359-QUB",
+   "quadra:CA1459-QUB",
+   "quadra:CA1361-QUB",
+   "quadra:CA1429-QUB",
+   "quadra:CA1383-QUB",
+   "quadra:CA1360-QUB",
+   "quadra:CA1386-QUB",
+   "quadra:CA1463-QUB",
+   "quadra:CA1202-QUB",
+   "quadra:CA1380-QUB",
+   "quadra:CA1452-QUB",
+   "quadra:CA1442-QUB",
+   "quadra:CA1379-QUB",
+   "quadra:CA1441-QUB",
+   "quadra:CA1416-QUB",
+   "quadra:CA1417-QUB",
+   "quadra:CA1407-QUB",
+   "quadra:CA1011-QUB",
+   "quadra:CA1094-QUB",
+   "quadra:CA1448-QUB",
+   "quadra:CA1317-QUB",
+   "quadra:CA1072-QUB",
+   "quadra:CA1446-QUB",
+   "quadra:CA1453-QUB",
+   "quadra:CA1447-QUB",
+   "quadra:CA1450-QUB",
+   "quadra:CA1352-QUB",
+   "quadra:CA1235-QUB",
+   "quadra:CA1335-QUB",
+   "quadra:CA1451-QUB",
+   "quadra:CA1445-QUB",
+   "quadra:CA1205-QUB",
+   "bella:CA2762-B89",
+   "bella:CA2754-B89",
+   "bella:CA1326-B89",
+   "bella:CA2796-B89",
+   "bella:CA2797-B89",
+   "bella:CA2794-B89",
+   "bella:CA2804-B89",
+   "bella:CA2785-B89",
+   "bella:CA2786-B89",
+   "bella:CA2799-B89",
+   "bella:CA2854-B89",
+   "invista:CA0325-INYT",
+   "invista:CA3161-INYT",
+   "invista:CA3162-INYT",
+   "invista:CA3079-INYT",
+   "invista:CA2832-INYT",
+   "invista:CA3097-INYT",
+   "invista:CA3098-INYT",
+   "invista:CA3078-INYT",
+   "invista:CA3099-INYT",
+   "invista:CA3177-INYT",
+   "lideranca:C1078",
+   "lideranca:C1077",
+   "lideranca:C1030",
+   "lideranca:C1029",
+   "lideranca:C1004",
+   "lideranca:C906",
+   "lideranca:C1091",
+   "lideranca:C1092",
+   "lideranca:C1089",
+   "lideranca:C1018",
+   "lideranca:C1059",
+   "lideranca:C1051",
+   "lideranca:C706",
+   "lideranca:C1070",
+   "lideranca:C988",
+   "smolka:19651",
+   "smolka:56757",
+   "smolka:56375",
+   "smolka:58060",
+   "smolka:56708",
+   "smolka:57812",
+   "smolka:57140",
+   "smolka:57078",
+   "smolka:56902",
+   "smolka:57545",
+   "smolka:57301",
+   "smolka:57164",
+   "smolka:55900",
+   "smolka:56963",
+   "smolka:18950",
+   "auxiliadora:839828",
+   "auxiliadora:822298",
+   "auxiliadora:750280",
+   "auxiliadora:815811",
+   "auxiliadora:840645",
+   "auxiliadora:787262",
+   "auxiliadora:842145",
+   "auxiliadora:656539",
+   "auxiliadora:822738",
+   "auxiliadora:827600",
+   "auxiliadora:839711",
+   "auxiliadora:776877",
+   "auxiliadora:478562",
+   "auxiliadora:768437",
+   "auxiliadora:390347",
+   "auxiliadora:482357",
+   "auxiliadora:773909",
+   "auxiliadora:656948",
+   "auxiliadora:658859",
+   "auxiliadora:658839",
+   "auxiliadora:837521",
+   "auxiliadora:841044",
+   "auxiliadora:767472",
+   "auxiliadora:767473",
+   "auxiliadora:833988",
+   "auxiliadora:705940",
+   "auxiliadora:762717",
+   "auxiliadora:444640",
+   "auxiliadora:743343",
+   "brognoli:93592",
+   "brognoli:92208",
+   "brognoli:91988",
+   "brognoli:82040",
+   "brognoli:43704",
+   "brognoli:43818",
+   "brognoli:42522",
+   "brognoli:92962",
+   "brognoli:92186",
+   "brognoli:88092",
+   "brognoli:81274",
+   "brognoli:82406",
+   "brognoli:42320",
+   "seiter:CA00783",
+   "seiter:CA0750",
+   "seiter:CA00601",
+   "seiter:CA00788",
+   "seiter:CA00803",
+   "seiter:CA00577",
+   "seiter:CA00657",
+   "seiter:CA00402",
+   "seiter:CA0756",
+   "seiter:CA0744",
+   "seiter:CA0734",
+   "onliving:1961973",
+   "onliving:1961972",
+   "onliving:1961553",
+   "onliving:1960111",
+   "onliving:1961014",
+   "onliving:1960909",
+   "onliving:1960779",
+   "onliving:1960542",
+   "onliving:1960510",
+   "onliving:1960420",
+   "onliving:1960415",
+   "onliving:1960395",
+   "onliving:1959593",
+   "onliving:1958900",
+   "onliving:1958705",
+   "onliving:1958742",
+   "onliving:1958426",
+   "onliving:1958454",
+   "onliving:1958214",
+   "onliving:1958278",
+   "onliving:1958172",
+   "onliving:1958040",
+   "onliving:1957765",
+   "onliving:1957675",
+   "onliving:1956529",
+   "duda:54040",
+   "duda:54039",
+   "duda:46385",
+   "duda:54956",
+   "duda:54958",
+   "duda:54959",
+   "duda:55400",
+   "duda:56265",
+   "duda:57182"
+  ],
+  "quando": "2026-10-01T16:47:59-03:00",
+  "saiu": [],
+  "subiu": [],
+  "voltou": []
+ },
+ "fontes": {
+  "auxiliadora": {
+   "casas": 60,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 60,
+   "nome": "Auxiliadora Predial",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 8
+  },
+  "bella": {
+   "casas": 26,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 26,
+   "nome": "Bella Floripa Imóveis",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 4
+  },
+  "brognoli": {
+   "casas": 33,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 103,
+   "nome": "Brognoli / Dalton Andrade",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 12
+  },
+  "cesarvaz": {
+   "erro": "HTTPError",
+   "falhasSeguidas": 1,
+   "lidos": 0,
+   "nome": "Cesar Vaz",
+   "ok": false,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 31
+  },
+  "daga": {
+   "casas": 20,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 348,
+   "nome": "Daga Imóveis",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 5
+  },
+  "duda": {
+   "casas": 17,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 17,
+   "nome": "Duda Imóveis",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 5
+  },
+  "invista": {
+   "casas": 21,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 21,
+   "nome": "Invista Imóveis",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 4
+  },
+  "lideranca": {
+   "casas": 27,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 126,
+   "nome": "Liderança Imobiliária",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 47
+  },
+  "onliving": {
+   "casas": 57,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 57,
+   "nome": "OnLiving (F1)",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 10
+  },
+  "quadra": {
+   "casas": 61,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 61,
+   "nome": "Quadra Imobiliária",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 9
+  },
+  "seiter": {
+   "casas": 20,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 20,
+   "nome": "Seiter Imobiliária",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 2
+  },
+  "smolka": {
+   "casas": 39,
+   "erro": null,
+   "falhasSeguidas": 0,
+   "lidos": 108,
+   "nome": "Smolka Imóveis",
+   "ok": true,
+   "quando": "2026-10-01T16:47:59-03:00",
+   "segundos": 44
+  }
+ },
+ "imoveis": {
+  "auxiliadora:390347": {
+   "area": 179,
+   "areaTerreno": 179,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "390347",
+   "endereco": "Rua Professor Gilberto Cabussu 1",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46547/pictures/390347-ikN87rVJ895o01YM9_39034764c2aa3e0605e.jpg",
+   "grupo": "auxiliadora:390347",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1980000
+    }
+   ],
+   "id": "auxiliadora:390347",
+   "iptu": 100,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/390347/casa-santa-monica-florianopolis-santa-catarina",
+   "preco": 1980000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa em Santa Mônica",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:444640": {
+   "area": 194,
+   "areaTerreno": 510.4,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "444640",
+   "endereco": "Servidão Antônio Irineu da Silva 300",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/45837/pictures/444640-i893n_4446406515c2994b8fb.jpg",
+   "grupo": "auxiliadora:444640",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1915000
+    }
+   ],
+   "id": "auxiliadora:444640",
+   "iptu": 1674.3,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/444640/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1915000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:478562": {
+   "area": 133.43,
+   "areaTerreno": 164,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "478562",
+   "endereco": "Rua João Carlos de Souza 290",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/56712/pictures/478562-i2e19Lt2GUj9V4u5sY_478562678bf9f1734bc.jpg",
+   "grupo": "auxiliadora:478562",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1520000
+    }
+   ],
+   "id": "auxiliadora:478562",
+   "iptu": 1000,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/478562/casa-santa-monica-florianopolis-santa-catarina",
+   "preco": 1520000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa em Santa Mônica",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:482357": {
+   "area": 125,
+   "areaTerreno": 155,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "482357",
+   "endereco": "Rua Cônego Thomaz Fontes 134",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46692/pictures/482357-iq824Z3u8gs3UOr4N1_48235768dd7eb2d944c.jpg",
+   "grupo": "auxiliadora:482357",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2100000
+    }
+   ],
+   "id": "auxiliadora:482357",
+   "iptu": 1800,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/482357/casa-santa-monica-florianopolis-santa-catarina",
+   "preco": 2100000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 7,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa em Santa Mônica",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "auxiliadora:656539": {
+   "area": 396,
+   "areaTerreno": 396,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "656539",
+   "endereco": "Rua Maria Alexandre Machado 105",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/56813/pictures/656539-ic536NI2532U_6565396a0760c28419c.jpg",
+   "grupo": "auxiliadora:656539",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2090000
+    }
+   ],
+   "id": "auxiliadora:656539",
+   "iptu": 1193,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/656539/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 2090000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "auxiliadora:656948": {
+   "area": 199.83,
+   "areaTerreno": 202.01,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "656948",
+   "endereco": "Rua Acadêmico Reinaldo Consoni 200",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46009/pictures/656948-ii17W6C2G4d_65694869711b143f978.jpg",
+   "grupo": "auxiliadora:656948",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1725000
+    }
+   ],
+   "id": "auxiliadora:656948",
+   "iptu": 1605.27,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/656948/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1725000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:658839": {
+   "area": 208.53,
+   "areaTerreno": 210.71,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "658839",
+   "endereco": "Rua Acadêmico Reinaldo Consoni 200",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46045/pictures/658839-ifA8N1PZh9n_65883969710b5b7ffb9.jpg",
+   "grupo": "auxiliadora:658839",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1850000
+    }
+   ],
+   "id": "auxiliadora:658839",
+   "iptu": 1580,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/658839/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1850000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:658859": {
+   "area": 196.1,
+   "areaTerreno": 198.28,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "658859",
+   "endereco": "Rua Acadêmico Reinaldo Consoni 200",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46015/pictures/658859-i216a5sTu8X_658859697121dd251a9.jpg",
+   "grupo": "auxiliadora:658859",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1755000
+    }
+   ],
+   "id": "auxiliadora:658859",
+   "iptu": 1061,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/658859/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1755000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:705940": {
+   "area": 311,
+   "areaTerreno": 500,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "705940",
+   "endereco": "Servidão das Jaboticabeiras 109",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46095/pictures/705940-iZ44Q99W5785yHD949_7059406807e22eac784.jpg",
+   "grupo": "auxiliadora:705940",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1800000
+    }
+   ],
+   "id": "auxiliadora:705940",
+   "iptu": 2127.5,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/705940/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1800000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 11,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 10
+  },
+  "auxiliadora:743343": {
+   "area": 210,
+   "areaTerreno": 2800,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "743343",
+   "endereco": "Rua Sebastião Laurentino da Silva 907",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46195/pictures/743343-iaDI32gS6_74334368c41036a8b5a.jpg",
+   "grupo": "auxiliadora:743343",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1990000
+    }
+   ],
+   "id": "auxiliadora:743343",
+   "iptu": 2200,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/743343/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1990000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 8
+  },
+  "auxiliadora:750280": {
+   "area": 130,
+   "areaTerreno": 800,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "750280",
+   "endereco": "Servidão Monte Sião 80",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/55744/pictures/750280-iSXh1618673Itk8_75028068f113a950db2.jpg",
+   "grupo": "auxiliadora:750280",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 800000
+    }
+   ],
+   "id": "auxiliadora:750280",
+   "iptu": 1900,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/750280/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 800000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "auxiliadora:762717": {
+   "area": 193,
+   "areaTerreno": 393,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "762717",
+   "endereco": "Rua dos Jasmins 212",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46191/pictures/762717-i3rAX_7627176929b2767a3cb.jpg",
+   "grupo": "auxiliadora:762717",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1850000
+    }
+   ],
+   "id": "auxiliadora:762717",
+   "iptu": 1700,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/762717/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1850000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "auxiliadora:767472": {
+   "area": 152,
+   "areaTerreno": 162,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "767472",
+   "endereco": "Rua Octávio Lebarbenchon 140",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46226/pictures/767472-ibpH6bl_767472699f2b36e1cea.jpg",
+   "grupo": "auxiliadora:767472",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "auxiliadora:767472",
+   "iptu": 1450,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/767472/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "auxiliadora:767473": {
+   "area": 162,
+   "areaTerreno": 171,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "767473",
+   "endereco": "Rua Octávio Lebarbenchon 140",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46205/pictures/767473-i236_7674736941382a5c49c.jpg",
+   "grupo": "auxiliadora:767473",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "auxiliadora:767473",
+   "iptu": 1500,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/767473/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:768437": {
+   "area": 213.76,
+   "areaTerreno": 510,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "768437",
+   "endereco": "Rua Coronel Maurício Spalding de Souza 730",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/77315/pictures/768437-iG5J2Q8h1E2_7684376949a0e49da98.jpg",
+   "grupo": "auxiliadora:768437",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2050000
+    }
+   ],
+   "id": "auxiliadora:768437",
+   "iptu": 1000,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/768437/casa-santa-monica-florianopolis-santa-catarina",
+   "preco": 2050000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Santa Mônica",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "auxiliadora:773909": {
+   "area": 309,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "773909",
+   "endereco": "Rua Acadêmico Reinaldo Consoni 227",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46231/pictures/773909-i5G33t2185Z19zC456N8_7739096a0203942047b.jpg",
+   "grupo": "auxiliadora:773909",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1800000
+    }
+   ],
+   "id": "auxiliadora:773909",
+   "iptu": 2775,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/773909/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1800000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:776877": {
+   "area": 93,
+   "areaTerreno": 93,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "776877",
+   "endereco": "Vila Ivan Matos 90",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/58325/pictures/loft-b9cb067c-3a34-4821-aaaf-084d770ac66e-b0003def",
+   "grupo": "auxiliadora:776877",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1300000
+    }
+   ],
+   "id": "auxiliadora:776877",
+   "iptu": 3000,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/776877/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 1300000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:787262": {
+   "area": 217,
+   "areaTerreno": 338,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "787262",
+   "endereco": "Vila Ivan Matos 91",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/55966/pictures/787262-i5394_78726269cbf14fc58f3.jpg",
+   "grupo": "auxiliadora:787262",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1150000
+    }
+   ],
+   "id": "auxiliadora:787262",
+   "iptu": 1800,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/787262/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 1150000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:815811": {
+   "area": 254,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "815811",
+   "endereco": "Rua Itapeva 61",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46333/pictures/815811-i38Xe5zY8n_81581169fce460c4633.jpg",
+   "grupo": "auxiliadora:815811",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "auxiliadora:815811",
+   "iptu": 1307.05,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/815811/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "auxiliadora:822298": {
+   "area": 280,
+   "areaTerreno": 720,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "822298",
+   "endereco": "Rua Quilombo 290",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/56049/pictures/822298-iKBqhx7k3P8dRSy7c1k1_8222986a304aa66e0cd.jpg",
+   "grupo": "auxiliadora:822298",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1200000
+    }
+   ],
+   "id": "auxiliadora:822298",
+   "iptu": 4000,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/822298/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 1200000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "auxiliadora:822738": {
+   "area": 98,
+   "areaTerreno": 225,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "822738",
+   "endereco": "Servidão Deoscoro Peres 32",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/56052/pictures/822738-i91WW9m_8227386a6e3877e3ba0.jpg",
+   "grupo": "auxiliadora:822738",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "auxiliadora:822738",
+   "iptu": 950,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/822738/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:827600": {
+   "area": 288,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "827600",
+   "endereco": "Rua Itaipu 115",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/46344/pictures/827600-ibf7ro6H1I_8276006a5a44bc27d08.jpg",
+   "grupo": "auxiliadora:827600",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1950000
+    }
+   ],
+   "id": "auxiliadora:827600",
+   "iptu": 1641.72,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/827600/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 1950000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 6,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:833988": {
+   "area": 181.74,
+   "areaTerreno": 181.97,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "833988",
+   "endereco": "Rua Gênova 67",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/83111/pictures/833988-iHxL8PawMH_8339886a7b9074abc42.jpg",
+   "grupo": "auxiliadora:833988",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2030000
+    }
+   ],
+   "id": "auxiliadora:833988",
+   "iptu": 0.01,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/833988/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 2030000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "auxiliadora:837521": {
+   "area": 280,
+   "areaTerreno": 587.77,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 6,
+   "cidade": "Florianópolis - SC",
+   "codigo": "837521",
+   "endereco": "Rua Maestro Aldo Krieger 551",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/96747/pictures/837521-i9oK32lVwa7722zm_8375216a91bf94869c5.jpg",
+   "grupo": "auxiliadora:837521",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1750000
+    }
+   ],
+   "id": "auxiliadora:837521",
+   "iptu": 1000,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/837521/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1750000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 7,
+   "status": "ativo",
+   "suites": 5,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "auxiliadora:839711": {
+   "area": 160,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "839711",
+   "endereco": "Avenida Buriti 379",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/100760/pictures/839711-i6oG93fj2YO5591755_8397116aad8ac8c9b0b.jpg",
+   "grupo": "auxiliadora:839711",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1700000
+    }
+   ],
+   "id": "auxiliadora:839711",
+   "iptu": 1230,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/839711/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 1700000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "auxiliadora:839828": {
+   "area": 160,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "839828",
+   "endereco": "Avenida Buriti 397",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/98811/pictures/839828-iG1q4HHXggVx4438w3w_8398286a9b704c78662.jpg",
+   "grupo": "auxiliadora:839828",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1700000
+    }
+   ],
+   "id": "auxiliadora:839828",
+   "iptu": 1200,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/839828/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 1700000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "auxiliadora:840645": {
+   "area": 150,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "840645",
+   "endereco": "Rua Itapuã 65",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/100041/pictures/840645-i3N69dv24_8406456aa446d420657.jpg",
+   "grupo": "auxiliadora:840645",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1370000
+    }
+   ],
+   "id": "auxiliadora:840645",
+   "iptu": 1250,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/840645/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 1370000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "auxiliadora:841044": {
+   "area": 170.9,
+   "areaTerreno": 437.78,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "841044",
+   "endereco": "Rua dos Jasmins 401",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/100255/pictures/841044-ie56AZ7e_8410446aa66eb359088.jpg",
+   "grupo": "auxiliadora:841044",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1700000
+    }
+   ],
+   "id": "auxiliadora:841044",
+   "iptu": 1500,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/841044/casa-corrego-grande-florianopolis-santa-catarina",
+   "preco": 1700000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "auxiliadora:842145": {
+   "area": 120,
+   "areaTerreno": 602,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "842145",
+   "endereco": "Servidão Monte Sião 65",
+   "fonte": "auxiliadora",
+   "foto": "https://gestor.auxiliadorapredial.com.br/rest/image/auxiliadora/Product/101366/pictures/842145-iHE5YVP8x2929u8e5_8421456aad8e824b697.jpg",
+   "grupo": "auxiliadora:842145",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 590000
+    }
+   ],
+   "id": "auxiliadora:842145",
+   "iptu": 500,
+   "link": "https://www.auxiliadorapredial.com.br/imovel/venda/842145/casa-itacorubi-florianopolis-santa-catarina",
+   "preco": 590000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "bella:CA1326-B89": {
+   "area": 280,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1326-B89",
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0l88-hg6x03vJorfaGC4hG3-rqF+tSzt1vJ5832kprd9On9VcmH+qYC1rThPWCAjfd3d-c2aUFOOcVkZi7dfL6pZmdUszeJoFyVcaRfeTYN0AItqQl3mHq5f6aVr3I84AaMEemJjiWjZqLbW2d6DrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+SuKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWthJmrxXnw+WGLRKuRi6w4TCjaatO0WFMgU78LCerqfkO-igTrSDcWSggb8P+Y-RP8sWKYWhAmtEQHV2biId7FK4+OvGswCzIDSNth5HFUHf1p145ik=.jpg",
+   "grupo": "bella:CA1326-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1270000
+    }
+   ],
+   "id": "bella:CA1326-B89",
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-6-quartos-280-m/CA1326-B89",
+   "preco": 1270000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 6,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa de 280 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "bella:CA2754-B89": {
+   "area": 120,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2754-B89",
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtuxoi2sJq4VJjzecIDbSyuwy61a-E1szBhRqPpZOPmeLj8drBQfbV19k1yIvEPASUo5BZYpkfKR5gR8peV0y1TYyjJCdpkmXdjHnASIIcRGQF4QYI1Spsnmy6UbOt1wUJ9A+VBdTJmAfXYLjYIgZMRbMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+SuKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWthJmrxXnw+WGLRKuRi6w4TCjaatO0WFMgU78LCerqfkO-igTrSDcWSggb8P+Y-RP8sWKYWhAmtEQHV2biId7FK4+OvGswCzIDSNth5HFUHf1p145ik=.jpg",
+   "grupo": "bella:CA2754-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 980000
+    }
+   ],
+   "id": "bella:CA2754-B89",
+   "iptu": 1300,
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-4-quartos-120-m/CA2754-B89",
+   "preco": 980000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 120 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "bella:CA2762-B89": {
+   "area": 130,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2762-B89",
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3ZGz4pT+04SyuQ8eZHhpzC-8IOK+vmA-G2Uxrzk46uEjJumDf71+ZoQ+IPhMgas6bxHR8QYY15YathzWSC1YNekOnUMiQS1o3mcF6FJeXZcgz4rtjt92324GID05gUr5X+XG6Lfrx-Vb53rNl9DQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6APevm5PPedV-GacxP3wP61NeW6wcmvuVAupw6QEZovrFTQeShQjQiOM3eYWrWN9Og-cLl1rAHbYd7B++xoHOh6T4Z06HZVU4-bnJrae2OqykBdukeGStppUM5JTILodXKo2pAGdXUXc5MDwUqVy2qvTa4hirbC3YuBAKChPH3Zx4qw==.jpg",
+   "grupo": "auxiliadora:750280",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 800000
+    }
+   ],
+   "id": "bella:CA2762-B89",
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-3-quartos-130-m/CA2762-B89",
+   "preco": 800000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 130 m² Itacorubi - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "bella:CA2785-B89": {
+   "area": 164,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2785-B89",
+   "condominio": 30,
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3BH9Ns-60kuo5IrQ-qklQfd2JqS4-emqmWVwsrN7+Lg2fnyA5zv4oc1jon4N3qonoVqTMc-Flp4S-VLbCPGZYSLM2ZjjzKhomSRaOYXejVk9h4YuklVwkbgAb6R5XQt2wz6NOncgw2Bfo-AXV1nSMFHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+Tqi619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpOnaUcwwfDTrFI7k29x4HHgayvbhmOMFJr872X+aTkafn0Sv-sVm2gjJgl+pLKJtpaaIapCmlIU2R0IXwD5Re29rnZr1GrOHiU4xBJWF6NzpZ55mQ6.jpg",
+   "grupo": "bella:CA2785-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1725000
+    }
+   ],
+   "id": "bella:CA2785-B89",
+   "iptu": 80,
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-3-quartos-164-m/CA2785-B89",
+   "preco": 1725000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 164 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "bella:CA2786-B89": {
+   "area": 162,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2786-B89",
+   "condominio": 40,
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu35hjdRJ2hAJsuVBbrGx5TG6xInN9t3cj3vLysPbhI-rze6lQN3v9rg7-vP4Ak6zn5JhecR5AnlObscqSSXPBqK7FUlUpwOcjU-vE4Z5Rm1u3QhrgjxX-mOUQ4Ki238P0AWDDcndhBepd6rEK2t9TOFHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+Tqi619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpOnaUcwwfDTrFI7k29x4HHgayvbhmOMFJr872X+aTkafn0Sv-sVm2gjJgl+pLKJtpaaIapCmlIU2R0IXwD5Re29rnZr1GrOHiU4xBJWF6NzpZ55mQ6.jpg",
+   "grupo": "bella:CA2786-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1755000
+    }
+   ],
+   "id": "bella:CA2786-B89",
+   "iptu": 80,
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-3-quartos-162-m/CA2786-B89",
+   "preco": 1755000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 162 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "bella:CA2794-B89": {
+   "area": 152,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2794-B89",
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu1g47OlA6Epmo9oQc7WipBG-m96axIqXsW7T-JaPr4Tx+unfefDc4YwH2ozJTwTwjfVvesUMEmYkQOdLHSSvVIjQY1hzjBOXrVXvdeBhbWgPwC85kUlezgaGZ6+060I90Sq+TqvGryGSYLnMLGBjCrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+SuKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWthJmrxXnw+WGLRKuRi6w4TCjaatO0WFMgU78LCerqfkO-igTrSDcWSggb8P+Y-RP8sWKYWhAmtEQHV2biId7FK4+OvGswCzIDSNth5HFUHf1p145ik=.jpg",
+   "grupo": "bella:CA2794-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "bella:CA2794-B89",
+   "iptu": 120,
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-3-quartos-152-m/CA2794-B89",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa de 152 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "bella:CA2796-B89": {
+   "area": 162,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2796-B89",
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu1dgwNtDuggSnpQ-XoCx53S7hqaozciBhVqwopDGnJjJyJ-AUNXRwqMOw4TVV2KPt-B8Y40FLnxIS9FhZyHRfIOlNkYJhBa3h3TVVLxjf11cgB0NkSAJzmKScqP27XcB3TupBuOHpzWSfo3-J1hfGOpHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+Tqi619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpOnaUcwwfDTrFI7k29x4HHgayvbhmOMFJr872X+aTkafn0Sv-sVm2gjJgl+pLKJtpaaIapCmlIU2R0IXwD5Re29rnZr1GrOHiU4xBJWF6NzpZ55mQ6.jpg",
+   "grupo": "bella:CA2796-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "bella:CA2796-B89",
+   "iptu": 120,
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-3-quartos-162-m/CA2796-B89",
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 162 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "bella:CA2797-B89": {
+   "area": 152,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2797-B89",
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0te4dJR40oayMNBY6Hmozba3oC9+dmE8Bq505Dxs5yKzZ3we+vFl7wc7L7TA1mNvK1JHOB9Nl9ZfbVwFT-3U42dBFpMqTSHpmvrSZFEblRR4gEAjxEIyHuGZISP-U8ehwf9MN3VoCCTapD+Xld1QPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6APevm5PPedV-GacxP3wP61NeW6wcmvuVAupw6QEZovrFTQeShQjQiOM3eYWrWN9Og-cLl1rAHbYd7B++xoHOh6T4Z06HZVU4-bnJrae2OqykBdukeGStppUM5JTILodXKo2pAGdXUXc5MDwUqVy2qvTa4hirbC3YuBAKChPH3Zx4qw==.jpg",
+   "grupo": "bella:CA2797-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1590000
+    }
+   ],
+   "id": "bella:CA2797-B89",
+   "iptu": 150,
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-3-quartos-152-m/CA2797-B89",
+   "preco": 1590000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 152 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "bella:CA2799-B89": {
+   "area": 156,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2799-B89",
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu05o4IJ02QwhudoWUL3hvRWFgKqY4I26i0Gd5KTXmujm3uimffuGztxniJb9S1Og6q1dS84KL0FrTMd7bxq2e5vQLVUOhRuV-G-1RoxXZi9s-19owDlglGaTd4SI-X8d5R2PUKL9hTTXVJj+JV5lQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6APevm5PPedV-GacxP3wP61NeW6wcmvuVAupw6QEZovrFTQeShQjQiOM3eYWrWN9Og-cLl1rAHbYd7B++xoHOh6T4Z06HZVU4-bnJrae2OqykBdukeGStppUM5JTILodXKo2pAGdXUXc5MDwUqVy2qvTa4hirbC3YuBAKChPH3Zx4qw==.jpg",
+   "grupo": "bella:CA2799-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1840000
+    }
+   ],
+   "id": "bella:CA2799-B89",
+   "iptu": 1200,
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-5-quartos-156-m/CA2799-B89",
+   "preco": 1840000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa de 156 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "bella:CA2804-B89": {
+   "area": 130,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2804-B89",
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu05a6dgw-w0ssZcdTbqZ7Cy2hrK+u9uJmxmZ05-Uv6-aj-TmWsT-lpsu9qX9CUaN7oFERcYCGWkoYrdGXFnJeLekbHZjmhvUkXLqQLRbUUhu8h4XtRlunV7gBJaS+28i3S6sNfnIqDGoZoXFBXpMRbMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+SuKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWthJmrxXnw+WGLRKuRi6w4TCjaatO0WFMgU78LCerqfkO-igTrSDcWSggb8P+Y-RP8sWKYWhAmtEQHV2biId7FK4+OvGswCzIDSNth5HFUHf1p145ik=.jpg",
+   "grupo": "bella:CA2804-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1700000
+    }
+   ],
+   "id": "bella:CA2804-B89",
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-3-quartos-130-m/CA2804-B89",
+   "preco": 1700000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 130 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "bella:CA2854-B89": {
+   "area": 240,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2854-B89",
+   "fonte": "bella",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2tg6MpO-T0hjsgufoGA4DLWgdqWt+merBjM+qzGmKGKkOfhRN3XxrckibPSLRuvsZxFbdw1FhhTPcZFVC3TQIrZZlFLrj3dvUyTEZ1GX0NpwhMjjwdx+H21WsGt7AQr3By9NcHBiXeCUr7YKAd+NLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+SuKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWthJmrxXnw+WGLRKuRi6w4TCjaatO0WFMgU78LCerqfkO-igTrSDcWSggb8P+Y-RP8sWKYWhAmtEQHV2biId7FK4+OvGswCzIDSNth5HFUHf1p145ik=.jpg",
+   "grupo": "bella:CA2854-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1950000
+    }
+   ],
+   "id": "bella:CA2854-B89",
+   "link": "https://www.bellafloripaimoveis.com.br/imovel/casa-florianopolis-7-quartos-240-m/CA2854-B89",
+   "preco": 1950000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 7,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 240 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "brognoli:42320": {
+   "area": 243,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "cidade": "Florianópolis - SC",
+   "codigo": "42320",
+   "endereco": "Servidão Antônio Irineu da Silva",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE5ESXpNakF2WkhKcGRtVk5ZV2x1VUdodmRHOHZObDlwY25BNE9HbG1XRW96WHpReU5UQXpOalZrWTJVM05EazRaVGRtTWk1cWNHYz0=.webp",
+   "grupo": "brognoli:42320",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1900000
+    }
+   ],
+   "id": "brognoli:42320",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-243m-4-quartos-no-bairro-corrego-grande-em-florianopolis_42320/",
+   "preco": 1900000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa com 243m², 4 quartos (sendo 1 suíte), 2 garagens, no bairro Córrego Grande em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "brognoli:42522": {
+   "area": 264,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "cidade": "Florianópolis - SC",
+   "codigo": "42522",
+   "endereco": "Honorato Manoel Alexandre",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE5ESTFNakl2WkhKcGRtVk5ZV2x1VUdodmRHOHZPVjlwYTNFeWREUnFlRFJNYm01Zk5EY3hORFEyTmpaaU0yWmxaR0UwWm1Fd0xtcHdadz09.webp",
+   "grupo": "brognoli:42522",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1980000
+    }
+   ],
+   "id": "brognoli:42522",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-264m-4-quartos-no-bairro-itacorubi-em-florianopolis_42522/",
+   "preco": 1980000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa com 264m², 4 quartos (sendo 1 suíte), 4 garagens, no bairro Itacorubi em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "brognoli:43704": {
+   "area": 110,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "cidade": "Florianópolis - SC",
+   "codigo": "43704",
+   "endereco": "Rua Francisco José Ramos",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE5ETTNNRFF2WkhKcGRtVk5ZV2x1VUdodmRHOHZORjlwYXpWdU16ZzBUVjgxTkRRd056WTRNR1ppWXpreU1XRmxNMlF1YW5Cbg==.webp",
+   "grupo": "brognoli:43704",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1100000
+    }
+   ],
+   "id": "brognoli:43704",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-110m-3-quartos-no-bairro-itacorubi-em-florianopolis_43704/",
+   "preco": 1100000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa com 110m², 3 quartos, 5 garagens, no bairro Itacorubi em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 5
+  },
+  "brognoli:43818": {
+   "area": 270,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "cidade": "Florianópolis - SC",
+   "codigo": "43818",
+   "endereco": "Servidão Honorato Manoel Alexandre",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE5ETTRNVGd2WkhKcGRtVk5ZV2x1VUdodmRHOHZNRjlwVHpOVlQyRTVaek00TlRRNVlVaGZOVFE0TnpNMk9ESTNObUU1Tm1Rek9ERmxMbXB3Wnc9PQ==.webp",
+   "grupo": "brognoli:43818",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1550000
+    }
+   ],
+   "id": "brognoli:43818",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-270m-5-quartos-no-bairro-itacorubi-em-florianopolis_43818/",
+   "preco": 1550000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa com 270m², 5 quartos (sendo 1 suíte), 3 garagens, no bairro Itacorubi em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "brognoli:81274": {
+   "area": 153,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "cidade": "Florianópolis - SC",
+   "codigo": "81274",
+   "endereco": "Avenida Buriti",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE9ERXlOelF2WkhKcGRtVk5ZV2x1VUdodmRHOHZNVjlwVVRRNE5rOWpOREV6YVZrNGJ6RlFOMTgxT0RFek1EWTVOakkxTjJZeU5HSmpaRGd1YW5Cbg==.webp",
+   "grupo": "brognoli:81274",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1080000
+    }
+   ],
+   "id": "brognoli:81274",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-153m-3-quartos-no-bairro-parque-sao-jorge-em-florianopolis_81274/",
+   "preco": 1080000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa com 153m², 3 quartos (sendo 1 suíte), no bairro Parque São Jorge em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "brognoli:82040": {
+   "area": 170,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "cidade": "Florianópolis - SC",
+   "codigo": "82040",
+   "endereco": "Rua Itapeva",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE9ESXdOREF2WkhKcGRtVk5ZV2x1VUdodmRHOHZNRjlwTWpjNFVqVkxOR1pwTmtscE9UZGZOVGt4TWpFMk9XTmlaR0ZsWXpJNVlUbGxMbXB3Wnc9PQ==.webp",
+   "grupo": "brognoli:82040",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "brognoli:82040",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-170m-3-quartos-no-bairro-itacorubi-em-florianopolis_82040/",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa com 170m², 3 quartos (sendo 1 suíte), 2 garagens, no bairro Itacorubi em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "brognoli:82406": {
+   "area": 207,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "cidade": "Florianópolis - SC",
+   "codigo": "82406",
+   "endereco": "Rua Ancelon Eduardo da Silva",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE9ESTBNRFl2WkhKcGRtVk5ZV2x1VUdodmRHOHZNVEJmYVc1MU1XVTROak16UXpGMFh6VTVOVEl4TmpsbU9HRXdZVEkwWXpZeVlpNXFjR2M9.webp",
+   "grupo": "brognoli:82406",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2100000
+    }
+   ],
+   "id": "brognoli:82406",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-207m-3-quartos-no-bairro-corrego-grande-em-florianopolis_82406/",
+   "preco": 2100000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa com 207m², 3 quartos (sendo 3 suítes), 2 garagens, no bairro Córrego Grande em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "brognoli:88092": {
+   "area": 156,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "cidade": "Florianópolis - SC",
+   "codigo": "88092",
+   "endereco": "Rua Acadêmico Reinaldo Consoni",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE9EZ3dPVEl2WkhKcGRtVk5ZV2x1VUdodmRHOHZOVjlwZERoaE1XVmZOVGM0TkRNMk9UTTRNbVpoTXpsbE16WTVMbXB3Wnc9PQ==.webp",
+   "grupo": "bella:CA2799-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1840000
+    }
+   ],
+   "id": "brognoli:88092",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-156m-5-quartos-no-bairro-santa-monica-em-florianopolis_88092/",
+   "preco": 1840000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa com 156m², 5 quartos (sendo 3 suítes), 3 garagens, no bairro Santa Mônica em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "brognoli:91988": {
+   "area": 164,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "cidade": "Florianópolis - SC",
+   "codigo": "91988",
+   "endereco": "Rua Maria Luiza Agostinho",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE9URTVPRGd2WkhKcGRtVlFhRzkwYjNNdk1UYzRNelUwTWpReU5EQTBOMTh3WDFkb1lYUnpRWEJ3WDBsdFlXZGxYekl3TWpZdE1EY3RNREpmWVhSZk1UY3VNekl1TWpFdWFuQm4=.webp",
+   "grupo": "auxiliadora:839711",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "brognoli:91988",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-164m-3-quartos-no-bairro-itacorubi-em-florianopolis_91988/",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa com 164m², 3 quartos (sendo 1 suíte), 1 garagem, no bairro Itacorubi em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "brognoli:92186": {
+   "area": 129,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "cidade": "Florianópolis - SC",
+   "codigo": "92186",
+   "endereco": "Rua João Carlos de Souza",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE9USXhPRFl2WkhKcGRtVlFhRzkwYjNNdk1UYzRPREF3T1RFMU16Z3lPVjh3WDFkb1lYUnpRWEJ3WDBsdFlXZGxYekl3TWpZdE1EZ3RNamxmWVhSZk1UQXVNRGt1TWpKZk0xOHVhbkJu.webp",
+   "grupo": "bella:CA2804-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1700000
+    }
+   ],
+   "id": "brognoli:92186",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-129m-3-quartos-no-bairro-santa-monica-em-florianopolis_92186/",
+   "preco": 1700000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa com 129m², 3 quartos (sendo 1 suíte), 1 garagem, no bairro Santa Mônica em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "brognoli:92208": {
+   "area": 288,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "cidade": "Florianópolis - SC",
+   "codigo": "92208",
+   "endereco": "Rua Itaipu",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE9USXlNRGd2WkhKcGRtVlFhRzkwYjNNdk1UYzRORFUyT1RRME9UQTRObDh3WDFkb1lYUnpRWEJ3WDBsdFlXZGxYekl3TWpZdE1EY3RNVE5mWVhSZk1Ea3VNVFl1TkRRdWFuQm4=.webp",
+   "grupo": "brognoli:92208",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1950000
+    }
+   ],
+   "id": "brognoli:92208",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-288m-4-quartos-no-bairro-itacorubi-em-florianopolis_92208/",
+   "preco": 1950000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa com 288m², 4 quartos (sendo 2 suítes), 2 garagens, no bairro Itacorubi em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "brognoli:92962": {
+   "area": 122,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "cidade": "Florianópolis - SC",
+   "codigo": "92962",
+   "endereco": "Rua João Carlos de Souza",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE9USTVOakl2WkhKcGRtVk5ZV2x1VUdodmRHOHZNVGM0T0RBd09UVTBOemcwTVY4d1gxZG9ZWFJ6UVhCd1gwbHRZV2RsWHpJd01qWXRNRGd0TWpsZllYUmZNVEF1TURrdU1qSmZNVjh1YW5Cbg==.webp",
+   "grupo": "brognoli:92962",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1520000
+    }
+   ],
+   "id": "brognoli:92962",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-122m-3-quartos-no-bairro-santa-monica-em-florianopolis_92962/",
+   "preco": 1520000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa com 122m², 3 quartos (sendo 3 suítes), 1 garagem, no bairro Santa Mônica em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "brognoli:93592": {
+   "area": 264,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "cidade": "Florianópolis - SC",
+   "codigo": "93592",
+   "endereco": "Servidão Honorato Manoel Alexandre",
+   "fonte": "brognoli",
+   "foto": "https://www.brognoli.com.br/fotos/250x250/YUhSMGNITTZMeTl3ZFdJdFpETmlZVEJpTVRNM1ptTTVOR0V4TldFMllUQmhPREprTVRZeE9EQTBaREl1Y2pJdVpHVjJMMkp5YjJkdWIyeHBMekV3TkRZdE9UTTFPVEl2WkhKcGRtVlFhRzkwYjNNdk1UYzVNREF4TXprNE9UWTBOVjh3WDJObU5UZzJNV1l3TFRRNE1XVXRORGs0WlMxaE16VXlMVEZoWVRFNE9XWXlaVEl6WlM1cWNHYz0=.webp",
+   "grupo": "brognoli:93592",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2100000
+    }
+   ],
+   "id": "brognoli:93592",
+   "link": "https://www.brognoli.com.br/imovel/comprar-casa-com-264m-3-quartos-no-bairro-itacorubi-em-florianopolis_93592/",
+   "preco": 2100000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa com 264m², 3 quartos (sendo 1 suíte), 2 garagens, no bairro Itacorubi em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "daga:1044": {
+   "area": 156,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1044",
+   "endereco": "Rua Acadêmico Reinaldo Consoni 665",
+   "fonte": "daga",
+   "foto": "https://imagens.tecimob.com.br/media/048c7632-2723-42cf-b76f-7855fc1fea63/properties/3d4efc3c-d5bd-4a94-9682-9c7f1021e5d0/images/600x450/outside/38f993d9-ca8d-4560-8d28-115c0ded492517782682557EyR.webp",
+   "grupo": "daga:1044",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1840000
+    }
+   ],
+   "id": "daga:1044",
+   "iptu": 1650,
+   "lat": -27.5968694,
+   "link": "https://dagaimoveis.com.br/imovel/casa-a-venda-no-bairro-corrego-grande-em-florianopolis-sc/1044",
+   "lng": -48.5078108,
+   "preco": 1840000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "charmosa casa a venda em Córrego Grande, Florianópolis/SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "daga:1258": {
+   "area": 360,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1258",
+   "endereco": ".Rua Itamirim 137",
+   "fonte": "daga",
+   "foto": "https://imagens.tecimob.com.br/media/048c7632-2723-42cf-b76f-7855fc1fea63/properties/9b93516d-0dda-4327-ac5b-10704f8862c5/images/600x450/outside/b40a14eb-15e9-4ae4-95be-ced0e3a2e35c1778269214qgFv.webp",
+   "grupo": "daga:1258",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1800000
+    }
+   ],
+   "id": "daga:1258",
+   "iptu": 1060,
+   "lat": -27.5920535,
+   "link": "https://dagaimoveis.com.br/imovel/casa-a-venda-no-bairro-itacorubi-em-florianopolis-sc/1258",
+   "lng": -48.4957606,
+   "preco": 1800000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "INCRÍVEL Casa no Parque São Jorge - Florianópolis SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "daga:1557": {
+   "area": 150,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1557",
+   "endereco": "Rua Itapuã 5000",
+   "fonte": "daga",
+   "foto": "https://imagens.tecimob.com.br/media/048c7632-2723-42cf-b76f-7855fc1fea63/properties/88028511-fbc5-4d81-a739-4dc1c0981dc9/images/600x450/outside/e005acbf-8e01-4279-8eaa-7bb24ede2fc51788446819Cnfm.webp",
+   "grupo": "auxiliadora:840645",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1370000
+    }
+   ],
+   "id": "daga:1557",
+   "iptu": 1500,
+   "lat": -27.5948696,
+   "link": "https://dagaimoveis.com.br/imovel/casa-a-venda-no-bairro-itacorubi-em-florianopolis-sc/1557",
+   "lng": -48.4984278,
+   "preco": 1370000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "INCRIVEL casa no parque são Jorge com campo de futebol",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "daga:1613": {
+   "area": 98.09,
+   "areaTerreno": 224.81,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1613",
+   "endereco": "Servidão Deoscoro Peres",
+   "fonte": "daga",
+   "foto": "https://imagens.tecimob.com.br/media/048c7632-2723-42cf-b76f-7855fc1fea63/properties/4c1ba4a7-1d3f-4c24-89fb-7fa285c5c797/images/600x450/outside/0e72841e-fb48-4bc1-9521-fa850f2aa22d1778267851auZd.webp",
+   "grupo": "auxiliadora:822738",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1489900
+    }
+   ],
+   "id": "daga:1613",
+   "iptu": 1035,
+   "lat": -27.5918875,
+   "link": "https://dagaimoveis.com.br/imovel/casa-a-venda-no-bairro-itacorubi-em-florianopolis-sc/1613",
+   "lng": -48.4939886,
+   "preco": 1489900,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa 3 dormitórios, sendo 1 suite - Itacorubi - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "daga:1635": {
+   "area": 163.22,
+   "areaTerreno": 720,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1635",
+   "endereco": "Rua Itaipu 290",
+   "fonte": "daga",
+   "foto": "https://imagens.tecimob.com.br/media/048c7632-2723-42cf-b76f-7855fc1fea63/properties/74cc4d91-276a-4601-93e8-c066330a5bc6/images/600x450/outside/9d5c16f9-3718-489a-b6d0-824af30c6b9d1778269447cqWi.webp",
+   "grupo": "daga:1635",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1550000
+    }
+   ],
+   "id": "daga:1635",
+   "iptu": 1650,
+   "lat": -27.589586465138,
+   "link": "https://dagaimoveis.com.br/imovel/casa-a-venda-no-bairro-itacorubi-em-florianopolis-sc/1635",
+   "lng": -48.493068568322,
+   "preco": 1550000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi, Florianópolis/SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 6
+  },
+  "daga:1673": {
+   "area": 181.61,
+   "areaTerreno": 152.49,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1673",
+   "endereco": "Rua Octávio Lebarbenchon 150",
+   "fonte": "daga",
+   "foto": "https://imagens.tecimob.com.br/media/048c7632-2723-42cf-b76f-7855fc1fea63/properties/fdb480cf-bafe-4148-a407-6fb82772ca8b/images/600x450/outside/4481f26d-ca74-460e-9288-38d1f9a965db1784124886M88g.webp",
+   "grupo": "daga:1673",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "daga:1673",
+   "iptu": 1500,
+   "link": "https://dagaimoveis.com.br/imovel/casa-a-venda-no-bairro-corrego-grande-em-florianopolis-sc/1673",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa no Córrego Grande - 3 dormitórios, sendo 3 suites -  Florianópolis/SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "daga:1674": {
+   "area": 153.78,
+   "areaTerreno": 174.55,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1674",
+   "endereco": "Rua Octávio Lebarbenchon 150",
+   "fonte": "daga",
+   "foto": "https://imagens.tecimob.com.br/media/048c7632-2723-42cf-b76f-7855fc1fea63/properties/0f27e8a3-fe6d-4d03-9aef-55c28ea20082/images/600x450/outside/02c5a208-b2d8-40f7-96f3-029c10ed3fd21784128609ayw0.webp",
+   "grupo": "daga:1674",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "daga:1674",
+   "iptu": 1500,
+   "link": "https://dagaimoveis.com.br/imovel/casa-a-venda-no-bairro-corrego-grande-em-florianopolis-sc/1674",
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa no Córrego Grande - 3 dormitórios, sendo 3 suites -  Florianópolis/SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "daga:1675": {
+   "area": 162.17,
+   "areaTerreno": 147.84,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1675",
+   "endereco": "Rua Octávio Lebarbenchon 150",
+   "fonte": "daga",
+   "foto": "https://imagens.tecimob.com.br/media/048c7632-2723-42cf-b76f-7855fc1fea63/properties/68c37a14-46fa-49df-9f50-d4a50718ead6/images/600x450/outside/c5517287-ce72-4c3a-a4be-4de5e1e463ce1784127152V6RR.webp",
+   "grupo": "daga:1675",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1590000
+    }
+   ],
+   "id": "daga:1675",
+   "iptu": 1500,
+   "link": "https://dagaimoveis.com.br/imovel/casa-a-venda-no-bairro-corrego-grande-em-florianopolis-sc/1675",
+   "preco": 1590000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa no Córrego Grande - 3 dormitórios, sendo 3 suites -  Florianópolis/SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "daga:1718": {
+   "area": 263,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1718",
+   "endereco": "Servidão Honorato Manoel Alexandre 100",
+   "fonte": "daga",
+   "foto": "https://imagens.tecimob.com.br/media/048c7632-2723-42cf-b76f-7855fc1fea63/properties/46438f9c-85f0-43b4-beea-0f1c26299586/images/600x450/outside/1c41ce16-dd18-4bc1-8334-b4bfab7ea22e1778267607eFqW.webp",
+   "grupo": "daga:1718",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1550000
+    }
+   ],
+   "id": "daga:1718",
+   "iptu": 1680,
+   "lat": -27.5877875,
+   "link": "https://dagaimoveis.com.br/imovel/casa-a-venda-no-bairro-itacorubi-em-florianopolis-sc/1718",
+   "lng": -48.4936965,
+   "preco": 1550000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa em Itacorubi, Florianópolis/SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "daga:1727": {
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1727",
+   "endereco": "Rua Itapeva 161",
+   "fonte": "daga",
+   "foto": "https://imagens.tecimob.com.br/media/048c7632-2723-42cf-b76f-7855fc1fea63/properties/b0f864fc-d626-4e15-b570-5c3acb4ddb7d/images/600x450/outside/d3d0d610-3b0a-42bb-8e6f-2ecc69cc30061781199491sCrE.webp",
+   "grupo": "daga:1727",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "daga:1727",
+   "iptu": 2264,
+   "lat": -27.5918875,
+   "link": "https://dagaimoveis.com.br/imovel/casa-a-venda-no-bairro-itacorubi-em-florianopolis-sc/1727",
+   "lng": -48.4939886,
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa Alto Padrão no coração do Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "duda:46385": {
+   "area": 54,
+   "areaTerreno": 54,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "46385",
+   "condominio": 0.01,
+   "fonte": "duda",
+   "foto": "https://loftcrm.bewezy.com/cli18815/vista.imobi/fotos/46388/i6741mD1AV25W2Z_463886628297ea206d_mI2YmRlNzEwOWYx_o.jpg?aspect_ratio=240:260&width=240",
+   "grupo": "duda:46385",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1500000
+    }
+   ],
+   "id": "duda:46385",
+   "link": "https://www.dudaimoveis.com.br/imovel/46385/casa-no-corrego-grande",
+   "preco": 1500000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa no corrego grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "duda:54039": {
+   "area": 129.63,
+   "areaTerreno": 155,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "54039",
+   "fonte": "duda",
+   "foto": "https://loftcrm.bewezy.com/cli18815/vista.imobi/fotos/54044/isgY9O5Ci_5404469712a68b6090_mQ1NjVmNDhlYjRh_o.jpg?aspect_ratio=240:260&width=240",
+   "grupo": "bella:CA2804-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1700000
+    }
+   ],
+   "id": "duda:54039",
+   "link": "https://www.dudaimoveis.com.br/imovel/54039/casa-sobrado-com-3-dormitorios",
+   "preco": 1700000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Sobrado",
+   "titulo": "Casa Sobrado com 3 dormitórios.",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "duda:54040": {
+   "area": 122.43,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "54040",
+   "fonte": "duda",
+   "foto": "https://loftcrm.bewezy.com/cli18815/vista.imobi/fotos/54045/i5t9jS13J_5404569712de340bdb_mI0OWZlMzY2Mjdk_o.jpg?aspect_ratio=240:260&width=240",
+   "grupo": "brognoli:92962",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1450000
+    }
+   ],
+   "id": "duda:54040",
+   "link": "https://www.dudaimoveis.com.br/imovel/54040/casa-sobrado-com-3-dormitorios",
+   "preco": 1450000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Sobrado",
+   "titulo": "Casa Sobrado com 3 dormitórios.",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "duda:54956": {
+   "area": 160,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "54956",
+   "fonte": "duda",
+   "foto": "https://loftcrm.bewezy.com/cli18815/vista.imobi/fotos/54961/iS46c5_5496169d7a62a99e68_DllNDM1YjZkMzNj_o.jpg?aspect_ratio=240:260&width=240",
+   "grupo": "bella:CA2785-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "duda:54956",
+   "link": "https://www.dudaimoveis.com.br/imovel/54956/sobrado-de-3-dormitorios-a-venda-no-corrego-grande",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Sobrado",
+   "titulo": "Sobrado de 3 dormitórios à venda no Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "duda:54958": {
+   "area": 160,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "54958",
+   "fonte": "duda",
+   "foto": "https://loftcrm.bewezy.com/cli18815/vista.imobi/fotos/54963/iYZ1y78n6ov13tFt5_5496369d7a732b6c50_DY2NDY4YzI0ZmZh_o.jpg?aspect_ratio=240:260&width=240",
+   "grupo": "auxiliadora:767473",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "duda:54958",
+   "link": "https://www.dudaimoveis.com.br/imovel/54958/sobrado-de-3-dormitorios-a-venda-no-corrego-grande",
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Sobrado",
+   "titulo": "Sobrado de 3 dormitórios à venda no Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "duda:54959": {
+   "area": 160,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "54959",
+   "fonte": "duda",
+   "foto": "https://loftcrm.bewezy.com/cli18815/vista.imobi/fotos/54964/i66U59y6E151xP3_5496469d7a8243d953_DJjZWNiNTcyNDk2_o.jpg?aspect_ratio=240:260&width=240",
+   "grupo": "duda:54959",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1590000
+    }
+   ],
+   "id": "duda:54959",
+   "link": "https://www.dudaimoveis.com.br/imovel/54959/sobrado-de-3-dormitorios-a-venda-no-corrego-grande",
+   "preco": 1590000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Sobrado",
+   "titulo": "Sobrado de 3 dormitórios à venda no Córrego Grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "duda:55400": {
+   "area": 170,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "55400",
+   "fonte": "duda",
+   "foto": "https://loftcrm.bewezy.com/cli18815/vista.imobi/fotos/55405/i374C71_554056a0b113730dac_WYzNjNmZjY3ZmVh_o.jpg?aspect_ratio=240:260&width=240",
+   "grupo": "duda:55400",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "duda:55400",
+   "link": "https://www.dudaimoveis.com.br/imovel/55400/casa-4-dormitorios-170m-itacorubi",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "CASA 4 DORMITÓRIOS 170M² ITACORUBI",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "duda:56265": {
+   "area": 221,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "56265",
+   "fonte": "duda",
+   "foto": "https://loftcrm.bewezy.com/cli18815/vista.imobi/fotos/56270/ig2b1x_562706a6168a451536_mIzMjc4YWQ5ZDIx_o.jpg?aspect_ratio=240:260&width=240",
+   "grupo": "duda:56265",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1596000
+    }
+   ],
+   "id": "duda:56265",
+   "link": "https://www.dudaimoveis.com.br/imovel/56265/",
+   "preco": 1596000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "duda:57182": {
+   "area": 203.56,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "57182",
+   "fonte": "duda",
+   "foto": "https://loftcrm.bewezy.com/cli18815/vista.imobi/fotos/57187/i3h1g2e4MJ_571876a861e15d2c13_zk2YTBhYjk4MjZh_o.jpg?aspect_ratio=240:260&width=240",
+   "grupo": "duda:57182",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1400000
+    }
+   ],
+   "id": "duda:57182",
+   "link": "https://www.dudaimoveis.com.br/imovel/57182/casa-no-itacorubi",
+   "preco": 1400000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa no itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "invista:CA0325-INYT": {
+   "area": 81,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 1,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA0325-INYT",
+   "fonte": "invista",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3s4ye1j5EcPkuVGf4C+hXel8L7K3ZKrh0mp977upI3Ex+LSWNb4w58+gJy2MWKxipBkYMUrL1hGROdfGjnMcpu5PXVggxy8gmfSQrEeZ3Z11iQ5ujJI9gHiY8CR6FQfhD6HDvPysQG3fKDPUVNDJO9HR9ox5F9MqBG8WVByqR9Q9JG2ozrBZrT0PpW61WIYQklkpNCiTqzwi82OZ5htFvpqLHoC91cXWaoQmvqIQKNz8k8NqufBERmHlELVhPYgYMf+HIVXmaQAkg-cHbQcv0+-koCVhaeqbkXQYQc8prHJ8ae5PKz2TPvxLDHhqbQs1LT0ButpDKvjXzZsfEBeEwYyrkKk-6mRkGzOJ2jDukILHRPRztwnpXZ9YEsD8cMDpz2gisq8Nw==.jpg",
+   "grupo": "invista:CA0325-INYT",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 845000
+    }
+   ],
+   "id": "invista:CA0325-INYT",
+   "link": "https://www.imobiliariainvista.com.br/imovel/casa-florianopolis-2-quartos-81-m/CA0325-INYT",
+   "preco": 845000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 2,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa de 81 m² na Maria Alexandre Machado - Itacorubi - Florianópolis - SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "invista:CA2832-INYT": {
+   "area": 177,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA2832-INYT",
+   "fonte": "invista",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3xF4fg12FIgydAgep+Uujfa7r+PuoqgonmJ6b-q5L3w2MzWc9eBzowSyYvrFF6ooZ9qesIkOWNJY+hnFUTBXNzFY3RKvxm+px3LT6d4SGNt8RxrmTt2+WS6Bbev6GAziwqAOc7Xkg3SVqu6BhlfHrMNAdIz7EIJ8RC9W0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFNm6AGlxDFHeAbuxrvwtbGhqOtZxvUZ1Ju-O6WrfqxbvqmSqn5LSWFrbYh37HxDvhyBM-0XU9rZF9EFBNWuUCx6KP5jmWsMGPU5FwCWB3fnMM79G5lIQoN-44c9SWri8rx.jpg",
+   "grupo": "invista:CA2832-INYT",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1570000
+    }
+   ],
+   "id": "invista:CA2832-INYT",
+   "link": "https://www.imobiliariainvista.com.br/imovel/casa-florianopolis-4-quartos-177-m/CA2832-INYT",
+   "preco": 1570000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 177 m² na Joe Collaço - Córrego Grande - Florianópolis - SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "invista:CA3078-INYT": {
+   "area": 129,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA3078-INYT",
+   "fonte": "invista",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu39FwulH2icMkuE1ffq9vS29hqnMtoqjqW3Owr77lejp2PvyXJ7jz4sZ0evdNHmWs5BCZs4dIxl8Zu5NXhzYbYGYBnMIrmmimRnRf6lAHkZIjz81sgpwnGCmaoGD72VvxzGLOt2ElRmsXID3AVJ6DrMNAdIz7EIJ8RC9W0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFNm6AGlxDFHeAbuxrvwtbGhqOtZxvUZ1Ju-O6WrfqxbvqmSqn5LSWFrbYh37HxDvhyBM-0XU9rZF9EFBNWuUCx6KP5jmWsMGPU5FwCWB3fnMM79G5lIQoN-44c9SWri8rx.jpg",
+   "grupo": "invista:CA3078-INYT",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1790000
+    }
+   ],
+   "id": "invista:CA3078-INYT",
+   "link": "https://www.imobiliariainvista.com.br/imovel/casa-florianopolis-3-quartos-129-m/CA3078-INYT",
+   "preco": 1790000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 129 m² na João Carlos de Souza - Santa Mônica - Florianópolis - SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "invista:CA3079-INYT": {
+   "area": 122,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA3079-INYT",
+   "fonte": "invista",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0ZKzspyzRgAtdcQQK21mHCmw6Cx+si7qHWRop75hezwz+j5Y+XG860n7qfSH26P47dsG-o-CRh7Zeh4HxqwQaO5IFh6kWiHvkj6dqpNXDd5zVsoqQ5+4Va0Q5H3-HQu3QWvCPLDmzGscYHBXlxDQPlLCdkx8QdQ8Bi1SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdtPn6YDiAnFSecf7kq-lIXFgqSkOR-SMgA0o7HK8PLjOKqgGKH4OUGBr7sq2rT5HeN6YNj2JEhze0VDAXdBu1Wm4svnhwe7O3SK+lVHVhONg99q7HYkYAQDspFO7S6qi4c=.jpg",
+   "grupo": "brognoli:92962",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1520000
+    }
+   ],
+   "id": "invista:CA3079-INYT",
+   "link": "https://www.imobiliariainvista.com.br/imovel/casa-florianopolis-3-quartos-122-m/CA3079-INYT",
+   "preco": 1520000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 122 m² na João Carlos de Souza - Santa Mônica - Florianópolis - SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "invista:CA3097-INYT": {
+   "area": 200,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA3097-INYT",
+   "fonte": "invista",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtux5q1pdjxUsjvPUpGee74Xfc0r6Rovy28GGH+M3dobKC8NvCZ53XxcU7lLXxHkWLvYRES-k9Pn5aR7ZfWiCzBKadbShWoQ6dpF3pYqUYaW9i4B4snTht9HKEZ7jp+xsM8DuuCsz8rz6VR-rsG3tzEuhHR9o47l9MqBG1U1ByqR9Q9JG2ozrBZrT0PpW61WIYQklkpNCiTqzwi82OZ5htFvpqLHoC91cXWaoQmvqIQKNz8k8NqufBERmHlELVhPYgYMf+HIVXmaQAkg-cHbQcv0+-koCVhaeqbkXQYQc8prHJ8ae5PKz2TPvxLDHhqbQs1LT0ButpDKvjXzZsfEBeEwYyrkKk-6mRkGzOJ2jDukILHRPRztwnpXZ9YEsD8cMDpz2gisq8Nw==.jpg",
+   "grupo": "auxiliadora:656948",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1725000
+    }
+   ],
+   "id": "invista:CA3097-INYT",
+   "link": "https://www.imobiliariainvista.com.br/imovel/casa-florianopolis-3-quartos-200-m/CA3097-INYT",
+   "preco": 1725000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa de 200 m² na Acadêmico Reinaldo Consoni - Córrego Grande - Florianópolis - SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "invista:CA3098-INYT": {
+   "area": 196,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA3098-INYT",
+   "fonte": "invista",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu39V8+xOt0cAyf0ncYG8uXGd57LEv+rFtme95rnNg4zwyOrWXfnxlKAGgJLZN3D2tPNXXoE9bXBWWMk-fzKwQajQGVJdkhaIjHjfSbR-WHpH8gF3yipPwUq3bbmnyV49ghinItjbrBWBaPr7O2ZTQPlLCdkx8QdQ8Bi1SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdtPn6YDiAnFSecf7kq-lIXFgqSkOR-SMgA0o7HK8PLjOKqgGKH4OUGBr7sq2rT5HeN6YNj2JEhze0VDAXdBu1Wm4svnhwe7O3SK+lVHVhONg99q7HYkYAQDspFO7S6qi4c=.jpg",
+   "grupo": "auxiliadora:658859",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1755000
+    }
+   ],
+   "id": "invista:CA3098-INYT",
+   "link": "https://www.imobiliariainvista.com.br/imovel/casa-florianopolis-3-quartos-196-m/CA3098-INYT",
+   "preco": 1755000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa de 196 m² na Acadêmico Reinaldo Consoni - Córrego Grande - Florianópolis - SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "invista:CA3099-INYT": {
+   "area": 209,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA3099-INYT",
+   "fonte": "invista",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3o77ehA2FIegOMbApCz7Xiq+IO+3+uit1WhxpXYgbja+cmgZZnCkb0i4aLdOw+MsqlhZuEHb1BbXfldZh-dGrq6AVRpqieLuH-TbINpGWVF+zptsAtS9l6BcMeFxXcxwAKoCO7JrzDcTP3EM0J1QPlLCdkx8QdQ8Bi1SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdtPn6YDiAnFSecf7kq-lIXFgqSkOR-SMgA0o7HK8PLjOKqgGKH4OUGBr7sq2rT5HeN6YNj2JEhze0VDAXdBu1Wm4svnhwe7O3SK+lVHVhONg99q7HYkYAQDspFO7S6qi4c=.jpg",
+   "grupo": "auxiliadora:658839",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1850000
+    }
+   ],
+   "id": "invista:CA3099-INYT",
+   "link": "https://www.imobiliariainvista.com.br/imovel/casa-florianopolis-3-quartos-209-m/CA3099-INYT",
+   "preco": 1850000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa de 209 m² na Acadêmico Reinaldo Consoni - Córrego Grande - Florianópolis - SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "invista:CA3161-INYT": {
+   "area": 120,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA3161-INYT",
+   "fonte": "invista",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2pj2t9L3jI8u+w6Q+Cjnhuc3tSVy-e5vRy1-YHhs47y9JrIAuXs7K8v8a-RTGeutoRoatgcNX5IRLJTdwzwRp2NMkVyvwuil13zZL1obXV75lgbkhMO40GIbZ6LzWQAhxD-M8nViyiWXOXvP1NzErMNAdIz7EIJ8RC9W0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFNm6AGlxDFHeAbuxrvwtbGhqOtZxvUZ1Ju-O6WrfqxbvqmSqn5LSWFrbYh37HxDvhyBM-0XU9rZF9EFBNWuUCx6KP5jmWsMGPU5FwCWB3fnMM79G5lIQoN-44c9SWri8rx.jpg",
+   "grupo": "bella:CA2754-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 980000
+    }
+   ],
+   "id": "invista:CA3161-INYT",
+   "link": "https://www.imobiliariainvista.com.br/imovel/casa-florianopolis-4-quartos-120-m/CA3161-INYT",
+   "preco": 980000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 120 m² na da Figueira Velha - Córrego Grande - Florianópolis - SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "invista:CA3162-INYT": {
+   "area": 110,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA3162-INYT",
+   "fonte": "invista",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0BjzPA+2TYakfZCQfqEkCaa+qeZ-OaQkWeU+6-Wv4HSiu3hBIKE74Mh9-7REXPzr-RBSNwIb2RkbNhAQxLlfZ6yMkhm8j+1pFrEV+tMSnt0wzoomxVp2QGwQMmAslFr9gyMGa3VtCCcHZ34NgBDQPlLCdkx8QdQ8Bi1SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdtPn6YDiAnFSecf7kq-lIXFgqSkOR-SMgA0o7HK8PLjOKqgGKH4OUGBr7sq2rT5HeN6YNj2JEhze0VDAXdBu1Wm4svnhwe7O3SK+lVHVhONg99q7HYkYAQDspFO7S6qi4c=.jpg",
+   "grupo": "invista:CA3162-INYT",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1300000
+    }
+   ],
+   "id": "invista:CA3162-INYT",
+   "link": "https://www.imobiliariainvista.com.br/imovel/casa-florianopolis-3-quartos-110-m/CA3162-INYT",
+   "preco": 1300000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 110 m² na Francisco José Ramos - Itacorubi - Florianópolis - SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "invista:CA3177-INYT": {
+   "area": 240,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA3177-INYT",
+   "fonte": "invista",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtux5e0dRu9EcByPRAQqCGvg3dxpWpv8e5r0mk+6j97o37hcLkZZbp77wOzqCtDk+blLx8SPk7Plhre8laaSTbXaSFLWVJjDXUiHWQf6YeaElLjwcSrQsO+Qu+Q7+xp1wA1D2eNuv582uPHIn3LEFrFcZHR9o47l9MqBG1U1ByqR9Q9JG2ozrBZrT0PpW61WIYQklkpNCiTqzwi82OZ5htFvpqLHoC91cXWaoQmvqIQKNz8k8NqufBERmHlELVhPYgYMf+HIVXmaQAkg-cHbQcv0+-koCVhaeqbkXQYQc8prHJ8ae5PKz2TPvxLDHhqbQs1LT0ButpDKvjXzZsfEBeEwYyrkKk-6mRkGzOJ2jDukILHRPRztwnpXZ9YEsD8cMDpz2gisq8Nw==.jpg",
+   "grupo": "invista:CA3177-INYT",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1950000
+    }
+   ],
+   "id": "invista:CA3177-INYT",
+   "link": "https://www.imobiliariainvista.com.br/imovel/casa-florianopolis-3-quartos-240-m/CA3177-INYT",
+   "preco": 1950000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 240 m² na Diná Calixto - Córrego Grande - Florianópolis - SC",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "lideranca:C1004": {
+   "area": 98.09,
+   "areaTerreno": 224.81,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1004",
+   "endereco": "Rua Deoscoro Peres",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34985079/i374u67Hxh8QcY97F9_34985079698a24c679767.jpg",
+   "grupo": "auxiliadora:822738",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "lideranca:C1004",
+   "lat": 0,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1004",
+   "lng": 0,
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa, itacorubi,03 dormitórios/01 suíte, 02 vagas",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "lideranca:C1018": {
+   "area": 192.5,
+   "areaTerreno": 400,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1018",
+   "endereco": "Rua Cônego Thomaz Fontes",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34985191/iYm8u7a8Cj_3498519169a5f3bf629bc.jpg",
+   "grupo": "lideranca:C1018",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2050000
+    }
+   ],
+   "id": "lideranca:C1018",
+   "lat": 0,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1018",
+   "lng": 0,
+   "preco": 2050000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 7,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa, santa mônica, 07 dormitórios/02 suítes",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "lideranca:C1029": {
+   "area": 250,
+   "areaTerreno": 250,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1029",
+   "endereco": "Avenida Buriti",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34985283/iVkV19qI_3498528369bafe5aec3f8.jpg",
+   "grupo": "lideranca:C1029",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1880000
+    }
+   ],
+   "id": "lideranca:C1029",
+   "lat": -27.5922301,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1029",
+   "lng": -48.49406459999999,
+   "preco": 1880000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa, itacoruibi, 03 suítes, 02 vagas",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "lideranca:C1030": {
+   "area": 156.37,
+   "areaTerreno": 236,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1030",
+   "endereco": "Rua Itararé",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34985284/i9KTSl915u4T_3498528469bb0272437a3.jpg",
+   "grupo": "lideranca:C1030",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1790000
+    }
+   ],
+   "id": "lideranca:C1030",
+   "lat": 0,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1030",
+   "lng": 0,
+   "preco": 1790000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa, itacorubi, 03 suítes, 04 vagas",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "lideranca:C1051": {
+   "area": 160,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1051",
+   "endereco": "Avenida Buriti",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34985536/ih4K4I9QOh87_3498553669f8a4fa6dd5f.jpg",
+   "grupo": "lideranca:C1051",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1800000
+    }
+   ],
+   "id": "lideranca:C1051",
+   "lat": 0,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1051",
+   "lng": 0,
+   "preco": 1800000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa, parque são jorge, 03 dormitórios/01 suíte",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "lideranca:C1059": {
+   "area": 170,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1059",
+   "endereco": "Rua Itapeva",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34985680/i68rvI8RU71O1VB4vY_349856806a2b18bfe5790.jpg",
+   "grupo": "lideranca:C1059",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "lideranca:C1059",
+   "lat": 0,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1059",
+   "lng": 0,
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa ,parque são jorge, 03 dormitórios/01 suíte",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "lideranca:C1070": {
+   "area": 162,
+   "areaTerreno": 170,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1070",
+   "endereco": "Rua Acadêmico Reinaldo Consoni",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34985727/iuFi298F4f9pX9Xxn_349857276a3ac61f33352.jpg",
+   "grupo": "bella:CA2786-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1755000
+    }
+   ],
+   "id": "lideranca:C1070",
+   "lat": 0,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1070",
+   "lng": 0,
+   "preco": 1755000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa, córrego grande, 03 suítes, 02 vagas",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "lideranca:C1077": {
+   "area": 172,
+   "areaTerreno": 225,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1077",
+   "endereco": "Rua Frederico José Peres",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34985862/i5G7SQPA37n_349858626a6c89d9f2f84.jpg",
+   "grupo": "lideranca:C1077",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1750000
+    }
+   ],
+   "id": "lideranca:C1077",
+   "lat": 0,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1077",
+   "lng": 0,
+   "preco": 1750000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa, santa mônica, 03 suítes, 02 vagas",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "lideranca:C1078": {
+   "area": 172,
+   "areaTerreno": 225.68,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1078",
+   "endereco": "Rua Frederico José Peres",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34985863/i26OaC1B9c15yK1u7q_349858636a6c8d94a3ef4.jpg",
+   "grupo": "lideranca:C1078",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1790000
+    }
+   ],
+   "id": "lideranca:C1078",
+   "lat": 0,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1078",
+   "lng": 0,
+   "preco": 1790000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa, santa mônica, 03 suítes, 02 vagas",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "lideranca:C1089": {
+   "area": 170.9,
+   "areaTerreno": 437.78,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1089",
+   "endereco": "Rua dos Jasmins",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34986143/ilXzG58Lx74_349861436ab6a01205f3f.jpg",
+   "grupo": "auxiliadora:841044",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1700000
+    }
+   ],
+   "id": "lideranca:C1089",
+   "lat": -27.5953639,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1089",
+   "lng": -48.50568879999999,
+   "preco": 1700000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa, córrego grande, 3 dorm/1suite",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "lideranca:C1091": {
+   "area": 179.8,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1091",
+   "endereco": "Rua Rodrigo Rampinelli Jeremias",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34986154/ie9QHEw2R6_349861546abbc3311c87e.jpg",
+   "grupo": "lideranca:C1091",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1890000
+    }
+   ],
+   "id": "lideranca:C1091",
+   "lat": -27.5854222,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1091",
+   "lng": -48.4956086,
+   "preco": 1890000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa, itacorubi, 3suites, 2 vagas",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "lideranca:C1092": {
+   "area": 193.47,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C1092",
+   "endereco": "Rua Rodrigo Rampinelli Jeremias",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34986155/iC9vR_349861556abbc1b4de9fc.jpg",
+   "grupo": "lideranca:C1092",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1980000
+    }
+   ],
+   "id": "lideranca:C1092",
+   "lat": -27.5854222,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C1092",
+   "lng": -48.4956086,
+   "preco": 1980000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa, itacorubi, 3suites, 2 vagas",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "lideranca:C706": {
+   "area": 198.7,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C706",
+   "endereco": "Rua Lúcio Vitorino de Souza",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34982618/i206048l9S2TP22h_3498261863bdcbe16c509.jpg",
+   "grupo": "lideranca:C706",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2000000
+    }
+   ],
+   "id": "lideranca:C706",
+   "lat": -27.5887933,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C706",
+   "lng": -48.51289509999999,
+   "preco": 2000000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa, santa mônica, 05 dormitórios/03 suítes",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "lideranca:C906": {
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C906",
+   "endereco": "Rua Itabira",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34984220/i83eo86xF31LB8_34984220685c617d2789a.jpg",
+   "grupo": "lideranca:C906",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1900000
+    }
+   ],
+   "id": "lideranca:C906",
+   "lat": -27.58825,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C906",
+   "lng": -48.49704699999999,
+   "preco": 1900000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa, parque são jorge, 03 dormitórios/02 suítes",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "lideranca:C988": {
+   "area": 210,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "C988",
+   "endereco": "Rua Acadêmico Reinaldo Consoni",
+   "fonte": "lideranca",
+   "foto": "https://cdn.vistahost.com.br/lideranc28872/vista.imobi/fotos/34984946/iOyas9IC5Vnvo18h7_3498494669cebe6a60255.jpg",
+   "grupo": "lideranca:C988",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1800000
+    }
+   ],
+   "id": "lideranca:C988",
+   "lat": -27.5977376,
+   "link": "https://liderancaimobiliaria.com.br/imovel/C988",
+   "lng": -48.508207,
+   "preco": 1800000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa, córrego grande, 04 dormitórios/01 suíte",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1956529": {
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1956529",
+   "fonte": "onliving",
+   "grupo": "onliving:1956529",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1550000
+    }
+   ],
+   "id": "onliving:1956529",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-5-quartos-no-bairro-itacorubi-florianopolis-1956529/",
+   "preco": 1550000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 5 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "onliving:1957675": {
+   "areaTerreno": 359.2,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1957675",
+   "fonte": "onliving",
+   "grupo": "onliving:1957675",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 980000
+    }
+   ],
+   "id": "onliving:1957675",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-itacorubi-florianopolis-1957675/",
+   "preco": 980000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "onliving:1957765": {
+   "areaTerreno": 202.01,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1957765",
+   "fonte": "onliving",
+   "grupo": "onliving:1957765",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1725000
+    }
+   ],
+   "id": "onliving:1957765",
+   "link": "https://onliving.com.br/imoveis/venda-casa-em-condominio-villa-do-corrego-i-de-3-quartos-no-bairro-corrego-grande-florianopolis-1957765/",
+   "preco": 1725000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa em condomínio",
+   "titulo": "Casa em Condomínio Villa do Córrego I de 3 quartos no bairro Córrego Grande, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1958040": {
+   "areaTerreno": 400,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1958040",
+   "fonte": "onliving",
+   "grupo": "onliving:1958040",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1950000
+    }
+   ],
+   "id": "onliving:1958040",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-7-quartos-no-bairro-santa-monica-florianopolis-1958040/",
+   "preco": 1950000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 7,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 7 quartos no bairro Santa Mônica, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "onliving:1958172": {
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1958172",
+   "fonte": "onliving",
+   "grupo": "onliving:1958172",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1840000
+    }
+   ],
+   "id": "onliving:1958172",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-5-quartos-no-bairro-santa-monica-florianopolis-1958172/",
+   "preco": 1840000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 5 quartos no bairro Santa Mônica, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "onliving:1958214": {
+   "areaTerreno": 198.28,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1958214",
+   "fonte": "onliving",
+   "grupo": "onliving:1958214",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1755000
+    }
+   ],
+   "id": "onliving:1958214",
+   "link": "https://onliving.com.br/imoveis/venda-casa-em-condominio-villa-do-corrego-i-de-3-quartos-no-bairro-corrego-grande-florianopolis-1958214/",
+   "preco": 1755000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa em condomínio",
+   "titulo": "Casa em Condomínio Villa do Corrego I de 3 quartos no bairro Córrego Grande, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1958278": {
+   "areaTerreno": 245.8,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1958278",
+   "fonte": "onliving",
+   "grupo": "onliving:1958278",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1990000
+    }
+   ],
+   "id": "onliving:1958278",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-5-quartos-no-bairro-corrego-grande-florianopolis-1958278/",
+   "preco": 1990000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 5 quartos no bairro Córrego Grande, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 8
+  },
+  "onliving:1958426": {
+   "areaTerreno": 137.6,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1958426",
+   "fonte": "onliving",
+   "grupo": "onliving:1958426",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1520000
+    }
+   ],
+   "id": "onliving:1958426",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-santa-monica-florianopolis-1958426/",
+   "preco": 1520000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Santa Mônica, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1958454": {
+   "areaTerreno": 176.41,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1958454",
+   "fonte": "onliving",
+   "grupo": "onliving:1958454",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1700000
+    }
+   ],
+   "id": "onliving:1958454",
+   "link": "https://onliving.com.br/imoveis/venda-casa-domus-augusta-ix-de-3-quartos-no-bairro-corrego-grande-florianopolis-1958454/",
+   "preco": 1700000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa Domus Augusta Ix de 3 quartos no bairro Córrego Grande, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "onliving:1958705": {
+   "areaTerreno": 226.4,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1958705",
+   "fonte": "onliving",
+   "grupo": "onliving:1958705",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1880000
+    }
+   ],
+   "id": "onliving:1958705",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-parque-sao-jorge-florianopolis-1958705/",
+   "preco": 1880000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Parque São Jorge, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1958742": {
+   "areaTerreno": 225.68,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1958742",
+   "fonte": "onliving",
+   "grupo": "onliving:1958742",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1880000
+    }
+   ],
+   "id": "onliving:1958742",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-parque-sao-jorge-florianopolis-1958742/",
+   "preco": 1880000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Parque São Jorge, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1958900": {
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1958900",
+   "fonte": "onliving",
+   "grupo": "onliving:1958900",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2100000
+    }
+   ],
+   "id": "onliving:1958900",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-4-quartos-no-bairro-itacorubi-florianopolis-1958900/",
+   "preco": 2100000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 4 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1959593": {
+   "areaTerreno": 510,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1959593",
+   "fonte": "onliving",
+   "grupo": "onliving:1959593",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2050000
+    }
+   ],
+   "id": "onliving:1959593",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-5-quartos-no-bairro-santa-monica-florianopolis-1959593/",
+   "preco": 2050000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 5 quartos no bairro Santa Mônica, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1960111": {
+   "areaTerreno": 450,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1960111",
+   "fonte": "onliving",
+   "grupo": "onliving:1960111",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1900000
+    }
+   ],
+   "id": "onliving:1960111",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-4-quartos-no-bairro-itacorubi-florianopolis-1960111/",
+   "preco": 1900000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 4 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "onliving:1960395": {
+   "areaTerreno": 720,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1960395",
+   "fonte": "onliving",
+   "grupo": "onliving:1960395",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1200000
+    }
+   ],
+   "id": "onliving:1960395",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-itacorubi-florianopolis-1960395/",
+   "preco": 1200000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "onliving:1960415": {
+   "areaTerreno": 196,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1960415",
+   "fonte": "onliving",
+   "grupo": "onliving:1960415",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1700000
+    }
+   ],
+   "id": "onliving:1960415",
+   "link": "https://onliving.com.br/imoveis/venda-sobrado-de-3-quartos-no-bairro-santa-monica-florianopolis-1960415/",
+   "preco": 1700000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Sobrado",
+   "titulo": "Sobrado  de 3 quartos no bairro Santa Monica, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "onliving:1960420": {
+   "areaTerreno": 132.69,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1960420",
+   "fonte": "onliving",
+   "grupo": "onliving:1960420",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1550000
+    }
+   ],
+   "id": "onliving:1960420",
+   "link": "https://onliving.com.br/imoveis/venda-sobrado-de-3-quartos-no-bairro-santa-monica-florianopolis-1960420/",
+   "preco": 1550000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Sobrado",
+   "titulo": "Sobrado  de 3 quartos no bairro Santa Mônica, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1960510": {
+   "areaTerreno": 364.5,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1960510",
+   "fonte": "onliving",
+   "grupo": "onliving:1960510",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "onliving:1960510",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-itacorubi-florianopolis-1960510/",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "onliving:1960542": {
+   "areaTerreno": 240,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 1,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1960542",
+   "fonte": "onliving",
+   "grupo": "onliving:1960542",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 960000
+    }
+   ],
+   "id": "onliving:1960542",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-itacorubi-florianopolis-1960542/",
+   "preco": 960000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "onliving:1960779": {
+   "areaTerreno": 504,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1960779",
+   "fonte": "onliving",
+   "grupo": "onliving:1960779",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1500000
+    }
+   ],
+   "id": "onliving:1960779",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-4-quartos-no-bairro-corrego-grande-florianopolis-1960779/",
+   "preco": 1500000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 4 quartos no bairro Córrego Grande, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "onliving:1960909": {
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1960909",
+   "fonte": "onliving",
+   "grupo": "onliving:1960909",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "onliving:1960909",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-itacorubi-florianopolis-1960909/",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "onliving:1961014": {
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1961014",
+   "fonte": "onliving",
+   "grupo": "onliving:1961014",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1800000
+    }
+   ],
+   "id": "onliving:1961014",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-5-quartos-no-bairro-corrego-grande-florianopolis-1961014/",
+   "preco": 1800000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 5 quartos no bairro Córrego Grande, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1961553": {
+   "areaTerreno": 224.81,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1961553",
+   "fonte": "onliving",
+   "grupo": "onliving:1961553",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "onliving:1961553",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-itacorubi-florianopolis-1961553/",
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1961972": {
+   "areaTerreno": 198.09,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1961972",
+   "fonte": "onliving",
+   "grupo": "onliving:1961972",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1890000
+    }
+   ],
+   "id": "onliving:1961972",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-itacorubi-florianopolis-1961972/",
+   "preco": 1890000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "onliving:1961973": {
+   "areaTerreno": 198,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "1961973",
+   "fonte": "onliving",
+   "grupo": "onliving:1961973",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1990000
+    }
+   ],
+   "id": "onliving:1961973",
+   "link": "https://onliving.com.br/imoveis/venda-casa-de-3-quartos-no-bairro-itacorubi-florianopolis-1961973/",
+   "preco": 1990000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1011-QUB": {
+   "area": 309,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1011-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0pf1vAx9Ek3if03GaWx+Taswoij4tiyj1SaxKrrouvSkOWucZjH9bkl5q2jAA6Dl4VfZ8IoM35bQvRqS0LNbbWNOkJphQvTmx7xX7B4SmMK5Sc+yxJS+kS6c6OH2H8Ihz+uNs3GlB6GY6DIG3xlQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6SeKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWtxAmKocxl3FHORKvBe7lNfCgaOla07SYAI98rrJrPq2PKj0HK7seGerj9QL+Y-RNcVVMYuqQHVAXztxNTwX5F7ktPyL7AD5bSnYrhAGWB3fg9xq7GV3clU=.jpg",
+   "grupo": "quadra:CA1011-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1800000
+    }
+   ],
+   "id": "quadra:CA1011-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-5-quartos-309-m/CA1011-QUB",
+   "preco": 1800000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa de 309 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1072-QUB": {
+   "area": 361,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1072-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0do1-903zojr-gUWp+JkHWZxZ+e3teJ9HnK1riJoq-6hJLHAPvHzqog-7CrKkyNrYI8S+EEHVpJULVZZUX4QKibY1N2uBeqh1XcVbkbEnF+9B4+kS5SxVqYR4Wu5X4q9jC0O9fR83SgV4G-J3xDQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6SeKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWtxAmKocxl3FHORKvBe7lNfCgaOla07SYAI98rrJrPq2PKj0HK7seGerj9QL+Y-RNcVVMYuqQHVAXztxNTwX5F7ktPyL7AD5bSnYrhAGWB3fg9xq7GV3clU=.jpg",
+   "grupo": "quadra:CA1072-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1900000
+    }
+   ],
+   "id": "quadra:CA1072-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-5-quartos-361-m/CA1072-QUB",
+   "preco": 1900000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa de 361 m² Parque São Jorge - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1094-QUB": {
+   "area": 196,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1094-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu25I6YpsvRIOtfZDbq2iuTWeh9utycfDnB3L14n-pqrnyO-bAoLC-6Mt7rTjV2KQrY91ZvYYEFhAauR1ThzoR5eceXxbkgmD-WCWUf4fWHNZxR4LmQkI6He1Xsn0x1VvhyOeOcjhuDXQTZzhAkF8SbMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1094-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1840000
+    }
+   ],
+   "id": "quadra:CA1094-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-5-quartos-196-m/CA1094-QUB",
+   "preco": 1840000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 196 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "quadra:CA1202-QUB": {
+   "area": 200,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1202-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0ND6f9I2RsjiPoVerPvsjWK-53I+erA8B+14J33mp7a5filcsPg1rEvwK-4Nnz99p5VV9ItDWtyN+5Gbx20VI2iB1gMijOPpRnMS5x5GXV6gllivRdT9AXlDImz5gYh4x28WtmDqgyqaZHpPnh5RbMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1202-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1710000
+    }
+   ],
+   "id": "quadra:CA1202-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-200-m/CA1202-QUB",
+   "preco": 1710000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 200 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1205-QUB": {
+   "area": 265,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1205-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu25E4d1F4EwTv9YpAYWf7QCEzJu3vMyl-V2h+LfZkbrXi+H8A-uOyIIyyILwPgervot5HNAaIkxaeO8-Yj3lcKGwNiF2-xDT+HjpbpVtaC8Kwj0NsFJ2zWTgR8KUz3c86x+BFdTTgxfXSKejJRlAKLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "brognoli:93592",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2099000
+    }
+   ],
+   "id": "quadra:CA1205-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-265-m/CA1205-QUB",
+   "preco": 2099000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 265 m² Itacorubi - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1235-QUB": {
+   "area": 197,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 6,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1235-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2psz41e6ht7m-1CWuWmmwyjhKmq-oecoH-O5pz1+qr628nYRPb49bgWyaX9FkSwlKc5R-A-CXBwWuZ+eyL3Vb2vAGF2j2OL9h+TQIJWQm8E8TwczUxs3GWoe5StqGc7wiigIfiI+g7TUZjsX0VTQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6SeKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWtxAmKocxl3FHORKvBe7lNfCgaOla07SYAI98rrJrPq2PKj0HK7seGerj9QL+Y-RNcVVMYuqQHVAXztxNTwX5F7ktPyL7AD5bSnYrhAGWB3fg9xq7GV3clU=.jpg",
+   "grupo": "lideranca:C1018",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2049000
+    }
+   ],
+   "id": "quadra:CA1235-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-7-quartos-197-m/CA1235-QUB",
+   "preco": 2049000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 7,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa de 197 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1317-QUB": {
+   "area": 191,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1317-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu1dW59xMzS86iJsjAbOUsyCZ2Yy7zeqDg03I16TKh67UxOHFQ5jklIIV6bLYF2+olKRJG9l4K055XdQlXCTnYdisFyAOvDaxvkvvaINWRHdxxjwVkgV6wXWEQJWJ2Xgg4wuoIdD2pnOTS7j3NhkCTPdHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFMnqsHnhCSSbRJvBrtz4SV16CpaUSCMAdupLiY+qTlNPnyTq-1IyWgj54Mu5XXPcNBKoSyDGoIQXN6bTQG5RT79OvHpwClICqV5xBfWFLfwI4npnZ9cxgRoA==.jpg",
+   "grupo": "quadra:CA1317-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1895000
+    }
+   ],
+   "id": "quadra:CA1317-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-4-quartos-191-m/CA1317-QUB",
+   "preco": 1895000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 191 m² Itacorubi - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1335-QUB": {
+   "area": 250,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1335-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3xqwf58uBRlstUpDYGcjSeG7rWKx9azp0Gz4LfT4o7HjOPNX8LS7JI4lPLKPQGu6Yc8Y4M1aUNVRe52aRnVX9i5IEdKigWilmDOarJbHWVO1g8DmSgM5VeATcmm0AUe9TyVU6qdjBSvE567Pmt7OLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1335-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2050000
+    }
+   ],
+   "id": "quadra:CA1335-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-4-quartos-250-m/CA1335-QUB",
+   "preco": 2050000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 250 m² Parque São Jorge - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1352-QUB": {
+   "area": 214,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1352-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu25f0v9J2Ckaj-tDVZDu5y7cwN3R6fOCon2c85H2uKnDxZmnAu7TlYk6-rfcTwWrrrI4SdkVGHB3bcd4ah+2b6abFlhrpxXUokzVQpQYbVtt5wZuvAZq31e1Z7fyzQMe+QCOTvbXihKCdbnRBWVWJLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "auxiliadora:768437",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2048000
+    }
+   ],
+   "id": "quadra:CA1352-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-5-quartos-214-m/CA1352-QUB",
+   "preco": 2048000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 214 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1359-QUB": {
+   "area": 162,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1359-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0d3-9Zx+yZvkts+BK6Sthm37r2Gxve-jWOr5c3I4e78x+3QAtnV8bAl+PLVT0+SoZ9PGf8gEkBdWfFBFALHcIDbbEZTkRyxuxzBROZjfVNN3R8AoU1zz361dLSt+F9hhyeMC6LzpTKqZ662Jwx-D7dHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFMnqsHnhCSSbRJvBrtz4SV16CpaUSCMAdupLiY+qTlNPnyTq-1IyWgj54Mu5XXPcNBKoSyDGoIQXN6bTQG5RT79OvHpwClICqV5xBfWFLfwI4npnZ9cxgRoA==.jpg",
+   "grupo": "bella:CA2796-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "quadra:CA1359-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-162-m/CA1359-QUB",
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 162 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "quadra:CA1360-QUB": {
+   "area": 152,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1360-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3hM9fBxowkEsMgHcKGjsi6K5NWs4s2iq1W-4br-rrTB2OHkZMr+ltBu3fe2MFSD76R+FtssInleYfUlRyuwc7yKICBmsTiIr1vjEed8GnZY-gcZrhFcnlCUXpi3+kI5+gKvNcyHiQS+VZj6C0x4NLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "bella:CA2794-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "quadra:CA1360-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-152-m/CA1360-QUB",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 152 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1361-QUB": {
+   "area": 154,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1361-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0RYwoo2ukogvvM+TrGYsCeB97Ws+vLJjG+7p5aOiKnV6Jnme5rxmMVkz5KrPFeMq6VqHuJ3KkVDRcklQjKwaL6+JFMAjzfSpEzWRrxEczZ2+jMrt0tSxh7iUrme2HAb1AqrK6PYkmuXa5HkIhkFJMZHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFMnqsHnhCSSbRJvBrtz4SV16CpaUSCMAdupLiY+qTlNPnyTq-1IyWgj54Mu5XXPcNBKoSyDGoIQXN6bTQG5RT79OvHpwClICqV5xBfWFLfwI4npnZ9cxgRoA==.jpg",
+   "grupo": "bella:CA2797-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1590000
+    }
+   ],
+   "id": "quadra:CA1361-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-154-m/CA1361-QUB",
+   "preco": 1590000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 154 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1379-QUB": {
+   "area": 196,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1379-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu1hI+f1wzRN7vvABDL+v+Tml6YLI-+28m0DJ9YPP5+jnzs7eRt3CwqMf7rLICECll61oZdoGa2NeQMRFXUfNUoeMIUdrkmavmlSVFaV2cTBq+F4syysMmkaOBrn16FAi1yT7K-yD+3aPS5HZL3F2NLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1379-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1755000
+    }
+   ],
+   "id": "quadra:CA1379-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-196-m/CA1379-QUB",
+   "preco": 1755000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 196 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1380-QUB": {
+   "area": 199,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1380-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtux1B7vRlwDNho8MyY7CgsBaX0tiYwfiovWisx4P2pIHm1tz5AePX6bsU+P-eClSuiqo5VtoJGUx1XvZ1HBr2eKK3YmBMiWSIjFzddJdWfk8J5iVpyQx0nV6SXaGDzG4SyhC6N9DqugCxEYe-WGdRFsRHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFMnqsHnhCSSbRJvBrtz4SV16CpaUSCMAdupLiY+qTlNPnyTq-1IyWgj54Mu5XXPcNBKoSyDGoIQXN6bTQG5RT79OvHpwClICqV5xBfWFLfwI4npnZ9cxgRoA==.jpg",
+   "grupo": "quadra:CA1380-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1725000
+    }
+   ],
+   "id": "quadra:CA1380-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-199-m/CA1380-QUB",
+   "preco": 1725000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 199 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1383-QUB": {
+   "area": 170,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1383-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu1Y-7OV24k9itNYkYqeBuA298NXI4synlk6RoLTcp5LjhfLPUenxxp0YzpPsPVS9k6VDVNUOARtcWrhFQD-tBbraHWV9-AGxu2acdpVCRGlijx0MrBtT2HiCY7GrqHohgxCJGarbpAGeXZL8BkBTQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6SeKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWtxAmKocxl3FHORKvBe7lNfCgaOla07SYAI98rrJrPq2PKj0HK7seGerj9QL+Y-RNcVVMYuqQHVAXztxNTwX5F7ktPyL7AD5bSnYrhAGWB3fg9xq7GV3clU=.jpg",
+   "grupo": "quadra:CA1383-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1680000
+    }
+   ],
+   "id": "quadra:CA1383-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-4-quartos-170-m/CA1383-QUB",
+   "preco": 1680000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 170 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1386-QUB": {
+   "area": 170,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1386-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0Ns2vtLxzoko9M4TKeCojGlwZuW2P28gkO756KPu+3r-83DW5f0k9oIzryvIwad7r5jRtl5OExnONVFeC6wer-cIXQJqg6duWvAU513RTAIhwcDlBx61Ufoe7Gz+wAH9C+kAeL7kXarb-3PNl5lQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6SeKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWtxAmKocxl3FHORKvBe7lNfCgaOla07SYAI98rrJrPq2PKj0HK7seGerj9QL+Y-RNcVVMYuqQHVAXztxNTwX5F7ktPyL7AD5bSnYrhAGWB3fg9xq7GV3clU=.jpg",
+   "grupo": "lideranca:C1059",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "quadra:CA1386-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-170-m/CA1386-QUB",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 170 m² Parque São Jorge - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1404-QUB": {
+   "area": 180,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1404-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0t+yJdXwgZjzY9JGZ+B5iPX6ZySyd2WkV+xwLH6ooGF9-G6V-ffypgc9onzF32drJ85H4wrPUlJW-Z9Yj36Ur6AB2BQnQGClH7Vd5JgRDFa5V8SnzV57kK7BLaS8gEWgwX6L-LCrBSrcY7mX3VBKLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1404-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1080000
+    }
+   ],
+   "id": "quadra:CA1404-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-4-quartos-180-m/CA1404-QUB",
+   "preco": 1080000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 180 m² Parque São Jorge - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "quadra:CA1407-QUB": {
+   "area": 250,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1407-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu25F-9hp404Ht+dFbYiYo3jd7KOU2tu4oXXGyKPzrrT6y8fZbJzZ2pEi+ozQL1yxobM0fewmPVBbaMxdXULFVaKHZlxrrDS7gUzgCv5MbmRu5DsotAZy3UKVQYCxz2M9yTCnCLbggBKPRYnBO2ZtKLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1407-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1790000
+    }
+   ],
+   "id": "quadra:CA1407-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-4-quartos-250-m/CA1407-QUB",
+   "preco": 1790000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 250 m² Parque São Jorge - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1416-QUB": {
+   "area": 226,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1416-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0VlytNMwTkPu8MUeK6YpQe37Kal+sWXjUqIpMj3gY6CzJ-aZNyDz6ci4f7YElvz6aBUVIV5BB1iY8BefA7tAYCLZn8OrDyKiUjvT6odSXRW1gUJgR5XmXa2XIi1yGYNwSiaAqvoi3GifaLoLhl1QPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6SeKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWtxAmKocxl3FHORKvBe7lNfCgaOla07SYAI98rrJrPq2PKj0HK7seGerj9QL+Y-RNcVVMYuqQHVAXztxNTwX5F7ktPyL7AD5bSnYrhAGWB3fg9xq7GV3clU=.jpg",
+   "grupo": "quadra:CA1416-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1790000
+    }
+   ],
+   "id": "quadra:CA1416-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-226-m/CA1416-QUB",
+   "preco": 1790000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 226 m² Parque São Jorge - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1417-QUB": {
+   "area": 236,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1417-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2Z7+fRqwjsxvNYIBb6e5BaHz6O1+ciSnXu81Innhqr16vLzANbH7KVnyf-8EVqsiaU8Zow5MkBgSfgmSgz6Up+gB1VakiCwikSXCqF8e0tn8QxtiCwJ+lrmR8i20E4NnnuqCK7RsH+XV5-dX31hMLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1417-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1790000
+    }
+   ],
+   "id": "quadra:CA1417-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-236-m/CA1417-QUB",
+   "preco": 1790000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 236 m² Parque São Jorge - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1418-QUB": {
+   "area": 210,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1418-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu1496oIrzRI8iM0HArLkrRaYwISPztuHiRq384yGv+vC1pzTfJre2Jwc5oXDOG6AiYxLVsB5KxgiWLloSBbObaSaACJUvWWlh0jnRp10HDNT2Vk2nDtp2GOZWLuh7lcK7COJNcvaiBW3SKW-B2tnGrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1418-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1265000
+    }
+   ],
+   "id": "quadra:CA1418-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-6-quartos-210-m/CA1418-QUB",
+   "preco": 1265000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 6,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 210 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1429-QUB": {
+   "area": 176,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1429-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtuxZKjOJUvCAnt+4aAe+PgimajouQ-Imjjmew9KHPlIze5+jWeZiE+LAh3LzDNUXwooNKTIBiEmB9TtBFVTnFUL6MAFwUgg6ThW+SXaNvRm5o8z4DnTh27lm4Q5ug0GkfhmSKVfzo+jScaYrRG1ZEFt9HR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFMnqsHnhCSSbRJvBrtz4SV16CpaUSCMAdupLiY+qTlNPnyTq-1IyWgj54Mu5XXPcNBKoSyDGoIQXN6bTQG5RT79OvHpwClICqV5xBfWFLfwI4npnZ9cxgRoA==.jpg",
+   "grupo": "daga:1673",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1675000
+    }
+   ],
+   "id": "quadra:CA1429-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-176-m/CA1429-QUB",
+   "preco": 1675000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 176 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1441-QUB": {
+   "area": 225,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1441-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu39F7O9C6D43s+dHTL+85C2nz4LFvcq1nV6c-M3nmbfq6Oj8ccGH77wZi7HSKV+ctoRkZP4gbmkgW9NmHUzsUoilbFR7pSe9vFTMFuIYXklF+C4cvxlC3EmZTYf1zWcq4z2oG+709TS+FZ7GMAVEHrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1441-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1790000
+    }
+   ],
+   "id": "quadra:CA1441-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-225-m/CA1441-QUB",
+   "preco": 1790000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 225 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1442-QUB": {
+   "area": 225,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1442-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3ZXy-Ir-CABudJJBIKfszSBwq+x5ImksVbN1rLTopDmi-jfR9-dl9E71JDQLwe3n6M1S-N+F0BmeLNXRhmxXIuROiBejA6spBqSELhKbEly+A4vjT5I2HWYUYmHzGk95z7-E9KHijyJUKHlK2tTQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6SeKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWtxAmKocxl3FHORKvBe7lNfCgaOla07SYAI98rrJrPq2PKj0HK7seGerj9QL+Y-RNcVVMYuqQHVAXztxNTwX5F7ktPyL7AD5bSnYrhAGWB3fg9xq7GV3clU=.jpg",
+   "grupo": "quadra:CA1442-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1750000
+    }
+   ],
+   "id": "quadra:CA1442-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-225-m/CA1442-QUB",
+   "preco": 1750000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 225 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1445-QUB": {
+   "area": 182,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1445-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2NBict+0Upmu+VHZpGPsTSewoXP6veBvEakqK3T4o355eeiZOjD97sd74zhTQSXjql1SIx4CHtpS9g-SjK0aIaZH3Zp+yfSmm-xRKIcRi9KwQ84lDJN23ukdpSbxmEcxROLG8-yuz60XbK+EHZcMLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1445-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2080000
+    }
+   ],
+   "id": "quadra:CA1445-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-182-m/CA1445-QUB",
+   "preco": 2080000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 182 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1446-QUB": {
+   "area": 288,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1446-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2NY8-1Q7Dk0ipBGA+-l4my+7L6-5928jXO8-5--4qrh6en9f92FlKsw47fDHH6Stoh-ecAACUleeu5QGRHTAICpH2htpiuj-13RX6toH2Z1hApqpyx-m13jVp2p8HsJ9TujJarI8T+2aZvmC2xrErMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1446-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1950000
+    }
+   ],
+   "id": "quadra:CA1446-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-5-quartos-288-m/CA1446-QUB",
+   "preco": 1950000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa de 288 m² Parque São Jorge - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1447-QUB": {
+   "area": 209,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1447-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2NFys9c5BknjfUFTo+buDec5pWO3uaYjhuP5MzPju-SxMSnUtr15YQxw5DzTEKu7qN4fdl-D1opPKwrdyzyRZvZC3lyiCmzp2noarZIckRb0ygwoTRslXmkRYOOqhs-5Rn5Id2dmnaNU7z9IAJaFrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1447-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1980000
+    }
+   ],
+   "id": "quadra:CA1447-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-209-m/CA1447-QUB",
+   "preco": 1980000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 209 m² Itacorubi - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1448-QUB": {
+   "area": 180,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1448-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu1l6wMlHzTAbstUuBpqAtjnWhISQxsa9oWOX14vUlO3xyZnDcuDk7d5iwZXcTkHzl4J+Yesbb31GdvFeWDLlZ5aCMHhj+DWt+R7od4dhXk0P5TApoU1u3F+pA4bp5QRu-CC8Oa6CujTSHZfXPn4HRbMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "lideranca:C1091",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1890000
+    }
+   ],
+   "id": "quadra:CA1448-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-180-m/CA1448-QUB",
+   "preco": 1890000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 180 m² Itacorubi - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1450-QUB": {
+   "area": 182,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1450-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2Zh9YtNvEthi80gWb6YmHG-34ijtoeWoEPH2Ivq4YjZ6ur7YMziyLk70ovaHl6Dn-ZheccoOl10bNQmFD23TrqjOEdRiCGInhXsE4ZJemtL7V4Trk9i51S5fpeAzGYU+mSYVf77uCCmUoHmClxrT-dHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFMnqsHnhCSSbRJvBrtz4SV16CpaUSCMAdupLiY+qTlNPnyTq-1IyWgj54Mu5XXPcNBKoSyDGoIQXN6bTQG5RT79OvHpwClICqV5xBfWFLfwI4npnZ9cxgRoA==.jpg",
+   "grupo": "auxiliadora:833988",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2030000
+    }
+   ],
+   "id": "quadra:CA1450-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-182-m/CA1450-QUB",
+   "preco": 2030000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 182 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1451-QUB": {
+   "area": 182,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1451-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu1p5zI9u+g0BtuAVf5Kwmiej56Cf34mnowHI8bn-opCE7+3vecz-6oY0iqvuQm+unpRsXYQ7DWFTffJVZRPbUYvcPCZzhhrUl1rTYuVoUlVq9hlq1U1KyAOCdqCR0nth3C+8B8idriqFY-+8JVcCOLMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "quadra:CA1451-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2080000
+    }
+   ],
+   "id": "quadra:CA1451-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-182-m/CA1451-QUB",
+   "preco": 2080000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 182 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1452-QUB": {
+   "area": 280,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 6,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1452-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu01I0Y5Pvkw6u-Y1Y6OfpC625bSw1um6vEjM-5+J4ezL883WZ9ze04Bl9ffsEHGlgqtLHewKdkM8S85ibCPvUqyHJ2h6oRie+m7pfpdbR2VL+Ao+jSwK4gukZpG32XUshjm3BM-esGu2cLjKUXF+FrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdpKlKcKiF6RHbUY7kiyxtaUgaCqZkmFZwBs9b+drqa5O-6kHq32OWSjh5ZO-pLKJtBUK56nAStWV3s6Jicd7x+6qvXO4g6rcjWJtghHGRPRzsM49G52chhc.jpg",
+   "grupo": "auxiliadora:837521",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1750000
+    }
+   ],
+   "id": "quadra:CA1452-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-7-quartos-280-m/CA1452-QUB",
+   "preco": 1750000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 7,
+   "status": "ativo",
+   "suites": 5,
+   "tipo": "Casa",
+   "titulo": "Casa de 280 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "quadra:CA1453-QUB": {
+   "area": 188,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1453-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2l83+NxuBcksOlIZrazjTTe0IKMwciHnUO52Yr6sLXR-OTuRJjykN0IzvG2Nga1mIN-e-U8Chojd8k-YhHMXJmMACRJlBCNpgD2dP4WXklR+CVoqCd0x2KpZ76orm4t13r7D93kryiSQarlGhlfKeBHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFMnqsHnhCSSbRJvBrtz4SV16CpaUSCMAdupLiY+qTlNPnyTq-1IyWgj54Mu5XXPcNBKoSyDGoIQXN6bTQG5RT79OvHpwClICqV5xBfWFLfwI4npnZ9cxgRoA==.jpg",
+   "grupo": "auxiliadora:444640",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1980000
+    }
+   ],
+   "id": "quadra:CA1453-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-188-m/CA1453-QUB",
+   "preco": 1980000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa de 188 m² Córrego Grande - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1459-QUB": {
+   "area": 130,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1459-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2Vbz4hP1iZhy5ZBDeGwgCyNwqm1yo6G9Ge19daO4pfrzP3xctbx6YEk2K30M2+2n4FbbeAaMnhBe8NHRT+0U4eyNUJN8xiSimaVT4VAfTVX6AYusTBo23GhBMGr5k5hiy+8OdrAqR7de7HfDgd3J+FHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFMnqsHnhCSSbRJvBrtz4SV16CpaUSCMAdupLiY+qTlNPnyTq-1IyWgj54Mu5XXPcNBKoSyDGoIQXN6bTQG5RT79OvHpwClICqV5xBfWFLfwI4npnZ9cxgRoA==.jpg",
+   "grupo": "auxiliadora:478562",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1520000
+    }
+   ],
+   "id": "quadra:CA1459-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-130-m/CA1459-QUB",
+   "preco": 1520000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 130 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "quadra:CA1463-QUB": {
+   "area": 171,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA1463-QUB",
+   "fonte": "quadra",
+   "foto": "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu1pY04JZ2Rs6yZEUUJuY7TO-zIbF7emSiR6d34H0o+zwxPqje57p4qlk9bTwNUCAl4dFFuN8L28lW9lKaBjHRZayIldb+CazogCReOFDQlNX1S5tgBFnzn3kXJ+FrQMX5CW0Ovj0qhmVEYy8UUNDQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6SeKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWtxAmKocxl3FHORKvBe7lNfCgaOla07SYAI98rrJrPq2PKj0HK7seGerj9QL+Y-RNcVVMYuqQHVAXztxNTwX5F7ktPyL7AD5bSnYrhAGWB3fg9xq7GV3clU=.jpg",
+   "grupo": "lideranca:C1077",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1700000
+    }
+   ],
+   "id": "quadra:CA1463-QUB",
+   "link": "https://www.quadraimobiliaria.com.br/imovel/casa-florianopolis-3-quartos-171-m/CA1463-QUB",
+   "preco": 1700000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa de 171 m² Santa Mônica - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 5
+  },
+  "seiter:CA00402": {
+   "area": 81,
+   "areaTerreno": 81,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 1,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA00402",
+   "endereco": "Rua Maria Alexandre Machado",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNIzTTQxMrUwSk1NSrI0i89JLMhMzsssKtA3MDU3Nzcz1E-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "invista:CA0325-INYT",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 845000
+    }
+   ],
+   "id": "seiter:CA00402",
+   "iptu": 600,
+   "link": "https://seiterimobiliaria.com.br/casa-de-2-domritorios-a-venda-florianopolis-itacorubi",
+   "preco": 845000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 2,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa de 2 domritorios a venda Florianopolis Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "seiter:CA00577": {
+   "area": 110,
+   "areaTerreno": 110,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA00577",
+   "endereco": "Itacorubi",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNIzMbYwSjE2NjVLNLM0i89JLMhMzsssKtA3sDQxtDAz1E-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "seiter:CA00577",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 979000
+    }
+   ],
+   "id": "seiter:CA00577",
+   "iptu": 533,
+   "link": "https://seiterimobiliaria.com.br/casa-venda-itacorubi-em-florianpolis",
+   "preco": 979000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa à venda  Itacorubi em Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "seiter:CA00601": {
+   "area": 220,
+   "areaTerreno": 220,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA00601",
+   "endereco": "Itacorubi",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNIzt0g1SjFPNjdLNLM0i89JLMhMzsssKtC3sDQ0sjAz1E-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "seiter:CA00601",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "seiter:CA00601",
+   "iptu": 185,
+   "link": "https://seiterimobiliaria.com.br/casa-venda-itacorubi-florianpolis",
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa à venda itacorubi Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "seiter:CA00657": {
+   "area": 270,
+   "areaTerreno": 270,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA00657",
+   "endereco": "Itacorubi",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNIzSzFItkxLNjBPNLM0i89JLMhMzsssKtA3NDc1tjAz1E-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "brognoli:43818",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1550000
+    }
+   ],
+   "id": "seiter:CA00657",
+   "iptu": 2700,
+   "link": "https://seiterimobiliaria.com.br/casa-a-venda-itacorubi-florianpolis-bk4",
+   "preco": 1550000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa a venda Itacorubi Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "seiter:CA00783": {
+   "area": 150,
+   "areaTerreno": 438,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA00783",
+   "endereco": "Servidão do Palmeiras",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNIzMjFITEpKTDRJM0w0i89JLMhMzsssKtC3NDC0MDM00k-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "seiter:CA00783",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1400000
+    }
+   ],
+   "id": "seiter:CA00783",
+   "iptu": 723,
+   "link": "https://seiterimobiliaria.com.br/casa-grande-venda-itacorubi-florianopolis",
+   "preco": 1400000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa Grande Venda Itacorubi Florianopolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "seiter:CA00788": {
+   "area": 119,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA00788",
+   "endereco": "Rua Begônia",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNIzNLZMS021MDFONk40i89JLMhMzsssKtA3MDE3MDYy0k-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "seiter:CA00788",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1900000
+    }
+   ],
+   "id": "seiter:CA00788",
+   "iptu": 1040.89,
+   "link": "https://seiterimobiliaria.com.br/casa-venda-condominio-parque-sao-jorge",
+   "preco": 1900000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa em condomínio",
+   "titulo": "Casa venda condominio Parque Sao Jorge",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "seiter:CA00803": {
+   "area": 180,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA00803",
+   "endereco": "Avenida Buriti",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNKzTEqytEgys0hMNk80i89JLMhMzsssKtC3sDS0NDU20k-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "seiter:CA00803",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1750000
+    }
+   ],
+   "id": "seiter:CA00803",
+   "iptu": 0.01,
+   "link": "https://seiterimobiliaria.com.br/casa-com-3-quartos-itacorubi-florianopolis",
+   "preco": 1750000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Casa",
+   "titulo": "Casa com 3 quartos, Itacorubi - Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "seiter:CA0734": {
+   "area": 134,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA0734",
+   "endereco": "Vila Ivan Matos",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNIzSzMysEiyTLZMNLM0i89JLMhMzsssKtA3tzQwsDQz1E-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "seiter:CA0734",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1190000
+    }
+   ],
+   "id": "seiter:CA0734",
+   "iptu": 1072.57,
+   "link": "https://seiterimobiliaria.com.br/casa-3-dormitorios-com-suite-para-venda-itacorubi-florianopolis",
+   "preco": 1190000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa 3 dormitórios com suite para venda Itacorubi Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 6
+  },
+  "seiter:CA0744": {
+   "area": 162,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA0744",
+   "endereco": "Vila Ivan Matos",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNIzMzY0TDZMMk4ztLA0i89JLMhMzsssKtC3MDc3Mzc31E-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "seiter:CA0744",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1150000
+    }
+   ],
+   "id": "seiter:CA0744",
+   "iptu": 700,
+   "link": "https://seiterimobiliaria.com.br/casa-3-dormitorios-com-suite-a-venda-itacorubi-florianopolis",
+   "preco": 1150000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa 3 dormitórios com suite à venda Itacorubi Florianópolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "seiter:CA0750": {
+   "areaTerreno": 225,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA0750",
+   "endereco": "Servidão Deoscoro Peres",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNIztLRIMjZKs0w1sbA0i89JLMhMzsssKtA3NTIzsDQ31E-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "seiter:CA0750",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1489000
+    }
+   ],
+   "id": "seiter:CA0750",
+   "link": "https://seiterimobiliaria.com.br/casa-nova-a-venda-florianopolis-itacorubi",
+   "preco": 1489000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa nova a venda Florianopolis Itacorubi",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "seiter:CA0756": {
+   "area": 170,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "CA0756",
+   "endereco": "Rua Itapeva",
+   "fonte": "seiter",
+   "foto": "https://img.apre.me/M7YtVksvyNKzNDNINjBPSzJOSrI0i89JLMhMzsssKtC3MDYwNLQw1E-Py0zJySxNss1UszA0MrNNBgA.jpg",
+   "grupo": "brognoli:82040",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "seiter:CA0756",
+   "iptu": 0.01,
+   "link": "https://seiterimobiliaria.com.br/casa-de-3-dormitorios-a-venda-florianopolis",
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "casa de 3 dormitorios a venda Florianopolis",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00"
+  },
+  "smolka:18950": {
+   "area": 360,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "18950",
+   "endereco": "Av Buriti",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/18950/i2T9F7vx4Lr3_18950662a9da89f622.jpg",
+   "grupo": "smolka:18950",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1400000
+    }
+   ],
+   "id": "smolka:18950",
+   "lat": -27.59134987455677,
+   "link": "https://smolkaimoveis.com.br/imovel/18950",
+   "lng": -48.497197203704815,
+   "preco": 1400000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa à venda no parque são jorge, itacorubi, florianópolis/sc.",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "smolka:19651": {
+   "area": 110,
+   "areaTerreno": 800,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "19651",
+   "endereco": "Servidão Monte Sião",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/19651/i14W2uwc1AO_1965166acef8cc681e.jpg",
+   "grupo": "smolka:19651",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 913000
+    }
+   ],
+   "id": "smolka:19651",
+   "lat": -27,
+   "link": "https://smolkaimoveis.com.br/imovel/19651",
+   "lng": -48,
+   "preco": 913000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa a venda com amplo terrenoi no itacorubi, com terreno de 800 m2",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "smolka:55900": {
+   "area": 2458,
+   "areaTerreno": 2458,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 6,
+   "cidade": "Florianópolis - SC",
+   "codigo": "55900",
+   "endereco": "Rua Sebastiao Laurentino da Silva",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/55900/i9HX48226468j2236_5590068bedbcea7b88.jpg",
+   "grupo": "smolka:55900",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1990000
+    }
+   ],
+   "id": "smolka:55900",
+   "lat": -27.6078145,
+   "link": "https://smolkaimoveis.com.br/imovel/55900",
+   "lng": -48.50405670000001,
+   "preco": 1990000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa à venda com quatro dormitórios,  com 256,90 m² de área construída, terreno com 2.458,00 m², no bairro córrego grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "smolka:56375": {
+   "area": 80,
+   "areaTerreno": 240,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 1,
+   "cidade": "Florianópolis - SC",
+   "codigo": "56375",
+   "endereco": "Travessa José Antônio de Lima",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/56375/iw82mn2Sa_5637569322ab940ad5.jpg",
+   "grupo": "smolka:56375",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 930000
+    }
+   ],
+   "id": "smolka:56375",
+   "lat": -27.5800297,
+   "link": "https://smolkaimoveis.com.br/imovel/56375",
+   "lng": -48.5055705,
+   "preco": 930000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa a venda no itacorubi floianópolis.",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "smolka:56708": {
+   "area": 360,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "56708",
+   "endereco": "Rua Félix Kleis",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/56708/i13BG49nm97Gu8Kf3_56708698e186bade6b.jpg",
+   "grupo": "smolka:56708",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1749000
+    }
+   ],
+   "id": "smolka:56708",
+   "lat": 0,
+   "link": "https://smolkaimoveis.com.br/imovel/56708",
+   "lng": 0,
+   "preco": 1749000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa comercial e residencial pewrto shoping villa romana",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "smolka:56757": {
+   "area": 360,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "56757",
+   "endereco": "Rua Itapeva",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/56757/iL9Cx35Kzq464_567576998e8304b074.jpg",
+   "grupo": "smolka:56757",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "smolka:56757",
+   "lat": -27.591161681649837,
+   "link": "https://smolkaimoveis.com.br/imovel/56757",
+   "lng": -48.49669182698366,
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa à venda com 3 dormitórios, sendo 1 suíte, piscina e 2 vagas de garagem, no parque são jorge, bairro itacorubi, florianópolis/sc.",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "smolka:56902": {
+   "area": 191.63,
+   "areaTerreno": 368,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "56902",
+   "endereco": "Servidão Eloi Gertrudes da Silva",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/56902/iXv1Nm9323w9sN7446e_5690269bd44efddc42.jpg",
+   "grupo": "quadra:CA1317-QUB",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1900000
+    }
+   ],
+   "id": "smolka:56902",
+   "lat": -27.588181,
+   "link": "https://smolkaimoveis.com.br/imovel/56902",
+   "lng": -48.494936,
+   "preco": 1900000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa a venda no itacorubi 4 dromitorios.",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "smolka:56963": {
+   "area": 150,
+   "areaTerreno": 438,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 2,
+   "cidade": "Florianópolis - SC",
+   "codigo": "56963",
+   "endereco": "Servidão do Palmeiras",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/56963/iN9pJ4ra8JdW_5696369cac36ad89cf.jpg",
+   "grupo": "smolka:56963",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1400000
+    }
+   ],
+   "id": "smolka:56963",
+   "lat": -27.579155,
+   "link": "https://smolkaimoveis.com.br/imovel/56963",
+   "lng": -48.4927737,
+   "preco": 1400000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 5,
+   "status": "ativo",
+   "tipo": "Casa",
+   "titulo": "Casa ampla com quintal, árvores frutíferas e 5 quartos no itacorubi - próxima à udesc",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 1
+  },
+  "smolka:57078": {
+   "area": 160,
+   "areaTerreno": 160,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "57078",
+   "endereco": "Rua Octávio Lebarbenchon",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/57078/i4B7XH77l77MMdT31kN4_5707869e20c4bd4cd1.jpg",
+   "grupo": "bella:CA2785-B89",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1690000
+    }
+   ],
+   "id": "smolka:57078",
+   "lat": 0,
+   "link": "https://smolkaimoveis.com.br/imovel/57078",
+   "lng": 0,
+   "preco": 1690000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Sobrado",
+   "titulo": "Casa com 3 suítes no córrego grande",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "smolka:57140": {
+   "area": 160,
+   "areaTerreno": 160,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "57140",
+   "endereco": "Rua Octávio Lebarbenchon",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/57140/i8397K61di5_5714069eb77123992a.jpg",
+   "grupo": "duda:54959",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1590000
+    }
+   ],
+   "id": "smolka:57140",
+   "lat": 0,
+   "link": "https://smolkaimoveis.com.br/imovel/57140",
+   "lng": 0,
+   "preco": 1590000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 3,
+   "tipo": "Sobrado",
+   "titulo": "Casa com 3 suítes",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "smolka:57164": {
+   "area": 360,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Parque São Jorge",
+   "banheiros": 3,
+   "cidade": "Florianópolis - SC",
+   "codigo": "57164",
+   "endereco": "Av Buriti",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/57164/it466628XWC9dG42_5716469f0f66a12986.jpg",
+   "grupo": "smolka:57164",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1915000
+    }
+   ],
+   "id": "smolka:57164",
+   "lat": -27.59134987455677,
+   "link": "https://smolkaimoveis.com.br/imovel/57164",
+   "lng": -48.497197203704815,
+   "preco": 1915000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa mobiliada à venda com 3 dormitórios, sendo 1 suíte, no parque são jorge, itacorubi, florianópolis/sc.",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 3
+  },
+  "smolka:57301": {
+   "area": 400,
+   "areaTerreno": 400,
+   "ausencias": 0,
+   "bairro": "Santa Mônica",
+   "banheiros": 7,
+   "cidade": "Florianópolis - SC",
+   "codigo": "57301",
+   "endereco": "Rua Cônego Thomas Fontes",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/57301/i2Whn_573016a062e3e8e9de.jpg",
+   "grupo": "smolka:57301",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 2025000
+    }
+   ],
+   "id": "smolka:57301",
+   "lat": -13.90108184065817,
+   "link": "https://smolkaimoveis.com.br/imovel/57301",
+   "lng": -50.713421874999995,
+   "preco": 2025000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 7,
+   "status": "ativo",
+   "suites": 2,
+   "tipo": "Casa",
+   "titulo": "Casa à venda com 7 dormitórios, sendo 2 suítes, 4 vagas de garagem, no bairro santa mônica, florianópolis/sc.",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "smolka:57545": {
+   "area": 224.81,
+   "areaTerreno": 224.81,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 4,
+   "cidade": "Florianópolis - SC",
+   "codigo": "57545",
+   "endereco": "Servidão Deoscoro Peres",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/57545/i54D576323Z56Rqi7_575456a3a984e1d6b2.jpg",
+   "grupo": "smolka:57545",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "smolka:57545",
+   "lat": 0,
+   "link": "https://smolkaimoveis.com.br/imovel/57545",
+   "lng": 0,
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa 3 dormitórios, mobiliada e equipada perto das universidades no itabocuri",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  },
+  "smolka:57812": {
+   "area": 360,
+   "areaTerreno": 360,
+   "ausencias": 0,
+   "bairro": "Itacorubi",
+   "banheiros": 5,
+   "cidade": "Florianópolis - SC",
+   "codigo": "57812",
+   "endereco": "Rua Itapeva",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/57812/iZ482N8I77i_578126a789cdfd9e28.jpg",
+   "grupo": "smolka:57812",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1790000
+    }
+   ],
+   "id": "smolka:57812",
+   "lat": -27.591332838108347,
+   "link": "https://smolkaimoveis.com.br/imovel/57812",
+   "lng": -48.49704587857362,
+   "preco": 1790000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 4,
+   "status": "ativo",
+   "suites": 1,
+   "tipo": "Casa",
+   "titulo": "Casa à venda com 4 dormitórios, sendo 1 suíte, piscina e 4 vagas de garagem, no parque são jorge, bairro itacorubi, florianópolis/sc.",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 4
+  },
+  "smolka:58060": {
+   "area": 162,
+   "areaTerreno": 162,
+   "ausencias": 0,
+   "bairro": "Córrego Grande",
+   "banheiros": 34,
+   "cidade": "Florianópolis - SC",
+   "codigo": "58060",
+   "endereco": "Rua Octávio Lebarbenchon",
+   "fonte": "smolka",
+   "foto": "https://cdn.vistahost.com.br/smolka/vista.imobi/fotos/58060/i9Xc4OC3h5b23x58_580606aad3f29ccac3.jpg",
+   "grupo": "smolka:58060",
+   "historicoPreco": [
+    {
+     "data": "2026-10-01T16:47:59-03:00",
+     "preco": 1490000
+    }
+   ],
+   "id": "smolka:58060",
+   "lat": -27.5952521,
+   "link": "https://smolkaimoveis.com.br/imovel/58060",
+   "lng": -48.5024007,
+   "preco": 1490000,
+   "primeiroVisto": "2026-10-01T16:47:59-03:00",
+   "quartos": 3,
+   "status": "ativo",
+   "suites": 30,
+   "tipo": "Sobrado",
+   "titulo": "Sobrado novo com 3 suítes",
+   "ultimoVisto": "2026-10-01T16:47:59-03:00",
+   "vagas": 2
+  }
+ },
+ "rodadas": 1,
+ "ultimaRodada": "2026-10-01T16:47:59-03:00",
+ "versao": 1
+}
