@@ -1,0 +1,49 @@
+name: Buscar casas novas
+
+on:
+  schedule:
+    # 7h, 12h, 17h e 22h no horário de Brasília (UTC-3); nada de madrugada
+    - cron: "17 10,15,20 * * *"
+    - cron: "17 1 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: crawler
+  cancel-in-progress: false
+
+jobs:
+  buscar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: crawler/requirements.txt
+
+      - run: pip install -r crawler/requirements.txt
+
+      - name: Ler as imobiliárias
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python crawler/crawl.py
+
+      - name: Guardar o resultado
+        run: |
+          git config user.name "casa-nova-crawler"
+          git config user.email "casa-nova-crawler@users.noreply.github.com"
+          git add data/casas.json
+          if git diff --cached --quiet; then
+            echo "Nada mudou."
+          else
+            git commit -m "Busca de casas: $(TZ=America/Sao_Paulo date '+%d/%m %H:%M')"
+            git pull --rebase
+            git push
+          fi
