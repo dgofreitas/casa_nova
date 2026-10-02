@@ -1,5 +1,9 @@
 # Crawler do Casa Nova
 
+> **Agora o crawler roda no servidor** (veja [`SERVIDOR.md`](../SERVIDOR.md)). O que
+> segue descreve as imobiliárias e as regras, que continuam valendo; as partes de
+> GitHub Actions, Apps Script e Google Drive são da versão antiga.
+
 Procura casas à venda no Itacorubi, Santa Mônica, Parque São Jorge e Córrego Grande,
 até R$ 2,1 milhões, em 12 imobiliárias de Florianópolis. Roda sozinho no GitHub
 Actions às 7h, 12h, 17h e 22h, avisa no Telegram e alimenta a aba **Novidades** do site.
