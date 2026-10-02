@@ -1166,6 +1166,21 @@ function decisaoDe(an){
   return null;
 }
 function parecido(a,b,tolA,tolP){return a&&b&&Math.abs(a-b)/Math.max(a,b)<=tolA}
+function ruaNum(end){
+  // "buriti" e "379" a partir de "Avenida Buriti, 379" (mesma regra do crawler)
+  let t=semAcento(end);if(!t)return [null,null];
+  const m=t.match(/\b(\d{1,5})\b/);
+  t=t.replace(/\d+/g," ").replace(/\b(rua|r|avenida|av|servidao|serv|sv|travessa|tv|rodovia|rod|estrada|alameda|al|via|sc|geral|de|da|do|dos|das|e)\b/g," ").replace(/[^a-z ]/g," ").replace(/\s+/g," ").trim();
+  if(["itacorubi","santa monica","parque sao jorge","pq sao jorge","corrego grande","florianopolis","centro","trindade"].includes(t))t="";
+  return [t||null,m?m[1]:null];
+}
+function mesmoEndereco(e1,e2,a,b){
+  const [r1,n1]=ruaNum(e1),[r2,n2]=ruaNum(e2);
+  if(!r1||!r2)return true; // sem rua nos dois, não dá para descartar
+  if(!(r1===r2||r1.includes(r2)||r2.includes(r1)))return false;
+  if(n1&&n2&&n1!==n2&&!(parecido(a.area,b.area,0.01)&&parecido(a.preco,b.preco,0.01)))return false;
+  return true;
+}
 function jaCadastrada(c){
   // um imóvel que vocês cadastraram à mão (ou por link) e parece ser esta casa
   const links=new Set(c.anuncios.map(a=>a.link));
@@ -1174,6 +1189,7 @@ function jaCadastrada(c){
     if(d.link&&links.has(d.link))return {id,certeza:true};
     if(semAcento(d.bairro)!==semAcento(c.bairro))continue;
     if(d.quartos&&c.quartos&&d.quartos!==c.quartos)continue;
+    if(!mesmoEndereco(d.endereco,c.endereco,d,c))continue;
     if(parecido(d.area,c.area,0.06)&&parecido(d.preco,c.preco,0.10))return {id,certeza:false};
   }
   return null;
@@ -1253,7 +1269,7 @@ function cardNv(c){
       <button class="btn ${sit==="descartada"?"on":"danger"}" type="button" data-nva="${sit==="descartada"?"voltar":"descartada"}" data-gid="${esc(c.gid)}">${sit==="descartada"?"Voltar à lista":"Descartar"}</button>
     </div>`);
   const capa=capaDe(c),gal=galeriaDe(c),desc=descricaoDe(c);
-  const nf=gal?gal.fotos.length:(arquivoGaleria(c)?"+":0);
+  const ag=arquivoGaleria(c),nf=gal&&!(ag&&ag.qtd>gal.fotos.length)?gal.fotos.length:(ag?ag.qtd||"+":0);
   const ph=capa?`<div class="ph nv foto" data-gal="${esc(c.gid)}" role="button" tabindex="0" aria-label="Ver fotos"><img src="${blob(capa)}" alt="" loading="lazy"><div class="badges">${badges}</div>${nf?`<span class="nfotos">📷 ${nf==="+"?"fotos":nf}</span>`:""}</div>`
     :`<div class="ph nv">${houseSvg}<span class="dom">${esc(nomes.join(" · "))}</span><div class="badges">${badges}</div></div>`;
   return `<article class="card nvc ${c.saiu?"saiu":""}">
@@ -1384,8 +1400,9 @@ async function marcarVisto(){
 }
 /* ---- fotos e descrições das novidades ---- */
 // O crawler reduz as fotos e o Apps Script as põe no Drive (pasta "Casa Nova - fotos").
-// O site traz as capas para o próprio armazenamento (assets) e a galeria de cada casa
-// quando alguém a abre. Os ids ficam em crawler/fotos, para todos verem.
+// O site traz as capas e depois as galerias para o próprio armazenamento (assets), uma
+// casa por vez, sempre que alguém com o Drive conectado abre o site; quem clica numa
+// casa passa na frente. Os ids ficam em crawler/fotos, para todos verem.
 const ARQ_FOTOS="casa-nova-fotos.json";
 let nvFotosIdx=null,nvImportando=false,nvFotoMsg="";
 const fotosDoc=()=>S.crawler.fotos||{capas:{},galerias:{}};
@@ -1395,7 +1412,7 @@ function capaDe(c){const f=fotosDoc();for(const a of c.anuncios)if(f.capas&&f.ca
 function galeriaDe(c){const f=fotosDoc();for(const a of c.anuncios)if(f.galerias&&f.galerias[a.id]&&f.galerias[a.id].length)return {id:a.id,fotos:f.galerias[a.id]};return null}
 function arquivoGaleria(c){
   if(!nvFotosIdx)return null;
-  for(const a of c.anuncios){const p=nvFotosIdx.galerias&&nvFotosIdx.galerias[a.id];if(p&&nvFotosIdx.arquivos[p])return {id:a.id,fileId:nvFotosIdx.arquivos[p]}}
+  for(const a of c.anuncios){const p=nvFotosIdx.galerias&&nvFotosIdx.galerias[a.id];if(p&&nvFotosIdx.arquivos[p])return {id:a.id,path:p,fileId:nvFotosIdx.arquivos[p],qtd:nvFotosIdx.qtd&&nvFotosIdx.qtd[a.id]}}
   return null;
 }
 async function baixarJSON(fileId){
@@ -1405,10 +1422,12 @@ async function baixarJSON(fileId){
 }
 const b64Blob=b=>new Blob([Uint8Array.from(atob(b),ch=>ch.charCodeAt(0))],{type:"image/jpeg"});
 async function subir(b64){
-  try{return (await assets.upload(b64Blob(b64))).id}
-  catch(e){if(e&&e.code==="rate_limited"){await new Promise(r=>setTimeout(r,4000+Math.random()*2000));return (await assets.upload(b64Blob(b64))).id}throw e}
+  for(let t=0;;t++){
+    try{return (await assets.upload(b64Blob(b64))).id}
+    catch(e){if(!(e&&e.code==="rate_limited")||t>=4)throw e;await new Promise(r=>setTimeout(r,(4000<<t)+Math.random()*2000))}
+  }
 }
-function gravarFotos(mut){const f=fotosDoc();const novo={capas:{...(f.capas||{})},galerias:{...(f.galerias||{})}};mut(novo);return save("crawler","fotos",novo)}
+function gravarFotos(mut){const f=fotosDoc();const novo={capas:{...(f.capas||{})},galerias:{...(f.galerias||{})},galeriasArq:{...(f.galeriasArq||{})}};mut(novo);return save("crawler","fotos",novo)}
 async function carregarIdx(){
   if(nvFotosIdx)return nvFotosIdx;
   const r=await chamarDrive("search_files",{query:`title = '${ARQ_FOTOS}' and owner = 'me'`,excludeContentSnippets:true,pageSize:3});
@@ -1420,28 +1439,53 @@ async function carregarIdx(){
 async function syncFotos(){
   if(!mcp||!assets||!db||readOnly||nvImportando||!feed())return;
   nvImportando=true;
+  const status=m=>{nvFotoMsg=m;if(UI.tab==="novidades")renderNvStatus()};
+  let semEspaco=false;
   try{
     nvFotosIdx=null;
     const idx=await carregarIdx();if(!idx)return;
+    // casas que ainda importam, as mais recentes primeiro (as já decididas ficam por último)
+    const lista=casas().filter(c=>!c.saiu&&!(c.decisao&&c.decisao.situacao==="descartada"))
+      .sort((x,y)=>(x.decisao?1:0)-(y.decisao?1:0)||String(y.primeiroVisto).localeCompare(String(x.primeiroVisto)));
+    const vivos=new Set(lista.flatMap(c=>c.anuncios.map(a=>a.id)));
+    // 1) capas, por lote; um lote que falha não para os outros
     const tem=fotosDoc().capas||{};
-    const vivos=new Set(casas().filter(c=>!c.saiu&&!(c.decisao&&c.decisao.situacao==="descartada")).flatMap(c=>c.anuncios.map(a=>a.id)));
     const precisa={};
     Object.entries(idx.capas||{}).forEach(([id,arq])=>{if(!tem[id]&&vivos.has(id)&&idx.arquivos[arq])(precisa[arq]=precisa[arq]||[]).push(id)});
     const total=Object.values(precisa).reduce((n,l)=>n+l.length,0);let feitos=0;
     for(const [arq,ids] of Object.entries(precisa)){
-      const lote=await baixarJSON(idx.arquivos[arq]);
       const novos={};
-      for(const id of ids){
-        if(lote[id]){try{novos[id]=await subir(lote[id])}catch(e){if(e&&e.code==="quota_or_state"){nvFotoMsg="O espaço de fotos do site acabou.";break}}}
-        feitos++;nvFotoMsg=`trazendo fotos ${feitos} de ${total}…`;if(UI.tab==="novidades")renderNvStatus();
-      }
+      try{
+        const lote=await baixarJSON(idx.arquivos[arq]);
+        for(const id of ids){
+          if(lote[id]){try{novos[id]=await subir(lote[id])}catch(e){if(e&&e.code==="quota_or_state"){semEspaco=true;break}}}
+          feitos++;status(`trazendo capas ${feitos} de ${total}…`);
+        }
+      }catch(e){feitos+=ids.length}
       if(Object.keys(novos).length)await gravarFotos(f=>Object.assign(f.capas,novos));
-      if(nvFotoMsg.startsWith("O espaço"))break;
+      if(semEspaco)break;
     }
-    if(!nvFotoMsg.startsWith("O espaço"))nvFotoMsg="";
+    // 2) galerias completas, uma casa por vez; cada uma fica salva, então dá para fechar a página
+    if(!semEspaco){
+      const fila=lista.filter(c=>galeriaDesatualizada(c));
+      let n=0;
+      for(const c of fila){
+        n++;status(`trazendo as fotos das casas: ${n} de ${fila.length}…`);
+        try{await garantirGaleria(c,true)}catch(e){if(e&&e.code==="quota_or_state"){semEspaco=true;break}}
+      }
+    }
+    status(semEspaco?"O espaço de fotos do site acabou.":"");
     await completarImoveis();
   }catch(e){nvFotoMsg=""}
   finally{nvImportando=false;if(UI.tab==="novidades")renderNovidades()}
+}
+// a galeria no Drive é mais nova que a do site (o crawler refaz a galeria quando a imobiliária mostra mais fotos)
+function galeriaDesatualizada(c){
+  const arq=arquivoGaleria(c);if(!arq)return false;
+  const f=fotosDoc(),ids=f.galerias&&f.galerias[arq.id];
+  if(!ids||!ids.length)return true;
+  const feito=f.galeriasArq&&f.galeriasArq[arq.id];
+  return feito?feito!==arq.path:/-\d{12}\.json$/.test(arq.path);
 }
 async function completarImoveis(){
   // imóveis que foram para Imóveis antes de existirem fotos e descrição: completa quando der
@@ -1459,16 +1503,22 @@ async function completarImoveis(){
     if(Object.keys(part).length)await patch("imoveis",imId,part);
   }
 }
-async function garantirGaleria(c){
-  const g=galeriaDe(c);if(g)return g.fotos;
-  if(!assets||!mcp||readOnly)return null;
+async function garantirGaleria(c,atualizar){
+  const g=galeriaDe(c);
+  if(g&&!(atualizar&&galeriaDesatualizada(c)))return g.fotos;
+  if(!assets||!mcp||readOnly)return g?g.fotos:null;
   await carregarIdx();
-  const arq=arquivoGaleria(c);if(!arq)return null;
+  const arq=arquivoGaleria(c);if(!arq)return g?g.fotos:null;
   const j=await baixarJSON(arq.fileId);
   const ids=[];
-  for(const b of j.fotos||[]){try{ids.push(await subir(b))}catch(e){break}}
-  if(ids.length)await gravarFotos(f=>{f.galerias[arq.id]=ids});
-  return ids;
+  for(const b of j.fotos||[]){
+    try{ids.push(await subir(b))}
+    catch(e){if(e&&e.code==="quota_or_state"&&!ids.length)throw e;break}
+  }
+  if(ids.length&&!(g&&ids.length<g.fotos.length))
+    // galeria que veio pela metade fica marcada para ser trazida de novo
+    await gravarFotos(f=>{f.galerias[arq.id]=ids;f.galeriasArq[arq.id]=ids.length<(j.fotos||[]).length?"incompleta":arq.path});
+  return ids.length?ids:(g?g.fotos:ids);
 }
 const dlgFotos=$("#dlgFotos");let gal={lista:[],i:0};
 function mostrarFoto(){

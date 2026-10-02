@@ -39,17 +39,25 @@ descrição e até 8 fotos, reduzidas (capa de 560 px e galeria de 960 px). Uma 
 anunciada por várias imobiliárias ganha fotos uma vez só. As fotos ficam no branch
 `fotos` do repositório, que é refeito a cada busca (sem histórico, para não crescer).
 
-O site traz as capas sozinho para o próprio armazenamento. A galeria completa de uma
-casa é trazida quando alguém com o Google Drive conectado clica na foto, ou quando
-vocês marcam **Tenho interesse**: aí as fotos e o texto do anúncio vão junto para
-Imóveis, e o texto já fica pronto em "Preencher com IA".
+Nos sites Kenlo (Quadra, Bella, Invista) as fotos vêm da lista completa da página,
+e não das 5 do resumo. Quando uma imobiliária passa a mostrar mais fotos, o crawler
+refaz a galeria daquela casa (sem repetir o aviso no Telegram).
+
+Sempre que alguém com o Google Drive conectado abre o site, ele traz para o próprio
+armazenamento primeiro as capas e depois as galerias, uma casa por vez. Cada casa
+fica salva assim que chega, então dá para fechar a página no meio: na próxima vez ele
+continua de onde parou. Quem clica numa foto passa na frente. Ao marcar **Tenho
+interesse**, as fotos e o texto do anúncio vão junto para Imóveis, e o texto já fica
+pronto em "Preencher com IA".
 
 ## Regras
 
 - **Só casas residenciais**: casa, casa em condomínio, sobrado, geminada.
 - **Preço**: entra até R$ 2.100.000. Acima de R$ 1.900.000 aparece o selo "negociar".
-- **Mesma casa em várias imobiliárias** vira um cartão só (mesmo bairro e quartos,
-  área e preço até 5% de diferença).
+- **Mesma casa em várias imobiliárias** vira um cartão só: mesmo bairro e quartos,
+  área e preço até 5% de diferença e, quando os dois anúncios dizem a rua, a mesma
+  rua e o mesmo número (número diferente só vale se área e preço forem idênticos,
+  porque aí é erro de digitação).
 - **Saiu do ar**: só depois de 3 buscas seguidas sem aparecer, e nunca quando
   o site da imobiliária falhou.
 - **Primeira busca**: vira a base inicial. O Telegram recebe um resumo, e não 100 avisos.

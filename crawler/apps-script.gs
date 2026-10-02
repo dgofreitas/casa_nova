@@ -111,7 +111,7 @@ function copiarFotos(inicio) {
     return out;
   };
   var paraSite = {geradoEm: indice.geradoEm, arquivos: arquivos,
-                  capas: filtra(indice.capas), galerias: filtra(indice.galerias)};
+                  capas: filtra(indice.capas), galerias: filtra(indice.galerias), qtd: indice.qtd || {}};
   gravar(NOME_INDICE_FOTOS, JSON.stringify(paraSite));
   console.log('Fotos: ' + novos + ' arquivos novos, ' + apagados + ' apagados' +
               (faltam ? ', ' + faltam + ' ficam para a próxima hora.' : '.'));
