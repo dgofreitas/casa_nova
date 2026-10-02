@@ -1166,6 +1166,21 @@ function decisaoDe(an){
   return null;
 }
 function parecido(a,b,tolA,tolP){return a&&b&&Math.abs(a-b)/Math.max(a,b)<=tolA}
+function ruaNum(end){
+  // "buriti" e "379" a partir de "Avenida Buriti, 379" (mesma regra do crawler)
+  let t=semAcento(end);if(!t)return [null,null];
+  const m=t.match(/\b(\d{1,5})\b/);
+  t=t.replace(/\d+/g," ").replace(/\b(rua|r|avenida|av|servidao|serv|sv|travessa|tv|rodovia|rod|estrada|alameda|al|via|sc|geral|de|da|do|dos|das|e)\b/g," ").replace(/[^a-z ]/g," ").replace(/\s+/g," ").trim();
+  if(["itacorubi","santa monica","parque sao jorge","pq sao jorge","corrego grande","florianopolis","centro","trindade"].includes(t))t="";
+  return [t||null,m?m[1]:null];
+}
+function mesmoEndereco(e1,e2,a,b){
+  const [r1,n1]=ruaNum(e1),[r2,n2]=ruaNum(e2);
+  if(!r1||!r2)return true; // sem rua nos dois, não dá para descartar
+  if(!(r1===r2||r1.includes(r2)||r2.includes(r1)))return false;
+  if(n1&&n2&&n1!==n2&&!(parecido(a.area,b.area,0.01)&&parecido(a.preco,b.preco,0.01)))return false;
+  return true;
+}
 function jaCadastrada(c){
   // um imóvel que vocês cadastraram à mão (ou por link) e parece ser esta casa
   const links=new Set(c.anuncios.map(a=>a.link));
@@ -1174,6 +1189,7 @@ function jaCadastrada(c){
     if(d.link&&links.has(d.link))return {id,certeza:true};
     if(semAcento(d.bairro)!==semAcento(c.bairro))continue;
     if(d.quartos&&c.quartos&&d.quartos!==c.quartos)continue;
+    if(!mesmoEndereco(d.endereco,c.endereco,d,c))continue;
     if(parecido(d.area,c.area,0.06)&&parecido(d.preco,c.preco,0.10))return {id,certeza:false};
   }
   return null;

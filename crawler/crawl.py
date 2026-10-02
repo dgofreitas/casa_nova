@@ -10,6 +10,7 @@ import base64
 import html
 import json
 import os
+import re
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -17,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from comum import PRECO_MAX, Http, bairro_oficial, tipo_casa  # noqa: E402
+from comum import PRECO_MAX, Http, bairro_oficial, sem_acento, tipo_casa  # noqa: E402
 from fontes import FONTES  # noqa: E402
 import fotos  # noqa: E402
 import telegram  # noqa: E402
@@ -62,16 +63,60 @@ def normalizar(fonte, bruto):
     return r
 
 
+TIPOS_RUA = r"\b(rua|r|avenida|av|servidao|serv|sv|travessa|tv|rodovia|rod|estrada|alameda|al|via|sc|geral)\b"
+
+
+NAO_SAO_RUAS = {"itacorubi", "santa monica", "parque sao jorge", "pq sao jorge", "itacorubi parque sao jorge",
+                "corrego grande", "florianopolis", "centro", "trindade"}
+
+
+def rua_numero(endereco):
+    """("buriti", "379") a partir de "Avenida Buriti, 379"; partes ausentes viram None."""
+    if not endereco:
+        return None, None
+    t = sem_acento(endereco)
+    m = re.search(r"\b(\d{1,5})\b", t)
+    numero = m.group(1) if m else None
+    rua = re.sub(r"\d+", " ", t)
+    rua = re.sub(TIPOS_RUA, " ", rua)
+    rua = re.sub(r"\b(de|da|do|dos|das|e)\b", " ", rua)
+    rua = re.sub(r"[^a-z ]", " ", rua)
+    rua = " ".join(rua.split())
+    # algumas imobiliárias põem o bairro ou a cidade no lugar da rua: isso não é endereço
+    if not rua or rua in NAO_SAO_RUAS:
+        return None, numero
+    return rua, numero
+
+
+def identicos(a, b):
+    """Área e preço iguais (até 1%): número diferente na mesma rua é erro de digitação."""
+    return all(a.get(k) and b.get(k) and abs(a[k] - b[k]) / max(a[k], b[k]) <= 0.01 for k in ("area", "preco"))
+
+
+def mesma_rua(r1, r2):
+    # "buriti" bate com "buriti", e "joao pio duarte silva" com "joao pio duarte"
+    return r1 == r2 or r1 in r2 or r2 in r1
+
+
 def distancia(a, b):
     """Diferença relativa entre dois anúncios, ou None se não parecem o mesmo imóvel.
 
     Precisa de área e preço batendo (até 5%), mesmo bairro, mesmo número de
-    quartos quando os dois informam, e imobiliárias diferentes.
+    quartos quando os dois informam, imobiliárias diferentes e, quando os dois
+    informam o endereço, a mesma rua e o mesmo número.
     """
     if a["fonte"] == b["fonte"] or a["bairro"] != b["bairro"]:
         return None
     if a.get("quartos") and b.get("quartos") and a["quartos"] != b["quartos"]:
         return None
+    # endereço é o sinal mais forte: rua diferente, ou mesma rua com outro número, são casas diferentes
+    rua_a, num_a = rua_numero(a.get("endereco"))
+    rua_b, num_b = rua_numero(b.get("endereco"))
+    if rua_a and rua_b:
+        if not mesma_rua(rua_a, rua_b):
+            return None
+        if num_a and num_b and num_a != num_b and not identicos(a, b):
+            return None
     total, usados = 0.0, set()
     for campo in ("area", "areaTerreno", "preco"):
         x, y = a.get(campo), b.get(campo)

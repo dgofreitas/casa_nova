@@ -48,8 +48,10 @@ Imóveis, e o texto já fica pronto em "Preencher com IA".
 
 - **Só casas residenciais**: casa, casa em condomínio, sobrado, geminada.
 - **Preço**: entra até R$ 2.100.000. Acima de R$ 1.900.000 aparece o selo "negociar".
-- **Mesma casa em várias imobiliárias** vira um cartão só (mesmo bairro e quartos,
-  área e preço até 5% de diferença).
+- **Mesma casa em várias imobiliárias** vira um cartão só: mesmo bairro e quartos,
+  área e preço até 5% de diferença e, quando os dois anúncios dizem a rua, a mesma
+  rua e o mesmo número (número diferente só vale se área e preço forem idênticos,
+  porque aí é erro de digitação).
 - **Saiu do ar**: só depois de 3 buscas seguidas sem aparecer, e nunca quando
   o site da imobiliária falhou.
 - **Primeira busca**: vira a base inicial. O Telegram recebe um resumo, e não 100 avisos.
