@@ -1439,8 +1439,25 @@ async function syncFotos(){
       if(nvFotoMsg.startsWith("O espaço"))break;
     }
     if(!nvFotoMsg.startsWith("O espaço"))nvFotoMsg="";
+    await completarImoveis();
   }catch(e){nvFotoMsg=""}
   finally{nvImportando=false;if(UI.tab==="novidades")renderNovidades()}
+}
+async function completarImoveis(){
+  // imóveis que foram para Imóveis antes de existirem fotos e descrição: completa quando der
+  const todas=casas();
+  for(const [imId,im] of Object.entries(S.imoveis)){
+    if(im.origem!=="crawler"||!im.novidadeId)continue;
+    const precisaFoto=!(im.fotos&&im.fotos.length),precisaTexto=!im.anuncioTexto;
+    if(!precisaFoto&&!precisaTexto)continue;
+    const dec=S.novidades[im.novidadeId];
+    const c=dec&&todas.find(x=>x.anuncios.some(a=>(dec.anuncios||[]).includes(a.id)));
+    if(!c)continue;
+    const part={};
+    if(precisaTexto){const t=descricaoDe(c);if(t){part.anuncioTexto=t.slice(0,20000);if(!im.extracao||im.extracao==="ok")part.extracao="pendente"}}
+    if(precisaFoto){try{const f=await garantirGaleria(c);if(f&&f.length)part.fotos=f}catch(e){}}
+    if(Object.keys(part).length)await patch("imoveis",imId,part);
+  }
 }
 async function garantirGaleria(c){
   const g=galeriaDe(c);if(g)return g.fotos;
