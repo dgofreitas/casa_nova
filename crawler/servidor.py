@@ -62,6 +62,20 @@ def buscar(motivo):
 
 
 SEMENTE = Path(__file__).resolve().parent / "semente-casas.json"
+_http = None
+
+
+def fotos_dos_imoveis():
+    """Imóveis cadastrados com link: busca as fotos do anúncio (veja fotos_imoveis.py)."""
+    global _http
+    try:
+        import fotos_imoveis
+        from comum import Http
+        if _http is None:
+            _http = Http(espera=2.0)
+        fotos_imoveis.processar(_http, DADOS)
+    except Exception as e:  # nunca derruba o agendador
+        print("[imóveis] falhou:", e, flush=True)
 
 
 def main():
@@ -73,6 +87,14 @@ def main():
         (DADOS / "casas.json").write_text(SEMENTE.read_text())
         PEDIDO.write_text("primeira vez no servidor")
         print("casas.json inicial copiado do repositório.", flush=True)
+    try:
+        interrompida = json.loads(STATUS.read_text()).get("rodando")
+    except (OSError, ValueError):
+        interrompida = False
+    if interrompida:
+        # o container parou no meio de uma busca (deploy, servidor reiniciado): retoma já
+        PEDIDO.write_text("busca interrompida")
+        print("A última busca foi interrompida; recomeçando agora.", flush=True)
     gravar_status(rodando=False, proxima=alvo.isoformat(timespec="seconds"))
     print(f"Crawler no ar. Horários: {HORARIOS}. Próxima busca: {alvo:%d/%m %H:%M}", flush=True)
     while True:
@@ -82,6 +104,7 @@ def main():
         elif agora() >= alvo:
             buscar("horário")
         else:
+            fotos_dos_imoveis()
             time.sleep(20)
             continue
         alvo = proxima(agora())
