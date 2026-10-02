@@ -1,11 +1,12 @@
 """Roda todas as imobiliárias, atualiza o histórico e avisa no Telegram.
 
-Uso: python crawler/crawl.py [--sem-telegram] [--so daga,quadra]
+Uso: python crawler/crawl.py [--sem-telegram] [--so daga,quadra] [--fotos PASTA]
 
 Arquivos:
   data/casas.json   tudo o que o crawler acompanha (lido pelo site e pelo Apps Script)
 """
 import argparse
+import base64
 import html
 import json
 import os
@@ -16,8 +17,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from comum import PRECO_MAX, Http, bairro_oficial, og_image, tipo_casa  # noqa: E402
+from comum import PRECO_MAX, Http, bairro_oficial, tipo_casa  # noqa: E402
 from fontes import FONTES  # noqa: E402
+import fotos  # noqa: E402
 import telegram  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -114,18 +116,7 @@ def agrupar(imoveis):
         x["grupo"] = min(grupo[i]) if i in grupo else i
 
 
-def completar_fotos(http, imoveis, ids, limite=40):
-    for i in ids[:limite]:
-        x = imoveis[i]
-        if x.get("foto") or not x.get("link"):
-            continue
-        try:
-            x["foto"] = og_image(http.html(x["link"]))
-        except Exception:
-            pass
-
-
-def rodar(so=None):
+def rodar(so=None, pasta_fotos=None):
     estado = carregar()
     primeira = estado["rodadas"] == 0
     quando = agora()
@@ -202,14 +193,15 @@ def rodar(so=None):
     for id_ in [i for i, x in imoveis.items() if x.get("status") == "saiu" and x.get("saiuEm", "") < limite]:
         del imoveis[id_]
 
-    completar_fotos(http, imoveis, eventos["novos"])
+    fotos.completar_detalhes(http, imoveis, ESPERA)
     agrupar(imoveis)
+    capas_novas = fotos.gerar_fotos(imoveis, pasta_fotos) if pasta_fotos else {}
     estado["rodadas"] += 1
     estado["ultimaRodada"] = quando
     estado["eventos"] = {"quando": quando, "baseInicial": primeira,
                          **{k: [e if isinstance(e, str) else e[0] for e in v] for k, v in eventos.items()}}
     salvar(estado)
-    return estado, eventos, primeira
+    return estado, eventos, primeira, capas_novas
 
 
 # ---------------------------------------------------------------- Telegram
@@ -227,6 +219,12 @@ def linha(x):
     nome = FONTES[x["fonte"]][0]
     return (f"• <a href=\"{html.escape(x['link'])}\">{html.escape(', '.join(partes))}</a> — "
             f"{html.escape(x['bairro'])} · <b>{brl(x.get('preco'))}</b>{selo} · {html.escape(nome)}")
+
+
+def legenda(x):
+    partes = [x["tipo"]] + ([f"{x['quartos']} quartos"] if x.get("quartos") else []) + \
+             ([f"{x['area']:g} m²"] if x.get("area") else [])
+    return f"{', '.join(partes)} · {x['bairro']} · {brl(x.get('preco'))} · {FONTES[x['fonte']][0]}"
 
 
 def mensagem(estado, eventos, primeira):
@@ -273,13 +271,19 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sem-telegram", action="store_true")
     ap.add_argument("--so", default="")
+    ap.add_argument("--fotos", default="", help="pasta do branch de fotos")
     a = ap.parse_args()
     so = set(x for x in a.so.split(",") if x) or None
-    estado, eventos, primeira = rodar(so)
+    estado, eventos, primeira, capas = rodar(so, a.fotos or None)
     msg = mensagem(estado, eventos, primeira)
     print("\n" + (msg or "(nada novo para avisar)"))
     if msg and not a.sem_telegram:
         telegram.enviar(msg)
+        if not primeira:
+            # as capas das casas novas, num álbum logo depois do resumo
+            im = estado["imoveis"]
+            album = [(base64.b64decode(capas[i]), legenda(im[i])) for i in eventos["novos"] if i in capas]
+            telegram.album(album)
 
 
 if __name__ == "__main__":

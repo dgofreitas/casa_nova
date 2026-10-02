@@ -4,6 +4,7 @@ Precisa de duas variáveis de ambiente (segredos do GitHub):
   TELEGRAM_BOT_TOKEN  o token que o @BotFather entrega
   TELEGRAM_CHAT_ID    o id do grupo (ou da conversa) que recebe os avisos
 """
+import json
 import os
 
 import requests
@@ -33,3 +34,23 @@ def enviar(texto):
             "chat_id": chat, "text": parte, "parse_mode": "HTML", "disable_web_page_preview": "true"})
         if not r.ok:
             print("Falha no Telegram:", r.status_code, r.text[:300])
+
+
+def album(itens):
+    """Envia fotos (bytes JPEG, legenda) em álbuns de até 10."""
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat = os.environ.get("TELEGRAM_CHAT_ID")
+    if not token or not chat or not itens:
+        return
+    for n in range(0, len(itens), 10):
+        parte = itens[n:n + 10]
+        media = [{"type": "photo", "media": f"attach://f{i}", "caption": leg[:1000]}
+                 for i, (_, leg) in enumerate(parte)]
+        files = {f"f{i}": (f"f{i}.jpg", dados, "image/jpeg") for i, (dados, _) in enumerate(parte)}
+        try:
+            r = requests.post(f"https://api.telegram.org/bot{token}/sendMediaGroup", timeout=60,
+                              data={"chat_id": chat, "media": json.dumps(media)}, files=files)
+            if not r.ok:
+                print("Falha ao mandar fotos no Telegram:", r.status_code, r.text[:300])
+        except requests.RequestException as e:
+            print("Falha ao mandar fotos no Telegram:", e)

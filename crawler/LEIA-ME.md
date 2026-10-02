@@ -5,11 +5,11 @@ até R$ 2,1 milhões, em 12 imobiliárias de Florianópolis. Roda sozinho no Git
 Actions às 7h, 12h, 17h e 22h, avisa no Telegram e alimenta a aba **Novidades** do site.
 
 ```
-GitHub Actions ──► data/casas.json (neste repositório) ──► Telegram
+GitHub Actions ──► data/casas.json + branch "fotos" ──► Telegram (resumo + álbum com as capas)
                           │
              Google Apps Script (de hora em hora)
                           ▼
-            casa-nova-casas.json no Google Drive
+   Google Drive: casa-nova-casas.json, casa-nova-fotos.json e a pasta "Casa Nova - fotos"
                           │
        site Casa Nova (conector do Google Drive) ──► aba Novidades
 ```
@@ -31,6 +31,18 @@ Nada disso usa a IA do Claude, então não gasta tokens.
 | Duda Imóveis | Página de busca (Parque São Jorge não existe no site deles) |
 
 Ficaram de fora: Creditoreal, imoveis-sc.com.br e Viva Real (bloqueiam robôs).
+
+## Fotos e descrição
+
+Na primeira vez que vê um anúncio, o crawler abre a página dele e guarda o texto da
+descrição e até 8 fotos, reduzidas (capa de 560 px e galeria de 960 px). Uma casa
+anunciada por várias imobiliárias ganha fotos uma vez só. As fotos ficam no branch
+`fotos` do repositório, que é refeito a cada busca (sem histórico, para não crescer).
+
+O site traz as capas sozinho para o próprio armazenamento. A galeria completa de uma
+casa é trazida quando alguém com o Google Drive conectado clica na foto, ou quando
+vocês marcam **Tenho interesse**: aí as fotos e o texto do anúncio vão junto para
+Imóveis, e o texto já fica pronto em "Preencher com IA".
 
 ## Regras
 
