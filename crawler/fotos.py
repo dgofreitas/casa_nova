@@ -12,6 +12,7 @@ Só uma casa por grupo (mesmo imóvel em várias imobiliárias) ganha fotos.
 import base64
 import io
 import json
+import os
 import re
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
@@ -45,10 +46,15 @@ def _jpeg(conteudo, lado, qualidade):
 def _baixar(url):
     try:
         r = requests.get(url, timeout=40, headers={"User-Agent": UA, "Referer": url})
+        if r.status_code == 403:
+            # site com Cloudflare que recusa robôs: tenta imitando o Chrome
+            from curl_cffi import requests as cr
+            r = cr.get(url, timeout=40, impersonate="chrome", headers={"Referer": url},
+                       verify=os.environ.get("REQUESTS_CA_BUNDLE") or True)
         if r.status_code != 200 or len(r.content) < 2000:
             return None
         return r.content
-    except requests.RequestException:
+    except Exception:
         return None
 
 
