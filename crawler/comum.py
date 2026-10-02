@@ -1,8 +1,10 @@
 """Funções compartilhadas pelos leitores de cada imobiliária."""
 import json
+import os
 import re
 import time
 import unicodedata
+from urllib.parse import urlparse
 
 import requests
 
@@ -29,6 +31,24 @@ class Http:
         self.s.headers.update({"User-Agent": UA, "Accept-Language": "pt-BR,pt;q=0.9"})
         self.espera = espera
         self._ultimo = 0.0
+        self._chrome = None        # sessão que imita a conexão do Chrome (curl_cffi)
+        self._como_chrome = set()  # sites que só respondem assim
+
+    def _pedir_como_chrome(self, url, **kw):
+        """Alguns sites (Cloudflare) recusam robôs pela "assinatura" da conexão, e não
+        pelo endereço: imitar o Chrome resolve. Devolve None se não der."""
+        try:
+            from curl_cffi import requests as cr
+        except ImportError:
+            return None
+        if self._chrome is None:
+            self._chrome = cr.Session(impersonate="chrome", headers={"Accept-Language": "pt-BR,pt;q=0.9"},
+                                      verify=os.environ.get("REQUESTS_CA_BUNDLE") or True)
+        try:
+            r = self._chrome.get(url, timeout=40, **kw)
+        except Exception:
+            return None
+        return r if r.status_code < 400 else None
 
     def get(self, url, **kw):
         erro = None
@@ -37,6 +57,11 @@ class Http:
             if falta > 0:
                 time.sleep(falta)
             self._ultimo = time.time()
+            host = urlparse(url).netloc
+            if host in self._como_chrome:
+                r = self._pedir_como_chrome(url, **kw)
+                if r is not None:
+                    return r
             try:
                 r = self.s.get(url, timeout=40, **kw)
                 if r.status_code == 429:
@@ -53,6 +78,11 @@ class Http:
                     time.sleep(5 * (tentativa + 1))
                     continue
                 if r.status_code == 403:
+                    r2 = self._pedir_como_chrome(url, **kw)
+                    if r2 is not None:
+                        self._como_chrome.add(host)
+                        print(f"[http] {host} recusou o robô; passou imitando o Chrome", flush=True)
+                        return r2
                     raise RuntimeError("o site recusou o acesso (HTTP 403, proteção anti-robô)")
                 if r.status_code >= 400:
                     raise RuntimeError(f"o site respondeu com erro (HTTP {r.status_code})")
