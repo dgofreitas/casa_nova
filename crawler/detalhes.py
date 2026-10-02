@@ -7,13 +7,15 @@ imagens assim; nos sites de URL opaca vale o JSON-LD ou a ordem da página.
 import base64
 import html as H
 import json
+import os
 import re
 
 from bs4 import BeautifulSoup
 
 from comum import ld_json, og_image
 
-MAX_FOTOS = 8
+# no GitHub Actions o site guarda até 8 fotos por casa; no servidor, todas
+MAX_FOTOS = int(os.environ.get("CASA_NOVA_MAX_FOTOS") or 8)
 NAO_FOTO = re.compile(r"logo|icon|favicon|marca|whats|sprite|placeholder|avatar|selo|banner|"
                       r"settings/main-images|/static/|watermark|creci", re.I)
 URL_IMG = re.compile(r"https?://[^\"'\s<>()\\,]+?\.(?:jpe?g|webp|png)(?:\?[^\"'\s<>()\\]*)?", re.I)

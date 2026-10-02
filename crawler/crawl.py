@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from comum import PRECO_MAX, Http, bairro_oficial, sem_acento, tipo_casa  # noqa: E402
 from fontes import FONTES  # noqa: E402
 import fotos  # noqa: E402
+import fotos_servidor  # noqa: E402
 import telegram  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -161,7 +162,10 @@ def agrupar(imoveis):
         x["grupo"] = min(grupo[i]) if i in grupo else i
 
 
-def rodar(so=None, pasta_fotos=None):
+def rodar(so=None, pasta_fotos=None, dados=None):
+    global ARQ
+    if dados:
+        ARQ = Path(dados) / "casas.json"
     estado = carregar()
     primeira = estado["rodadas"] == 0
     quando = agora()
@@ -238,9 +242,15 @@ def rodar(so=None, pasta_fotos=None):
     for id_ in [i for i, x in imoveis.items() if x.get("status") == "saiu" and x.get("saiuEm", "") < limite]:
         del imoveis[id_]
 
-    fotos.completar_detalhes(http, imoveis, ESPERA)
-    agrupar(imoveis)
-    capas_novas = fotos.gerar_fotos(imoveis, pasta_fotos) if pasta_fotos else {}
+    if dados:
+        # no servidor: todas as fotos, juntando as dos anúncios da mesma casa
+        fotos_servidor.completar(http, imoveis, ESPERA)
+        agrupar(imoveis)
+        capas_novas = fotos_servidor.baixar(imoveis, dados)
+    else:
+        fotos.completar_detalhes(http, imoveis, ESPERA)
+        agrupar(imoveis)
+        capas_novas = fotos.gerar_fotos(imoveis, pasta_fotos) if pasta_fotos else {}
     estado["rodadas"] += 1
     estado["ultimaRodada"] = quando
     estado["eventos"] = {"quando": quando, "baseInicial": primeira,
@@ -309,6 +319,9 @@ def mensagem(estado, eventos, primeira):
     novas_falhas = [v for v in estado["fontes"].values() if v.get("ok") is False and v.get("falhasSeguidas") == 1]
     if novas_falhas:
         blocos.append("⚠️ Não consegui ler hoje: " + html.escape(", ".join(v["nome"] for v in novas_falhas)))
+    site = os.environ.get("CASA_NOVA_SITE")
+    if blocos and site and (novos or eventos["baixou"] or eventos["voltou"]):
+        blocos.append(f'<a href="{html.escape(site)}/#novidades">Abrir as Novidades</a>')
     return "\n\n".join(blocos)
 
 
@@ -317,9 +330,10 @@ def main():
     ap.add_argument("--sem-telegram", action="store_true")
     ap.add_argument("--so", default="")
     ap.add_argument("--fotos", default="", help="pasta do branch de fotos")
+    ap.add_argument("--dados", default="", help="pasta de dados do servidor (casas.json e fotos)")
     a = ap.parse_args()
     so = set(x for x in a.so.split(",") if x) or None
-    estado, eventos, primeira, capas = rodar(so, a.fotos or None)
+    estado, eventos, primeira, capas = rodar(so, a.fotos or None, a.dados or None)
     msg = mensagem(estado, eventos, primeira)
     print("\n" + (msg or "(nada novo para avisar)"))
     if msg and not a.sem_telegram:
@@ -327,7 +341,8 @@ def main():
         if not primeira:
             # as capas das casas novas, num álbum logo depois do resumo
             im = estado["imoveis"]
-            album = [(base64.b64decode(capas[i]), legenda(im[i])) for i in eventos["novos"] if i in capas]
+            album = [(capas[i] if isinstance(capas[i], bytes) else base64.b64decode(capas[i]), legenda(im[i]))
+                     for i in eventos["novos"] if i in capas]
             telegram.album(album)
 
 
