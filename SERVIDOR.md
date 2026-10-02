@@ -29,15 +29,16 @@ Segredos do repositório (Settings → Secrets and variables → Actions):
 |---|---|
 | `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY` | os mesmos do Contopia |
 | `SENHA_DIOGO`, `SENHA_CINTHIA` | as senhas de cada um no site (sem aspas simples) |
+| `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | o robô do Telegram (já existiam) |
 
 O endereço chega ao site por um bloco no `caddy/Caddyfile` do moneyTrackr.
 
-## Passar do site antigo (Claude) para o servidor
+## Vindo do site antigo (Claude)
 
-1. Com o site novo no ar, o Diogo entra e clica em **Importar do site antigo**,
-   escolhendo o arquivo de migração (imóveis, decisões, documentos e arquivos).
-2. Depois disso, o GitHub Actions deixa de buscar (o crawler do servidor assume,
-   inclusive os avisos no Telegram) e o Apps Script do Google pode ser apagado.
+Os imóveis, as decisões, o checklist e os arquivos do site antigo entram pelo botão
+**Importar do site antigo** (só aparece para o Diogo). O crawler do GitHub Actions foi
+desligado: o do servidor busca e manda os avisos no Telegram. O Apps Script do Google
+e os arquivos `casa-nova-*.json` no Drive não são mais usados e podem ser apagados.
 
 ## Rodar no computador
 

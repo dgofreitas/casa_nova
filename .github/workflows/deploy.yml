@@ -7,6 +7,7 @@ name: Publicar no servidor
 # Segredos do repositório (Settings → Secrets and variables → Actions):
 #   SSH_HOST, SSH_USER, SSH_PRIVATE_KEY   os mesmos do Contopia
 #   SENHA_DIOGO, SENHA_CINTHIA            as senhas de cada um no site
+#   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID  o robô do Telegram (avisos do crawler)
 
 on:
   push:
@@ -100,12 +101,14 @@ jobs:
         env:
           SENHA_DIOGO: ${{ secrets.SENHA_DIOGO }}
           SENHA_CINTHIA: ${{ secrets.SENHA_CINTHIA }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           IMAGE_TAG: ${{ github.sha }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: SENHA_DIOGO,SENHA_CINTHIA,IMAGE_TAG
+          envs: SENHA_DIOGO,SENHA_CINTHIA,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,IMAGE_TAG
           script_stop: true
           script: |
             set -euo pipefail
@@ -116,6 +119,8 @@ jobs:
               echo "IMAGE_TAG=$IMAGE_TAG"
               echo "SENHA_DIOGO='$SENHA_DIOGO'"
               echo "SENHA_CINTHIA='$SENHA_CINTHIA'"
+              echo "TELEGRAM_BOT_TOKEN='$TELEGRAM_BOT_TOKEN'"
+              echo "TELEGRAM_CHAT_ID='$TELEGRAM_CHAT_ID'"
             } > .env
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
             docker compose pull
