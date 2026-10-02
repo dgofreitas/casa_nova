@@ -6,6 +6,7 @@ imagens assim; nos sites de URL opaca vale o JSON-LD ou a ordem da página.
 """
 import base64
 import html as H
+import json
 import re
 
 from bs4 import BeautifulSoup
@@ -97,7 +98,25 @@ def _fotos_ld(html):
     return [u for u in out if u]
 
 
+def _fotos_kenlo(html):
+    """Sites Kenlo põem só 5 fotos no JSON-LD, mas a lista completa vem num JSON da página."""
+    dec = json.JSONDecoder()
+    for m in re.finditer(r'"photos":\s*(?=\[\s*\{"picture_full")', html):
+        try:
+            fotos, _ = dec.raw_decode(html, m.end())
+        except ValueError:
+            continue
+        urls = [f.get("picture_full") for f in fotos if isinstance(f, dict) and f.get("picture_full")]
+        if urls:
+            return urls
+    return []
+
+
 def extrair_fotos(html, foto_lista=None, limite=MAX_FOTOS):
+    if "kenlo.io" in html:
+        kenlo = _fotos_kenlo(html)
+        if len(kenlo) >= 3:
+            return [normalizar(u)[0] for u in kenlo[:limite]]
     texto = H.unescape(html).replace("\\/", "/").replace("\\u0026", "&")
     capa = og_image(html) or foto_lista
     todas = [u for u in URL_IMG.findall(texto) if not NAO_FOTO.search(u)]

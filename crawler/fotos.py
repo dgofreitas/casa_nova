@@ -3,7 +3,7 @@
 As fotos vão para o branch `fotos` do repositório (pasta passada em --fotos),
 num formato que o Apps Script copia para o Drive e o site importa:
 
-  indice.json              {"capas": {id: arquivo}, "galerias": {id: arquivo}}
+  indice.json              {"capas": {id: arquivo}, "galerias": {id: arquivo}, "qtd": {id: nº de fotos}}
   capas/<lote>.json        {id: "<jpeg em base64>", ...}   até 10 capas por arquivo
   galerias/<id>.json       {"id": ..., "fotos": ["<jpeg em base64>", ...]}
 
@@ -52,9 +52,20 @@ def _baixar(url):
         return None
 
 
+# versão 2: os sites Kenlo passaram a dar a galeria inteira, e não só 5 fotos
+DETALHE_VERSAO = 2
+KENLO = {"quadra", "bella", "invista"}
+
+
+def _rever_fotos(x):
+    return (x.get("detalheVersao", 1) < DETALHE_VERSAO and x["fonte"] in KENLO
+            and len(x.get("fotosOrigem") or []) < MAX_FOTOS)
+
+
 def completar_detalhes(http, imoveis, espera_por_fonte):
     """Busca descrição e endereços das fotos dos anúncios que ainda não têm."""
-    pendentes = [x for x in imoveis.values() if x.get("status") == "ativo" and not x.get("detalhado")]
+    pendentes = [x for x in imoveis.values() if x.get("status") == "ativo"
+                 and (not x.get("detalhado") or _rever_fotos(x))]
     pendentes.sort(key=lambda x: x.get("primeiroVisto", ""), reverse=True)
     feitos = 0
     for x in pendentes[:MAX_DETALHES_POR_RODADA]:
@@ -69,7 +80,10 @@ def completar_detalhes(http, imoveis, espera_por_fonte):
             continue
         if d.get("descricao"):
             x["descricao"] = d["descricao"]
+        x["detalheVersao"] = DETALHE_VERSAO
         if d.get("fotosOrigem"):
+            if x.get("detalhado") and len(d["fotosOrigem"]) > len(x.get("fotosOrigem") or []):
+                x["refazerFotos"] = True
             x["fotosOrigem"] = d["fotosOrigem"]
             x.setdefault("foto", d["fotosOrigem"][0])
         x["detalhado"] = True
@@ -89,14 +103,17 @@ def gerar_fotos(imoveis, pasta):
     com_fotos = {x.get("grupo") for i, x in imoveis.items() if i in indice["galerias"]}
     fila = []
     for i, x in imoveis.items():
-        if x.get("status") != "ativo" or i in indice["galerias"] or not x.get("fotosOrigem"):
+        if x.get("status") != "ativo" or not x.get("fotosOrigem"):
             continue
-        if x.get("grupo") in com_fotos:
+        if x.get("refazerFotos") and i in indice["galerias"]:
+            fila.append(x)   # a imobiliária passou a mostrar mais fotos: refaz a galeria
+            continue
+        if i in indice["galerias"] or x.get("grupo") in com_fotos:
             continue
         com_fotos.add(x.get("grupo"))
         fila.append(x)
 
-    novas_capas = {}
+    novas_capas, refeitas = {}, set()
     with ThreadPoolExecutor(max_workers=8) as pool:
         for x in fila:
             urls = x["fotosOrigem"][:MAX_FOTOS]
@@ -111,9 +128,15 @@ def gerar_fotos(imoveis, pasta):
                     continue
             if not fotos:
                 continue
-            nome = f"galerias/{nome_arquivo(x['id'])}.json"
+            # galeria refeita ganha outro nome, para o Drive e o site a trazerem de novo
+            sufixo = ""
+            if x["id"] in indice["galerias"]:
+                sufixo = f"-{datetime.now():%Y%m%d%H%M}"
+                refeitas.add(x["id"])
+            nome = f"galerias/{nome_arquivo(x['id'])}{sufixo}.json"
             (pasta / nome).write_text(json.dumps({"id": x["id"], "fotos": fotos}))
             indice["galerias"][x["id"]] = nome
+            indice.setdefault("qtd", {})[x["id"]] = len(fotos)
             novas_capas[x["id"]] = capa
 
     carimbo = datetime.now().strftime("%Y%m%d%H%M")
@@ -126,7 +149,8 @@ def gerar_fotos(imoveis, pasta):
             indice["capas"][i] = nome
 
     # tira o que não é mais acompanhado (o crawler esquece quem saiu há 60 dias)
-    for tipo in ("capas", "galerias"):
+    for tipo in ("capas", "galerias", "qtd"):
+        indice.setdefault(tipo, {})
         indice[tipo] = {i: a for i, a in indice[tipo].items() if i in imoveis}
     usados = set(indice["capas"].values()) | set(indice["galerias"].values())
     for arq in list((pasta / "capas").glob("*.json")) + list((pasta / "galerias").glob("*.json")):
@@ -134,9 +158,15 @@ def gerar_fotos(imoveis, pasta):
             arq.unlink()
     for i, x in imoveis.items():
         x["temFotos"] = i in indice["galerias"]
+        x.pop("refazerFotos", None)   # quem não tem galeria própria (outro anúncio do grupo tem)
+    for i, arq in indice["galerias"].items():
+        if i not in indice["qtd"] and (pasta / arq).exists():
+            indice["qtd"][i] = len(json.loads((pasta / arq).read_text()).get("fotos", []))
 
     indice["geradoEm"] = datetime.now().isoformat(timespec="seconds")
     arq_indice.write_text(json.dumps(indice, indent=1, sort_keys=True))
     total = sum(f.stat().st_size for f in pasta.rglob("*.json"))
-    print(f"[fotos] {len(fila)} casas novas com fotos; {len(indice['galerias'])} no total; {total / 1e6:.1f} MB")
-    return novas_capas
+    print(f"[fotos] {len(fila) - len(refeitas)} casas novas com fotos, {len(refeitas)} galerias refeitas; "
+          f"{len(indice['galerias'])} no total; {total / 1e6:.1f} MB")
+    # só as casas novas vão para o álbum do Telegram
+    return {i: c for i, c in novas_capas.items() if i not in refeitas}
