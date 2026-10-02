@@ -52,7 +52,10 @@ class Http:
                     erro = f"o site respondeu com erro (HTTP {r.status_code})"
                     time.sleep(5 * (tentativa + 1))
                     continue
-                r.raise_for_status()
+                if r.status_code == 403:
+                    raise RuntimeError("o site recusou o acesso (HTTP 403, proteção anti-robô)")
+                if r.status_code >= 400:
+                    raise RuntimeError(f"o site respondeu com erro (HTTP {r.status_code})")
                 return r
             except requests.RequestException as e:
                 erro = type(e).__name__

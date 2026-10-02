@@ -17,7 +17,7 @@ concurrency:
 jobs:
   buscar:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -29,11 +29,23 @@ jobs:
 
       - run: pip install -r crawler/requirements.txt
 
+      - name: Trazer as fotos já processadas (branch fotos)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p fotos-branch && cd fotos-branch
+          git init -q && git checkout -q -b fotos
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth 1 origin fotos; then
+            git reset -q --hard FETCH_HEAD
+            git update-ref refs/remotes/origin/fotos FETCH_HEAD
+          fi
+
       - name: Ler as imobiliárias
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python crawler/crawl.py
+        run: python crawler/crawl.py --fotos fotos-branch
 
       - name: Guardar o resultado
         run: |
@@ -47,3 +59,18 @@ jobs:
             git pull --rebase
             git push
           fi
+
+      - name: Publicar as fotos
+        run: |
+          cd fotos-branch
+          git config user.name "casa-nova-crawler"
+          git config user.email "casa-nova-crawler@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nenhuma foto nova."
+            exit 0
+          fi
+          # um commit só, sem histórico: o branch não cresce com fotos de casas que já saíram
+          git checkout -q --orphan atual
+          git commit -q -m "Fotos: $(TZ=America/Sao_Paulo date '+%d/%m %H:%M')"
+          git push -q -f origin atual:fotos

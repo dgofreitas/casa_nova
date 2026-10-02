@@ -279,6 +279,23 @@ details.ai[open] summary{margin-bottom:10px}
 .lz.acima{background:var(--warn-soft);color:var(--warn)}
 .lz.saiu{background:var(--surface-2);color:var(--muted)}
 .lz.dup{background:var(--info-soft);color:var(--info)}
+.ph.nv.foto{padding:0;min-height:0;aspect-ratio:4/3;cursor:zoom-in;background:var(--surface-2)}
+.ph.nv.foto img{position:absolute;inset:0}
+.ph .nfotos{position:absolute;right:10px;bottom:10px;background:rgba(10,16,14,.6);color:#fff;border-radius:7px;padding:2px 8px;font-size:12px;font-weight:700}
+.nv-desc{font-size:13px;margin-top:6px}
+.nv-desc summary{cursor:pointer;color:var(--primary);font-weight:600}
+.nv-desc p{white-space:pre-line;max-height:240px;overflow:auto;margin:6px 0 0;padding:8px 10px;background:var(--surface-2);border-radius:8px;color:var(--ink)}
+#dlgFotos{width:min(1000px,calc(100vw - 16px));background:#0b0f0d;color:#e8eee9}
+.gal{display:flex;flex-direction:column;gap:8px;padding:12px}
+.gal-top{display:flex;gap:12px;align-items:center;justify-content:space-between;font-size:14px}
+.gal-top a{color:#9fd8c3}
+.gal-top .icon-btn{color:#e8eee9}
+.gal-img{position:relative;display:flex;align-items:center;justify-content:center;min-height:240px}
+.gal-img img{max-width:100%;max-height:calc(100vh - 140px);object-fit:contain;border-radius:8px}
+.gal-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:28px;line-height:1;cursor:pointer}
+.gal-nav:hover{background:rgba(255,255,255,.32)}
+#galPrev{left:6px}#galNext{right:6px}
+.gal .status-line{color:#9fd8c3;min-height:1.2em;font-size:13px}
 .card.nvc{cursor:default}
 .card.nvc:hover{transform:none}
 .card.nvc.saiu{opacity:.7}
@@ -547,6 +564,15 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 <!-- Detalhe -->
 <dialog id="dlgImovel" aria-labelledby="imTitle">
   <div class="dlg" id="imBody"></div>
+</dialog>
+
+<!-- Galeria das novidades -->
+<dialog id="dlgFotos" aria-label="Fotos da casa">
+  <div class="gal">
+    <div class="gal-top"><span id="galCont"></span><a id="galLink" href="#" target="_blank" rel="noopener">Ver todas no anúncio ↗</a><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
+    <div class="gal-img"><button class="gal-nav" type="button" id="galPrev" aria-label="Foto anterior">‹</button><img id="galImg" alt=""><button class="gal-nav" type="button" id="galNext" aria-label="Próxima foto">›</button></div>
+    <div class="status-line" id="galMsg"></div>
+  </div>
 </dialog>
 
 <div class="toast" id="toast" hidden role="status"></div>
@@ -867,7 +893,8 @@ function openDetail(id,preset){
   const pend=d.extracao==="pendente";
   $("#imBody").innerHTML=`
     <div class="dlg-head"><div><h2 id="imTitle">${isNew?"Novo imóvel":esc(titleOf(d))}</h2><div class="small" style="display:flex;gap:14px;flex-wrap:wrap">${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">Abrir anúncio ↗</a>`:""}${mapsUrl(d)?`<a href="${esc(mapsUrl(d))}" target="_blank" rel="noopener">${icoPin} Ver no Google Maps</a>`:""}</div></div><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
-    ${pend?`<p class="note warn" style="margin:0 0 16px">Este imóvel veio só do link. Abram o anúncio, copiem o texto (ou tirem prints) e usem “Preencher com IA” logo abaixo.</p>`:""}
+    ${pend&&d.origem==="crawler"?`<p class="note" style="margin:0 0 16px">O texto do anúncio já está em “Preencher com IA”, logo abaixo. Cliquem em “Ler anúncio e preencher” para a IA completar condomínio, lazer, destaques e o resto.</p>`:""}
+    ${pend&&d.origem!=="crawler"?`<p class="note warn" style="margin:0 0 16px">Este imóvel veio só do link. Abram o anúncio, copiem o texto (ou tirem prints) e usem “Preencher com IA” logo abaixo.</p>`:""}
     <details class="ai" ${pend?"open":""} id="aiBox" ${sample?"":"hidden"}>
       <summary>Preencher com IA</summary>
       <div class="fields">
@@ -1180,7 +1207,7 @@ function renderNvStatus(){
   const btn=mcp&&!readOnly?`<button class="btn" type="button" id="nvSync" ${nvSyncing?"disabled":""}>${nvSyncing?"Buscando…":"Buscar agora no Drive"}</button>`:"";
   let txt;
   if(!f)txt=`<span>${nvSync.msg?esc(nvSync.msg):(mcp?"Ainda não li o arquivo do crawler no Google Drive.":"As novidades chegam pelo Google Drive. Abra o site com o conector do Google Drive ligado para trazer a primeira lista.")}</span>`;
-  else txt=`<span>Crawler: última busca <b>${esc(fmtQuando(f.ultimaRodada))}</b> · <span class="${bad.length?"warn":"ok"}">${ok.length} de ${fontes.length} imobiliárias lidas</span>${nvSync.msg?` · <span class="muted">${esc(nvSync.msg)}</span>`:""}</span>`;
+  else txt=`<span>Crawler: última busca <b>${esc(fmtQuando(f.ultimaRodada))}</b> · <span class="${bad.length?"warn":"ok"}">${ok.length} de ${fontes.length} imobiliárias lidas</span>${nvSync.msg?` · <span class="muted">${esc(nvSync.msg)}</span>`:""}${nvFotoMsg?` · <span class="muted">${esc(nvFotoMsg)}</span>`:""}</span>`;
   const det=fontes.length?`<details class="nv-fontes"><summary>Ver imobiliárias</summary><ul>${fontes.sort((a,b)=>String(a.nome).localeCompare(String(b.nome))).map(x=>`<li class="${x.ok===false?"bad":""}">${esc(x.nome)}: ${x.ok===false?"não consegui ler ("+esc(x.erro||"erro")+")":(x.casas||0)+" casas"}</li>`).join("")}</ul></details>`:"";
   box.innerHTML=txt+btn+det;
 }
@@ -1225,8 +1252,12 @@ function cardNv(c){
       <button class="btn ${sit==="depois"?"on":""}" type="button" data-nva="depois" data-gid="${esc(c.gid)}" aria-pressed="${sit==="depois"}">Ver depois</button>
       <button class="btn ${sit==="descartada"?"on":"danger"}" type="button" data-nva="${sit==="descartada"?"voltar":"descartada"}" data-gid="${esc(c.gid)}">${sit==="descartada"?"Voltar à lista":"Descartar"}</button>
     </div>`);
+  const capa=capaDe(c),gal=galeriaDe(c),desc=descricaoDe(c);
+  const nf=gal?gal.fotos.length:(arquivoGaleria(c)?"+":0);
+  const ph=capa?`<div class="ph nv foto" data-gal="${esc(c.gid)}" role="button" tabindex="0" aria-label="Ver fotos"><img src="${blob(capa)}" alt="" loading="lazy"><div class="badges">${badges}</div>${nf?`<span class="nfotos">📷 ${nf==="+"?"fotos":nf}</span>`:""}</div>`
+    :`<div class="ph nv">${houseSvg}<span class="dom">${esc(nomes.join(" · "))}</span><div class="badges">${badges}</div></div>`;
   return `<article class="card nvc ${c.saiu?"saiu":""}">
-    <div class="ph nv">${houseSvg}<span class="dom">${esc(nomes.join(" · "))}</span><div class="badges">${badges}</div></div>
+    ${ph}
     <div class="body">
       <div class="price">${c.preco?money(c.preco):'<span class="muted" style="font-size:16px">Sem preço no anúncio</span>'}</div>
       ${ppm(c)?`<div class="ppm">${money(ppm(c))}/m²${c.condominio?" · cond. "+money(c.condominio):""}${c.iptu?" · IPTU "+money(c.iptu):""}</div>`:""}
@@ -1234,6 +1265,7 @@ function cardNv(c){
       <div class="loc">${esc([c.endereco,c.bairro].filter(Boolean).join(" · "))}${mapsUrl(c)?` · <a href="${esc(mapsUrl(c))}" target="_blank" rel="noopener">${icoPin} Mapa</a>`:""}</div>
       ${dup}
       <ul class="anuncios" aria-label="Anúncios desta casa">${anuncios}</ul>
+      ${desc?`<details class="nv-desc"><summary>Descrição do anúncio</summary><p>${esc(desc)}</p></details>`:""}
       ${desde}${quem}
       ${specs?`<ul class="specs">${specs}</ul>`:""}
       ${acoes}
@@ -1258,12 +1290,16 @@ async function decidir(gid,acao){
   if(acao==="interesse"){
     const imId=newId();
     const a0=c.anuncios.slice().sort((a,b)=>(a.preco||1e15)-(b.preco||1e15))[0];
+    let fotos=null;
+    try{toast("Trazendo as fotos da casa…");fotos=await garantirGaleria(c)}catch(e){}
+    if(!fotos||!fotos.length){const cp=capaDe(c);fotos=cp?[cp]:[]}
+    const texto=descricaoDe(c);
     const outros=c.anuncios.filter(a=>a!==a0).map(a=>`${a.fonteNome}: ${a.link}`);
     const im={status:"interesse",origem:"crawler",novidadeId:id,titulo:`${c.tipo||"Casa"} ${c.quartos?c.quartos+" quartos ":""}no ${c.bairro}`.replace(/\s+/g," ").trim(),
       tipo:c.tipo,preco:c.preco,condominio:c.condominio,iptu:c.iptu,area:c.area,areaTerreno:c.areaTerreno,quartos:c.quartos,suites:c.suites,banheiros:c.banheiros,vagas:c.vagas,
       endereco:c.endereco,bairro:c.bairro,cidade:c.cidade||"Florianópolis - SC",link:a0.link,corretora:a0.fonteNome,
-      notas:outros.length?"Também anunciada por:\n"+outros.join("\n"):"",criadoEm:nowISO(),atualizadoEm:nowISO()};
-    Object.keys(im).forEach(k=>{if(im[k]==null||im[k]==="")delete im[k]});
+      notas:outros.length?"Também anunciada por:\n"+outros.join("\n"):"",fotos,anuncioTexto:texto?texto.slice(0,20000):"",extracao:texto?"pendente":"",criadoEm:nowISO(),atualizadoEm:nowISO()};
+    Object.keys(im).forEach(k=>{if(im[k]==null||im[k]===""||(Array.isArray(im[k])&&!im[k].length))delete im[k]});
     const ok=await save("imoveis",imId,im);if(!ok)return;
     d.imovelId=imId;
     await save("novidades",id,d);
@@ -1323,9 +1359,22 @@ async function syncDrive(manual){
     if(atual&&atual.ultimaRodada&&atual.ultimaRodada>j.ultimaRodada){nvSync.msg="";return}
     const doc={...compactar(j),fileId,lidoEm:nowISO()};
     const ok=await save("crawler","feed",doc);
+    if(ok)await gravarTextos(j);
     nvSync.msg=ok?(manual?"Lista atualizada.":""):"";
   }catch(e){nvSync.msg=(manual||!feed())?erroMcp(e):""}
-  finally{nvSyncing=false;if(UI.tab==="novidades")renderNvStatus()}
+  finally{nvSyncing=false;if(UI.tab==="novidades")renderNvStatus();syncFotos()}
+}
+async function gravarTextos(j){
+  // descrições dos anúncios, uma lista por imobiliária (cada documento tem limite de 256 KB)
+  const por={};
+  Object.values(j.imoveis||{}).forEach(a=>{if(a.descricao&&a.status!=="saiu")(por[a.fonte]=por[a.fonte]||{})[a.id]=a.descricao});
+  for(const [fonte,textos] of Object.entries(por)){
+    let lim=3000,t;
+    do{t={};Object.entries(textos).forEach(([id,x])=>t[id]=x.slice(0,lim));lim=Math.floor(lim*0.7)}while(JSON.stringify(t).length>230000&&lim>200);
+    const atual=S.crawler["textos-"+fonte];
+    if(atual&&JSON.stringify(atual.textos)===JSON.stringify(t))continue;
+    await save("crawler","textos-"+fonte,{textos:t,rodada:j.ultimaRodada||null});
+  }
 }
 async function marcarVisto(){
   // guarda, só para quem está vendo, até quando já olhou as novidades
@@ -1333,13 +1382,137 @@ async function marcarVisto(){
   nvVistoGravado=true;
   try{await db.doc("data/users/"+uid+"/prefs").set({...(meuPrefs||{}),novidadesVistoEm:feed().ultimaRodada||nowISO()})}catch(e){}
 }
+/* ---- fotos e descrições das novidades ---- */
+// O crawler reduz as fotos e o Apps Script as põe no Drive (pasta "Casa Nova - fotos").
+// O site traz as capas para o próprio armazenamento (assets) e a galeria de cada casa
+// quando alguém a abre. Os ids ficam em crawler/fotos, para todos verem.
+const ARQ_FOTOS="casa-nova-fotos.json";
+let nvFotosIdx=null,nvImportando=false,nvFotoMsg="";
+const fotosDoc=()=>S.crawler.fotos||{capas:{},galerias:{}};
+function textoDe(a){const t=S.crawler["textos-"+a.fonte];return t&&t.textos?t.textos[a.id]:null}
+function descricaoDe(c){for(const a of c.anuncios){const t=textoDe(a);if(t)return t}return null}
+function capaDe(c){const f=fotosDoc();for(const a of c.anuncios)if(f.capas&&f.capas[a.id])return f.capas[a.id];return null}
+function galeriaDe(c){const f=fotosDoc();for(const a of c.anuncios)if(f.galerias&&f.galerias[a.id]&&f.galerias[a.id].length)return {id:a.id,fotos:f.galerias[a.id]};return null}
+function arquivoGaleria(c){
+  if(!nvFotosIdx)return null;
+  for(const a of c.anuncios){const p=nvFotosIdx.galerias&&nvFotosIdx.galerias[a.id];if(p&&nvFotosIdx.arquivos[p])return {id:a.id,fileId:nvFotosIdx.arquivos[p]}}
+  return null;
+}
+async function baixarJSON(fileId){
+  const p=await chamarDrive("download_file_content",{fileId});
+  const b=Uint8Array.from(atob(p.content),ch=>ch.charCodeAt(0));
+  return JSON.parse(new TextDecoder("utf-8").decode(b));
+}
+const b64Blob=b=>new Blob([Uint8Array.from(atob(b),ch=>ch.charCodeAt(0))],{type:"image/jpeg"});
+async function subir(b64){
+  try{return (await assets.upload(b64Blob(b64))).id}
+  catch(e){if(e&&e.code==="rate_limited"){await new Promise(r=>setTimeout(r,4000+Math.random()*2000));return (await assets.upload(b64Blob(b64))).id}throw e}
+}
+function gravarFotos(mut){const f=fotosDoc();const novo={capas:{...(f.capas||{})},galerias:{...(f.galerias||{})}};mut(novo);return save("crawler","fotos",novo)}
+async function carregarIdx(){
+  if(nvFotosIdx)return nvFotosIdx;
+  const r=await chamarDrive("search_files",{query:`title = '${ARQ_FOTOS}' and owner = 'me'`,excludeContentSnippets:true,pageSize:3});
+  const files=((r&&r.files)||[]).sort((a,b)=>String(b.modifiedTime).localeCompare(String(a.modifiedTime)));
+  if(!files.length)return null;
+  nvFotosIdx=await baixarJSON(files[0].id);
+  return nvFotosIdx;
+}
+async function syncFotos(){
+  if(!mcp||!assets||!db||readOnly||nvImportando||!feed())return;
+  nvImportando=true;
+  try{
+    nvFotosIdx=null;
+    const idx=await carregarIdx();if(!idx)return;
+    const tem=fotosDoc().capas||{};
+    const vivos=new Set(casas().filter(c=>!c.saiu&&!(c.decisao&&c.decisao.situacao==="descartada")).flatMap(c=>c.anuncios.map(a=>a.id)));
+    const precisa={};
+    Object.entries(idx.capas||{}).forEach(([id,arq])=>{if(!tem[id]&&vivos.has(id)&&idx.arquivos[arq])(precisa[arq]=precisa[arq]||[]).push(id)});
+    const total=Object.values(precisa).reduce((n,l)=>n+l.length,0);let feitos=0;
+    for(const [arq,ids] of Object.entries(precisa)){
+      const lote=await baixarJSON(idx.arquivos[arq]);
+      const novos={};
+      for(const id of ids){
+        if(lote[id]){try{novos[id]=await subir(lote[id])}catch(e){if(e&&e.code==="quota_or_state"){nvFotoMsg="O espaço de fotos do site acabou.";break}}}
+        feitos++;nvFotoMsg=`trazendo fotos ${feitos} de ${total}…`;if(UI.tab==="novidades")renderNvStatus();
+      }
+      if(Object.keys(novos).length)await gravarFotos(f=>Object.assign(f.capas,novos));
+      if(nvFotoMsg.startsWith("O espaço"))break;
+    }
+    if(!nvFotoMsg.startsWith("O espaço"))nvFotoMsg="";
+    await completarImoveis();
+  }catch(e){nvFotoMsg=""}
+  finally{nvImportando=false;if(UI.tab==="novidades")renderNovidades()}
+}
+async function completarImoveis(){
+  // imóveis que foram para Imóveis antes de existirem fotos e descrição: completa quando der
+  const todas=casas();
+  for(const [imId,im] of Object.entries(S.imoveis)){
+    if(im.origem!=="crawler"||!im.novidadeId)continue;
+    const precisaFoto=!(im.fotos&&im.fotos.length),precisaTexto=!im.anuncioTexto;
+    if(!precisaFoto&&!precisaTexto)continue;
+    const dec=S.novidades[im.novidadeId];
+    const c=dec&&todas.find(x=>x.anuncios.some(a=>(dec.anuncios||[]).includes(a.id)));
+    if(!c)continue;
+    const part={};
+    if(precisaTexto){const t=descricaoDe(c);if(t){part.anuncioTexto=t.slice(0,20000);if(!im.extracao||im.extracao==="ok")part.extracao="pendente"}}
+    if(precisaFoto){try{const f=await garantirGaleria(c);if(f&&f.length)part.fotos=f}catch(e){}}
+    if(Object.keys(part).length)await patch("imoveis",imId,part);
+  }
+}
+async function garantirGaleria(c){
+  const g=galeriaDe(c);if(g)return g.fotos;
+  if(!assets||!mcp||readOnly)return null;
+  await carregarIdx();
+  const arq=arquivoGaleria(c);if(!arq)return null;
+  const j=await baixarJSON(arq.fileId);
+  const ids=[];
+  for(const b of j.fotos||[]){try{ids.push(await subir(b))}catch(e){break}}
+  if(ids.length)await gravarFotos(f=>{f.galerias[arq.id]=ids});
+  return ids;
+}
+const dlgFotos=$("#dlgFotos");let gal={lista:[],i:0};
+function mostrarFoto(){
+  const n=gal.lista.length;
+  $("#galImg").src=n?blob(gal.lista[gal.i]):"";
+  $("#galCont").textContent=n?`Foto ${gal.i+1} de ${n}`:"";
+  $("#galPrev").hidden=$("#galNext").hidden=n<2;
+}
+async function abrirGaleria(gid){
+  const c=casas().find(x=>x.gid===gid);if(!c)return;
+  const capa=capaDe(c);
+  const a0=c.anuncios.find(a=>a.status!=="saiu")||c.anuncios[0];
+  $("#galLink").href=a0.link;
+  gal={lista:capa?[capa]:[],i:0};mostrarFoto();$("#galMsg").textContent="";
+  if(!dlgFotos.open)dlgFotos.showModal();
+  const g=galeriaDe(c);
+  if(g){gal.lista=g.fotos;mostrarFoto();return}
+  if(!mcp||!assets||readOnly){$("#galMsg").textContent="As outras fotos aparecem aqui depois que o Diogo abrir esta casa. Enquanto isso, vejam no anúncio.";return}
+  $("#galMsg").textContent="Trazendo as fotos…";
+  try{
+    const ids=await garantirGaleria(c);
+    if(ids&&ids.length){gal.lista=ids;gal.i=0;mostrarFoto();$("#galMsg").textContent=""}
+    else $("#galMsg").textContent="Esta casa ainda não tem galeria. Vejam as fotos no anúncio.";
+  }catch(e){$("#galMsg").textContent=erroMcp(e)}
+  if(UI.tab==="novidades")renderNovidades();
+}
+dlgFotos.addEventListener("click",e=>{
+  if(e.target===dlgFotos||e.target.closest("[data-close]"))return dlgFotos.close();
+  if(e.target.id==="galPrev"){gal.i=(gal.i-1+gal.lista.length)%gal.lista.length;mostrarFoto()}
+  if(e.target.id==="galNext"){gal.i=(gal.i+1)%gal.lista.length;mostrarFoto()}
+});
+dlgFotos.addEventListener("keydown",e=>{if(!gal.lista.length)return;if(e.key==="ArrowLeft"){gal.i=(gal.i-1+gal.lista.length)%gal.lista.length;mostrarFoto()}if(e.key==="ArrowRight"){gal.i=(gal.i+1)%gal.lista.length;mostrarFoto()}});
+// foto que não carrega (apagada em Imóveis, por exemplo) some e fica o fundo
+document.addEventListener("error",e=>{const t=e.target;if(t&&t.tagName==="IMG"&&t.closest(".ph.nv"))t.remove()},true);
+
 let meuPrefs=null;
 $("#nq").addEventListener("input",e=>{NUI.q=e.target.value;renderNovidades()});
 $("#nsort").addEventListener("change",e=>{NUI.sort=e.target.value;renderNovidades()});
+$("#nlist").addEventListener("keydown",e=>{const gl=e.target.closest&&e.target.closest("[data-gal]");if(gl&&(e.key==="Enter"||e.key===" ")){e.preventDefault();abrirGaleria(gl.dataset.gal)}});
 $("#nchips").addEventListener("click",e=>{const b=e.target.closest("[data-nf]");if(b){NUI.f=b.dataset.nf;renderNovidades()}});
 $("#p-novidades").addEventListener("click",e=>{
   if(e.target.closest("#nvSync"))return syncDrive(true);
   const a=e.target.closest("[data-nva]");if(a){a.disabled=true;return decidir(a.dataset.gid,a.dataset.nva)}
+  const gl=e.target.closest("[data-gal]");if(gl)return abrirGaleria(gl.dataset.gal);
   const o=e.target.closest("[data-nvopen]");if(o){const id=o.dataset.nvopen;if(id&&S.imoveis[id])openDetail(id);else toast("Esse imóvel foi excluído de Imóveis.");return}
 });
 
