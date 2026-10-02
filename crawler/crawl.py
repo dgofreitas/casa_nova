@@ -244,9 +244,8 @@ def rodar(so=None, pasta_fotos=None, dados=None):
 
     if dados:
         # no servidor: todas as fotos, juntando as dos anúncios da mesma casa
-        fotos_servidor.completar(http, imoveis, ESPERA)
         agrupar(imoveis)
-        capas_novas = fotos_servidor.baixar(imoveis, dados)
+        capas_novas = fotos_servidor.completar_e_baixar(http, imoveis, ESPERA, dados, lambda: salvar(estado))
     else:
         fotos.completar_detalhes(http, imoveis, ESPERA)
         agrupar(imoveis)

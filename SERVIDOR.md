@@ -12,6 +12,12 @@ casa-nova-crawler ──► volume casa_nova_dados ◄── casa-nova-app ◄�
 - **casa-nova-crawler** busca às 7h, 12h, 17h e 22h, ou na hora quando alguém clica
   em **Buscar agora**. Guarda todas as fotos de cada anúncio e, quando a mesma casa
   está em várias imobiliárias, junta as fotos de todas e tira as repetidas.
+- Os imóveis da aba **Imóveis** também ganham todas as fotos: o crawler abre o link do
+  anúncio de cada imóvel (os que vieram das Novidades usam a galeria da casa) e junta
+  as fotos que faltam, sem repetir as que o imóvel já tem. Vale para imóveis novos e
+  para quando o link muda. Sites que bloqueiam robôs (Viva Real, ZAP) ficam de fora.
+- Uma busca interrompida (deploy, servidor reiniciado) recomeça sozinha, e as fotos
+  são gravadas a cada 10 anúncios, então aparecem no site aos poucos.
 - **casa-nova-app** serve a página, o login (Diogo e Cinthia), o banco (SQLite) e as fotos.
   A página é a mesma `site/casa-nova.html` do Claude: o arquivo `server/public/shim.js`
   recria, sobre a API do servidor, as funções que ela usava do Claude.

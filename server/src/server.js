@@ -141,6 +141,33 @@ function avisar(coll) {
   const msg = `data: ${JSON.stringify({ c: coll })}\n\n`;
   for (const res of ouvintes) res.write(msg);
 }
+// fotos dos anúncios dos imóveis, lidas pelo crawler (crawler/fotos_imoveis.py): junta no imóvel
+let marcaFotosImoveis = 0;
+function aplicarFotosImoveis() {
+  let st;
+  try { st = fs.statSync(path.join(DADOS, "fotos-imoveis.json")); } catch { return; }
+  if (st.mtimeMs === marcaFotosImoveis) return;
+  marcaFotosImoveis = st.mtimeMs;
+  let r;
+  try { r = JSON.parse(fs.readFileSync(path.join(DADOS, "fotos-imoveis.json"), "utf8")); } catch { return; }
+  let mudou = false;
+  for (const [id, res] of Object.entries(r.resultados || {})) {
+    const x = sql.um.get("imoveis", id);
+    if (!x) continue;
+    const d = JSON.parse(x.data);
+    if ((d.link || "").trim() !== res.link) continue; // o link mudou depois: o crawler lê de novo
+    if (d.fotosAnuncio && d.fotosAnuncio.link === res.link) continue; // já aplicado
+    const atuais = Array.isArray(d.fotos) ? d.fotos : [];
+    d.fotos = atuais.concat((res.novas || []).filter((f) => !atuais.includes(f)));
+    if (res.texto && !d.anuncioTexto) d.anuncioTexto = String(res.texto).slice(0, 20000);
+    d.fotosAnuncio = { link: res.link, em: res.em, novas: (res.novas || []).length, ...(res.erro ? { erro: res.erro } : {}) };
+    sql.grava.run("imoveis", id, JSON.stringify(d), new Date().toISOString(), "crawler");
+    mudou = true;
+  }
+  if (mudou) avisar("imoveis");
+}
+setInterval(aplicarFotosImoveis, 5000);
+
 let marcaCrawler = "";
 setInterval(() => {
   const m = ["casas.json", "fotos.json", "crawler-status.json"].map((n) => {

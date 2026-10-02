@@ -28,10 +28,42 @@ MESMA_FOTO = 6            # bits diferentes no hash de 64 bits para considerar a
 MARCA = "fotosCompletas"  # anúncio já aberto pedindo todas as fotos
 
 
-def completar(http, imoveis, espera_por_fonte):
-    """Abre os anúncios que ainda não foram lidos pedindo todas as fotos."""
-    fotos_github.completar_detalhes(http, imoveis, espera_por_fonte,
-                                    pendente=lambda x: not x.get(MARCA), marca=MARCA)
+LOTE = 10  # anúncios abertos entre uma gravação e outra
+
+
+def galerias_atuais(dados):
+    arq = Path(dados) / "fotos.json"
+    return set(json.loads(arq.read_text()).get("galerias", {})) if arq.exists() else set()
+
+
+def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar):
+    """Abre os anúncios que faltam e baixa as fotos, gravando a cada poucos anúncios.
+
+    Assim as fotos aparecem no site aos poucos, e uma busca interrompida (deploy,
+    servidor reiniciado) não perde o que já foi feito. Casas sem nenhuma foto
+    ainda vêm primeiro. Devolve as capas das casas que ganharam galeria agora.
+    """
+    antes = galerias_atuais(dados)
+    pend = [x for x in imoveis.values() if x.get("status") == "ativo" and not x.get(MARCA)]
+    # quem não tem galeria vem primeiro; entre eles, os mais recentes
+    pend.sort(key=lambda x: x.get("primeiroVisto", ""), reverse=True)
+    pend.sort(key=lambda x: (x.get("grupo") or x["id"]) in antes)
+    for n in range(0, len(pend), LOTE):
+        lote = {x["id"]: x for x in pend[n:n + LOTE]}
+        fotos_github.completar_detalhes(http, lote, espera_por_fonte,
+                                        pendente=lambda x: not x.get(MARCA), marca=MARCA)
+        baixar(imoveis, dados, podar=False, so=set(lote))
+        salvar()
+        print(f"[fotos] {min(n + LOTE, len(pend))} de {len(pend)} anúncios com todas as fotos", flush=True)
+    baixar(imoveis, dados, podar=True)
+    indice = json.loads((Path(dados) / "fotos.json").read_text())
+    pasta = Path(dados) / "fotos" / "c"
+    capas = {}
+    for i, x in imoveis.items():
+        lista = indice["galerias"].get(x.get("grupo") or i)
+        if lista and (x.get("grupo") or i) not in antes:
+            capas[i] = (pasta / f"{lista[0]}.jpg").read_bytes()
+    return capas
 
 
 def hash_visual(im):
@@ -65,10 +97,11 @@ def _nome(url):
     return hashlib.sha1(url.encode()).hexdigest()[:20]
 
 
-def baixar(imoveis, dados):
-    """Baixa as fotos que faltam, monta a galeria de cada grupo e apaga as que sobraram.
+def baixar(imoveis, dados, podar=True, so=None):
+    """Baixa as fotos que faltam e monta a galeria de cada grupo.
 
-    Devolve {id do anúncio: bytes da capa} das casas que ganharam galeria agora.
+    Com podar, apaga também as fotos de anúncios que o crawler não acompanha mais.
+    Com so, baixa só as fotos desses anúncios (as galerias usam o que já houver).
     """
     dados = Path(dados)
     pasta = dados / "fotos"
@@ -76,10 +109,9 @@ def baixar(imoveis, dados):
     arq_indice = dados / "fotos.json"
     indice = json.loads(arq_indice.read_text()) if arq_indice.exists() else {}
     urls = indice.get("urls", {})
-    antes = dict(indice.get("galerias", {}))
 
     ativos = {i: x for i, x in imoveis.items() if x.get("status") == "ativo" and x.get("fotosOrigem")}
-    faltam = [u for x in ativos.values() for u in x["fotosOrigem"]
+    faltam = [u for i, x in ativos.items() if so is None or i in so for u in x["fotosOrigem"]
               if u not in urls or not (pasta / f"{urls[u]['arq']}.jpg").exists()]
     faltam = list(dict.fromkeys(faltam))
 
@@ -121,15 +153,16 @@ def baixar(imoveis, dados):
         if lista:
             galerias[g] = lista
 
-    # apaga as fotos de anúncios que o crawler não acompanha mais
-    usadas = {u for x in imoveis.values() for u in (x.get("fotosOrigem") or [])}
-    urls = {u: i for u, i in urls.items() if u in usadas}
-    nomes = {i["arq"] for i in urls.values()}
     apagadas = 0
-    for f in list(pasta.glob("*.jpg")) + list((pasta / "c").glob("*.jpg")):
-        if f.stem not in nomes:
-            f.unlink()
-            apagadas += 1
+    if podar:
+        # apaga as fotos de anúncios que o crawler não acompanha mais
+        usadas = {u for x in imoveis.values() for u in (x.get("fotosOrigem") or [])}
+        urls = {u: i for u, i in urls.items() if u in usadas}
+        nomes = {i["arq"] for i in urls.values()}
+        for f in list(pasta.glob("*.jpg")) + list((pasta / "c").glob("*.jpg")):
+            if f.stem not in nomes:
+                f.unlink()
+                apagadas += 1
 
     for i, x in imoveis.items():
         x["temFotos"] = (x.get("grupo") or i) in galerias
@@ -138,14 +171,7 @@ def baixar(imoveis, dados):
     tmp = arq_indice.with_suffix(".tmp")
     tmp.write_text(json.dumps(indice))
     tmp.replace(arq_indice)
-    total = sum(f.stat().st_size for f in pasta.rglob("*.jpg"))
-    print(f"[fotos] {baixadas} baixadas, {apagadas} apagadas; {len(galerias)} galerias, "
-          f"{sum(len(v) for v in galerias.values())} fotos; {total / 1e6:.0f} MB")
-
-    capas = {}
-    for g, lista in galerias.items():
-        if g in antes:
-            continue
-        for x in grupos[g]:
-            capas[x["id"]] = (pasta / "c" / f"{lista[0]}.jpg").read_bytes()
-    return capas
+    if podar:
+        total = sum(f.stat().st_size for f in pasta.rglob("*.jpg"))
+        print(f"[fotos] {baixadas} baixadas, {apagadas} apagadas; {len(galerias)} galerias, "
+              f"{sum(len(v) for v in galerias.values())} fotos; {total / 1e6:.0f} MB", flush=True)

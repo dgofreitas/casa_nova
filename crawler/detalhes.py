@@ -123,6 +123,10 @@ def extrair_fotos(html, foto_lista=None, limite=MAX_FOTOS):
     capa = og_image(html) or foto_lista
     todas = [u for u in URL_IMG.findall(texto) if not NAO_FOTO.search(u)]
     k = chave(capa) or chave(foto_lista)
+    if not k:
+        # sem capa conhecida (imóvel cadastrado pelo link): a galeria da casa vem
+        # antes das sugestões de outros imóveis na página
+        k = next((chave(u) for u in todas if chave(u)), None)
     if k:
         candidatas = [u for u in todas if chave(u) == k]
     else:
