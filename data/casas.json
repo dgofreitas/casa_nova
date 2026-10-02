@@ -3,7 +3,7 @@
   "baixou": [],
   "baseInicial": false,
   "novos": [],
-  "quando": "2026-10-02T03:59:16-03:00",
+  "quando": "2026-10-02T13:16:47-03:00",
   "saiu": [],
   "subiu": [],
   "voltou": []
@@ -16,7 +16,7 @@
    "lidos": 60,
    "nome": "Auxiliadora Predial",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
+   "quando": "2026-10-02T13:16:47-03:00",
    "segundos": 8
   },
   "bella": {
@@ -26,7 +26,7 @@
    "lidos": 26,
    "nome": "Bella Floripa Imóveis",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
+   "quando": "2026-10-02T13:16:47-03:00",
    "segundos": 4
   },
   "brognoli": {
@@ -36,16 +36,16 @@
    "lidos": 103,
    "nome": "Brognoli / Dalton Andrade",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
-   "segundos": 15
+   "quando": "2026-10-02T13:16:47-03:00",
+   "segundos": 13
   },
   "cesarvaz": {
    "erro": "o site recusou o acesso (HTTP 403, proteção anti-robô)",
-   "falhasSeguidas": 3,
+   "falhasSeguidas": 4,
    "lidos": 0,
    "nome": "Cesar Vaz",
    "ok": false,
-   "quando": "2026-10-02T03:59:16-03:00",
+   "quando": "2026-10-02T13:16:47-03:00",
    "segundos": 0
   },
   "daga": {
@@ -55,8 +55,8 @@
    "lidos": 348,
    "nome": "Daga Imóveis",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
-   "segundos": 3
+   "quando": "2026-10-02T13:16:47-03:00",
+   "segundos": 5
   },
   "duda": {
    "casas": 17,
@@ -65,8 +65,8 @@
    "lidos": 17,
    "nome": "Duda Imóveis",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
-   "segundos": 5
+   "quando": "2026-10-02T13:16:47-03:00",
+   "segundos": 4
   },
   "invista": {
    "casas": 21,
@@ -75,8 +75,8 @@
    "lidos": 21,
    "nome": "Invista Imóveis",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
-   "segundos": 5
+   "quando": "2026-10-02T13:16:47-03:00",
+   "segundos": 4
   },
   "lideranca": {
    "casas": 27,
@@ -85,7 +85,7 @@
    "lidos": 126,
    "nome": "Liderança Imobiliária",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
+   "quando": "2026-10-02T13:16:47-03:00",
    "segundos": 47
   },
   "onliving": {
@@ -95,8 +95,8 @@
    "lidos": 57,
    "nome": "OnLiving (F1)",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
-   "segundos": 9
+   "quando": "2026-10-02T13:16:47-03:00",
+   "segundos": 10
   },
   "quadra": {
    "casas": 61,
@@ -105,8 +105,8 @@
    "lidos": 61,
    "nome": "Quadra Imobiliária",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
-   "segundos": 11
+   "quando": "2026-10-02T13:16:47-03:00",
+   "segundos": 9
   },
   "seiter": {
    "casas": 20,
@@ -115,18 +115,18 @@
    "lidos": 20,
    "nome": "Seiter Imobiliária",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
-   "segundos": 2
+   "quando": "2026-10-02T13:16:47-03:00",
+   "segundos": 3
   },
   "smolka": {
    "casas": 40,
    "erro": null,
    "falhasSeguidas": 0,
-   "lidos": 109,
+   "lidos": 108,
    "nome": "Smolka Imóveis",
    "ok": true,
-   "quando": "2026-10-02T03:59:16-03:00",
-   "segundos": 44
+   "quando": "2026-10-02T13:16:47-03:00",
+   "segundos": 40
   }
  },
  "imoveis": {
@@ -171,7 +171,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Santa Mônica",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:444640": {
@@ -215,7 +215,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:478562": {
@@ -259,7 +259,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Santa Mônica",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:482357": {
@@ -303,7 +303,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Santa Mônica",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "auxiliadora:656539": {
@@ -347,7 +347,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "auxiliadora:656948": {
@@ -391,7 +391,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:658839": {
@@ -435,7 +435,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:658859": {
@@ -479,7 +479,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:705940": {
@@ -523,7 +523,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 10
   },
   "auxiliadora:743343": {
@@ -567,7 +567,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 8
   },
   "auxiliadora:750280": {
@@ -611,7 +611,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "auxiliadora:762717": {
@@ -655,7 +655,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "auxiliadora:767472": {
@@ -699,7 +699,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "auxiliadora:767473": {
@@ -743,7 +743,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:768437": {
@@ -787,7 +787,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Santa Mônica",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "auxiliadora:773909": {
    "area": 309,
@@ -830,7 +830,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:776877": {
@@ -874,7 +874,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:787262": {
@@ -918,7 +918,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:815811": {
@@ -962,7 +962,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "auxiliadora:822298": {
@@ -1006,7 +1006,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "auxiliadora:822738": {
@@ -1050,7 +1050,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:827600": {
@@ -1094,7 +1094,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:833988": {
@@ -1138,7 +1138,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "auxiliadora:837521": {
@@ -1182,7 +1182,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "auxiliadora:839711": {
    "area": 160,
@@ -1225,7 +1225,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "auxiliadora:839828": {
    "area": 160,
@@ -1268,7 +1268,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "auxiliadora:840645": {
@@ -1312,7 +1312,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "auxiliadora:841044": {
@@ -1356,7 +1356,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "auxiliadora:842145": {
@@ -1400,7 +1400,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "bella:CA1326-B89": {
    "area": 280,
@@ -1435,7 +1435,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 280 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "bella:CA2754-B89": {
    "area": 120,
@@ -1472,7 +1472,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 120 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "bella:CA2762-B89": {
    "area": 130,
@@ -1508,7 +1508,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 130 m² Itacorubi - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "bella:CA2785-B89": {
@@ -1547,7 +1547,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 164 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "bella:CA2786-B89": {
@@ -1586,7 +1586,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 162 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "bella:CA2794-B89": {
@@ -1624,7 +1624,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 152 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "bella:CA2796-B89": {
    "area": 162,
@@ -1661,7 +1661,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 162 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "bella:CA2797-B89": {
    "area": 152,
@@ -1698,7 +1698,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 152 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "bella:CA2799-B89": {
    "area": 156,
@@ -1735,7 +1735,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 156 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "bella:CA2804-B89": {
@@ -1772,7 +1772,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 130 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "bella:CA2854-B89": {
@@ -1812,7 +1812,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 240 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "brognoli:42320": {
    "area": 243,
@@ -1852,7 +1852,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 243m², 4 quartos (sendo 1 suíte), 2 garagens, no bairro Córrego Grande em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "brognoli:42522": {
@@ -1893,7 +1893,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 264m², 4 quartos (sendo 1 suíte), 4 garagens, no bairro Itacorubi em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "brognoli:43704": {
@@ -1933,7 +1933,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 110m², 3 quartos, 5 garagens, no bairro Itacorubi em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 5
   },
   "brognoli:43818": {
@@ -1974,7 +1974,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 270m², 5 quartos (sendo 1 suíte), 3 garagens, no bairro Itacorubi em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "brognoli:81274": {
@@ -2015,7 +2015,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 153m², 3 quartos (sendo 1 suíte), no bairro Parque São Jorge em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "brognoli:82040": {
    "area": 170,
@@ -2055,7 +2055,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 170m², 3 quartos (sendo 1 suíte), 2 garagens, no bairro Itacorubi em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "brognoli:82406": {
@@ -2096,7 +2096,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 207m², 3 quartos (sendo 3 suítes), 2 garagens, no bairro Córrego Grande em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "brognoli:88092": {
@@ -2137,7 +2137,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa com 156m², 5 quartos (sendo 3 suítes), 3 garagens, no bairro Santa Mônica em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "brognoli:91988": {
@@ -2178,7 +2178,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa com 164m², 3 quartos (sendo 1 suíte), 1 garagem, no bairro Itacorubi em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "brognoli:92186": {
@@ -2219,7 +2219,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa com 129m², 3 quartos (sendo 1 suíte), 1 garagem, no bairro Santa Mônica em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "brognoli:92208": {
@@ -2260,7 +2260,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 288m², 4 quartos (sendo 2 suítes), 2 garagens, no bairro Itacorubi em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "brognoli:92962": {
@@ -2301,7 +2301,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 122m², 3 quartos (sendo 3 suítes), 1 garagem, no bairro Santa Mônica em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "brognoli:93592": {
@@ -2342,7 +2342,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 264m², 3 quartos (sendo 1 suíte), 2 garagens, no bairro Itacorubi em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "daga:1044": {
@@ -2388,7 +2388,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "charmosa casa a venda em Córrego Grande, Florianópolis/SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "daga:1258": {
@@ -2434,7 +2434,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "INCRÍVEL Casa no Parque São Jorge - Florianópolis SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "daga:1557": {
@@ -2480,7 +2480,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "INCRIVEL casa no parque são Jorge com campo de futebol",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "daga:1613": {
@@ -2526,7 +2526,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa 3 dormitórios, sendo 1 suite - Itacorubi - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "daga:1635": {
@@ -2572,7 +2572,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi, Florianópolis/SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 6
   },
   "daga:1673": {
@@ -2616,7 +2616,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa no Córrego Grande - 3 dormitórios, sendo 3 suites -  Florianópolis/SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "daga:1674": {
@@ -2660,7 +2660,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa no Córrego Grande - 3 dormitórios, sendo 3 suites -  Florianópolis/SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "daga:1675": {
@@ -2704,7 +2704,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa no Córrego Grande - 3 dormitórios, sendo 3 suites -  Florianópolis/SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "daga:1718": {
@@ -2749,7 +2749,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa em Itacorubi, Florianópolis/SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "daga:1727": {
@@ -2793,7 +2793,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa Alto Padrão no coração do Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "duda:46385": {
@@ -2835,7 +2835,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa no corrego grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "duda:54039": {
@@ -2876,7 +2876,7 @@
    "temFotos": false,
    "tipo": "Sobrado",
    "titulo": "Casa Sobrado com 3 dormitórios.",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "duda:54040": {
@@ -2916,7 +2916,7 @@
    "temFotos": false,
    "tipo": "Sobrado",
    "titulo": "Casa Sobrado com 3 dormitórios.",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "duda:54956": {
@@ -2956,7 +2956,7 @@
    "temFotos": false,
    "tipo": "Sobrado",
    "titulo": "Sobrado de 3 dormitórios à venda no Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "duda:54958": {
@@ -2996,7 +2996,7 @@
    "temFotos": false,
    "tipo": "Sobrado",
    "titulo": "Sobrado de 3 dormitórios à venda no Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "duda:54959": {
@@ -3036,7 +3036,7 @@
    "temFotos": true,
    "tipo": "Sobrado",
    "titulo": "Sobrado de 3 dormitórios à venda no Córrego Grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "duda:55400": {
@@ -3077,7 +3077,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "CASA 4 DORMITÓRIOS 170M² ITACORUBI",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "duda:56265": {
@@ -3117,7 +3117,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "duda:57182": {
@@ -3155,7 +3155,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa no itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "invista:CA0325-INYT": {
@@ -3192,7 +3192,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 81 m² na Maria Alexandre Machado - Itacorubi - Florianópolis - SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "invista:CA2832-INYT": {
@@ -3229,7 +3229,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 177 m² na Joe Collaço - Córrego Grande - Florianópolis - SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "invista:CA3078-INYT": {
@@ -3267,7 +3267,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 129 m² na João Carlos de Souza - Santa Mônica - Florianópolis - SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "invista:CA3079-INYT": {
@@ -3305,7 +3305,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 122 m² na João Carlos de Souza - Santa Mônica - Florianópolis - SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "invista:CA3097-INYT": {
@@ -3343,7 +3343,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 200 m² na Acadêmico Reinaldo Consoni - Córrego Grande - Florianópolis - SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "invista:CA3098-INYT": {
@@ -3381,7 +3381,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 196 m² na Acadêmico Reinaldo Consoni - Córrego Grande - Florianópolis - SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "invista:CA3099-INYT": {
@@ -3419,7 +3419,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 209 m² na Acadêmico Reinaldo Consoni - Córrego Grande - Florianópolis - SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "invista:CA3161-INYT": {
@@ -3457,7 +3457,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 120 m² na da Figueira Velha - Córrego Grande - Florianópolis - SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "invista:CA3162-INYT": {
@@ -3495,7 +3495,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 110 m² na Francisco José Ramos - Itacorubi - Florianópolis - SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "invista:CA3177-INYT": {
@@ -3533,7 +3533,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 240 m² na Diná Calixto - Córrego Grande - Florianópolis - SC",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "lideranca:C1004": {
@@ -3578,7 +3578,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa, itacorubi,03 dormitórios/01 suíte, 02 vagas",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "lideranca:C1018": {
@@ -3623,7 +3623,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, santa mônica, 07 dormitórios/02 suítes",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "lideranca:C1029": {
@@ -3668,7 +3668,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, itacoruibi, 03 suítes, 02 vagas",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "lideranca:C1030": {
@@ -3713,7 +3713,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, itacorubi, 03 suítes, 04 vagas",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "lideranca:C1051": {
@@ -3758,7 +3758,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, parque são jorge, 03 dormitórios/01 suíte",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "lideranca:C1059": {
    "area": 170,
@@ -3802,7 +3802,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa ,parque são jorge, 03 dormitórios/01 suíte",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "lideranca:C1070": {
@@ -3847,7 +3847,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa, córrego grande, 03 suítes, 02 vagas",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "lideranca:C1077": {
@@ -3892,7 +3892,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, santa mônica, 03 suítes, 02 vagas",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "lideranca:C1078": {
@@ -3937,7 +3937,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, santa mônica, 03 suítes, 02 vagas",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "lideranca:C1089": {
@@ -3982,7 +3982,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa, córrego grande, 3 dorm/1suite",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "lideranca:C1091": {
@@ -4026,7 +4026,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, itacorubi, 3suites, 2 vagas",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "lideranca:C1092": {
@@ -4070,7 +4070,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, itacorubi, 3suites, 2 vagas",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "lideranca:C706": {
@@ -4115,7 +4115,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, santa mônica, 05 dormitórios/03 suítes",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "lideranca:C906": {
@@ -4159,7 +4159,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, parque são jorge, 03 dormitórios/02 suítes",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "lideranca:C988": {
@@ -4204,7 +4204,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa, córrego grande, 04 dormitórios/01 suíte",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1956529": {
@@ -4244,7 +4244,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 5 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "onliving:1957675": {
@@ -4284,7 +4284,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "onliving:1957765": {
@@ -4324,7 +4324,7 @@
    "temFotos": true,
    "tipo": "Casa em condomínio",
    "titulo": "Casa em Condomínio Villa do Córrego I de 3 quartos no bairro Córrego Grande, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1958040": {
@@ -4364,7 +4364,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 7 quartos no bairro Santa Mônica, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "onliving:1958172": {
@@ -4404,7 +4404,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 5 quartos no bairro Santa Mônica, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "onliving:1958214": {
@@ -4444,7 +4444,7 @@
    "temFotos": true,
    "tipo": "Casa em condomínio",
    "titulo": "Casa em Condomínio Villa do Corrego I de 3 quartos no bairro Córrego Grande, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1958278": {
@@ -4484,7 +4484,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 5 quartos no bairro Córrego Grande, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 8
   },
   "onliving:1958426": {
@@ -4524,7 +4524,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Santa Mônica, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1958454": {
@@ -4564,7 +4564,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa Domus Augusta Ix de 3 quartos no bairro Córrego Grande, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "onliving:1958705": {
@@ -4604,7 +4604,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Parque São Jorge, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1958742": {
@@ -4644,7 +4644,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Parque São Jorge, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1958900": {
@@ -4684,7 +4684,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 4 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1959593": {
@@ -4724,7 +4724,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 5 quartos no bairro Santa Mônica, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1960111": {
@@ -4764,7 +4764,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 4 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "onliving:1960395": {
@@ -4804,7 +4804,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "onliving:1960415": {
@@ -4844,7 +4844,7 @@
    "temFotos": true,
    "tipo": "Sobrado",
    "titulo": "Sobrado  de 3 quartos no bairro Santa Monica, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "onliving:1960420": {
@@ -4884,7 +4884,7 @@
    "temFotos": true,
    "tipo": "Sobrado",
    "titulo": "Sobrado  de 3 quartos no bairro Santa Mônica, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1960510": {
@@ -4924,7 +4924,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "onliving:1960542": {
@@ -4964,7 +4964,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "onliving:1960779": {
    "areaTerreno": 504,
@@ -5003,7 +5003,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 4 quartos no bairro Córrego Grande, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "onliving:1960909": {
@@ -5043,7 +5043,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "onliving:1961014": {
@@ -5083,7 +5083,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 5 quartos no bairro Córrego Grande, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1961553": {
@@ -5123,7 +5123,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1961972": {
@@ -5163,7 +5163,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "onliving:1961973": {
@@ -5203,7 +5203,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa  de 3 quartos no bairro Itacorubi, Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1011-QUB": {
@@ -5241,7 +5241,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 309 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1072-QUB": {
@@ -5279,7 +5279,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 361 m² Parque São Jorge - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1094-QUB": {
@@ -5317,7 +5317,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 196 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "quadra:CA1202-QUB": {
    "area": 200,
@@ -5354,7 +5354,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 200 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1205-QUB": {
@@ -5392,7 +5392,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 265 m² Itacorubi - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1235-QUB": {
@@ -5430,7 +5430,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 197 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1317-QUB": {
@@ -5468,7 +5468,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 191 m² Itacorubi - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1335-QUB": {
@@ -5506,7 +5506,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 250 m² Parque São Jorge - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1352-QUB": {
@@ -5544,7 +5544,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 214 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1359-QUB": {
@@ -5582,7 +5582,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 162 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "quadra:CA1360-QUB": {
@@ -5620,7 +5620,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 152 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1361-QUB": {
@@ -5658,7 +5658,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 154 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1379-QUB": {
@@ -5696,7 +5696,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 196 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1380-QUB": {
@@ -5734,7 +5734,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 199 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1383-QUB": {
@@ -5772,7 +5772,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 170 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1386-QUB": {
@@ -5810,7 +5810,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 170 m² Parque São Jorge - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1404-QUB": {
@@ -5848,7 +5848,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 180 m² Parque São Jorge - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "quadra:CA1407-QUB": {
@@ -5886,7 +5886,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 250 m² Parque São Jorge - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1416-QUB": {
@@ -5924,7 +5924,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 226 m² Parque São Jorge - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1417-QUB": {
@@ -5962,7 +5962,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 236 m² Parque São Jorge - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1418-QUB": {
@@ -6000,7 +6000,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 210 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1429-QUB": {
@@ -6038,7 +6038,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 176 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1441-QUB": {
@@ -6076,7 +6076,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 225 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1442-QUB": {
@@ -6114,7 +6114,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 225 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1445-QUB": {
@@ -6152,7 +6152,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 182 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1446-QUB": {
@@ -6190,7 +6190,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 288 m² Parque São Jorge - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1447-QUB": {
@@ -6228,7 +6228,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 209 m² Itacorubi - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1448-QUB": {
@@ -6266,7 +6266,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 180 m² Itacorubi - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1450-QUB": {
@@ -6304,7 +6304,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 182 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1451-QUB": {
@@ -6342,7 +6342,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa de 182 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1452-QUB": {
@@ -6380,7 +6380,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 280 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "quadra:CA1453-QUB": {
@@ -6418,7 +6418,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 188 m² Córrego Grande - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1459-QUB": {
@@ -6456,7 +6456,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 130 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "quadra:CA1463-QUB": {
@@ -6494,7 +6494,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 171 m² Santa Mônica - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 5
   },
   "seiter:CA00402": {
@@ -6537,7 +6537,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa de 2 domritorios a venda Florianopolis Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "seiter:CA00577": {
@@ -6580,7 +6580,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa à venda  Itacorubi em Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "seiter:CA00601": {
@@ -6624,7 +6624,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa à venda itacorubi Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "seiter:CA00657": {
@@ -6668,7 +6668,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa a venda Itacorubi Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "seiter:CA00783": {
@@ -6712,7 +6712,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa Grande Venda Itacorubi Florianopolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "seiter:CA00788": {
@@ -6755,7 +6755,7 @@
    "temFotos": true,
    "tipo": "Casa em condomínio",
    "titulo": "Casa venda condominio Parque Sao Jorge",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "seiter:CA00803": {
@@ -6798,7 +6798,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa com 3 quartos, Itacorubi - Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "seiter:CA0734": {
@@ -6842,7 +6842,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa 3 dormitórios com suite para venda Itacorubi Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 6
   },
   "seiter:CA0744": {
@@ -6885,7 +6885,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa 3 dormitórios com suite à venda Itacorubi Florianópolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "seiter:CA0750": {
@@ -6927,7 +6927,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa nova a venda Florianopolis Itacorubi",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "seiter:CA0756": {
@@ -6970,7 +6970,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "casa de 3 dormitorios a venda Florianopolis",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00"
+   "ultimoVisto": "2026-10-02T13:16:47-03:00"
   },
   "smolka:18950": {
    "area": 360,
@@ -7014,7 +7014,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa à venda no parque são jorge, itacorubi, florianópolis/sc.",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "smolka:19651": {
@@ -7059,7 +7059,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa a venda com amplo terrenoi no itacorubi, com terreno de 800 m2",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "smolka:55900": {
@@ -7104,7 +7104,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa à venda com quatro dormitórios,  com 256,90 m² de área construída, terreno com 2.458,00 m², no bairro córrego grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "smolka:56375": {
@@ -7148,7 +7148,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa a venda no itacorubi floianópolis.",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "smolka:56708": {
@@ -7193,7 +7193,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa comercial e residencial pewrto shoping villa romana",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "smolka:56757": {
@@ -7238,7 +7238,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa à venda com 3 dormitórios, sendo 1 suíte, piscina e 2 vagas de garagem, no parque são jorge, bairro itacorubi, florianópolis/sc.",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "smolka:56902": {
@@ -7283,7 +7283,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa a venda no itacorubi 4 dromitorios.",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "smolka:56963": {
@@ -7327,7 +7327,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa ampla com quintal, árvores frutíferas e 5 quartos no itacorubi - próxima à udesc",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 1
   },
   "smolka:57078": {
@@ -7372,7 +7372,7 @@
    "temFotos": false,
    "tipo": "Sobrado",
    "titulo": "Casa com 3 suítes no córrego grande",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "smolka:57140": {
@@ -7417,7 +7417,7 @@
    "temFotos": false,
    "tipo": "Sobrado",
    "titulo": "Casa com 3 suítes",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "smolka:57164": {
@@ -7462,7 +7462,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa mobiliada à venda com 3 dormitórios, sendo 1 suíte, no parque são jorge, itacorubi, florianópolis/sc.",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 3
   },
   "smolka:57238": {
@@ -7507,7 +7507,7 @@
    "temFotos": false,
    "tipo": "Casa",
    "titulo": "Casa ampla e completa no corrego grande garante conforto, espaço e qualidade!",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "smolka:57301": {
@@ -7552,7 +7552,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa à venda com 7 dormitórios, sendo 2 suítes, 4 vagas de garagem, no bairro santa mônica, florianópolis/sc.",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "smolka:57545": {
@@ -7597,7 +7597,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa 3 dormitórios, mobiliada e equipada perto das universidades no itabocuri",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   },
   "smolka:57812": {
@@ -7642,7 +7642,7 @@
    "temFotos": true,
    "tipo": "Casa",
    "titulo": "Casa à venda com 4 dormitórios, sendo 1 suíte, piscina e 4 vagas de garagem, no parque são jorge, bairro itacorubi, florianópolis/sc.",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 4
   },
   "smolka:58060": {
@@ -7687,11 +7687,11 @@
    "temFotos": true,
    "tipo": "Sobrado",
    "titulo": "Sobrado novo com 3 suítes",
-   "ultimoVisto": "2026-10-02T03:59:16-03:00",
+   "ultimoVisto": "2026-10-02T13:16:47-03:00",
    "vagas": 2
   }
  },
- "rodadas": 3,
- "ultimaRodada": "2026-10-02T03:59:16-03:00",
+ "rodadas": 4,
+ "ultimaRodada": "2026-10-02T13:16:47-03:00",
  "versao": 1
 }
