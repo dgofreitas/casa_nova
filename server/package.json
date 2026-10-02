@@ -1,0 +1,10 @@
+{
+  "name": "casa-nova-servidor",
+  "private": true,
+  "type": "module",
+  "description": "Servidor do site Casa Nova (sem dependências: usa node:sqlite)",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node src/server.js"
+  }
+}

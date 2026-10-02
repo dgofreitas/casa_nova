@@ -1,0 +1,55 @@
+# Casa Nova no servidor (o mesmo do moneyTrackr e do Contopia).
+#
+# Uso no servidor, na pasta ~/casa-nova (o deploy do GitHub faz isso sozinho):
+#   docker compose pull && docker compose up -d
+#
+# O HTTPS é do Caddy do moneyTrackr: o site entra na rede dele (EDGE_NETWORK) e o
+# Caddyfile de lá tem o bloco de minhacasanova.duckdns.org apontando para
+# casa-nova-app:3000. O nome do serviço vira nome de DNS nessa rede, por isso
+# tem o prefixo "casa-nova-".
+#
+# Tudo o que importa fica no volume casa_nova_dados: o banco (casa-nova.db), os
+# arquivos enviados, o casas.json e as fotos do crawler.
+
+services:
+  casa-nova-app:
+    image: ghcr.io/dgofreitas/casa-nova-app:${IMAGE_TAG:-latest}
+    container_name: casa_nova_app
+    restart: always
+    environment:
+      - SENHA_DIOGO=${SENHA_DIOGO:-}
+      - SENHA_CINTHIA=${SENHA_CINTHIA:-}
+    volumes:
+      - casa_nova_dados:/dados
+    networks:
+      - edge
+    mem_limit: 256m
+    logging:
+      driver: "json-file"
+      options: { max-size: "10m", max-file: "3" }
+
+  casa-nova-crawler:
+    image: ghcr.io/dgofreitas/casa-nova-crawler:${IMAGE_TAG:-latest}
+    container_name: casa_nova_crawler
+    restart: always
+    environment:
+      - CASA_NOVA_HORARIOS=${CASA_NOVA_HORARIOS:-7,12,17,22}
+      - CASA_NOVA_SITE=https://minhacasanova.duckdns.org
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+      - TZ=America/Sao_Paulo
+    volumes:
+      - casa_nova_dados:/dados
+    mem_limit: 768m
+    logging:
+      driver: "json-file"
+      options: { max-size: "10m", max-file: "3" }
+
+volumes:
+  casa_nova_dados:
+    name: casa_nova_dados
+
+networks:
+  edge:
+    name: ${EDGE_NETWORK:-moneytrackr_frontend}
+    external: true

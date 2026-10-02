@@ -339,6 +339,9 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     <div class="top-actions" id="exportBox" hidden>
       <button class="btn" id="btnCsv" type="button">Planilha dos imóveis</button>
       <button class="btn" id="btnBackup" type="button">Baixar backup</button>
+      <button class="btn" id="btnImportar" type="button" hidden>Importar do site antigo</button>
+      <input type="file" id="fImportar" accept="application/json,.json" hidden>
+      <a class="btn" id="btnSair" href="/sair" hidden>Sair</a>
     </div>
   </header>
   <div class="banner" id="offline" hidden>Os dados não estão sendo salvos nesta visualização. Abra o site pelo claude.ai para ver e guardar as informações de vocês.</div>
@@ -608,7 +611,7 @@ const CORRETORAS={"zapimoveis":"ZAP Imóveis","vivareal":"Viva Real","quintoanda
 
 const S={imoveis:{},checklist:{},documentos:{},agenda:{},contatos:{},config:{},novidades:{},crawler:{}};
 const COLLS=Object.keys(S);
-let db=null,assets=null,sample=null,downloads=null,mcp=null,user=null,uid=null,imgLimits=null,readOnly=false;
+let db=null,assets=null,sample=null,downloads=null,mcp=null,user=null,servidor=null,uid=null,imgLimits=null,readOnly=false;
 const UI={tab:"imoveis",q:"",status:"ativos",fav:false,piscina:false,gourmet:false,semAlaga:false,comVend:false,comViz:false,sort:"recentes",view:store.get("cn_view")||"cards"};
 
 /* ---------- toast ---------- */
@@ -893,16 +896,17 @@ function openDetail(id,preset){
   const pend=d.extracao==="pendente";
   $("#imBody").innerHTML=`
     <div class="dlg-head"><div><h2 id="imTitle">${isNew?"Novo imóvel":esc(titleOf(d))}</h2><div class="small" style="display:flex;gap:14px;flex-wrap:wrap">${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">Abrir anúncio ↗</a>`:""}${mapsUrl(d)?`<a href="${esc(mapsUrl(d))}" target="_blank" rel="noopener">${icoPin} Ver no Google Maps</a>`:""}</div></div><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
-    ${pend&&d.origem==="crawler"?`<p class="note" style="margin:0 0 16px">O texto do anúncio já está em “Preencher com IA”, logo abaixo. Cliquem em “Ler anúncio e preencher” para a IA completar condomínio, lazer, destaques e o resto.</p>`:""}
-    ${pend&&d.origem!=="crawler"?`<p class="note warn" style="margin:0 0 16px">Este imóvel veio só do link. Abram o anúncio, copiem o texto (ou tirem prints) e usem “Preencher com IA” logo abaixo.</p>`:""}
-    <details class="ai" ${pend?"open":""} id="aiBox" ${sample?"":"hidden"}>
-      <summary>Preencher com IA</summary>
+    ${pend&&d.origem==="crawler"&&!sample&&servidor?`<p class="note" style="margin:0 0 16px">O texto do anúncio está logo abaixo, em “Texto do anúncio”. Usem para completar condomínio, lazer, destaques e o resto.</p>`:""}
+    ${pend&&d.origem==="crawler"&&sample?`<p class="note" style="margin:0 0 16px">O texto do anúncio já está em “Preencher com IA”, logo abaixo. Cliquem em “Ler anúncio e preencher” para a IA completar condomínio, lazer, destaques e o resto.</p>`:""}
+    ${pend&&d.origem!=="crawler"&&sample?`<p class="note warn" style="margin:0 0 16px">Este imóvel veio só do link. Abram o anúncio, copiem o texto (ou tirem prints) e usem “Preencher com IA” logo abaixo.</p>`:""}
+    <details class="ai" ${pend?"open":""} id="aiBox" ${sample||servidor?"":"hidden"}>
+      <summary>${sample?"Preencher com IA":"Texto do anúncio"}</summary>
       <div class="fields">
         <label class="f wide">Texto do anúncio<textarea id="ai_texto" rows="4" placeholder="Cole aqui o texto copiado do anúncio">${esc(d.anuncioTexto||"")}</textarea></label>
-        <label class="f wide" id="ai_printsRow">Prints do anúncio<input type="file" id="ai_prints" multiple accept="image/png,image/jpeg,image/webp,image/gif"></label>
-        <label class="check-row wide"><input type="checkbox" id="ai_over"> Substituir campos que já estão preenchidos</label>
+        <label class="f wide" id="ai_printsRow" ${sample?"":"hidden"}>Prints do anúncio<input type="file" id="ai_prints" multiple accept="image/png,image/jpeg,image/webp,image/gif"></label>
+        <label class="check-row wide" ${sample?"":"hidden"}><input type="checkbox" id="ai_over"> Substituir campos que já estão preenchidos</label>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap"><button class="btn primary" type="button" id="ai_go">Ler anúncio e preencher</button><span class="status-line" id="ai_status"></span></div>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap">${sample?`<button class="btn primary" type="button" id="ai_go">Ler anúncio e preencher</button>`:`<button class="btn" type="button" id="ai_copiar">Copiar o texto</button>`}<span class="status-line" id="ai_status"></span></div>
     </details>
     <fieldset><legend>O básico</legend><div class="fields">
       ${field("f_titulo","Nome para vocês reconhecerem",d.titulo,{wide:true,ph:"Casa amarela perto do parque"})}
@@ -1036,6 +1040,11 @@ dlgIm.addEventListener("click",async e=>{
   const t=e.target;
   if(t.id==="f_save")return saveDetail();
   if(t.id==="ai_go")return runIA();
+  if(t.id==="ai_copiar"){
+    const ta=$("#ai_texto");
+    navigator.clipboard.writeText(ta.value).then(()=>toast("Texto copiado."),()=>{ta.select();toast("Texto selecionado. Use copiar do celular.")});
+    return;
+  }
   if(t.id==="f_del"){
     if(!t.classList.contains("armed")){t.classList.add("armed");t.textContent="Confirmar exclusão";setTimeout(()=>{if(t.isConnected){t.classList.remove("armed");t.textContent="Excluir"}},4000);return}
     const d=S.imoveis[draft.id];dlgIm.close();await remove("imoveis",draft.id);
@@ -1220,9 +1229,15 @@ function renderNvStatus(){
   const f=feed(),box=$("#nvStatus");
   const fontes=f&&f.fontes?Object.values(f.fontes):[];
   const ok=fontes.filter(x=>x.ok!==false),bad=fontes.filter(x=>x.ok===false);
-  const btn=mcp&&!readOnly?`<button class="btn" type="button" id="nvSync" ${nvSyncing?"disabled":""}>${nvSyncing?"Buscando…":"Buscar agora no Drive"}</button>`:"";
+  const st=S.crawler.status||{},buscando=nvSyncing||st.rodando;
+  const btn=servidor&&!readOnly?`<button class="btn" type="button" id="nvSync" ${buscando?"disabled":""}>${buscando?"Buscando…":"Buscar agora"}</button>`
+    :mcp&&!readOnly?`<button class="btn" type="button" id="nvSync" ${nvSyncing?"disabled":""}>${nvSyncing?"Buscando…":"Buscar agora no Drive"}</button>`:"";
+  if(servidor&&!st.rodando&&nvSyncing&&st.terminouEm&&st.terminouEm>nvBuscaPedidaEm){nvSyncing=false;nvSync.msg=""}
+  if(servidor&&st.rodando)nvSync.msg="o crawler está buscando agora; leva uns minutos";
+  else if(servidor&&!nvSyncing&&/^o crawler está buscando/.test(nvSync.msg))nvSync.msg="";
   let txt;
-  if(!f)txt=`<span>${nvSync.msg?esc(nvSync.msg):(mcp?"Ainda não li o arquivo do crawler no Google Drive.":"As novidades chegam pelo Google Drive. Abra o site com o conector do Google Drive ligado para trazer a primeira lista.")}</span>`;
+  if(!f&&servidor)txt=`<span>${nvSync.msg?esc(nvSync.msg):"O crawler ainda não terminou a primeira busca no servidor."}</span>`;
+  else if(!f)txt=`<span>${nvSync.msg?esc(nvSync.msg):(mcp?"Ainda não li o arquivo do crawler no Google Drive.":"As novidades chegam pelo Google Drive. Abra o site com o conector do Google Drive ligado para trazer a primeira lista.")}</span>`;
   else txt=`<span>Crawler: última busca <b>${esc(fmtQuando(f.ultimaRodada))}</b> · <span class="${bad.length?"warn":"ok"}">${ok.length} de ${fontes.length} imobiliárias lidas</span>${nvSync.msg?` · <span class="muted">${esc(nvSync.msg)}</span>`:""}${nvFotoMsg?` · <span class="muted">${esc(nvFotoMsg)}</span>`:""}</span>`;
   const det=fontes.length?`<details class="nv-fontes"><summary>Ver imobiliárias</summary><ul>${fontes.sort((a,b)=>String(a.nome).localeCompare(String(b.nome))).map(x=>`<li class="${x.ok===false?"bad":""}">${esc(x.nome)}: ${x.ok===false?"não consegui ler ("+esc(x.erro||"erro")+")":(x.casas||0)+" casas"}</li>`).join("")}</ul></details>`:"";
   box.innerHTML=txt+btn+det;
@@ -1351,6 +1366,12 @@ async function chamarDrive(tool,input){
     if(e&&e.retryable){await new Promise(r=>setTimeout(r,(e.retryAfterMs||1500)+Math.random()*1500));return (await mcp.callTool(DRIVE,tool,input,{cache:false})).payload}
     throw e;
   }
+}
+let nvBuscaPedidaEm="";
+async function buscarAgora(){
+  nvSyncing=true;nvBuscaPedidaEm=nowISO();nvSync.msg="pedido enviado: a busca começa em até 20 segundos";renderNvStatus();
+  try{await servidor.buscarAgora()}catch(e){nvSyncing=false;nvSync.msg="Não deu para pedir a busca agora. Tentem de novo."}
+  renderNvStatus();
 }
 async function syncDrive(manual){
   if(!mcp||!db||readOnly||nvSyncing)return;
@@ -1536,6 +1557,7 @@ async function abrirGaleria(gid){
   if(!dlgFotos.open)dlgFotos.showModal();
   const g=galeriaDe(c);
   if(g){gal.lista=g.fotos;mostrarFoto();return}
+  if(servidor){$("#galMsg").textContent=capa?"":"Esta casa ainda não tem fotos. Vejam no anúncio.";return}
   if(!mcp||!assets||readOnly){$("#galMsg").textContent="As outras fotos aparecem aqui depois que o Diogo abrir esta casa. Enquanto isso, vejam no anúncio.";return}
   $("#galMsg").textContent="Trazendo as fotos…";
   try{
@@ -1560,7 +1582,7 @@ $("#nsort").addEventListener("change",e=>{NUI.sort=e.target.value;renderNovidade
 $("#nlist").addEventListener("keydown",e=>{const gl=e.target.closest&&e.target.closest("[data-gal]");if(gl&&(e.key==="Enter"||e.key===" ")){e.preventDefault();abrirGaleria(gl.dataset.gal)}});
 $("#nchips").addEventListener("click",e=>{const b=e.target.closest("[data-nf]");if(b){NUI.f=b.dataset.nf;renderNovidades()}});
 $("#p-novidades").addEventListener("click",e=>{
-  if(e.target.closest("#nvSync"))return syncDrive(true);
+  if(e.target.closest("#nvSync"))return servidor?buscarAgora():syncDrive(true);
   const a=e.target.closest("[data-nva]");if(a){a.disabled=true;return decidir(a.dataset.gid,a.dataset.nva)}
   const gl=e.target.closest("[data-gal]");if(gl)return abrirGaleria(gl.dataset.gal);
   const o=e.target.closest("[data-nvopen]");if(o){const id=o.dataset.nvopen;if(id&&S.imoveis[id])openDetail(id);else toast("Esse imóvel foi excluído de Imóveis.");return}
@@ -1881,6 +1903,15 @@ $("#btnBackup").onclick=async()=>{
   try{await downloads.save({filename:"casa-nova-backup-"+new Date().toISOString().slice(0,10)+".json",data})}catch(e){if(e&&e.code!=="declined")toast("Não deu para baixar o arquivo.")}
 };
 
+$("#btnImportar").onclick=()=>$("#fImportar").click();
+$("#fImportar").onchange=async e=>{
+  const f=e.target.files[0];e.target.value="";if(!f)return;
+  if(!confirm("Importar “"+f.name+"”? Os imóveis, documentos e decisões do arquivo entram no site (os que já existem com o mesmo nome são substituídos)."))return;
+  toast("Importando…");
+  try{const r=await servidor.importar(await f.text());toast(`Pronto: ${r.docs} itens e ${r.arquivos} arquivos importados.`)}
+  catch(err){toast("Não deu para importar: "+((err&&err.message)||"arquivo inválido"))}
+};
+
 /* ---------- boot ---------- */
 $$(".tab").forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
 document.addEventListener("keydown",e=>{if(e.key==="Escape")$$("dialog[open]").forEach(d=>d.close())});
@@ -1892,7 +1923,13 @@ async function boot(){
   const C=window.claude;
   if(!C||!C.use){$("#offline").hidden=false;return}
   const use=n=>C.use(n).catch(()=>null);
-  [db,assets,sample,downloads,mcp,user]=await Promise.all([use("db"),use("assets"),use("sample"),use("downloads"),use("mcp"),use("user")]);
+  [db,assets,sample,downloads,mcp,user,servidor]=await Promise.all([use("db"),use("assets"),use("sample"),use("downloads"),use("mcp"),use("user"),use("servidor")]);
+  if(servidor){
+    // no servidor próprio: login, importação do site antigo e fotos que já vêm prontas do crawler
+    $("#btnSair").hidden=false;
+    try{if((await servidor.quem()).admin)$("#btnImportar").hidden=false}catch(e){}
+    setTimeout(()=>completarImoveis().catch(()=>{}),4000);
+  }
   if(user){uid=await user.id();if(await user.can("data.write")===false)readOnly=true}
   if(sample){try{const l=await sample.limits();imgLimits=l&&l.images?l.images:null}catch(e){imgLimits=null}}
   $("#exportBox").hidden=!downloads;

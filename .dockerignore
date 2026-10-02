@@ -1,0 +1,5 @@
+.git
+.github
+fotos-branch
+**/__pycache__
+**/*.pyc

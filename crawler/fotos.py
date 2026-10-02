@@ -62,10 +62,10 @@ def _rever_fotos(x):
             and len(x.get("fotosOrigem") or []) < MAX_FOTOS)
 
 
-def completar_detalhes(http, imoveis, espera_por_fonte):
+def completar_detalhes(http, imoveis, espera_por_fonte, pendente=None, marca=None):
     """Busca descrição e endereços das fotos dos anúncios que ainda não têm."""
-    pendentes = [x for x in imoveis.values() if x.get("status") == "ativo"
-                 and (not x.get("detalhado") or _rever_fotos(x))]
+    pendente = pendente or (lambda x: not x.get("detalhado") or _rever_fotos(x))
+    pendentes = [x for x in imoveis.values() if x.get("status") == "ativo" and pendente(x)]
     pendentes.sort(key=lambda x: x.get("primeiroVisto", ""), reverse=True)
     feitos = 0
     for x in pendentes[:MAX_DETALHES_POR_RODADA]:
@@ -77,6 +77,8 @@ def completar_detalhes(http, imoveis, espera_por_fonte):
             x["tentativasDetalhe"] = x.get("tentativasDetalhe", 0) + 1
             if x["tentativasDetalhe"] >= 3:
                 x["detalhado"] = True   # desiste depois de 3 rodadas
+                if marca:
+                    x[marca] = True
             continue
         if d.get("descricao"):
             x["descricao"] = d["descricao"]
@@ -87,6 +89,8 @@ def completar_detalhes(http, imoveis, espera_por_fonte):
             x["fotosOrigem"] = d["fotosOrigem"]
             x.setdefault("foto", d["fotosOrigem"][0])
         x["detalhado"] = True
+        if marca:
+            x[marca] = True
         x.pop("detalheErro", None)
         feitos += 1
     print(f"[detalhes] {feitos} anúncios abertos ({len(pendentes) - feitos} ficaram para a próxima)")
