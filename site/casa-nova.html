@@ -1197,6 +1197,15 @@ function casas(){
     const c={gid,anuncios:an,ativos:ativos.length,...base};
     c.preco=precos.length?Math.min(...precos):null;
     for(const k of ["area","areaTerreno","quartos","suites","banheiros","vagas","condominio","iptu","endereco"])if(c[k]==null)c[k]=(an.find(a=>a[k]!=null)||{})[k];
+    // a casa junta o que cada anúncio sabe: endereço com número de quem tiver, e o que as
+    // descrições dizem (metragem, condomínio, IPTU, piscina, churrasqueira…) onde faltar
+    const comNumero=an.map(a=>a.endereco).filter(e=>e&&/\d/.test(e));
+    if(comNumero.length)c.endereco=comNumero.sort((x,y)=>y.length-x.length)[0];
+    const ex=extraidoDe(c);
+    if(ex){
+      for(const k of ["area","areaTerreno","quartos","suites","vagas","condominio","iptu"])if(c[k]==null&&ex[k]!=null)c[k]=ex[k];
+      for(const k of ["piscina","churrasqueira","gourmetPiscina"])if(ex[k])c[k]=ex[k];
+    }
     c.primeiroVisto=an.map(a=>a.primeiroVisto).filter(Boolean).sort()[0]||"";
     c.saiu=!ativos.length;
     // variação de preço do anúncio mais barato
@@ -1367,6 +1376,7 @@ function cardNv(c){
       <h3>${esc(c.tipo||"Casa")}${c.quartos?` com ${c.quartos} quartos`:""}</h3>
       <div class="loc">${esc([c.endereco,c.bairro].filter(Boolean).join(" · "))}${mapsUrl(c)?` · <a href="${esc(mapsUrl(c))}" target="_blank" rel="noopener">${icoPin} Mapa</a>`:""}</div>
       ${dup}
+      ${lazerBadges({piscina:c.piscina,churrasqueira:c.churrasqueira,gourmetPiscina:c.gourmetPiscina})}
       <ul class="anuncios" aria-label="Anúncios desta casa">${anuncios}</ul>
       ${desc?`<details class="nv-desc"><summary>Descrição do anúncio</summary><p>${esc(desc)}</p></details>`:""}
       ${desde}${quem}
@@ -1504,7 +1514,8 @@ const ARQ_FOTOS="casa-nova-fotos.json";
 let nvFotosIdx=null,nvImportando=false,nvFotoMsg="";
 const fotosDoc=()=>S.crawler.fotos||{capas:{},galerias:{}};
 function textoDe(a){const t=S.crawler["textos-"+a.fonte];return t&&t.textos?t.textos[a.id]:null}
-function descricaoDe(c){for(const a of c.anuncios){const t=textoDe(a);if(t)return t}return null}
+// o texto mais completo entre os anúncios da casa
+function descricaoDe(c){let melhor=null;for(const a of c.anuncios){const t=textoDe(a);if(t&&(!melhor||t.length>melhor.length))melhor=t}return melhor}
 function capaDe(c){const f=fotosDoc();for(const a of c.anuncios)if(f.capas&&f.capas[a.id])return f.capas[a.id];return null}
 function galeriaDe(c){const f=fotosDoc();for(const a of c.anuncios)if(f.galerias&&f.galerias[a.id]&&f.galerias[a.id].length)return {id:a.id,fotos:f.galerias[a.id]};return null}
 function arquivoGaleria(c){
