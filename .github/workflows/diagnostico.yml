@@ -1,0 +1,38 @@
+name: Diagnóstico de sites
+
+# Testa, de dentro do crawler no servidor, como alguns sites respondem: direto,
+# imitando o Chrome e pelo WARP. O resultado fica no registro desta execução.
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: Endereços separados por espaço
+        required: true
+        default: "https://www.imovelweb.com.br/casas-venda-itacorubi-florianopolis.html https://onliving.com.br/"
+        type: string
+
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testar a partir do servidor
+        uses: appleboy/ssh-action@v1
+        env:
+          URLS: ${{ inputs.urls }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: URLS
+          script: |
+            set -eu
+            cd ~/casa-nova
+            # só endereços http(s), um por argumento (nada é interpretado pelo shell)
+            set -f
+            ARGS=""
+            for u in $URLS; do
+              case "$u" in http://*|https://*) ARGS="$ARGS $u";; *) echo "ignorado: $u";; esac
+            done
+            docker compose ps --format '{{.Name}} {{.Status}}'
+            docker compose exec -T casa-nova-crawler python diagnostico.py $ARGS
