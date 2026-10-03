@@ -35,4 +35,7 @@ jobs:
               case "$u" in http://*|https://*) ARGS="$ARGS $u";; *) echo "ignorado: $u";; esac
             done
             docker compose ps --format '{{.Name}} {{.Status}}'
+            echo "--- espaço no servidor"
+            df -h / | tail -1
+            docker compose exec -T casa-nova-crawler sh -c 'du -sh /dados/fotos /dados/guardadas 2>/dev/null' || true
             docker compose exec -T casa-nova-crawler python diagnostico.py $ARGS

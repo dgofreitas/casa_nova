@@ -1344,7 +1344,7 @@ function cardNv(c){
   const nomes=[...new Set(c.anuncios.map(a=>a.fonteNome))];
   const pl=(n,um,varios)=>`<li><b>${n}</b> ${n===1?um:varios}</li>`;
   const specs=[c.area&&`<li><b>${numIn(c.area)}</b> m²</li>`,c.areaTerreno&&`<li><b>${numIn(c.areaTerreno)}</b> m² terreno</li>`,c.quartos!=null&&pl(c.quartos,"quarto","quartos"),c.suites&&pl(c.suites,"suíte","suítes"),c.vagas!=null&&pl(c.vagas,"vaga","vagas")].filter(Boolean).join("");
-  const anuncios=c.anuncios.slice().sort((a,b)=>(a.preco||1e15)-(b.preco||1e15)).map(a=>`<li class="${a.status==="saiu"?"off":""}"><a href="${esc(a.link)}" target="_blank" rel="noopener">${esc(a.fonteNome)} ↗</a><b>${a.preco?money(a.preco):"sem preço"}</b></li>`).join("");
+  const anuncios=c.anuncios.slice().sort((a,b)=>(a.preco||1e15)-(b.preco||1e15)).map(a=>`<li class="${a.status==="saiu"?"off":""}"><a href="${esc(a.link)}" target="_blank" rel="noopener">${esc(a.fonteNome)}${a.anunciante?` · ${esc(a.anunciante)}`:""} ↗</a><b>${a.preco?money(a.preco):"sem preço"}</b></li>`).join("");
   const im=c.cadastrada&&S.imoveis[c.cadastrada.id];
   const dup=im?`<div class="lazer"><span class="lz dup">${c.cadastrada.certeza?"Já está":"Parece ser a casa"} “${esc(titleOf(im))}” em Imóveis</span></div>`:"";
   const quem=c.decisao&&c.decisao.por?`<div class="nv-who" data-uid="${esc(c.decisao.por)}">${esc(NV_SIT[sit]||"")} por <span class="nm">alguém</span> · ${esc(fmtQuando(c.decisao.em))}</div>`:"";

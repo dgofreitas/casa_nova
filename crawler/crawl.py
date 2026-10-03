@@ -6,6 +6,7 @@ Arquivos:
   data/casas.json   tudo o que o crawler acompanha (lido pelo site e pelo Apps Script)
 """
 import argparse
+import functools
 import base64
 import html
 import json
@@ -33,8 +34,10 @@ ESPERA = {"lideranca": 4.0, "smolka": 4.0}
 AUSENCIAS_PARA_SAIR = 3      # rodadas seguidas sem aparecer até marcar "saiu do ar"
 MANTER_SAIU_DIAS = 60        # depois disso o imóvel que saiu deixa de ser acompanhado
 LIMITE_ORCAMENTO = 1_900_000
+# portais juntam anúncios de vários corretores: a mesma casa pode aparecer duas vezes neles
+PORTAIS = {"chavesnamao"}
 CAMPOS = ["titulo", "tipo", "preco", "condominio", "iptu", "area", "areaTerreno", "quartos",
-          "suites", "banheiros", "vagas", "endereco", "bairro", "foto", "lat", "lng", "link"]
+          "suites", "banheiros", "vagas", "endereco", "bairro", "foto", "lat", "lng", "link", "anunciante"]
 
 
 def agora():
@@ -72,6 +75,7 @@ NAO_SAO_RUAS = {"itacorubi", "santa monica", "parque sao jorge", "pq sao jorge",
                 "corrego grande", "florianopolis", "centro", "trindade"}
 
 
+@functools.lru_cache(maxsize=None)
 def rua_numero(endereco):
     """("buriti", "379") a partir de "Avenida Buriti, 379"; partes ausentes viram None."""
     if not endereco:
@@ -107,13 +111,18 @@ def distancia(a, b):
     quartos quando os dois informam, imobiliárias diferentes e, quando os dois
     informam o endereço, a mesma rua e o mesmo número.
     """
-    if a["fonte"] == b["fonte"] or a["bairro"] != b["bairro"]:
+    if a["bairro"] != b["bairro"]:
         return None
     if a.get("quartos") and b.get("quartos") and a["quartos"] != b["quartos"]:
         return None
     # endereço é o sinal mais forte: rua diferente, ou mesma rua com outro número, são casas diferentes
     rua_a, num_a = rua_numero(a.get("endereco"))
     rua_b, num_b = rua_numero(b.get("endereco"))
+    if a["fonte"] == b["fonte"]:
+        # dois anúncios da mesma imobiliária são casas diferentes (condomínio com casas iguais),
+        # menos num portal, onde dois corretores anunciam a mesma casa: aí só com rua e número iguais
+        if a["fonte"] not in PORTAIS or not (num_a and num_b and num_a == num_b and rua_a and mesma_rua(rua_a, rua_b)):
+            return None
     if rua_a and rua_b:
         if not mesma_rua(rua_a, rua_b):
             return None
@@ -153,7 +162,7 @@ def agrupar(imoveis):
         if ga is gb:
             continue
         fontes_a = {imoveis[i]["fonte"] for i in ga}
-        if fontes_a & {imoveis[i]["fonte"] for i in gb}:
+        if (fontes_a & {imoveis[i]["fonte"] for i in gb}) - PORTAIS:
             continue
         if all(distancia(imoveis[x], imoveis[y]) is not None for x in ga for y in gb):
             uniao = ga | gb
@@ -172,7 +181,9 @@ def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
     primeira = estado["rodadas"] == 0
     quando = agora()
     imoveis = estado["imoveis"]
-    eventos = {"novos": [], "baixou": [], "subiu": [], "saiu": [], "voltou": []}
+    eventos = {"novos": [], "baixou": [], "subiu": [], "saiu": [], "voltou": [], "fonteNova": {}}
+    # imobiliária que entra agora na busca: na primeira leitura, um resumo e não um aviso por casa
+    conhecidas = set(estado["fontes"])
     http = Http(espera=1.0)
 
     lista = [(f, nl) for f, nl in FONTES.items() if not so or f in so]
@@ -223,7 +234,10 @@ def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
                 c.update({"id": id_, "primeiroVisto": quando, "ultimoVisto": quando, "status": "ativo",
                           "ausencias": 0, "historicoPreco": [{"data": quando, "preco": c.get("preco")}]})
                 imoveis[id_] = c
-                eventos["novos"].append(id_)
+                if primeira or fonte in conhecidas:
+                    eventos["novos"].append(id_)
+                else:
+                    eventos["fonteNova"].setdefault(fonte, []).append(id_)
                 continue
             if velho.get("status") == "saiu":
                 eventos["voltou"].append(id_)
@@ -264,6 +278,13 @@ def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
         fotos.completar_detalhes(http, imoveis, ESPERA)
         agrupar(imoveis)
         capas_novas = fotos.gerar_fotos(imoveis, pasta_fotos) if pasta_fotos else {}
+    # anúncio novo de uma casa que já era conhecida (outra imobiliária) não é casa nova
+    conhecida = {x.get("grupo") for x in imoveis.values() if x.get("primeiroVisto", quando) < quando}
+    eventos["tambem"] = [i for i in eventos["novos"] if imoveis[i].get("grupo") in conhecida]
+    eventos["novos"] = [i for i in eventos["novos"] if imoveis[i].get("grupo") not in conhecida]
+    for fonte, ids in eventos["fonteNova"].items():
+        eventos["fonteNova"][fonte] = {"anuncios": len(ids), "casas": len({imoveis[i].get("grupo") for i in ids}),
+                                       "novas": len({imoveis[i].get("grupo") for i in ids} - conhecida)}
     estado["rodadas"] += 1
     estado["ultimaRodada"] = quando
     estado["eventos"] = {"quando": quando, "baseInicial": primeira,
@@ -333,6 +354,11 @@ def mensagem(estado, eventos, primeira):
     if novos:
         blocos.append(f"🏠 <b>{len(novos)} casa{'s' if len(novos) > 1 else ''} nova{'s' if len(novos) > 1 else ''}</b>\n"
                       + "\n".join(linha(im[i]) for i in novos))
+    for fonte, r in eventos.get("fonteNova", {}).items():
+        nome = estado["fontes"].get(fonte, {}).get("nome", fonte)
+        blocos.append(f"🆕 <b>{html.escape(nome)} entrou na busca</b>\n"
+                      f"{r['casas']} casa{'s' if r['casas'] != 1 else ''} até R$ 2,1 mi; "
+                      f"{r['novas']} que vocês ainda não tinham. Elas estão nas Novidades.")
     if eventos["baixou"]:
         blocos.append("📉 <b>Baixou de preço</b>\n" + "\n".join(
             linha(im[i]) + f" (era {brl(de)})" for i, de, para in eventos["baixou"]))
@@ -344,7 +370,7 @@ def mensagem(estado, eventos, primeira):
     if novas_falhas:
         blocos.append("⚠️ Não consegui ler hoje: " + html.escape(", ".join(v["nome"] for v in novas_falhas)))
     site = os.environ.get("CASA_NOVA_SITE")
-    if blocos and site and (novos or eventos["baixou"] or eventos["voltou"]):
+    if blocos and site and (novos or eventos["baixou"] or eventos["voltou"] or eventos.get("fonteNova")):
         blocos.append(f'<a href="{html.escape(site)}/#novidades">Abrir as Novidades</a>')
     return "\n\n".join(blocos)
 

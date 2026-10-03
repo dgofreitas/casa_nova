@@ -12,7 +12,7 @@ import urllib.parse
 
 from bs4 import BeautifulSoup
 
-from comum import achar, ld_json, next_flight, num, objetos_com, objetos_json
+from comum import achar, ld_json, next_flight, num, objetos_com, objetos_json, sem_acento
 
 BAIRROS_SLUG = ["itacorubi", "santa-monica", "parque-sao-jorge", "corrego-grande"]
 BAIRROS_NOME = ["Itacorubi", "Santa Mônica", "Parque São Jorge", "Córrego Grande"]
@@ -287,6 +287,80 @@ def brognoli(http):
     return out
 
 
+# ---------------------------------------------------------------- Chaves na Mão (portal)
+def _tipo_pelo_titulo(titulo):
+    t = sem_acento(titulo)
+    if "condominio" in t:
+        return "Casa em condomínio"
+    if "sobrado" in t:
+        return "Sobrado"
+    return "Casa"
+
+
+def _d(v):
+    """Campo que deveria ser objeto; às vezes o Next.js manda uma referência ("$9b:…")."""
+    return v if isinstance(v, dict) else {}
+
+
+def _coord(v):
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def chaves_na_mao(http):
+    """Portal com anúncios de muitas imobiliárias e corretores (Next.js).
+
+    Cada página de busca traz 15 anúncios com rua, número, preço e áreas.
+    O mesmo imóvel costuma estar também no site da imobiliária: o agrupamento
+    junta os dois num cartão só.
+    """
+    base = "https://www.chavesnamao.com.br"
+    out, vistos = [], set()
+    for slug in BAIRROS_SLUG:
+        for pagina in range(1, MAX_PAGINAS + 1):
+            url = f"{base}/casas-a-venda/sc-florianopolis/{slug}/" + (f"?pg={pagina}" if pagina > 1 else "")
+            f = next_flight(http.html(url))
+            novos = 0
+            for o in objetos_com(f, '"realtyType"'):
+                if not isinstance(o.get("prices"), dict) or o.get("transaction") not in (None, "SELL"):
+                    continue
+                cod = str(o.get("id") or "")
+                if not cod or cod in vistos:
+                    continue
+                vistos.add(cod)
+                novos += 1
+                loc = _d(o.get("location"))
+                rua = _d(loc.get("street"))
+                endereco = ", ".join(x for x in [rua.get("name"), rua.get("addressNumber")] if x)
+                geo = _d(loc.get("geoposition"))
+                area = _d(o.get("area"))
+                conta = lambda k: _d(o.get(k)).get("count")
+                out.append({
+                    "codigo": cod,
+                    "link": base + o["url"] if str(o.get("url", "")).startswith("/") else o.get("url"),
+                    "titulo": o.get("title") or "",
+                    # o portal chama tudo de "Casa / Sobrado"; o título diz o tipo de verdade
+                    "categoria": _tipo_pelo_titulo(o.get("title") or ""),
+                    "bairro": _d(loc.get("neighborhood")).get("name") or "",
+                    "endereco": endereco,
+                    "area": num(area.get("useful")),
+                    "areaTerreno": num(area.get("total")),
+                    "quartos": conta("bedrooms"),
+                    "suites": conta("suites"),
+                    "banheiros": conta("bathrooms"),
+                    "vagas": conta("garages"),
+                    "preco": o["prices"].get("rawPrice"),
+                    "lat": _coord(geo.get("lat")),
+                    "lng": _coord(geo.get("lon")),
+                    "anunciante": _d(o.get("publisher")).get("name"),
+                })
+            if novos == 0:
+                break
+    return out
+
+
 # ---------------------------------------------------------------- Seiter (BuscaImo)
 def seiter(http):
     base = "https://seiterimobiliaria.com.br"
@@ -444,4 +518,7 @@ FONTES = {
     "seiter": ("Seiter Imobiliária", seiter),
     "onliving": ("OnLiving (F1)", onliving),
     "duda": ("Duda Imóveis", duda),
+    "ponte": ("Ponte Imóveis", kenlo("https://www.ponteimoveis.com.br")),
+    "trindade": ("Trindade Imóveis", vista_loft("https://trindadeimoveis.com.br")),
+    "chavesnamao": ("Chaves na Mão (portal)", chaves_na_mao),
 }
