@@ -24,6 +24,7 @@ from fontes import FONTES  # noqa: E402
 import fotos  # noqa: E402
 import fotos_servidor  # noqa: E402
 from andamento import Andamento  # noqa: E402
+from extrair import extrair  # noqa: E402
 import telegram  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -328,6 +329,10 @@ def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
     for fonte, ids in eventos["fonteNova"].items():
         eventos["fonteNova"][fonte] = {"anuncios": len(ids), "casas": len({imoveis[i].get("grupo") for i in ids}),
                                        "novas": len({imoveis[i].get("grupo") for i in ids} - conhecida)}
+    # dados tirados da descrição (piscina, churrasqueira, condomínio…) para preencher o imóvel
+    for x in imoveis.values():
+        if x.get("descricao"):
+            x["extraido"] = extrair(x["descricao"])
     estado["rodadas"] += 1
     estado["ultimaRodada"] = quando
     estado["eventos"] = {"quando": quando, "baseInicial": primeira,

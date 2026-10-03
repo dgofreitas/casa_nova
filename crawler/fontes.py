@@ -273,6 +273,8 @@ def brognoli(http):
                         "bairro": o.get("neighborhoodName") or "",
                         "endereco": "",
                         "area": o.get("builtArea"),
+                        # área total maior que a construída é o terreno; igual é a própria casa
+                        "areaTerreno": o.get("totalArea") if (o.get("totalArea") or 0) > (o.get("builtArea") or 0) * 1.05 else None,
                         "quartos": o.get("bedrooms"),
                         "suites": o.get("suites"),
                         "banheiros": o.get("bathrooms"),
