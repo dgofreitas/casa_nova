@@ -44,8 +44,12 @@ Boa parte das casas deles aparece no Chaves na Mão.
 Quando uma imobiliária entra na busca, a primeira leitura vira um resumo no Telegram
 ("entrou na busca: N casas, M que vocês ainda não tinham"), e não um aviso por casa.
 Um anúncio novo de uma casa que já era conhecida também não é avisado como casa nova.
-No portal, dois anúncios da mesma casa (corretores diferentes) só se juntam com rua e
-número iguais. Casas descartadas não ganham fotos, e as que já tinham são apagadas.
+No portal, vários corretores anunciam a mesma casa: dois anúncios do portal se juntam
+com a mesma rua, o mesmo preço exato e os mesmos quartos (o número pode faltar num
+deles). Quando o portal não manda rua, bairro e área, eles saem do título do anúncio.
+Um grupo aceita um anúncio que não contradiga nenhum dos que já estão nele: dado que
+falta não conta, mas outra rua, outro número, outros quartos ou preço e área com mais
+de 5% de diferença separam. Casas descartadas não ganham fotos, e as que já tinham são apagadas.
 
 ## Fotos e descrição
 
