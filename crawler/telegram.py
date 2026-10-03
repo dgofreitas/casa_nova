@@ -23,6 +23,10 @@ def _pedacos(texto):
         yield atual
 
 
+def configurado():
+    return bool(os.environ.get("TELEGRAM_BOT_TOKEN") and os.environ.get("TELEGRAM_CHAT_ID"))
+
+
 def enviar(texto):
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat = os.environ.get("TELEGRAM_CHAT_ID")

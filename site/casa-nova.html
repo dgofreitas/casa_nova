@@ -270,6 +270,31 @@ details.ai[open] summary{margin-bottom:10px}
 .nv-fontes summary{cursor:pointer}
 .nv-fontes ul{margin:6px 0 0;padding-left:18px;columns:2 220px}
 .nv-fontes li.bad{color:var(--bad)}
+/* etapas da busca do crawler (servidor) */
+.nv-etapas{flex-basis:100%;font-size:13px;border-top:1px solid var(--line);padding-top:8px}
+.nv-etapas>summary{cursor:pointer;color:var(--muted)}
+.nv-etapas>summary b{color:var(--ink)}
+.nv-etapas ol{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.et-linha{display:flex;gap:8px;align-items:baseline}
+.et details>summary{cursor:pointer;list-style:none;display:block}
+.et details>summary::-webkit-details-marker{display:none}
+.et .seta{flex:none;width:12px;color:var(--muted);font-size:14px;line-height:1;transition:transform .15s;transform:translateY(2px)}
+.et details[open]>summary .seta{transform:translateY(2px) rotate(90deg)}
+.et .ico{flex:none;display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font-size:11px;font-weight:700;transform:translateY(3px)}
+.et-feito .ico{background:var(--ok-soft);color:var(--ok)}
+.et-erro .ico{background:var(--bad-soft);color:var(--bad)}
+.et-esperando .ico,.et-pulado .ico,.et-interrompida .ico{background:var(--surface-2);color:var(--muted)}
+.et-rodando .ico{border:2px solid var(--primary-soft);border-top-color:var(--primary);animation:giro .9s linear infinite}
+@keyframes giro{to{transform:translateY(3px) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.et-rodando .ico{animation:none}}
+.et .nome{font-weight:600}
+.et-esperando .nome{color:var(--muted);font-weight:500}
+.et .det{color:var(--muted)}
+.et-erro .det{color:var(--bad)}
+.et .tempo{margin-left:auto;color:var(--muted);white-space:nowrap;padding-left:8px}
+.et ul{margin:6px 0 2px 26px;padding:0;list-style:none;display:grid;gap:3px;color:var(--muted)}
+.et ul li.erro{color:var(--bad)}
+.et ul li.rodando{color:var(--ink)}
 .ph.nv{aspect-ratio:auto;min-height:150px;padding:44px 12px 14px;flex-direction:column;gap:6px;background:linear-gradient(160deg,var(--primary-soft),var(--surface-2));color:var(--primary)}
 .ph.nv .dom{position:static;color:var(--muted);text-align:center;padding-inline:12px}
 .ph .badges{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:6px;flex-wrap:wrap}
@@ -1254,8 +1279,41 @@ function renderNvStatus(){
   else if(!f)txt=`<span>${nvSync.msg?esc(nvSync.msg):(mcp?"Ainda não li o arquivo do crawler no Google Drive.":"As novidades chegam pelo Google Drive. Abra o site com o conector do Google Drive ligado para trazer a primeira lista.")}</span>`;
   else txt=`<span>Crawler: última busca <b>${esc(fmtQuando(f.ultimaRodada))}</b> · <span class="${bad.length?"warn":"ok"}">${ok.length} de ${fontes.length} imobiliárias lidas</span>${nvSync.msg?` · <span class="muted">${esc(nvSync.msg)}</span>`:""}${nvFotoMsg?` · <span class="muted">${esc(nvFotoMsg)}</span>`:""}</span>`;
   const det=fontes.length?`<details class="nv-fontes"><summary>Ver imobiliárias</summary><ul>${fontes.sort((a,b)=>String(a.nome).localeCompare(String(b.nome))).map(x=>`<li class="${x.ok===false?"bad":""}">${esc(x.nome)}: ${x.ok===false?"não consegui ler ("+esc(x.erro||"erro")+")":(x.casas||0)+" casas"}</li>`).join("")}</ul></details>`:"";
-  box.innerHTML=txt+btn+det;
+  box.innerHTML=txt+btn+det+etapasHtml(st);
 }
+// etapas da busca: o crawler grava em crawler/status; aberto/fechado fica como a pessoa deixou
+let nvEtAberto=null;const nvEtAbertas=new Set(),nvEtFechadas=new Set();
+const ET_ICO={feito:"✓",erro:"!",esperando:"",pulado:"–",interrompida:"–",rodando:""};
+function duracao(a,b){
+  if(!a)return "";const ms=(b?new Date(b):new Date())-new Date(a);if(!(ms>=0))return "";
+  const m=Math.round(ms/60000);return m<1?"menos de 1 min":m<60?m+" min":Math.floor(m/60)+" h "+(m%60)+" min";
+}
+function etapasHtml(st){
+  if(!servidor||!st||!Array.isArray(st.etapas)||!st.etapas.length)return "";
+  const rodando=!!st.rodando;
+  const resumo=rodando?`<b>buscando agora</b> · há ${duracao(st.desde)}`:`última busca ${st.terminouEm?esc(fmtQuando(st.terminouEm)):""}${st.minutos!=null?` · levou ${duracao(st.desde,st.terminouEm)}`:""}`;
+  const aberto=nvEtAberto===null?rodando:nvEtAberto;
+  const linhas=st.etapas.map(e=>{
+    const estado=!rodando&&e.estado==="rodando"?"interrompida":e.estado;
+    const det=estado==="interrompida"?"a busca parou aqui":e.detalhe;
+    const tempo=e.inicio&&(estado!=="esperando")?duracao(e.inicio,e.fim||(rodando?null:st.terminouEm)):"";
+    const cab=`<span class="seta" aria-hidden="true">${(e.itens||[]).length?"›":""}</span><span class="ico" aria-hidden="true">${ET_ICO[estado]||""}</span><span><span class="nome">${esc(e.nome)}</span>${det?` <span class="det">· ${esc(det)}</span>`:""}</span>${tempo?`<span class="tempo">${esc(tempo)}</span>`:""}`;
+    const itens=(e.itens||[]);
+    if(!itens.length)return `<li class="et et-${estado}"><div class="et-linha">${cab}</div></li>`;
+    const abre=nvEtAbertas.has(e.id)||(estado==="rodando"&&!nvEtFechadas.has(e.id));
+    return `<li class="et et-${estado}"><details data-et="${esc(e.id)}" ${abre?"open":""}><summary><span class="et-linha">${cab}</span></summary><ul>${itens.map(x=>`<li class="${esc(x.estado||"")}">${esc(x.nome)}${x.detalhe?`: ${esc(x.detalhe)}`:""}</li>`).join("")}</ul></details></li>`;
+  }).join("");
+  return `<details class="nv-etapas" data-et="__todas" ${aberto?"open":""}><summary>Etapas da busca · ${resumo}</summary><ol>${linhas}</ol></details>`;
+}
+// guarda o que a pessoa abriu ou fechou (pelo clique, não pelo "toggle", que também
+// dispara quando a caixa é redesenhada a cada atualização do crawler)
+$("#nvStatus").addEventListener("click",e=>{
+  const sm=e.target.closest("summary");const d=sm&&sm.parentElement;
+  if(!d||!d.dataset||!d.dataset.et)return;
+  const vaiAbrir=!d.open;
+  if(d.dataset.et==="__todas"){nvEtAberto=vaiAbrir;return}
+  if(vaiAbrir){nvEtAbertas.add(d.dataset.et);nvEtFechadas.delete(d.dataset.et)}else{nvEtAbertas.delete(d.dataset.et);nvEtFechadas.add(d.dataset.et)}
+});
 function renderNovidades(){
   renderNvStatus();
   const all=casas();
@@ -1964,6 +2022,12 @@ async function boot(){
   if(!db){$("#offline").hidden=false;render();return}
   COLLS.forEach(c=>{
     db.collection(c).onSnapshot(snap=>{
+      if(snap.soDoc==="status"&&c==="crawler"){
+        // só o andamento do crawler mudou: redesenha só a caixa de status
+        const d=snap.docs.find(x=>x.id==="status");S.crawler={...S.crawler,status:d?d.data():undefined};
+        if(UI.tab==="novidades")renderNvStatus();
+        return;
+      }
       const m={};snap.docs.forEach(d=>{m[d.id]=d.data()});
       if(c==="config"&&cfgT&&S.config.orcamento)m.orcamento=S.config.orcamento; // mantém edição em andamento
       S[c]=m;render();

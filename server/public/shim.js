@@ -29,7 +29,7 @@
     let caiu = false;
     canal.onmessage = (e) => {
       let m; try { m = JSON.parse(e.data); } catch (x) { return; }
-      (assinaturas.get(m.c) || []).forEach((f) => f());
+      (assinaturas.get(m.c) || []).forEach((f) => f(m.id));
     };
     canal.onerror = () => { caiu = true; };
     // voltou depois de cair (celular dormiu, rede trocou): recarrega tudo
@@ -51,13 +51,29 @@
     collection(coll) {
       return {
         onSnapshot(cb, onErr) {
-          let ativo = true, versao = 0;
-          const carregar = async () => {
-            const v = ++versao;
+          let ativo = true, versao = 0, ultimos = null, inteira = 0;
+          const entregar = (docs, soDoc) => {
+            ultimos = docs;
+            cb({ docs: docs.map((d) => ({ id: d.id, data: () => d.data })), soDoc });
+          };
+          const carregar = async (soId) => {
             try {
-              const j = await api("GET", "/api/colecao?c=" + encodeURIComponent(coll));
-              if (!ativo || v !== versao) return;
-              cb({ docs: j.docs.map((d) => ({ id: d.id, data: () => d.data })) });
+              if (soId) {
+                // mudou só um documento (o andamento do crawler): busca só ele; se a coleção
+                // inteira já está vindo, ela traz esse documento junto
+                if (!ultimos || inteira) return;
+                const v = versao;
+                const j = await api("GET", "/api/doc?p=" + encodeURIComponent(coll + "/" + soId));
+                if (!ativo || v !== versao || inteira) return;
+                const resto = ultimos.filter((d) => d.id !== soId);
+                return entregar(j.exists ? resto.concat([{ id: soId, data: j.data }]) : resto, soId);
+              }
+              const v = ++versao;
+              inteira++;
+              try {
+                const j = await api("GET", "/api/colecao?c=" + encodeURIComponent(coll));
+                if (ativo && v === versao) entregar(j.docs);
+              } finally { inteira--; }
             } catch (e) { if (ativo && onErr) onErr(e); }
           };
           if (!assinaturas.has(coll)) assinaturas.set(coll, new Set());
