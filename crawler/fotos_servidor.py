@@ -73,7 +73,8 @@ def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar, andamento
     """
     antes = galerias_atuais(dados)
     fora = descartadas(imoveis, dados)
-    pend = [x for x in imoveis.values() if x.get("status") == "ativo" and not x.get(MARCA) and x["id"] not in fora]
+    pend = [x for x in imoveis.values() if x.get("status") == "ativo" and x["id"] not in fora
+            and (not x.get(MARCA) or fotos_github.falta_area(x))]
     # quem não tem galeria vem primeiro; entre eles, os mais recentes
     pend.sort(key=lambda x: x.get("primeiroVisto", ""), reverse=True)
     pend.sort(key=lambda x: (x.get("grupo") or x["id"]) in antes)
@@ -83,7 +84,8 @@ def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar, andamento
     for n in range(0, len(pend), LOTE):
         lote = {x["id"]: x for x in pend[n:n + LOTE]}
         fotos_github.completar_detalhes(http, lote, espera_por_fonte,
-                                        pendente=lambda x: not x.get(MARCA), marca=MARCA)
+                                        pendente=lambda x: not x.get(MARCA) or fotos_github.falta_area(x),
+                                        marca=MARCA)
         baixar(imoveis, dados, podar=False, so=set(lote), fora=fora)
         salvar()
         print(f"[fotos] {min(n + LOTE, len(pend))} de {len(pend)} anúncios com todas as fotos", flush=True)

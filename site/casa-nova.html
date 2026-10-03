@@ -1603,7 +1603,8 @@ async function completarImoveis(){
   for(const [imId,im] of Object.entries(S.imoveis)){
     if(im.origem!=="crawler"||!im.novidadeId)continue;
     const precisaFoto=!(im.fotos&&im.fotos.length),precisaTexto=!im.anuncioTexto,precisaDados=!im.autoPreenchido;
-    if(!precisaFoto&&!precisaTexto&&!precisaDados)continue;
+    const precisaArea=!im.area||!im.areaTerreno;
+    if(!precisaFoto&&!precisaTexto&&!precisaDados&&!precisaArea)continue;
     const dec=S.novidades[im.novidadeId];
     const c=dec&&todas.find(x=>x.anuncios.some(a=>(dec.anuncios||[]).includes(a.id)));
     if(!c)continue;
@@ -1620,6 +1621,8 @@ async function completarImoveis(){
       }
       part.autoPreenchido=true;
     }
+    // metragens: o crawler pode descobrir depois (página do anúncio); entram sempre que o campo estiver vazio
+    for(const k of ["area","areaTerreno"])if(!im[k]&&!part[k]&&c[k])part[k]=c[k];
     if(Object.keys(part).length)await patch("imoveis",imId,part);
   }
 }

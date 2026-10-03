@@ -58,6 +58,45 @@ def _sem(t, coisa):
     return re.search(r"(?:sem|nao (?:possui|tem)|nao ha)\s+(?:\w+\s+){0,2}" + coisa, t) is not None
 
 
+M2 = r"\s*(?:m²|m2|mts²|metros quadrados)"
+CASA = [  # "Área construída 309 m²", "Área construída de 210m²", "250m² de área construída", "243 m² privativos"
+    r"area (?:con?s?truida|util|privativa|edificada|interna)\s*(?:total\s*)?(?:de\s*|:\s*)?([\d.,]+)" + M2,
+    # "contruída" (sem o s) aparece nos anúncios
+    r"([\d.,]+)" + M2 + r"\s*(?:de\s+)?(?:area\s+)?(?:con?s?truida|util|privativa|privativos|de construcao|construidos)",
+]
+TERRENO = [  # "Área do terreno 359 m²", "Terreno com 325m²", "terreno de 360 m²", "lote de 450 m²"
+    r"area (?:do |de )?(?:terreno|lote)\s*(?:de\s*|:\s*)?([\d.,]+)" + M2,
+    r"(?:terreno|lote)\s+(?:de|com|medindo)\s+([\d.,]+)" + M2,
+    r"([\d.,]+)" + M2 + r"\s*de\s+(?:terreno|lote)",
+]
+TOTAL = r"area total\s*(?:de\s*|:\s*)?([\d.,]+)" + M2
+
+
+def _primeiro(t, padroes, minimo, maximo):
+    for p in padroes:
+        for m in re.finditer(p, t):
+            v = num(m.group(1))
+            if v and minimo <= v <= maximo:
+                return v
+    return None
+
+
+def areas(texto):
+    """Área da casa e do terreno num texto (página do anúncio ou descrição).
+
+    "Área total" só conta como terreno quando é maior que a área da casa (em vários
+    sites a área total de uma casa em condomínio é a mesma área construída).
+    """
+    t = sem_acento(texto or "")
+    casa = _primeiro(t, CASA, 30, 3000)
+    terreno = _primeiro(t, TERRENO, 60, 50000)
+    if not terreno:
+        total = _primeiro(t, [TOTAL], 60, 50000)
+        if total and (not casa or total > casa * 1.05):
+            terreno = total
+    return {k: v for k, v in (("area", casa), ("areaTerreno", terreno)) if v}
+
+
 def extrair(descricao):
     if not descricao:
         return {}
@@ -79,12 +118,7 @@ def extrair(descricao):
         # o formulário pede IPTU por ano; só multiplica se o anúncio disser que é mensal
         r["iptu"] = round(iptu * 12) if re.match(r"\s*(?:/|por|ao)?\s*(?:mes|mensal)", depois) else iptu
 
-    m = re.search(r"([\d.,]+)\s*m(?:²|2)\s*(?:de\s+)?(?:area\s+)?(?:privativa|construida|util|de constru)", t)
-    if m:
-        r["area"] = num(m.group(1))
-    m = re.search(r"terreno\s+(?:de|com)\s+([\d.,]+)\s*m(?:²|2)|([\d.,]+)\s*m(?:²|2)\s*de\s+terreno", t)
-    if m:
-        r["areaTerreno"] = num(m.group(1) or m.group(2))
+    r.update(areas(descricao))
 
     # lazer: "sim" quando o anúncio menciona; null quando não fala (ou fala "espaço para piscina")
     tem_piscina = re.search(r"piscina", t) and not _sem(t, "piscina") \

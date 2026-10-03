@@ -72,9 +72,14 @@ def _rever_fotos(x):
             and len(x.get("fotosOrigem") or []) < MAX_FOTOS)
 
 
+def falta_area(x):
+    """Anúncio aberto antes de o crawler ler as metragens da página: abre de novo, uma vez."""
+    return not x.get("areasLidas") and not (x.get("area") and x.get("areaTerreno"))
+
+
 def completar_detalhes(http, imoveis, espera_por_fonte, pendente=None, marca=None):
     """Busca descrição e endereços das fotos dos anúncios que ainda não têm."""
-    pendente = pendente or (lambda x: not x.get("detalhado") or _rever_fotos(x))
+    pendente = pendente or (lambda x: not x.get("detalhado") or _rever_fotos(x) or falta_area(x))
     pendentes = [x for x in imoveis.values() if x.get("status") == "ativo" and pendente(x)]
     pendentes.sort(key=lambda x: x.get("primeiroVisto", ""), reverse=True)
     feitos = 0
@@ -87,11 +92,17 @@ def completar_detalhes(http, imoveis, espera_por_fonte, pendente=None, marca=Non
             x["tentativasDetalhe"] = x.get("tentativasDetalhe", 0) + 1
             if x["tentativasDetalhe"] >= 3:
                 x["detalhado"] = True   # desiste depois de 3 rodadas
+                x["areasLidas"] = True
                 if marca:
                     x[marca] = True
             continue
         if d.get("descricao"):
             x["descricao"] = d["descricao"]
+        # metragens da página do anúncio, só onde a lista da imobiliária não trouxe
+        for k in ("area", "areaTerreno"):
+            if d.get(k) and not x.get(k):
+                x[k] = d[k]
+        x["areasLidas"] = True
         x["detalheVersao"] = DETALHE_VERSAO
         if d.get("fotosOrigem"):
             if x.get("detalhado") and len(d["fotosOrigem"]) > len(x.get("fotosOrigem") or []):

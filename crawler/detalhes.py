@@ -13,6 +13,7 @@ import re
 from bs4 import BeautifulSoup
 
 from comum import ld_json, og_image
+from extrair import areas
 
 # no GitHub Actions o site guarda até 8 fotos por casa; no servidor, todas
 MAX_FOTOS = int(os.environ.get("CASA_NOVA_MAX_FOTOS") or 8)
@@ -220,5 +221,7 @@ def extrair_descricao(html):
 def detalhar(http, item):
     """Descrição e endereços das fotos de um anúncio (lista do crawler)."""
     html = http.html(item["link"])
+    texto = BeautifulSoup(html, "html.parser").get_text(" ")
     return {"descricao": extrair_descricao(html),
-            "fotosOrigem": extrair_fotos(html, item.get("foto"))}
+            "fotosOrigem": extrair_fotos(html, item.get("foto")),
+            **areas(texto)}
