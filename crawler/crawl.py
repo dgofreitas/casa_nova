@@ -22,6 +22,7 @@ from comum import PRECO_MAX, Http, bairro_oficial, sem_acento, tipo_casa  # noqa
 from fontes import FONTES  # noqa: E402
 import fotos  # noqa: E402
 import fotos_servidor  # noqa: E402
+from andamento import Andamento  # noqa: E402
 import telegram  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -162,8 +163,9 @@ def agrupar(imoveis):
         x["grupo"] = min(grupo[i]) if i in grupo else i
 
 
-def rodar(so=None, pasta_fotos=None, dados=None):
+def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
     global ARQ
+    andamento = andamento or Andamento(dados)
     if dados:
         ARQ = Path(dados) / "casas.json"
     estado = carregar()
@@ -173,9 +175,11 @@ def rodar(so=None, pasta_fotos=None, dados=None):
     eventos = {"novos": [], "baixou": [], "subiu": [], "saiu": [], "voltou": []}
     http = Http(espera=1.0)
 
-    for fonte, (nome, ler) in FONTES.items():
-        if so and fonte not in so:
-            continue
+    lista = [(f, nl) for f, nl in FONTES.items() if not so or f in so]
+    andamento.etapa("fontes", "rodando", f"0 de {len(lista)}")
+    for n, (fonte, (nome, ler)) in enumerate(lista, 1):
+        andamento.item("fontes", nome, "rodando", "lendo…")
+        rotas = dict(http._rota)
         info = estado["fontes"].setdefault(fonte, {"nome": nome})
         info["nome"] = nome
         t0 = time.time()
@@ -195,9 +199,15 @@ def rodar(so=None, pasta_fotos=None, dados=None):
             info["erro"] = erro or "nenhuma casa encontrada (antes havia %d)" % anterior
             info["falhasSeguidas"] = info.get("falhasSeguidas", 0) + 1
             print(f"[{fonte}] FALHOU: {info['erro']}")
+            andamento.item("fontes", nome, "erro", info["erro"])
+            andamento.etapa("fontes", "rodando", f"{n} de {len(lista)}")
             continue
         info.update({"ok": True, "erro": None, "falhasSeguidas": 0, "casas": len(casas)})
         print(f"[{fonte}] {len(brutos)} lidos, {len(casas)} casas nos bairros")
+        caminho = {r for h, r in http._rota.items() if rotas.get(h) != r}
+        via = " (pelo WARP)" if "proxy" in caminho else " (imitando o Chrome)" if "chrome" in caminho else ""
+        andamento.item("fontes", nome, "feito", f"{len(casas)} casas" + via)
+        andamento.etapa("fontes", "rodando", f"{n} de {len(lista)}")
 
         vistos = set()
         for c in casas:
@@ -242,10 +252,14 @@ def rodar(so=None, pasta_fotos=None, dados=None):
     for id_ in [i for i, x in imoveis.items() if x.get("status") == "saiu" and x.get("saiuEm", "") < limite]:
         del imoveis[id_]
 
+    falhas = [x["nome"] for x in estado["fontes"].values() if x.get("ok") is False and x.get("quando") == quando]
+    andamento.etapa("fontes", "erro" if falhas else "feito",
+                    f"{len(lista) - len(falhas)} de {len(lista)} lidas" + (f"; falhou: {', '.join(falhas)}" if falhas else ""))
     if dados:
         # no servidor: todas as fotos, juntando as dos anúncios da mesma casa
         agrupar(imoveis)
-        capas_novas = fotos_servidor.completar_e_baixar(http, imoveis, ESPERA, dados, lambda: salvar(estado))
+        capas_novas = fotos_servidor.completar_e_baixar(http, imoveis, ESPERA, dados, lambda: salvar(estado),
+                                                        andamento=andamento)
     else:
         fotos.completar_detalhes(http, imoveis, ESPERA)
         agrupar(imoveis)
@@ -259,6 +273,17 @@ def rodar(so=None, pasta_fotos=None, dados=None):
 
 
 # ---------------------------------------------------------------- Telegram
+def por_grupo_ids(im, ids):
+    """Um id por casa (grupo), na ordem em que aparecem."""
+    vistos, out = set(), []
+    for i in ids:
+        g = im.get(i, {}).get("grupo", i)
+        if g not in vistos:
+            vistos.add(g)
+            out.append(i)
+    return out
+
+
 def brl(v):
     return "R$ " + f"{v:,.0f}".replace(",", ".") if v else "sem preço"
 
@@ -332,10 +357,16 @@ def main():
     ap.add_argument("--dados", default="", help="pasta de dados do servidor (casas.json e fotos)")
     a = ap.parse_args()
     so = set(x for x in a.so.split(",") if x) or None
-    estado, eventos, primeira, capas = rodar(so, a.fotos or None, a.dados or None)
+    andamento = Andamento(a.dados or None)
+    estado, eventos, primeira, capas = rodar(so, a.fotos or None, a.dados or None, andamento)
     msg = mensagem(estado, eventos, primeira)
     print("\n" + (msg or "(nada novo para avisar)"))
-    if msg and not a.sem_telegram:
+    if not msg:
+        andamento.etapa("aviso", "pulado", "nada novo para avisar")
+    elif a.sem_telegram or not telegram.configurado():
+        andamento.etapa("aviso", "pulado", "Telegram desligado")
+    else:
+        andamento.etapa("aviso", "rodando")
         telegram.enviar(msg)
         if not primeira:
             # as capas das casas novas, num álbum logo depois do resumo
@@ -343,6 +374,8 @@ def main():
             album = [(capas[i] if isinstance(capas[i], bytes) else base64.b64decode(capas[i]), legenda(im[i]))
                      for i in eventos["novos"] if i in capas]
             telegram.album(album)
+        n = len(por_grupo_ids(estado["imoveis"], eventos["novos"]))
+        andamento.etapa("aviso", "feito", f"{n} casa{'s' if n != 1 else ''} nova{'s' if n != 1 else ''}" if n else "mudanças avisadas")
 
 
 if __name__ == "__main__":

@@ -36,7 +36,7 @@ def galerias_atuais(dados):
     return set(json.loads(arq.read_text()).get("galerias", {})) if arq.exists() else set()
 
 
-def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar):
+def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar, andamento=None):
     """Abre os anúncios que faltam e baixa as fotos, gravando a cada poucos anúncios.
 
     Assim as fotos aparecem no site aos poucos, e uma busca interrompida (deploy,
@@ -48,6 +48,9 @@ def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar):
     # quem não tem galeria vem primeiro; entre eles, os mais recentes
     pend.sort(key=lambda x: x.get("primeiroVisto", ""), reverse=True)
     pend.sort(key=lambda x: (x.get("grupo") or x["id"]) in antes)
+    if andamento:
+        andamento.etapa("anuncios", "rodando" if pend else "feito",
+                        f"0 de {len(pend)} anúncios" if pend else "nenhum anúncio novo para abrir")
     for n in range(0, len(pend), LOTE):
         lote = {x["id"]: x for x in pend[n:n + LOTE]}
         fotos_github.completar_detalhes(http, lote, espera_por_fonte,
@@ -55,8 +58,20 @@ def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar):
         baixar(imoveis, dados, podar=False, so=set(lote))
         salvar()
         print(f"[fotos] {min(n + LOTE, len(pend))} de {len(pend)} anúncios com todas as fotos", flush=True)
+        if andamento:
+            andamento.etapa("anuncios", "rodando", f"{min(n + LOTE, len(pend))} de {len(pend)} anúncios")
+    if andamento and pend:
+        andamento.etapa("anuncios", "feito", f"{len(pend)} anúncios abertos")
+        andamento.etapa("galerias", "rodando", "juntando as fotos de cada casa")
+    elif andamento:
+        andamento.etapa("galerias", "rodando", "juntando as fotos de cada casa")
     baixar(imoveis, dados, podar=True)
     indice = json.loads((Path(dados) / "fotos.json").read_text())
+    if andamento:
+        g = indice.get("galerias", {})
+        novas = len(set(g) - antes)
+        andamento.etapa("galerias", "feito", f"{len(g)} casas com fotos, {sum(len(v) for v in g.values())} fotos"
+                        + (f"; {novas} casa{'s' if novas != 1 else ''} nova{'s' if novas != 1 else ''}" if novas else ""))
     pasta = Path(dados) / "fotos" / "c"
     capas = {}
     for i, x in imoveis.items():

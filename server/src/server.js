@@ -141,6 +141,11 @@ function avisar(coll) {
   const msg = `data: ${JSON.stringify({ c: coll })}\n\n`;
   for (const res of ouvintes) res.write(msg);
 }
+// mudou só um documento: a página busca só ele
+function avisarDoc(coll, id) {
+  const msg = `data: ${JSON.stringify({ c: coll, id })}\n\n`;
+  for (const res of ouvintes) res.write(msg);
+}
 // fotos dos anúncios dos imóveis, lidas pelo crawler (crawler/fotos_imoveis.py): junta no imóvel
 let marcaFotosImoveis = 0;
 function aplicarFotosImoveis() {
@@ -168,14 +173,17 @@ function aplicarFotosImoveis() {
 }
 setInterval(aplicarFotosImoveis, 5000);
 
-let marcaCrawler = "";
+// o que o crawler grava: lista e fotos mudam pouco; o andamento muda a cada poucos segundos
+// e vai num aviso só dele, para a página não baixar a lista inteira de novo
+const marca = (n) => { try { return fs.statSync(path.join(DADOS, n)).mtimeMs; } catch { return 0; } };
+let marcaCrawler = null, marcaStatus = null;
 setInterval(() => {
-  const m = ["casas.json", "fotos.json", "crawler-status.json"].map((n) => {
-    try { return fs.statSync(path.join(DADOS, n)).mtimeMs; } catch { return 0; }
-  }).join(",");
-  if (m !== marcaCrawler) { if (marcaCrawler) avisar("crawler"); marcaCrawler = m; }
-  for (const res of ouvintes) res.write(": ping\n\n");
-}, 15000);
+  const m = marca("casas.json") + "," + marca("fotos.json"), st = marca("crawler-status.json");
+  if (marcaCrawler !== null && m !== marcaCrawler) avisar("crawler");
+  else if (marcaStatus !== null && st !== marcaStatus) avisarDoc("crawler", "status");
+  marcaCrawler = m; marcaStatus = st;
+}, 3000);
+setInterval(() => { for (const res of ouvintes) res.write(": ping\n\n"); }, 15000);
 
 // ---------- respostas ----------
 const SEGURANCA = { "X-Content-Type-Options": "nosniff", "Referrer-Policy": "same-origin", "X-Frame-Options": "DENY" };
