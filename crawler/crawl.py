@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from comum import PRECO_MAX, Http, bairro_oficial, sem_acento, tipo_casa  # noqa: E402
+from comum import PRECO_MAX, Http, bairro_oficial, fora_do_perfil, sem_acento, tipo_casa  # noqa: E402
 from fontes import FONTES  # noqa: E402
 import fotos  # noqa: E402
 import fotos_servidor  # noqa: E402
@@ -228,8 +228,8 @@ def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
             vistos.add(id_)
             velho = imoveis.get(id_)
             if velho is None:
-                # só entra se couber no teto; sem preço entra para vocês olharem
-                if c.get("preco") and c["preco"] > PRECO_MAX:
+                # só entra de R$ 1,1 a 2,1 mi e com 3 quartos ou mais; sem preço entra para vocês olharem
+                if (c.get("preco") and c["preco"] > PRECO_MAX) or fora_do_perfil(c):
                     continue
                 c.update({"id": id_, "primeiroVisto": quando, "ultimoVisto": quando, "status": "ativo",
                           "ausencias": 0, "historicoPreco": [{"data": quando, "preco": c.get("preco")}]})
@@ -260,6 +260,13 @@ def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
                 x["status"] = "saiu"
                 x["saiuEm"] = quando
                 eventos["saiu"].append(id_)
+
+    # tira as casas que ficaram fora do perfil (mudou o filtro, ou o anúncio mudou preço ou quartos)
+    fora = [i for i, x in imoveis.items() if fora_do_perfil(x)]
+    for id_ in fora:
+        del imoveis[id_]
+    if fora:
+        print(f"[perfil] {len(fora)} anúncios fora do perfil (abaixo de R$ 1,1 mi ou menos de 3 quartos)")
 
     # esquece quem saiu há muito tempo
     limite = (datetime.now(FUSO) - timedelta(days=MANTER_SAIU_DIAS)).isoformat()
@@ -334,7 +341,7 @@ def mensagem(estado, eventos, primeira):
         ativos = [x for x in im.values() if x.get("status") == "ativo"]
         grupos = {x["grupo"] for x in ativos}
         txt = [f"🏡 <b>Casa Nova: primeira busca feita</b>",
-               f"Encontrei {len(grupos)} casas diferentes ({len(ativos)} anúncios) nos 4 bairros, até R$ 2,1 mi.",
+               f"Encontrei {len(grupos)} casas diferentes ({len(ativos)} anúncios) nos 4 bairros, de R$ 1,1 a 2,1 mi e com 3 quartos ou mais.",
                "Elas aparecem na aba Novidades do site. A partir de agora aviso só o que mudar."]
         if falhas:
             txt.append("\n⚠️ Não consegui ler: " + html.escape("; ".join(falhas)))
@@ -357,7 +364,7 @@ def mensagem(estado, eventos, primeira):
     for fonte, r in eventos.get("fonteNova", {}).items():
         nome = estado["fontes"].get(fonte, {}).get("nome", fonte)
         blocos.append(f"🆕 <b>{html.escape(nome)} entrou na busca</b>\n"
-                      f"{r['casas']} casa{'s' if r['casas'] != 1 else ''} até R$ 2,1 mi; "
+                      f"{r['casas']} casa{'s' if r['casas'] != 1 else ''} no perfil; "
                       f"{r['novas']} que vocês ainda não tinham. Elas estão nas Novidades.")
     if eventos["baixou"]:
         blocos.append("📉 <b>Baixou de preço</b>\n" + "\n".join(

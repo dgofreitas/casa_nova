@@ -5,7 +5,7 @@
 > GitHub Actions, Apps Script e Google Drive são da versão antiga.
 
 Procura casas à venda no Itacorubi, Santa Mônica, Parque São Jorge e Córrego Grande,
-até R$ 2,1 milhões, em 14 imobiliárias de Florianópolis e no portal Chaves na Mão. Roda sozinho no GitHub
+de R$ 1,1 a 2,1 milhões e com 3 quartos ou mais, em 14 imobiliárias de Florianópolis e no portal Chaves na Mão. Roda sozinho no GitHub
 Actions às 7h, 12h, 17h e 22h, avisa no Telegram e alimenta a aba **Novidades** do site.
 
 ```
@@ -68,7 +68,10 @@ pronto em "Preencher com IA".
 ## Regras
 
 - **Só casas residenciais**: casa, casa em condomínio, sobrado, geminada.
-- **Preço**: entra até R$ 2.100.000. Acima de R$ 1.900.000 aparece o selo "negociar".
+- **Preço**: de R$ 1.100.000 a R$ 2.100.000. Acima de R$ 1.900.000 aparece o selo "negociar".
+- **Quartos**: 3 ou mais. Anúncio sem preço ou sem número de quartos entra, para vocês olharem.
+  Casa que sai do perfil (baixou de R$ 1,1 mi ou o anúncio corrigiu os quartos) deixa de ser
+  acompanhada. Os limites ficam em `comum.py` (`PRECO_MIN`, `PRECO_MAX`, `QUARTOS_MIN`).
 - **Mesma casa em várias imobiliárias** vira um cartão só: mesmo bairro e quartos,
   área e preço até 5% de diferença e, quando os dois anúncios dizem a rua, a mesma
   rua e o mesmo número (número diferente só vale se área e preço forem idênticos,
