@@ -47,6 +47,9 @@ def chave(u):
     m = re.search(r"/properties/([0-9a-f-]{36})/", u)        # Tecimob (Daga)
     if m:
         return "t" + m.group(1)
+    m = re.search(r"\.r2\.dev/brognoli/(\d+-\d+)/", u)     # Brognoli, site novo (out/2026)
+    if m:
+        return "b" + m.group(1)
     if "brognoli.com.br/fotos/" in u:
         m = re.search(r"/(\d+-\d+)/", _b64_brognoli(u))
         return "b" + m.group(1) if m else None

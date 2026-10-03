@@ -242,40 +242,48 @@ def cesar_vaz(http):
 
 # ---------------------------------------------------------------- Brognoli (também é o estoque da Dalton Andrade)
 def brognoli(http):
+    """Site novo (Next.js, out/2026): os anúncios vêm prontos em "initialProperties"."""
     base = "https://www.brognoli.com.br"
     out, vistos = [], set()
     for slug in BAIRROS_SLUG:
-        for pagina in range(1, MAX_PAGINAS + 1):
-            s = BeautifulSoup(http.html(f"{base}/comprar/cidade/florianopolis/bairros/{slug}/{pagina}/"), "html.parser")
-            arts = s.select("article.imovel")
-            novos = 0
-            for art in arts:
-                a = art.select_one("a.i") or art.find("a", href=True)
-                link = a["href"]
-                cod = achar(r"_(\d+)/?$", link, conv=None)
-                if not cod or cod in vistos:
-                    continue
-                vistos.add(cod)
-                novos += 1
-                t = _texto(art)
-                end = _texto(art.select_one("span.e"), " ")
-                img = art.find("img", class_="lazy-cover") or art.find("img")
-                out.append({
-                    "codigo": cod,
-                    "link": link,
-                    "titulo": _texto(art.select_one("h3"), " "),
-                    "categoria": _texto(art.select_one("span.m"), " ").split(" - ")[0],
-                    "bairro": end.split(" - ")[-1].split(",")[0] if " - " in end else end,
-                    "endereco": end.split(" - ")[0] if " - " in end else "",
-                    "area": achar(r"([\d.,]+)\s*m²", t),
-                    "quartos": achar(r"(\d+)\s*quarto", t),
-                    "suites": achar(r"(\d+)\s*su[ií]te", t),
-                    "vagas": achar(r"(\d+)\s*(?:garage|vaga)", t),
-                    "preco": achar(r"Valor:\s*\|?\s*R\$\s*([\d.,]+)", t),
-                    "foto": img.get("src") if img else None,
-                })
-            if not arts or novos == 0:
-                break
+        for tipo in ("casa", "casa-em-condominio"):
+            for pagina in range(1, MAX_PAGINAS + 1):
+                url = f"{base}/venda/{tipo}/sc/florianopolis/{slug}" + (f"?pagina={pagina}" if pagina > 1 else "")
+                try:
+                    html = http.html(url)
+                except RuntimeError as e:
+                    if "404" in str(e):
+                        break  # tipo sem nenhum imóvel no bairro
+                    raise
+                f = next_flight(html)
+                links = {c: u for u, c in re.findall(r'(https://www\.brognoli\.com\.br/imovel/[a-z0-9-]+-cod-(\d+))', f)}
+                novos = 0
+                for o in objetos_com(f, '"operationType":"SALE"'):
+                    cod = str(o.get("code") or "")
+                    if not cod or cod in vistos:
+                        continue
+                    vistos.add(cod)
+                    novos += 1
+                    fotos = sorted(o.get("photos") or [], key=lambda x: x.get("order") or 0)
+                    out.append({
+                        "codigo": cod,
+                        "link": links.get(cod) or f"{base}/imovel/cod-{cod}",
+                        "titulo": o.get("title") or "",
+                        "categoria": o.get("propertyTypeName") or "",
+                        "bairro": o.get("neighborhoodName") or "",
+                        "endereco": "",
+                        "area": o.get("builtArea"),
+                        "quartos": o.get("bedrooms"),
+                        "suites": o.get("suites"),
+                        "banheiros": o.get("bathrooms"),
+                        "vagas": o.get("parkingSpaces"),
+                        "preco": o.get("price"),
+                        "lat": o.get("latitude"),
+                        "lng": o.get("longitude"),
+                        "foto": fotos[0]["url"] if fotos else None,
+                    })
+                if novos == 0:
+                    break
     return out
 
 
