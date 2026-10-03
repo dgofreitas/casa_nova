@@ -38,16 +38,48 @@ services:
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
       - TZ=America/Sao_Paulo
+      # sites que recusam o endereço do servidor (OnLiving) saem pelo WARP
+      - CASA_NOVA_PROXY=http://casa-nova-warp:1080
     volumes:
       - casa_nova_dados:/dados
+    depends_on:
+      - casa-nova-warp
     mem_limit: 768m
     logging:
       driver: "json-file"
       options: { max-size: "10m", max-file: "3" }
 
+  # Cloudflare WARP (grátis) como saída alternativa, só para o crawler e só para os
+  # sites que recusam o endereço do servidor. Sem porta publicada: só os containers
+  # deste compose chegam nele (proxy HTTP e SOCKS5 na porta 1080).
+  # Imagem: https://github.com/cmj2002/warp-docker
+  casa-nova-warp:
+    image: caomingjun/warp:latest
+    container_name: casa_nova_warp
+    restart: always
+    device_cgroup_rules:
+      - "c 10:200 rwm"
+    environment:
+      - WARP_SLEEP=5
+    cap_add:
+      - MKNOD
+      - AUDIT_WRITE
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - casa_nova_warp:/var/lib/cloudflare-warp
+    mem_limit: 256m
+    logging:
+      driver: "json-file"
+      options: { max-size: "5m", max-file: "2" }
+
 volumes:
   casa_nova_dados:
     name: casa_nova_dados
+  casa_nova_warp:
+    name: casa_nova_warp
 
 networks:
   edge:

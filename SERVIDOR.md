@@ -18,6 +18,11 @@ casa-nova-crawler ──► volume casa_nova_dados ◄── casa-nova-app ◄�
   para quando o link muda. Sites que bloqueiam robôs (Viva Real, ZAP) ficam de fora.
 - Uma busca interrompida (deploy, servidor reiniciado) recomeça sozinha, e as fotos
   são gravadas a cada 10 anúncios, então aparecem no site aos poucos.
+- Sites que recusam o robô (HTTP 403) ganham mais duas tentativas: imitando a conexão
+  do Chrome e, se ainda assim recusarem, saindo pelo **casa-nova-warp** (Cloudflare
+  WARP, grátis), porque alguns recusam o endereço do servidor da Oracle. Só o crawler
+  usa o WARP, e só para esses sites. Se o WARP também for recusado, o plano B é sair
+  pela internet de casa (Raspberry com Tailscale), trocando `CASA_NOVA_PROXY`.
 - **casa-nova-app** serve a página, o login (Diogo e Cinthia), o banco (SQLite) e as fotos.
   A página é a mesma `site/casa-nova.html` do Claude: o arquivo `server/public/shim.js`
   recria, sobre a API do servidor, as funções que ela usava do Claude.
