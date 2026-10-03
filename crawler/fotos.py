@@ -21,7 +21,7 @@ from pathlib import Path
 import requests
 from PIL import Image
 
-from comum import UA
+from comum import PROXY, UA
 from detalhes import MAX_FOTOS, detalhar
 
 CAPA_LADO, CAPA_QUALIDADE = 560, 65
@@ -47,10 +47,14 @@ def _baixar(url):
     try:
         r = requests.get(url, timeout=40, headers={"User-Agent": UA, "Referer": url})
         if r.status_code == 403:
-            # site com Cloudflare que recusa robôs: tenta imitando o Chrome
+            # site com Cloudflare que recusa robôs: tenta imitando o Chrome e, se ainda
+            # assim recusar, também pela saída alternativa (WARP)
             from curl_cffi import requests as cr
-            r = cr.get(url, timeout=40, impersonate="chrome", headers={"Referer": url},
-                       verify=os.environ.get("REQUESTS_CA_BUNDLE") or True)
+            for proxy in [None] + ([PROXY] if PROXY else []):
+                r = cr.get(url, timeout=60, impersonate="chrome", headers={"Referer": url}, proxy=proxy,
+                           verify=os.environ.get("REQUESTS_CA_BUNDLE") or True)
+                if r.status_code == 200:
+                    break
         if r.status_code != 200 or len(r.content) < 2000:
             return None
         return r.content
