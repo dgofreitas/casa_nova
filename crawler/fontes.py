@@ -347,8 +347,11 @@ def chaves_na_mao(http):
                     "endereco": endereco,
                     "area": num(area.get("useful")),
                     "areaTerreno": num(area.get("total")),
-                    "quartos": conta("bedrooms"),
-                    "suites": conta("suites"),
+                    # às vezes esses campos vêm como referência do Next.js: o endereço do anúncio
+                    # (casa-a-venda-3-quartos-com-garagem-…) e o título trazem os quartos
+                    "quartos": conta("bedrooms") or achar(r"-(\d+)-quartos?-", o.get("url") or "")
+                    or achar(r"(\d+)\s*(?:quartos?|dormit)", o.get("title") or ""),
+                    "suites": conta("suites") or achar(r"(\d+)\s*su[ií]tes?", o.get("title") or ""),
                     "banheiros": conta("bathrooms"),
                     "vagas": conta("garages"),
                     "preco": o["prices"].get("rawPrice"),

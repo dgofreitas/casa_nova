@@ -12,6 +12,17 @@ UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/128.0 Safari/537.36")
 
 PRECO_MAX = 2_100_000
+PRECO_MIN = 1_100_000
+QUARTOS_MIN = 3
+
+
+def fora_do_perfil(x):
+    """Casa abaixo do preço mínimo ou com menos quartos que o mínimo.
+
+    Sem preço ou sem número de quartos no anúncio, a casa fica, para vocês olharem.
+    """
+    preco, quartos = x.get("preco"), x.get("quartos")
+    return bool((preco and preco < PRECO_MIN) or (quartos is not None and quartos < QUARTOS_MIN))
 
 # Nome oficial de cada bairro e as formas como as imobiliárias escrevem.
 BAIRROS = {
