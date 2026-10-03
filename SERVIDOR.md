@@ -23,6 +23,9 @@ casa-nova-crawler ──► volume casa_nova_dados ◄── casa-nova-app ◄�
   WARP, grátis), porque alguns recusam o endereço do servidor da Oracle. Só o crawler
   usa o WARP, e só para esses sites. Se o WARP também for recusado, o plano B é sair
   pela internet de casa (Raspberry com Tailscale), trocando `CASA_NOVA_PROXY`.
+- Em **Ver imobiliárias** (aba Novidades) dá para ocultar uma imobiliária: as casas que
+  só ela anuncia somem das Novidades, não geram aviso no Telegram e não têm as fotos
+  baixadas. A escolha vale para os dois, e marcar de novo traz tudo de volta.
 - **casa-nova-app** serve a página, o login (Diogo e Cinthia), o banco (SQLite) e as fotos.
   A página é a mesma `site/casa-nova.html` do Claude: o arquivo `server/public/shim.js`
   recria, sobre a API do servidor, as funções que ela usava do Claude.

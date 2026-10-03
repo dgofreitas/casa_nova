@@ -37,31 +37,43 @@ def galerias_atuais(dados):
     return set(json.loads(arq.read_text()).get("galerias", {})) if arq.exists() else set()
 
 
+def _docs(dados, coll):
+    """Documentos de uma coleção do banco do site ({id: dados}), só para leitura."""
+    db = Path(dados) / "casa-nova.db"
+    if not db.exists():
+        return {}
+    try:
+        con = sqlite3.connect(f"file:{db}?mode=ro", uri=True, timeout=10)
+        try:
+            linhas = con.execute("SELECT id, data FROM docs WHERE coll = ?", (coll,)).fetchall()
+        finally:
+            con.close()
+    except sqlite3.Error:
+        return {}
+    return {i: json.loads(d) for i, d in linhas}
+
+
+def ocultas(dados):
+    """Imobiliárias que vocês ocultaram nas Novidades (config/novidades no banco do site)."""
+    return set((_docs(dados, "config").get("novidades") or {}).get("ocultas") or [])
+
+
 def descartadas(imoveis, dados):
     """Anúncios das casas que vocês descartaram nas Novidades (lidos do banco do site).
 
     Essas casas não ganham fotos, e as que já tinham são apagadas: com o portal, são
-    centenas. Se uma casa voltar para a lista, as fotos voltam na busca seguinte.
+    centenas. Vale também para os anúncios das imobiliárias ocultas. Se uma casa ou
+    imobiliária voltar para a lista, as fotos voltam na busca seguinte.
     """
-    db = Path(dados) / "casa-nova.db"
-    if not db.exists():
-        return set()
-    try:
-        con = sqlite3.connect(f"file:{db}?mode=ro", uri=True, timeout=10)
-        try:
-            linhas = con.execute("SELECT id, data FROM docs WHERE coll = 'novidades'").fetchall()
-        finally:
-            con.close()
-    except sqlite3.Error:
-        return set()
     ids = set()
-    for id_, data in linhas:
-        d = json.loads(data)
+    for id_, d in _docs(dados, "novidades").items():
         if d.get("situacao") == "descartada":
             ids.add(id_)
             ids.update(d.get("anuncios") or [])
     grupos = {(imoveis.get(i) or {}).get("grupo") or i for i in ids}
-    return {i for i, x in imoveis.items() if (x.get("grupo") or i) in grupos}
+    # anúncios das imobiliárias ocultas também ficam sem fotos (e sem abrir a página)
+    oc = ocultas(dados)
+    return {i for i, x in imoveis.items() if (x.get("grupo") or i) in grupos or x.get("fonte") in oc}
 
 
 def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar, andamento=None):
@@ -148,7 +160,7 @@ def baixar(imoveis, dados, podar=True, so=None, fora=frozenset()):
 
     Com podar, apaga também as fotos de anúncios que o crawler não acompanha mais.
     Com so, baixa só as fotos desses anúncios (as galerias usam o que já houver).
-    Os anúncios em fora (casas descartadas) não têm galeria, e as fotos deles são apagadas.
+    Os anúncios em fora (casas descartadas, imobiliárias ocultas) não têm galeria, e as fotos deles são apagadas.
     """
     dados = Path(dados)
     pasta = dados / "fotos"

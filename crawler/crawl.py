@@ -302,6 +302,13 @@ def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
     for fonte, ids in eventos["fonteNova"].items():
         eventos["fonteNova"][fonte] = {"anuncios": len(ids), "casas": len({imoveis[i].get("grupo") for i in ids}),
                                        "novas": len({imoveis[i].get("grupo") for i in ids} - conhecida)}
+    if dados:
+        # imobiliárias ocultas nas Novidades não geram aviso no Telegram
+        oc = fotos_servidor.ocultas(dados)
+        if oc:
+            for k in ("novos", "tambem", "baixou", "subiu", "voltou", "saiu"):
+                eventos[k] = [e for e in eventos[k] if imoveis.get(e if isinstance(e, str) else e[0], {}).get("fonte") not in oc]
+            eventos["fonteNova"] = {f: r for f, r in eventos["fonteNova"].items() if f not in oc}
     # dados tirados da descrição (piscina, churrasqueira, condomínio…) para preencher o imóvel
     for x in imoveis.values():
         if x.get("descricao"):

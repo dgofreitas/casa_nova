@@ -171,8 +171,11 @@ dialog::backdrop{background:rgba(8,14,12,.55)}
 .thumbs{display:flex;gap:8px;flex-wrap:wrap}
 .thumb{position:relative;width:96px;height:72px;border-radius:8px;overflow:hidden;border:2px solid transparent;background:var(--surface-2)}
 .thumb.cover{border-color:var(--accent)}
-.thumb img{width:100%;height:100%;object-fit:cover;cursor:pointer}
-.thumb button{position:absolute;top:2px;right:2px;border:0;border-radius:50%;width:22px;height:22px;background:rgba(0,0,0,.6);color:#fff;cursor:pointer;font-size:12px;line-height:1}
+.thumb img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
+.ph.com-fotos{cursor:zoom-in}
+.thumb .capa{position:absolute;left:2px;bottom:2px;border:0;border-radius:6px;padding:1px 6px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;cursor:pointer}
+.thumb.cover .capa{background:var(--accent);color:#1b1400;cursor:default}
+.thumb button[data-rmfoto]{position:absolute;top:2px;right:2px;border:0;border-radius:50%;width:22px;height:22px;background:rgba(0,0,0,.6);color:#fff;cursor:pointer;font-size:12px;line-height:1}
 details.ai{border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:18px}
 details.ai summary{cursor:pointer;font-weight:700;font-family:var(--display)}
 details.ai[open] summary{margin-bottom:10px}
@@ -270,6 +273,10 @@ details.ai[open] summary{margin-bottom:10px}
 .nv-fontes summary{cursor:pointer}
 .nv-fontes ul{margin:6px 0 0;padding-left:18px;columns:2 220px}
 .nv-fontes li.bad{color:var(--bad)}
+.nv-fontes li.oculta{opacity:.6}
+.nv-fontes label{cursor:pointer}
+.nv-fontes ul:has(label){list-style:none;padding-left:0}
+.nv-fontes .hint{margin:6px 0 0}
 /* etapas da busca do crawler (servidor) */
 .nv-etapas{flex-basis:100%;font-size:13px;border-top:1px solid var(--line);padding-top:8px}
 .nv-etapas>summary{cursor:pointer;color:var(--muted)}
@@ -325,7 +332,21 @@ details.ai[open] summary{margin-bottom:10px}
   #dlgFotos .gal-img{height:100%;min-height:0}
   #dlgFotos .gal-img img{max-width:100%;max-height:100%;border-radius:0}
   #dlgFotos .status-line{position:absolute;left:12px;bottom:8px;z-index:2;min-height:0}
+  #dlgFotos .gal-mosaico{height:100%;max-height:none;padding:46px 8px 8px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
 }
+.gal-acoes{display:flex;gap:12px;align-items:center}
+.gal-modo{background:rgba(255,255,255,.12);border-color:transparent;color:#e8eee9;padding:4px 10px;min-height:0;font-size:13px}
+.gal-modo:hover{background:rgba(255,255,255,.24)}
+.gal-mosaico{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;max-height:calc(100vh - 90px);max-height:calc(100dvh - 90px);overflow:auto;overscroll-behavior:contain}
+.gal-mosaico[hidden],.gal-img[hidden]{display:none}
+.gal-mosaico button{all:unset;cursor:zoom-in;aspect-ratio:4/3;border-radius:6px;overflow:hidden;background:#1b211e}
+.gal-mosaico button:focus-visible{outline:2px solid #9fd8c3;outline-offset:2px}
+.gal-mosaico img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .15s}
+.gal-mosaico button:hover img{transform:scale(1.04)}
+.gal-img{touch-action:pan-y;user-select:none;-webkit-user-select:none;overflow:hidden}
+.gal-img img{will-change:transform;cursor:grab}
+.gal-img.arrastando img{cursor:grabbing}
+.gal-img img.anima{transition:transform .2s ease-out,opacity .2s}
 .gal-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:28px;line-height:1;cursor:pointer}
 .gal-nav:hover{background:rgba(255,255,255,.32)}
 #galPrev{left:6px}#galNext{right:6px}
@@ -606,7 +627,8 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 <!-- Galeria das novidades -->
 <dialog id="dlgFotos" aria-label="Fotos da casa">
   <div class="gal">
-    <div class="gal-top"><span id="galCont"></span><a id="galLink" href="#" target="_blank" rel="noopener">Ver todas no anúncio ↗</a><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
+    <div class="gal-top"><span id="galCont"></span><span class="gal-acoes"><button class="btn gal-modo" type="button" id="galModo" hidden></button><a id="galLink" href="#" target="_blank" rel="noopener">Anúncio ↗</a><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></span></div>
+    <div class="gal-mosaico" id="galMosaico" hidden></div>
     <div class="gal-img"><button class="gal-nav" type="button" id="galPrev" aria-label="Foto anterior">‹</button><img id="galImg" alt=""><button class="gal-nav" type="button" id="galNext" aria-label="Próxima foto">›</button></div>
     <div class="status-line" id="galMsg"></div>
   </div>
@@ -899,10 +921,11 @@ function renderImoveis(){
   }
   box.innerHTML=`<div class="grid">${list.map(d=>{
     const st=d.status||"interesse";
-    const foto=(d.fotos&&d.fotos[0])?`<img src="${mini(d.fotos[0])}" alt="" loading="lazy">`:houseSvg+(d.link?`<span class="dom">${esc(d.corretora||hostOf(d.link))}</span>`:"");
+    const nf=(d.fotos||[]).length;
+    const foto=nf?`<img src="${mini(d.fotos[0])}" alt="" loading="lazy">${nf>1?`<span class="nfotos">${nf} fotos</span>`:""}`:houseSvg+(d.link?`<span class="dom">${esc(d.corretora||hostOf(d.link))}</span>`:"");
     const specs=[d.area&&`<li><b>${numIn(d.area)}</b> m²</li>`,d.quartos!=null&&`<li><b>${d.quartos}</b> quartos</li>`,d.suites&&`<li><b>${d.suites}</b> suítes</li>`,d.vagas!=null&&`<li><b>${d.vagas}</b> vagas</li>`].filter(Boolean).join("");
     return `<article class="card ${st==="descartado"?"descartado":""}" data-id="${esc(d.id)}" tabindex="0">
-      <div class="ph">${foto}<span class="pill st-${esc(st)}">${esc(STATUS[st]||"")}</span>
+      <div class="ph ${nf?"com-fotos":""}" ${nf?`data-fotos="${esc(d.id)}" title="Ver as fotos"`:""}>${foto}<span class="pill st-${esc(st)}">${esc(STATUS[st]||"")}</span>
         <button class="star" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="${d.favorito?"Tirar das favoritas":"Marcar como favorita"}">★</button></div>
       <div class="body">
         <div class="price">${d.preco?money(d.preco):'<span class="muted" style="font-size:16px">Preço a preencher</span>'}</div>
@@ -1001,9 +1024,9 @@ function openDetail(id,preset){
       <label class="f wide">Observações<textarea id="f_notas" rows="3">${esc(d.notas||"")}</textarea></label>
     </div></fieldset>
     <fieldset><legend>Fotos</legend>
-      <button class="btn" type="button" id="verFotos" style="margin-bottom:10px" hidden>Ver as fotos em tela cheia</button>
+      <button class="btn" type="button" id="verFotos" style="margin-bottom:10px" hidden>Ver as fotos</button>
       <div class="thumbs" id="thumbs"></div>
-      <div style="margin-top:10px" id="fotoUp" ${assets?"":"hidden"}><label class="btn">+ Adicionar fotos<input type="file" id="f_fotos" multiple accept="image/png,image/jpeg,image/webp,image/gif" hidden></label> <span class="hint">Clique numa foto para ela virar a capa.</span></div>
+      <div style="margin-top:10px" id="fotoUp" ${assets?"":"hidden"}><label class="btn">+ Adicionar fotos<input type="file" id="f_fotos" multiple accept="image/png,image/jpeg,image/webp,image/gif" hidden></label> <span class="hint">Clique numa foto para ver grande; “★ capa” deixa ela como capa.</span></div>
       <div class="status-line" id="fotoStatus"></div>
     </fieldset>
     <div class="dlg-foot">
@@ -1016,8 +1039,8 @@ function openDetail(id,preset){
 }
 function renderThumbs(){
   const t=$("#thumbs");if(!t)return;
-  const vf=$("#verFotos");if(vf){vf.hidden=!draft.fotos.length;vf.textContent=`Ver as ${draft.fotos.length} fotos em tela cheia`}
-  t.innerHTML=draft.fotos.length?draft.fotos.map((id,i)=>`<div class="thumb ${i===0?"cover":""}"><img src="${mini(id)}" loading="lazy" alt="Foto ${i+1}" data-cover="${i}"><button type="button" data-rmfoto="${i}" aria-label="Remover foto">✕</button></div>`).join(""):`<span class="hint">Nenhuma foto ainda.</span>`;
+  const vf=$("#verFotos");if(vf){vf.hidden=!draft.fotos.length;vf.textContent=draft.fotos.length>1?`Ver as ${draft.fotos.length} fotos`:"Ver a foto grande"}
+  t.innerHTML=draft.fotos.length?draft.fotos.map((id,i)=>`<div class="thumb ${i===0?"cover":""}"><img src="${mini(id)}" loading="lazy" alt="Foto ${i+1}" data-verfoto="${i}">${i===0?`<span class="capa">capa</span>`:readOnly?"":`<button type="button" class="capa" data-cover="${i}" title="Usar como capa">★ capa</button>`}${readOnly?"":`<button type="button" data-rmfoto="${i}" aria-label="Remover foto">✕</button>`}</div>`).join(""):`<span class="hint">Nenhuma foto ainda.</span>`;
 }
 function readForm(){
   const v=id=>$("#"+id).value.trim();
@@ -1091,6 +1114,7 @@ dlgIm.addEventListener("click",async e=>{
     toast("Imóvel excluído.");return;
   }
   if(t.id==="f_sim"){const p=parseNum($("#f_preco").value),pn=parseNum($("#f_precoNegociado").value);dlgIm.close();if(p)setCfg({valor:p,valorNeg:pn||null,entrada:Math.round((pn||p)*0.2)});setTab("orcamento");return}
+  if(t.dataset.verfoto!=null)return abrirFotos(draft.fotos,(S.imoveis[draft.id]||{}).link,+t.dataset.verfoto);
   if(t.dataset.cover!=null){const i=+t.dataset.cover;const [x]=draft.fotos.splice(i,1);draft.fotos.unshift(x);renderThumbs();return}
   if(t.dataset.rmfoto!=null){const i=+t.dataset.rmfoto;draft.removed.push(draft.fotos[i]);draft.fotos.splice(i,1);renderThumbs();return}
 });
@@ -1170,6 +1194,8 @@ $("#list").addEventListener("click",e=>{
   const s=e.target.closest("[data-star]");
   if(s){const id=s.dataset.star;if(readOnly)return toast("Seu acesso é só de leitura.");patch("imoveis",id,{favorito:!S.imoveis[id].favorito});return}
   if(e.target.closest("a"))return;
+  const f=e.target.closest("[data-fotos]");
+  if(f){const d=S.imoveis[f.dataset.fotos];if(d&&d.fotos&&d.fotos.length)return abrirFotos(d.fotos,d.link)}
   const c=e.target.closest("[data-id]");if(c)openDetail(c.dataset.id);
 });
 $("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))openDetail(e.target.dataset.id)});
@@ -1188,8 +1214,8 @@ function feed(){return S.crawler.feed||null}
 function casas(){
   // junta os anúncios do mesmo imóvel (campo grupo, calculado pelo crawler)
   const f=feed();if(!f||!Array.isArray(f.imoveis))return [];
-  const g={};
-  f.imoveis.forEach(a=>{(g[a.grupo||a.id]=g[a.grupo||a.id]||[]).push(a)});
+  const g={},oc=ocultas();
+  f.imoveis.filter(a=>!oc.has(a.fonte)).forEach(a=>{(g[a.grupo||a.id]=g[a.grupo||a.id]||[]).push(a)});
   return Object.entries(g).map(([gid,an])=>{
     const ativos=an.filter(a=>a.status!=="saiu");
     const base=(ativos.length?ativos:an).slice().sort((x,y)=>Object.keys(y).length-Object.keys(x).length)[0];
@@ -1216,6 +1242,12 @@ function casas(){
     c.cadastrada=c.decisao?null:jaCadastrada(c);
     return c;
   });
+}
+// imobiliárias que vocês escolheram não ver nas Novidades (vale para os dois)
+function ocultas(){return new Set((S.config.novidades||{}).ocultas||[])}
+function ocultar(fonte,sim){
+  const oc=ocultas();sim?oc.add(fonte):oc.delete(fonte);
+  save("config","novidades",{...(S.config.novidades||{}),ocultas:[...oc].sort()});
 }
 function decisaoDe(an){
   const ids=new Set(an.map(a=>a.id));
@@ -1275,7 +1307,8 @@ function fmtQuando(s){
 const mil=n=>n>=1e6?"R$ "+(n/1e6).toFixed(2).replace(".",",").replace(/0$/,"")+" mi":money(n);
 function renderNvStatus(){
   const f=feed(),box=$("#nvStatus");
-  const fontes=f&&f.fontes?Object.values(f.fontes):[];
+  const fontes=f&&f.fontes?Object.entries(f.fontes).map(([k,v])=>({...v,id:k})):[];
+  const oc=ocultas(),nOc=fontes.filter(x=>oc.has(x.id)).length;
   const ok=fontes.filter(x=>x.ok!==false),bad=fontes.filter(x=>x.ok===false);
   const st=S.crawler.status||{},buscando=nvSyncing||st.rodando;
   const btn=servidor&&!readOnly?`<button class="btn" type="button" id="nvSync" ${buscando?"disabled":""}>${buscando?"Buscando…":"Buscar agora"}</button>`
@@ -1287,10 +1320,16 @@ function renderNvStatus(){
   if(!f&&servidor)txt=`<span>${nvSync.msg?esc(nvSync.msg):"O crawler ainda não terminou a primeira busca no servidor."}</span>`;
   else if(!f)txt=`<span>${nvSync.msg?esc(nvSync.msg):(mcp?"Ainda não li o arquivo do crawler no Google Drive.":"As novidades chegam pelo Google Drive. Abra o site com o conector do Google Drive ligado para trazer a primeira lista.")}</span>`;
   else txt=`<span>Crawler: última busca <b>${esc(fmtQuando(f.ultimaRodada))}</b> · <span class="${bad.length?"warn":"ok"}">${ok.length} de ${fontes.length} imobiliárias lidas</span>${nvSync.msg?` · <span class="muted">${esc(nvSync.msg)}</span>`:""}${nvFotoMsg?` · <span class="muted">${esc(nvFotoMsg)}</span>`:""}</span>`;
-  const det=fontes.length?`<details class="nv-fontes"><summary>Ver imobiliárias</summary><ul>${fontes.sort((a,b)=>String(a.nome).localeCompare(String(b.nome))).map(x=>`<li class="${x.ok===false?"bad":""}">${esc(x.nome)}: ${x.ok===false?"não consegui ler ("+esc(x.erro||"erro")+")":(x.casas||0)+" casas"}</li>`).join("")}</ul></details>`:"";
+  const pode=!readOnly;
+  const det=fontes.length?`<details class="nv-fontes" data-et="__fontes" ${nvFontesAberto?"open":""}><summary>Ver imobiliárias${nOc?` · ${nOc} oculta${nOc>1?"s":""}`:""}</summary>${pode?`<p class="hint">Desmarque uma imobiliária para ocultar as casas dela nas Novidades e nos avisos do Telegram. Uma casa que também está em outra imobiliária continua aparecendo.</p>`:""}<ul>${fontes.sort((a,b)=>String(a.nome).localeCompare(String(b.nome))).map(x=>{
+    const txt=`${esc(x.nome)}: ${x.ok===false?"não consegui ler ("+esc(x.erro||"erro")+")":(x.casas||0)+" casas"}${oc.has(x.id)?" · oculta":""}`;
+    return `<li class="${x.ok===false?"bad":""} ${oc.has(x.id)?"oculta":""}">${pode?`<label><input type="checkbox" data-fonte="${esc(x.id)}" ${oc.has(x.id)?"":"checked"}> ${txt}</label>`:txt}</li>`;
+  }).join("")}</ul></details>`:"";
   box.innerHTML=txt+btn+det+etapasHtml(st);
 }
 // etapas da busca: o crawler grava em crawler/status; aberto/fechado fica como a pessoa deixou
+let nvFontesAberto=false;
+$("#nvStatus").addEventListener("change",e=>{const c=e.target.closest("[data-fonte]");if(c)ocultar(c.dataset.fonte,!c.checked)});
 let nvEtAberto=null;const nvEtAbertas=new Set(),nvEtFechadas=new Set();
 const ET_ICO={feito:"✓",erro:"!",esperando:"",pulado:"–",interrompida:"–",rodando:""};
 function duracao(a,b){
@@ -1320,6 +1359,7 @@ $("#nvStatus").addEventListener("click",e=>{
   const sm=e.target.closest("summary");const d=sm&&sm.parentElement;
   if(!d||!d.dataset||!d.dataset.et)return;
   const vaiAbrir=!d.open;
+  if(d.dataset.et==="__fontes"){nvFontesAberto=vaiAbrir;return}
   if(d.dataset.et==="__todas"){nvEtAberto=vaiAbrir;return}
   if(vaiAbrir){nvEtAbertas.add(d.dataset.et);nvEtFechadas.delete(d.dataset.et)}else{nvEtAbertas.delete(d.dataset.et);nvEtFechadas.add(d.dataset.et)}
 });
@@ -1654,15 +1694,34 @@ async function garantirGaleria(c,atualizar){
     await gravarFotos(f=>{f.galerias[arq.id]=ids;f.galeriasArq[arq.id]=ids.length<(j.fotos||[]).length?"incompleta":arq.path});
   return ids.length?ids:(g?g.fotos:ids);
 }
-const dlgFotos=$("#dlgFotos");let gal={lista:[],i:0};
+// fotos em dois modos: mosaico (todas em miniatura) e grande (uma por vez, arrastando ou
+// clicando nas setas). Clicar numa miniatura abre ela grande; o botão "Mosaico" volta.
+const dlgFotos=$("#dlgFotos");let gal={lista:[],i:0,modo:"grande"};
 function mostrarFoto(){
-  const n=gal.lista.length;
-  $("#galImg").src=n?blob(gal.lista[gal.i]):"";
+  const n=gal.lista.length,mos=gal.modo==="mosaico"&&n>1;
+  $("#galMosaico").hidden=!mos;$(".gal-img",dlgFotos).hidden=mos;
+  $("#galModo").hidden=n<2;
+  $("#galModo").textContent=mos?"Ver grande":"▦ Mosaico";
+  if(mos){
+    $("#galCont").textContent=`${n} fotos`;
+    const box=$("#galMosaico");
+    if(box.dataset.lista!==gal.lista.join("|")){
+      box.dataset.lista=gal.lista.join("|");
+      box.innerHTML=gal.lista.map((id,k)=>`<button type="button" data-gi="${k}" aria-label="Ver a foto ${k+1} grande"><img src="${esc(mini(id))}" alt="" loading="lazy"></button>`).join("");
+    }
+    return;
+  }
+  const img=$("#galImg");img.classList.remove("anima");img.style.transform="";img.style.opacity="";
+  img.src=n?blob(gal.lista[gal.i]):"";
   $("#galCont").textContent=n?`Foto ${gal.i+1} de ${n}`:"";
   $("#galPrev").hidden=$("#galNext").hidden=n<2;
+  // a próxima e a anterior já ficam carregadas, para o arrasto não mostrar o vazio
+  if(n>1)[1,-1].forEach(d=>{new Image().src=blob(gal.lista[(gal.i+d+n)%n])});
 }
-function abrirFotos(lista,link,i=0){
-  gal={lista:lista.slice(),i};
+function irPara(d){const n=gal.lista.length;if(n<2)return;gal.i=(gal.i+d+n)%n;gal.modo="grande";mostrarFoto()}
+function abrirFotos(lista,link,i=null){
+  // sem uma foto escolhida, abre no mosaico
+  gal={lista:lista.slice(),i:i||0,modo:i==null&&lista.length>1?"mosaico":"grande"};
   $("#galLink").hidden=!link;if(link)$("#galLink").href=link;
   $("#galMsg").textContent="";mostrarFoto();
   if(!dlgFotos.open)dlgFotos.showModal();
@@ -1672,7 +1731,7 @@ async function abrirGaleria(gid){
   const capa=capaDe(c);
   const a0=c.anuncios.find(a=>a.status!=="saiu")||c.anuncios[0];
   $("#galLink").href=a0.link;$("#galLink").hidden=false;
-  gal={lista:capa?[capa]:[],i:0};mostrarFoto();$("#galMsg").textContent="";
+  gal={lista:capa?[capa]:[],i:0,modo:"mosaico"};mostrarFoto();$("#galMsg").textContent="";
   if(!dlgFotos.open)dlgFotos.showModal();
   const g=galeriaDe(c);
   if(g){gal.lista=g.fotos;mostrarFoto();return}
@@ -1681,25 +1740,47 @@ async function abrirGaleria(gid){
   $("#galMsg").textContent="Trazendo as fotos…";
   try{
     const ids=await garantirGaleria(c);
-    if(ids&&ids.length){gal.lista=ids;gal.i=0;mostrarFoto();$("#galMsg").textContent=""}
+    if(ids&&ids.length){gal.lista=ids;gal.i=0;gal.modo="mosaico";mostrarFoto();$("#galMsg").textContent=""}
     else $("#galMsg").textContent="Esta casa ainda não tem galeria. Vejam as fotos no anúncio.";
   }catch(e){$("#galMsg").textContent=erroMcp(e)}
   if(UI.tab==="novidades")renderNovidades();
 }
 dlgFotos.addEventListener("click",e=>{
   if(e.target===dlgFotos||e.target.closest("[data-close]"))return dlgFotos.close();
-  if(e.target.id==="galPrev"){gal.i=(gal.i-1+gal.lista.length)%gal.lista.length;mostrarFoto()}
-  if(e.target.id==="galNext"){gal.i=(gal.i+1)%gal.lista.length;mostrarFoto()}
+  const m=e.target.closest("[data-gi]");if(m){gal.i=+m.dataset.gi;gal.modo="grande";return mostrarFoto()}
+  if(e.target.id==="galModo"){gal.modo=gal.modo==="mosaico"?"grande":"mosaico";return mostrarFoto()}
+  if(e.target.id==="galPrev")irPara(-1);
+  if(e.target.id==="galNext")irPara(1);
 });
-let galToque=null;
-$("#dlgFotos .gal-img").addEventListener("touchstart",e=>{if(e.touches.length===1)galToque={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});
-$("#dlgFotos .gal-img").addEventListener("touchend",e=>{
-  if(!galToque||gal.lista.length<2)return;
-  const t=e.changedTouches[0],dx=t.clientX-galToque.x,dy=t.clientY-galToque.y;galToque=null;
-  if(Math.abs(dx)<40||Math.abs(dx)<Math.abs(dy))return;
-  gal.i=(gal.i+(dx<0?1:-1)+gal.lista.length)%gal.lista.length;mostrarFoto();
-},{passive:true});
-dlgFotos.addEventListener("keydown",e=>{if(!gal.lista.length)return;if(e.key==="ArrowLeft"){gal.i=(gal.i-1+gal.lista.length)%gal.lista.length;mostrarFoto()}if(e.key==="ArrowRight"){gal.i=(gal.i+1)%gal.lista.length;mostrarFoto()}});
+dlgFotos.addEventListener("keydown",e=>{if(gal.modo!=="grande"||gal.lista.length<2)return;if(e.key==="ArrowLeft")irPara(-1);if(e.key==="ArrowRight")irPara(1)});
+// arrastar a foto grande (dedo ou mouse): ela acompanha e, passando de um ponto, troca
+(()=>{
+  const area=$(".gal-img",dlgFotos),img=$("#galImg");let ini=null;
+  area.addEventListener("pointerdown",e=>{
+    if(e.target.closest(".gal-nav")||gal.lista.length<2||(e.pointerType==="mouse"&&e.button!==0))return;
+    ini={x:e.clientX,y:e.clientY,id:e.pointerId,dx:0,horiz:null};img.classList.remove("anima");
+  });
+  area.addEventListener("pointermove",e=>{
+    if(!ini||e.pointerId!==ini.id)return;
+    const dx=e.clientX-ini.x,dy=e.clientY-ini.y;
+    if(ini.horiz===null&&Math.hypot(dx,dy)>8){ini.horiz=Math.abs(dx)>Math.abs(dy);if(ini.horiz){area.setPointerCapture(e.pointerId);area.classList.add("arrastando")}}
+    if(!ini.horiz)return;
+    ini.dx=dx;img.style.transform=`translateX(${dx}px)`;img.style.opacity=String(1-Math.min(Math.abs(dx)/area.clientWidth,1)*.5);
+  });
+  const fim=e=>{
+    if(!ini||e.pointerId!==ini.id)return;
+    const {dx,horiz}=ini;ini=null;area.classList.remove("arrastando");
+    if(!horiz)return;
+    if(Math.abs(dx)>Math.min(80,area.clientWidth*.18)){
+      // sai pelo lado do arrasto e a outra entra pelo lado oposto
+      img.classList.add("anima");img.style.transform=`translateX(${dx<0?-area.clientWidth:area.clientWidth}px)`;img.style.opacity="0";
+      setTimeout(()=>{irPara(dx<0?1:-1);img.style.transform=`translateX(${dx<0?60:-60}px)`;img.style.opacity="0";
+        requestAnimationFrame(()=>{img.classList.add("anima");img.style.transform="";img.style.opacity=""})},180);
+    }else{img.classList.add("anima");img.style.transform="";img.style.opacity=""}
+  };
+  area.addEventListener("pointerup",fim);area.addEventListener("pointercancel",fim);
+  img.draggable=false;
+})();
 // foto que não carrega (apagada em Imóveis, por exemplo) some e fica o fundo
 document.addEventListener("error",e=>{const t=e.target;if(t&&t.tagName==="IMG"&&t.closest(".ph.nv"))t.remove()},true);
 
@@ -2041,7 +2122,8 @@ $("#fImportar").onchange=async e=>{
 
 /* ---------- boot ---------- */
 $$(".tab").forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
-document.addEventListener("keydown",e=>{if(e.key==="Escape")$$("dialog[open]").forEach(d=>d.close())});
+// Esc fecha o diálogo de cima: as fotos abertas por cima da ficha do imóvel fecham sozinhas
+document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;e.preventDefault();if(dlgFotos.open)dlgFotos.close();else $$("dialog[open]").forEach(d=>d.close())});
 const savedTab=store.get("cn_tab");
 const hash=(location.hash||"").slice(1);
 setTab(["imoveis","novidades","orcamento","checklist","documentos","agenda"].includes(hash)?hash:(savedTab||"imoveis"));
