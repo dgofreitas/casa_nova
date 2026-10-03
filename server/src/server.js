@@ -147,6 +147,19 @@ function avisarDoc(coll, id) {
   for (const res of ouvintes) res.write(msg);
 }
 // fotos dos anúncios dos imóveis, lidas pelo crawler (crawler/fotos_imoveis.py): junta no imóvel
+// o que o crawler tirou da descrição (crawler/extrair.py) entra só nos campos vazios,
+// como fazia o "Preencher com IA" sem substituir
+function preencherVazios(d, ex) {
+  const vazio = (v) => v == null || v === "";
+  for (const k of ["preco", "condominio", "iptu", "area", "areaTerreno", "quartos", "suites", "banheiros", "vagas"])
+    if (vazio(d[k]) && typeof ex[k] === "number" && ex[k] > 0) d[k] = ex[k];
+  for (const k of ["piscina", "churrasqueira", "gourmetPiscina"])
+    if (vazio(d[k]) && (ex[k] === "sim" || ex[k] === "nao")) d[k] = ex[k];
+  if (vazio(d.pros) && Array.isArray(ex.destaques) && ex.destaques.length) d.pros = ex.destaques.map((x) => "• " + x).join("\n");
+  if (vazio(d.notas) && typeof ex.resumo === "string" && ex.resumo.trim()) d.notas = ex.resumo.trim();
+  if (d.extracao === "pendente") d.extracao = "ok";
+}
+
 let marcaFotosImoveis = 0;
 function aplicarFotosImoveis() {
   let st;
@@ -161,11 +174,19 @@ function aplicarFotosImoveis() {
     if (!x) continue;
     const d = JSON.parse(x.data);
     if ((d.link || "").trim() !== res.link) continue; // o link mudou depois: o crawler lê de novo
-    if (d.fotosAnuncio && d.fotosAnuncio.link === res.link) continue; // já aplicado
-    const atuais = Array.isArray(d.fotos) ? d.fotos : [];
-    d.fotos = atuais.concat((res.novas || []).filter((f) => !atuais.includes(f)));
-    if (res.texto && !d.anuncioTexto) d.anuncioTexto = String(res.texto).slice(0, 20000);
-    d.fotosAnuncio = { link: res.link, em: res.em, novas: (res.novas || []).length, ...(res.erro ? { erro: res.erro } : {}) };
+    const fotosJa = !!(d.fotosAnuncio && d.fotosAnuncio.link === res.link);
+    const dadosJa = !!d.autoPreenchido || !res.extraido;
+    if (fotosJa && dadosJa) continue; // já aplicado
+    if (!fotosJa) {
+      const atuais = Array.isArray(d.fotos) ? d.fotos : [];
+      d.fotos = atuais.concat((res.novas || []).filter((f) => !atuais.includes(f)));
+      if (res.texto && !d.anuncioTexto) d.anuncioTexto = String(res.texto).slice(0, 20000);
+      d.fotosAnuncio = { link: res.link, em: res.em, novas: (res.novas || []).length, ...(res.erro ? { erro: res.erro } : {}) };
+    }
+    if (!dadosJa) {
+      preencherVazios(d, res.extraido);
+      d.autoPreenchido = true;
+    }
     sql.grava.run("imoveis", id, JSON.stringify(d), new Date().toISOString(), "crawler");
     mudou = true;
   }

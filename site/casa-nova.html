@@ -1403,6 +1403,10 @@ async function decidir(gid,acao){
       endereco:c.endereco,bairro:c.bairro,cidade:c.cidade||"Florianópolis - SC",link:a0.link,corretora:a0.fonteNome,
       notas:outros.length?"Também anunciada por:\n"+outros.join("\n"):"",fotos,anuncioTexto:texto?texto.slice(0,20000):"",extracao:texto?"pendente":"",criadoEm:nowISO(),atualizadoEm:nowISO()};
     Object.keys(im).forEach(k=>{if(im[k]==null||im[k]===""||(Array.isArray(im[k])&&!im[k].length))delete im[k]});
+    // piscina, churrasqueira, condomínio, destaques… tirados da descrição (só o que ficou vazio)
+    const ex=extraidoDe(c);
+    if(ex){applyIA(im,ex,false);if(im.extracao==="pendente")im.extracao="ok"}
+    im.autoPreenchido=true;
     const ok=await save("imoveis",imId,im);if(!ok)return;
     d.imovelId=imId;
     await save("novidades",id,d);
@@ -1580,19 +1584,42 @@ function galeriaDesatualizada(c){
   const feito=f.galeriasArq&&f.galeriasArq[arq.id];
   return feito?feito!==arq.path:/-\d{12}\.json$/.test(arq.path);
 }
+// dados tirados das descrições pelo crawler (crawler/extrair.py), no mesmo formato da IA:
+// junta os anúncios da casa; "sim" de qualquer anúncio vale, números do primeiro que tiver
+function extraidoDe(c){
+  const out={};
+  for(const a of c.anuncios){
+    const e=a.extraido;if(!e)continue;
+    for(const [k,v] of Object.entries(e)){
+      if(Array.isArray(v)){out[k]=[...new Set([...(out[k]||[]),...v])].slice(0,6)}
+      else if(v==="sim"||out[k]==null)out[k]=v;
+    }
+  }
+  return Object.keys(out).length?out:null;
+}
 async function completarImoveis(){
   // imóveis que foram para Imóveis antes de existirem fotos e descrição: completa quando der
   const todas=casas();
   for(const [imId,im] of Object.entries(S.imoveis)){
     if(im.origem!=="crawler"||!im.novidadeId)continue;
-    const precisaFoto=!(im.fotos&&im.fotos.length),precisaTexto=!im.anuncioTexto;
-    if(!precisaFoto&&!precisaTexto)continue;
+    const precisaFoto=!(im.fotos&&im.fotos.length),precisaTexto=!im.anuncioTexto,precisaDados=!im.autoPreenchido;
+    if(!precisaFoto&&!precisaTexto&&!precisaDados)continue;
     const dec=S.novidades[im.novidadeId];
     const c=dec&&todas.find(x=>x.anuncios.some(a=>(dec.anuncios||[]).includes(a.id)));
     if(!c)continue;
     const part={};
     if(precisaTexto){const t=descricaoDe(c);if(t){part.anuncioTexto=t.slice(0,20000);if(!im.extracao||im.extracao==="ok")part.extracao="pendente"}}
     if(precisaFoto){try{const f=await garantirGaleria(c);if(f&&f.length)part.fotos=f}catch(e){}}
+    if(precisaDados){
+      // preenche só o que estiver vazio, uma vez (se vocês apagarem um campo, ele não volta)
+      const ex=extraidoDe(c);
+      if(ex){
+        const d={...im};applyIA(d,ex,false);
+        for(const k of Object.keys(d))if(JSON.stringify(d[k])!==JSON.stringify(im[k]))part[k]=d[k];
+        if(part.extracao==null&&im.extracao==="pendente")part.extracao="ok";
+      }
+      part.autoPreenchido=true;
+    }
     if(Object.keys(part).length)await patch("imoveis",imId,part);
   }
 }

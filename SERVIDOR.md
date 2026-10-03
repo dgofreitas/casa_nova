@@ -26,7 +26,12 @@ casa-nova-crawler ──► volume casa_nova_dados ◄── casa-nova-app ◄�
 - **casa-nova-app** serve a página, o login (Diogo e Cinthia), o banco (SQLite) e as fotos.
   A página é a mesma `site/casa-nova.html` do Claude: o arquivo `server/public/shim.js`
   recria, sobre a API do servidor, as funções que ela usava do Claude.
-- No servidor não há "Preencher com IA". O texto do anúncio fica pronto para copiar.
+- No servidor não há "Preencher com IA". No lugar dela, o crawler lê a descrição de cada
+  anúncio (`crawler/extrair.py`) e tira piscina, churrasqueira, gourmet junto da piscina,
+  condomínio, IPTU, áreas, quartos, suítes, vagas, destaques e um resumo. Ao marcar
+  **Tenho interesse** o imóvel já nasce preenchido, e os imóveis cadastrados pelo link
+  também são completados. Só entram os campos vazios, uma vez: se vocês apagarem um
+  campo, ele não volta. O texto do anúncio continua pronto para copiar.
 
 ## Publicar
 

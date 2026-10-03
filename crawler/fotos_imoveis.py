@@ -18,6 +18,7 @@ from PIL import Image
 
 import fotos as fotos_github
 from detalhes import detalhar
+from extrair import extrair
 from fotos_servidor import _nome, _salvar, hash_visual, parecidas
 
 ARQ = "fotos-imoveis.json"
@@ -58,10 +59,12 @@ def pendentes(dados):
         link = (d.get("link") or "").strip()
         if not link.startswith("http"):
             continue
-        if (d.get("fotosAnuncio") or {}).get("link") == link:
-            continue  # já lido e aplicado
-        if (feitos.get(id_) or {}).get("link") == link:
-            continue  # já lido, esperando o site aplicar
+        lido = (d.get("fotosAnuncio") or {}).get("link") == link or (feitos.get(id_) or {}).get("link") == link
+        # imóveis lidos antes de existir o preenchimento pela descrição são lidos de novo, uma vez
+        falta_dados = (d.get("origem") != "crawler" and not d.get("autoPreenchido")
+                       and "extraido" not in (feitos.get(id_) or {}))
+        if lido and not falta_dados:
+            continue
         if d.get("novidadeId") in decisoes:
             d["_anuncios"] = json.loads(decisoes[d["novidadeId"]]).get("anuncios") or []
         out.append((id_, d, link))
@@ -151,8 +154,14 @@ def processar(http, dados):
                 r["novas"].append("f/" + nome)
             if texto:
                 r["texto"] = texto
+            if d.get("origem") != "crawler":
+                # piscina, churrasqueira, condomínio… do texto do anúncio (o site preenche o que estiver vazio)
+                r["extraido"] = extrair(texto or d.get("anuncioTexto") or "")
         except Exception as e:
             r["erro"] = str(e)[:200]
+        if d.get("origem") != "crawler" and "extraido" not in r:
+            # anúncio fora do ar ou bloqueado: usa o texto que o imóvel já tem, e não tenta de novo
+            r["extraido"] = extrair(d.get("anuncioTexto") or "")
         atual = _ler(dados)
         atual["resultados"][id_] = r
         _gravar(dados, atual)
