@@ -98,57 +98,43 @@ def mesma_rua(r1, r2):
     return r1 == r2 or r1 in r2 or r2 in r1
 
 
-def distancia(a, b):
-    """Diferença relativa entre dois anúncios, ou None se não parecem o mesmo imóvel.
+MESMO_PRECO = 0.005  # só arredondamento: 1.489.900 e 1.490.000
+MESMA_AREA = 0.015   # só arredondamento: 98,09 m² e 98 m², 160 m² e 162 m²
 
-    Precisa de área e preço batendo (até 5%), mesmo bairro, mesmo número de
-    quartos quando os dois informam e, quando os dois informam o endereço, a mesma
-    rua e o mesmo número. Vale também para dois anúncios da mesma imobiliária ou do
-    portal (a regra "a imobiliária não anuncia a mesma casa duas vezes" foi tirada).
+
+def _igual(x, y, tol):
+    return abs(x - y) / max(x, y) <= tol
+
+
+def distancia(a, b):
+    """Diferença relativa entre dois anúncios, ou None se não são a mesma casa.
+
+    Só duas situações juntam anúncios (de imobiliárias diferentes ou da mesma):
+      1. mesma rua, mesmo número e mesmo preço;
+      2. mesma rua e mesmo preço, sem números diferentes, e a mesma metragem
+         (casa ou terreno, a que os dois informarem; as que os dois informam batem).
+    O resto é casa diferente, inclusive anúncio sem endereço.
     """
-    if a["bairro"] != b["bairro"]:
-        return None
-    if a.get("quartos") and b.get("quartos") and a["quartos"] != b["quartos"]:
-        return None
-    # endereço é o sinal mais forte: rua diferente, ou mesma rua com outro número, são casas diferentes
-    rua_a, num_a = rua_numero(a.get("endereco"))
-    rua_b, num_b = rua_numero(b.get("endereco"))
-    mesma_rua_ab = bool(rua_a and rua_b and mesma_rua(rua_a, rua_b))
-    mesmo_numero = bool(mesma_rua_ab and num_a and num_b and num_a == num_b)
-    # mesma rua, preço exato e mesmos quartos, com números que não se contradizem: é a mesma casa
-    # mesmo sem área para comparar (caso típico do portal, onde vários corretores anunciam a casa)
-    mesma_casa_pela_rua = bool(mesma_rua_ab and not (num_a and num_b and num_a != num_b)
-                               and a.get("preco") and a.get("preco") == b.get("preco")
-                               and a.get("quartos") and a.get("quartos") == b.get("quartos"))
-    if rua_a and rua_b:
-        if not mesma_rua(rua_a, rua_b):
-            return None
-        if num_a and num_b and num_a != num_b:
-            return None
     if contradiz(a, b):
         return None
-    total, usados = 0.0, set()
-    for campo in ("area", "areaTerreno", "preco"):
-        x, y = a.get(campo), b.get(campo)
-        if x and y:
-            d = abs(x - y) / max(x, y)
-            if d > 0.05:
-                return None
-            total += d
-            usados.add(campo)
-    # sem área nos dois, o endereço completo (ou a regra do portal acima) basta, com o preço batendo
-    precisa = {"preco"} if (mesmo_numero or mesma_casa_pela_rua) else {"area", "preco"}
-    if not precisa <= usados:
+    rua_a, num_a = rua_numero(a.get("endereco"))
+    rua_b, num_b = rua_numero(b.get("endereco"))
+    if not (rua_a and rua_b and a.get("preco") and b.get("preco")):
         return None
-    return total
+    d = abs(a["preco"] - b["preco"]) / max(a["preco"], b["preco"])
+    if num_a and num_b:
+        return d  # mesma rua, mesmo número (contradiz já viu) e mesmo preço
+    areas = [abs(a[k] - b[k]) / max(a[k], b[k]) for k in ("area", "areaTerreno") if a.get(k) and b.get(k)]
+    if not areas:
+        return None
+    return d + sum(areas)
 
 
 def contradiz(a, b):
     """Há dado conflitante entre os dois anúncios? Dado que falta não conta.
 
-    Dois anúncios sem conflito podem ficar no mesmo grupo se alguma ligação forte
-    (distancia) une os grupos: assim o anúncio sem número e sem área do portal entra
-    no grupo da casa, sem encadear casas diferentes de um condomínio.
+    Um grupo só aceita anúncio que não contradiga nenhum dos que já estão nele:
+    assim um anúncio sem número não encadeia duas casas de números diferentes.
     """
     if a["bairro"] != b["bairro"]:
         return True
@@ -160,28 +146,21 @@ def contradiz(a, b):
         return True
     if rua_a and rua_b and num_a and num_b and num_a != num_b:
         return True
-    if a["fonte"] == b["fonte"]:
-        # a mesma imobiliária (ou o portal) com outro preço ou outra área é outra casa,
-        # como as unidades de um condomínio: aqui não há tolerância
-        # (só arredondamento: 1.499.000 e 1.500.000, 199,83 m² e 199 m²)
-        for campo, tol in (("area", 0.01), ("areaTerreno", 0.01), ("preco", 0.005)):
-            x, y = a.get(campo), b.get(campo)
-            if x and y and abs(x - y) / max(x, y) > tol:
-                return True
-    for campo in ("area", "areaTerreno", "preco"):
+    if a.get("preco") and b.get("preco") and not _igual(a["preco"], b["preco"], MESMO_PRECO):
+        return True
+    for campo in ("area", "areaTerreno"):
         x, y = a.get(campo), b.get(campo)
-        if x and y and abs(x - y) / max(x, y) > 0.05:
+        if x and y and not _igual(x, y, MESMA_AREA):
             return True
     return False
 
 
 def agrupar(imoveis):
-    """Junta anúncios do mesmo imóvel em imobiliárias diferentes.
+    """Junta os anúncios da mesma casa (veja distancia).
 
     Os pares mais parecidos se juntam primeiro, e um grupo só aceita alguém que
     não contradiga nenhum dos que já estão nele (outra rua, outro número, outros
-    quartos, preço ou área diferentes). Isso evita encadear as várias casas iguais
-    de um mesmo condomínio.
+    quartos, preço ou área diferentes).
     """
     ids = sorted(i for i, x in imoveis.items() if x.get("status") == "ativo")
     pares = []
