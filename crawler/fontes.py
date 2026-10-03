@@ -288,6 +288,20 @@ def brognoli(http):
 
 
 # ---------------------------------------------------------------- Chaves na Mão (portal)
+def _do_titulo(titulo):
+    """Rua, número, bairro e área útil a partir do título do anúncio no Chaves na Mão."""
+    out = {}
+    m = re.search(r"à venda (?:na|no|em) (.+?),\s*(?:(\d+|--|s/?n)\s*,\s*)?([^,]+),\s*Florian", titulo, re.I)
+    if m:
+        rua, numero, bairro = m.group(1).strip(), m.group(2), m.group(3).strip()
+        out["endereco"] = rua + (f", {numero}" if numero and numero.isdigit() else "")
+        out["bairro"] = bairro
+    a = achar(r"(\d[\d.,]*)\s*m2\b", titulo)
+    if a:
+        out["area"] = a
+    return out
+
+
 def _tipo_pelo_titulo(titulo):
     t = sem_acento(titulo)
     if "condominio" in t:
@@ -318,7 +332,7 @@ def chaves_na_mao(http):
     """
     base = "https://www.chavesnamao.com.br"
     out, vistos = [], set()
-    for slug in BAIRROS_SLUG:
+    for slug, nome_bairro in zip(BAIRROS_SLUG, BAIRROS_NOME):
         for pagina in range(1, MAX_PAGINAS + 1):
             url = f"{base}/casas-a-venda/sc-florianopolis/{slug}/" + (f"?pg={pagina}" if pagina > 1 else "")
             f = next_flight(http.html(url))
@@ -336,6 +350,11 @@ def chaves_na_mao(http):
                 endereco = ", ".join(x for x in [rua.get("name"), rua.get("addressNumber")] if x)
                 geo = _d(loc.get("geoposition"))
                 area = _d(o.get("area"))
+                # na maioria dos anúncios esses campos vêm como referência do Next.js; o título
+                # ("… à venda na Vila Ivan Matos, 91, Itacorubi, Florianópolis, 217 m2 por …")
+                # e o endereço ("…-itacorubi-338m2-RS1150000/") trazem o mesmo
+                tit = _do_titulo(o.get("title") or "")
+                endereco = endereco or tit.get("endereco", "")
                 conta = lambda k: _d(o.get(k)).get("count")
                 out.append({
                     "codigo": cod,
@@ -343,10 +362,10 @@ def chaves_na_mao(http):
                     "titulo": o.get("title") or "",
                     # o portal chama tudo de "Casa / Sobrado"; o título diz o tipo de verdade
                     "categoria": _tipo_pelo_titulo(o.get("title") or ""),
-                    "bairro": _d(loc.get("neighborhood")).get("name") or "",
+                    "bairro": _d(loc.get("neighborhood")).get("name") or tit.get("bairro") or nome_bairro,
                     "endereco": endereco,
-                    "area": num(area.get("useful")),
-                    "areaTerreno": num(area.get("total")),
+                    "area": num(area.get("useful")) or tit.get("area"),
+                    "areaTerreno": num(area.get("total")) or achar(r"-(\d+)m2-", o.get("url") or ""),
                     # às vezes esses campos vêm como referência do Next.js: o endereço do anúncio
                     # (casa-a-venda-3-quartos-com-garagem-…) e o título trazem os quartos
                     "quartos": conta("bedrooms") or achar(r"-(\d+)-quartos?-", o.get("url") or "")
