@@ -3,7 +3,7 @@
 
 const CAMPOS = ["id", "grupo", "fonte", "codigo", "link", "tipo", "preco", "condominio", "iptu", "area",
   "areaTerreno", "quartos", "suites", "banheiros", "vagas", "endereco", "bairro", "cidade", "status",
-  "primeiroVisto", "historicoPreco", "temFotos"];
+  "primeiroVisto", "historicoPreco", "temFotos", "anunciante"];
 
 export function feedDe(j) {
   const nomes = {};

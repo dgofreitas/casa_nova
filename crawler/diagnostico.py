@@ -13,7 +13,8 @@ from curl_cffi import requests as cr
 
 from comum import PROXY, UA
 
-DESAFIO = ("Just a moment", "cf-chl", "challenge-platform", "Attention Required")
+# só a tela de bloqueio; o script "challenge-platform" aparece também em páginas liberadas
+DESAFIO = ("Just a moment", "Attention Required", "cf-browser-verification")
 
 
 def resumo(nome, fazer):
@@ -21,7 +22,8 @@ def resumo(nome, fazer):
     try:
         r = fazer()
         corpo = r.text[:200000]
-        desafio = any(x in corpo for x in DESAFIO) or r.headers.get("cf-mitigated") == "challenge"
+        desafio = (r.status_code in (403, 503) and any(x in corpo for x in DESAFIO)) \
+            or r.headers.get("cf-mitigated") == "challenge"
         print(f"  {nome:28} HTTP {r.status_code}  {len(r.content):>8} bytes  "
               f"{'DESAFIO DO CLOUDFLARE' if desafio else 'ok' if r.status_code < 400 else 'recusado'}"
               f"  ({time.time() - t0:.1f}s)")

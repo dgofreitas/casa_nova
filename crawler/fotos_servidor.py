@@ -14,6 +14,7 @@ foto (hash visual), porque cada imobiliária reduz a foto para um tamanho difere
 import hashlib
 import io
 import json
+import sqlite3
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
@@ -36,6 +37,33 @@ def galerias_atuais(dados):
     return set(json.loads(arq.read_text()).get("galerias", {})) if arq.exists() else set()
 
 
+def descartadas(imoveis, dados):
+    """Anúncios das casas que vocês descartaram nas Novidades (lidos do banco do site).
+
+    Essas casas não ganham fotos, e as que já tinham são apagadas: com o portal, são
+    centenas. Se uma casa voltar para a lista, as fotos voltam na busca seguinte.
+    """
+    db = Path(dados) / "casa-nova.db"
+    if not db.exists():
+        return set()
+    try:
+        con = sqlite3.connect(f"file:{db}?mode=ro", uri=True, timeout=10)
+        try:
+            linhas = con.execute("SELECT id, data FROM docs WHERE coll = 'novidades'").fetchall()
+        finally:
+            con.close()
+    except sqlite3.Error:
+        return set()
+    ids = set()
+    for id_, data in linhas:
+        d = json.loads(data)
+        if d.get("situacao") == "descartada":
+            ids.add(id_)
+            ids.update(d.get("anuncios") or [])
+    grupos = {(imoveis.get(i) or {}).get("grupo") or i for i in ids}
+    return {i for i, x in imoveis.items() if (x.get("grupo") or i) in grupos}
+
+
 def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar, andamento=None):
     """Abre os anúncios que faltam e baixa as fotos, gravando a cada poucos anúncios.
 
@@ -44,7 +72,8 @@ def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar, andamento
     ainda vêm primeiro. Devolve as capas das casas que ganharam galeria agora.
     """
     antes = galerias_atuais(dados)
-    pend = [x for x in imoveis.values() if x.get("status") == "ativo" and not x.get(MARCA)]
+    fora = descartadas(imoveis, dados)
+    pend = [x for x in imoveis.values() if x.get("status") == "ativo" and not x.get(MARCA) and x["id"] not in fora]
     # quem não tem galeria vem primeiro; entre eles, os mais recentes
     pend.sort(key=lambda x: x.get("primeiroVisto", ""), reverse=True)
     pend.sort(key=lambda x: (x.get("grupo") or x["id"]) in antes)
@@ -55,7 +84,7 @@ def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar, andamento
         lote = {x["id"]: x for x in pend[n:n + LOTE]}
         fotos_github.completar_detalhes(http, lote, espera_por_fonte,
                                         pendente=lambda x: not x.get(MARCA), marca=MARCA)
-        baixar(imoveis, dados, podar=False, so=set(lote))
+        baixar(imoveis, dados, podar=False, so=set(lote), fora=fora)
         salvar()
         print(f"[fotos] {min(n + LOTE, len(pend))} de {len(pend)} anúncios com todas as fotos", flush=True)
         if andamento:
@@ -65,7 +94,7 @@ def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar, andamento
         andamento.etapa("galerias", "rodando", "juntando as fotos de cada casa")
     elif andamento:
         andamento.etapa("galerias", "rodando", "juntando as fotos de cada casa")
-    baixar(imoveis, dados, podar=True)
+    baixar(imoveis, dados, podar=True, fora=fora)
     indice = json.loads((Path(dados) / "fotos.json").read_text())
     if andamento:
         g = indice.get("galerias", {})
@@ -112,11 +141,12 @@ def _nome(url):
     return hashlib.sha1(url.encode()).hexdigest()[:20]
 
 
-def baixar(imoveis, dados, podar=True, so=None):
+def baixar(imoveis, dados, podar=True, so=None, fora=frozenset()):
     """Baixa as fotos que faltam e monta a galeria de cada grupo.
 
     Com podar, apaga também as fotos de anúncios que o crawler não acompanha mais.
     Com so, baixa só as fotos desses anúncios (as galerias usam o que já houver).
+    Os anúncios em fora (casas descartadas) não têm galeria, e as fotos deles são apagadas.
     """
     dados = Path(dados)
     pasta = dados / "fotos"
@@ -125,7 +155,8 @@ def baixar(imoveis, dados, podar=True, so=None):
     indice = json.loads(arq_indice.read_text()) if arq_indice.exists() else {}
     urls = indice.get("urls", {})
 
-    ativos = {i: x for i, x in imoveis.items() if x.get("status") == "ativo" and x.get("fotosOrigem")}
+    ativos = {i: x for i, x in imoveis.items()
+              if x.get("status") == "ativo" and x.get("fotosOrigem") and i not in fora}
     faltam = [u for i, x in ativos.items() if so is None or i in so for u in x["fotosOrigem"]
               if u not in urls or not (pasta / f"{urls[u]['arq']}.jpg").exists()]
     faltam = list(dict.fromkeys(faltam))
@@ -171,7 +202,7 @@ def baixar(imoveis, dados, podar=True, so=None):
     apagadas = 0
     if podar:
         # apaga as fotos de anúncios que o crawler não acompanha mais
-        usadas = {u for x in imoveis.values() for u in (x.get("fotosOrigem") or [])}
+        usadas = {u for i, x in imoveis.items() if i not in fora for u in (x.get("fotosOrigem") or [])}
         urls = {u: i for u, i in urls.items() if u in usadas}
         nomes = {i["arq"] for i in urls.values()}
         for f in list(pasta.glob("*.jpg")) + list((pasta / "c").glob("*.jpg")):

@@ -47,6 +47,9 @@ def chave(u):
     m = re.search(r"/properties/([0-9a-f-]{36})/", u)        # Tecimob (Daga)
     if m:
         return "t" + m.group(1)
+    m = re.search(r"chavesnamao\.com\.br/imn/[^/]+/[^/]+/\d+/imoveis/\d+/(\d+)/", u)   # Chaves na Mão
+    if m:
+        return "c" + m.group(1)
     m = re.search(r"\.r2\.dev/brognoli/(\d+-\d+)/", u)     # Brognoli, site novo (out/2026)
     if m:
         return "b" + m.group(1)
@@ -62,6 +65,10 @@ def normalizar(u):
     if "vistahost" in u:
         u = re.sub(r"_p(\.\w+)$", r"\1", u)
         return u, u
+    if "chavesnamao.com.br/imn/" in u:
+        # o tamanho vem no endereço (/imn/0850x0450/…): pede a versão grande
+        u = re.sub(r"/imn/[^/]+/", "/imn/1600X1200/", u)
+        return u, re.sub(r"/imn/[^/]+/", "/imn/", u)
     if "bewezy.com" in u:
         base = u.split("?")[0]
         return base + "?width=1280", base

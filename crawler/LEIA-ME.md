@@ -5,7 +5,7 @@
 > GitHub Actions, Apps Script e Google Drive são da versão antiga.
 
 Procura casas à venda no Itacorubi, Santa Mônica, Parque São Jorge e Córrego Grande,
-até R$ 2,1 milhões, em 12 imobiliárias de Florianópolis. Roda sozinho no GitHub
+até R$ 2,1 milhões, em 14 imobiliárias de Florianópolis e no portal Chaves na Mão. Roda sozinho no GitHub
 Actions às 7h, 12h, 17h e 22h, avisa no Telegram e alimenta a aba **Novidades** do site.
 
 ```
@@ -28,13 +28,24 @@ Nada disso usa a IA do Claude, então não gasta tokens.
 | Quadra, Bella Floripa, Invista | Página de busca (Kenlo) |
 | Liderança, Smolka | Página de busca (Vista/Loft) |
 | Auxiliadora Predial | Página de busca, um bairro por vez |
-| Brognoli (é também o estoque da Dalton Andrade) | Página de busca, um bairro por vez |
+| Brognoli (é também o estoque da Dalton Andrade) | Site novo (Next.js), casa e casa em condomínio, um bairro por vez |
 | Cesar Vaz (faz as vendas da Ibagy) | Página de busca, um bairro por vez |
 | Seiter | Página de busca |
 | OnLiving (F1) | Página de busca |
 | Duda Imóveis | Página de busca (Parque São Jorge não existe no site deles) |
+| Ponte Imóveis | Página de busca (Kenlo) |
+| Trindade Imóveis | Página de busca (Vista/Loft) |
+| **Chaves na Mão** (portal) | Página de busca, um bairro por vez: anúncios de muitas imobiliárias e corretores, com rua e número |
 
-Ficaram de fora: Creditoreal, imoveis-sc.com.br e Viva Real (bloqueiam robôs).
+Ficaram de fora porque bloqueiam robôs (desafio do Cloudflare, mesmo pelo WARP):
+Imovelweb, Wimoveis, ZAP, Viva Real, OLX, CasaMineira, imoveis-sc.com.br e Creditoreal.
+Boa parte das casas deles aparece no Chaves na Mão.
+
+Quando uma imobiliária entra na busca, a primeira leitura vira um resumo no Telegram
+("entrou na busca: N casas, M que vocês ainda não tinham"), e não um aviso por casa.
+Um anúncio novo de uma casa que já era conhecida também não é avisado como casa nova.
+No portal, dois anúncios da mesma casa (corretores diferentes) só se juntam com rua e
+número iguais. Casas descartadas não ganham fotos, e as que já tinham são apagadas.
 
 ## Fotos e descrição
 
