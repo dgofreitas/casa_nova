@@ -114,6 +114,9 @@ legend{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:1
 .st-descartado{background:var(--surface-2);color:var(--muted)}
 .star{position:absolute;top:6px;right:6px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(10,16,14,.45);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
 .star[aria-pressed="true"]{background:var(--accent);color:#1b1400}
+.ocultar{position:absolute;top:6px;right:50px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(10,16,14,.45);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.ocultar:hover{background:rgba(10,16,14,.7)}
+.card.oculto .ph img,.card.oculto .ph>svg{opacity:.55}
 .card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
 .price{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.15}
 .ppm{color:var(--muted);font-size:13px}
@@ -152,6 +155,8 @@ tbody tr:hover{background:var(--surface-2)}
 tbody tr:last-child td{border-bottom:0}
 .tstar{border:0;background:none;cursor:pointer;font-size:18px;color:var(--line);padding:0}
 .tstar[aria-pressed="true"]{color:var(--accent)}
+.tocultar{border:0;background:none;cursor:pointer;color:var(--muted);padding:0 0 0 6px;vertical-align:-2px}
+.tocultar:hover{color:var(--ink)}
 
 /* dialog */
 dialog{border:0;padding:0;border-radius:16px;background:var(--surface);color:var(--ink);width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 32px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
@@ -668,7 +673,7 @@ const CORRETORAS={"zapimoveis":"ZAP Imóveis","vivareal":"Viva Real","quintoanda
 const S={imoveis:{},checklist:{},documentos:{},agenda:{},contatos:{},config:{},novidades:{},crawler:{}};
 const COLLS=Object.keys(S);
 let db=null,assets=null,sample=null,downloads=null,mcp=null,user=null,servidor=null,uid=null,imgLimits=null,readOnly=false;
-const UI={tab:"imoveis",q:"",status:"ativos",fav:false,piscina:false,gourmet:false,semAlaga:false,comVend:false,comViz:false,sort:"recentes",view:store.get("cn_view")||"cards"};
+const UI={tab:"imoveis",q:"",status:"ativos",fav:false,ocultas:false,piscina:false,gourmet:false,semAlaga:false,comVend:false,comViz:false,sort:"recentes",view:store.get("cn_view")||"cards"};
 
 /* ---------- toast ---------- */
 let toastT;
@@ -759,6 +764,9 @@ function mapsUrl(d){
   if(!q||(!d.endereco&&!d.bairro))return "";
   return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
 }
+// olho riscado (ocultar) e olho aberto (mostrar de novo)
+const icoOcultar=`<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.6 5.1A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-2.2 3.2M6.6 6.6C3.7 8.4 2 12 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M3 3l18 18"/></svg>`;
+const icoMostrar=`<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>`;
 const icoPin=`<svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" style="vertical-align:-1px"><path d="M8 15s5-5.2 5-9A5 5 0 0 0 3 6c0 3.8 5 9 5 9Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="6" r="1.8" fill="currentColor"/></svg>`;
 function hostOf(url){try{return new URL(url).hostname.replace(/^www\./,"")}catch(e){return ""}}
 function corretoraOf(host){const k=Object.keys(CORRETORAS).find(k=>host.includes(k));return k?CORRETORAS[k]:host}
@@ -841,7 +849,7 @@ function applyIA(d,r,overwrite){
 /* ---------- render ---------- */
 function render(){
   const all=imoveisArr();
-  $("#c-imoveis").textContent=all.filter(d=>d.status!=="descartado").length;
+  $("#c-imoveis").textContent=all.filter(d=>d.status!=="descartado"&&!d.oculto).length;
   const ck=Object.values(S.checklist);
   $("#c-checklist").textContent=ck.filter(x=>x.feito).length+"/"+ck.length;
   $("#c-documentos").textContent=Object.keys(S.documentos).length;
@@ -862,7 +870,8 @@ function setTab(t){
 
 /* ---- imóveis ---- */
 function filtered(){
-  let a=imoveisArr();
+  // as casas ocultas só aparecem no filtro "Mostrar ocultas" (e lá só elas)
+  let a=imoveisArr().filter(d=>!!d.oculto===UI.ocultas);
   if(UI.status==="ativos")a=a.filter(d=>d.status!=="descartado");
   else if(UI.status!=="todos")a=a.filter(d=>d.status===UI.status);
   if(UI.fav)a=a.filter(d=>d.favorito);
@@ -885,30 +894,32 @@ function filtered(){
   return a.sort(S_[UI.sort]||S_.recentes);
 }
 function renderImoveis(){
-  const all=imoveisArr();
-  const ativos=all.filter(d=>d.status!=="descartado");
+  const tudo=imoveisArr(),nOc=tudo.filter(d=>d.oculto).length;
+  if(!nOc)UI.ocultas=false;
+  const vis=tudo.filter(d=>!d.oculto),all=tudo.filter(d=>!!d.oculto===UI.ocultas);
+  const ativos=vis.filter(d=>d.status!=="descartado");
   $("#stats").innerHTML=`
     <div><b>${ativos.length}</b><span>no páreo</span></div>
-    <div><b>${all.filter(d=>d.favorito).length}</b><span>favoritas</span></div>
-    <div><b>${all.filter(d=>d.status==="visitado").length}</b><span>visitadas</span></div>
-    <div><b>${all.filter(d=>d.status==="proposta").length}</b><span>com proposta</span></div>`;
-  const cnt=k=>k==="ativos"?ativos.length:k==="todos"?all.length:all.filter(d=>d.status===k).length;
+    <div><b>${vis.filter(d=>d.favorito).length}</b><span>favoritas</span></div>
+    <div><b>${vis.filter(d=>d.status==="visitado").length}</b><span>visitadas</span></div>
+    <div><b>${vis.filter(d=>d.status==="proposta").length}</b><span>com proposta</span></div>`;
+  const cnt=k=>k==="ativos"?all.filter(d=>d.status!=="descartado").length:k==="todos"?all.length:all.filter(d=>d.status===k).length;
   const chipDefs=[["ativos","No páreo"],...Object.entries(STATUS),["todos","Todos"]];
-  $("#chips").innerHTML=`<button class="chip fav" type="button" data-fav aria-pressed="${UI.fav}">★ Só favoritas</button><button class="chip lzc" type="button" data-lz="piscina" aria-pressed="${UI.piscina}">Com piscina ${all.filter(d=>d.piscina==="sim"||d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="gourmet" aria-pressed="${UI.gourmet}">Gourmet + piscina ${all.filter(d=>d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="semAlaga" aria-pressed="${UI.semAlaga}">Esconder os que alagam</button><button class="chip lzc" type="button" data-lz="comVend" aria-pressed="${UI.comVend}">Com contato do vendedor ${all.filter(temVend).length}</button><button class="chip lzc" type="button" data-lz="comViz" aria-pressed="${UI.comViz}">Com contato do vizinho ${all.filter(temViz).length}</button><span class="chip-sep"></span>`+
+  $("#chips").innerHTML=`<button class="chip fav" type="button" data-fav aria-pressed="${UI.fav}">★ Só favoritas</button><button class="chip lzc" type="button" data-lz="piscina" aria-pressed="${UI.piscina}">Com piscina ${all.filter(d=>d.piscina==="sim"||d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="gourmet" aria-pressed="${UI.gourmet}">Gourmet + piscina ${all.filter(d=>d.gourmetPiscina==="sim").length}</button><button class="chip lzc" type="button" data-lz="semAlaga" aria-pressed="${UI.semAlaga}">Esconder os que alagam</button><button class="chip lzc" type="button" data-lz="comVend" aria-pressed="${UI.comVend}">Com contato do vendedor ${all.filter(temVend).length}</button><button class="chip lzc" type="button" data-lz="comViz" aria-pressed="${UI.comViz}">Com contato do vizinho ${all.filter(temViz).length}</button>${nOc?`<button class="chip" type="button" data-lz="ocultas" aria-pressed="${UI.ocultas}">${UI.ocultas?"Voltar para a lista":"Mostrar ocultas"} (${nOc})</button>`:""}<span class="chip-sep"></span>`+
     chipDefs.map(([k,l])=>`<button class="chip" type="button" data-st="${k}" aria-pressed="${UI.status===k}">${esc(l)} ${cnt(k)}</button>`).join("");
   $("#v-cards").setAttribute("aria-pressed",String(UI.view==="cards"));
   $("#v-tabela").setAttribute("aria-pressed",String(UI.view==="tabela"));
   const list=filtered();
   const box=$("#list");
-  if(!all.length){
+  if(!tudo.length){
     box.innerHTML=`<div class="empty"><h3>Nenhum imóvel ainda</h3><p>Colem o link de um anúncio (com o texto ou prints, a IA preenche o resto) ou cadastrem à mão.</p><button class="btn primary" type="button" data-add>+ Adicionar o primeiro imóvel</button></div>`;
     return;
   }
-  if(!list.length){box.innerHTML=`<div class="empty"><h3>Nada com esse filtro</h3><p>${UI.fav?"Marquem a estrela ★ nos imóveis que vocês mais gostaram.":"Tentem outro filtro ou busca."}</p></div>`;return}
+  if(!list.length){box.innerHTML=`<div class="empty"><h3>Nada com esse filtro</h3><p>${UI.ocultas?"Nenhuma casa oculta com esse filtro.":!all.length?"Todas as casas estão ocultas. Use “Mostrar ocultas” para ver e trazer de volta.":UI.fav?"Marquem a estrela ★ nos imóveis que vocês mais gostaram.":"Tentem outro filtro ou busca."}</p></div>`;return}
   if(UI.view==="tabela"){
     box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">Fecha por</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th>Piscina</th><th>Churrasq.</th><th>Gourmet + piscina</th><th>Alagamento</th><th>Contatos</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
       list.map(d=>{const mens=(d.condominio||0)+(d.iptu||0)/12;return `<tr data-id="${esc(d.id)}">
-        <td><button class="tstar" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="Favorita">★</button></td>
+        <td style="white-space:nowrap"><button class="tstar" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="Favorita">★</button>${readOnly?"":`<button class="tocultar" type="button" data-ocultar="${esc(d.id)}" title="${d.oculto?"Mostrar de novo na lista":"Ocultar da lista"}" aria-label="${d.oculto?"Mostrar de novo na lista":"Ocultar da lista"}">${d.oculto?icoMostrar:icoOcultar}</button>`}</td>
         <td><b>${esc(titleOf(d))}</b><div class="small muted">${esc(locOf(d))}</div></td>
         <td><span class="pill st-${esc(d.status||"interesse")}">${esc(STATUS[d.status]||STATUS.interesse)}</span></td>
         <td class="n">${money(d.preco)}</td><td class="n">${d.precoNegociado?money(d.precoNegociado):"—"}</td><td class="n">${d.area?numIn(d.area):"—"}</td><td class="n">${money(ppm(d))}</td>
@@ -924,9 +935,9 @@ function renderImoveis(){
     const nf=(d.fotos||[]).length;
     const foto=nf?`<img src="${mini(d.fotos[0])}" alt="" loading="lazy">${nf>1?`<span class="nfotos">${nf} fotos</span>`:""}`:houseSvg+(d.link?`<span class="dom">${esc(d.corretora||hostOf(d.link))}</span>`:"");
     const specs=[d.area&&`<li><b>${numIn(d.area)}</b> m²</li>`,d.quartos!=null&&`<li><b>${d.quartos}</b> quartos</li>`,d.suites&&`<li><b>${d.suites}</b> suítes</li>`,d.vagas!=null&&`<li><b>${d.vagas}</b> vagas</li>`].filter(Boolean).join("");
-    return `<article class="card ${st==="descartado"?"descartado":""}" data-id="${esc(d.id)}" tabindex="0">
+    return `<article class="card ${st==="descartado"?"descartado":""} ${d.oculto?"oculto":""}" data-id="${esc(d.id)}" tabindex="0">
       <div class="ph ${nf?"com-fotos":""}" ${nf?`data-fotos="${esc(d.id)}" title="Ver as fotos"`:""}>${foto}<span class="pill st-${esc(st)}">${esc(STATUS[st]||"")}</span>
-        <button class="star" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="${d.favorito?"Tirar das favoritas":"Marcar como favorita"}">★</button></div>
+        <button class="star" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="${d.favorito?"Tirar das favoritas":"Marcar como favorita"}">★</button>${readOnly?"":`<button class="ocultar" type="button" data-ocultar="${esc(d.id)}" title="${d.oculto?"Mostrar de novo na lista":"Ocultar da lista"}" aria-label="${d.oculto?"Mostrar de novo na lista":"Ocultar da lista"}">${d.oculto?icoMostrar:icoOcultar}</button>`}</div>
       <div class="body">
         <div class="price">${d.preco?money(d.preco):'<span class="muted" style="font-size:16px">Preço a preencher</span>'}</div>
         ${d.precoNegociado?`<div class="neg">Achamos que fecha por <b>${money(d.precoNegociado)}</b>${d.preco?` <span>(${d.precoNegociado<=d.preco?"−":"+"}${Math.abs((1-d.precoNegociado/d.preco)*100).toFixed(0)}%)</span>`:""}</div>`:""}
@@ -1030,7 +1041,7 @@ function openDetail(id,preset){
       <div class="status-line" id="fotoStatus"></div>
     </fieldset>
     <div class="dlg-foot">
-      <div class="r">${isNew?"":`<button class="btn danger" type="button" id="f_del">Excluir</button>`}${S.imoveis[cid]||preset?`<button class="btn ghost" type="button" id="f_sim">Simular financiamento</button>`:""}</div>
+      <div class="r">${isNew?"":`<button class="btn danger" type="button" id="f_del">Excluir</button><button class="btn ghost" type="button" id="f_ocultar">${S.imoveis[cid]&&S.imoveis[cid].oculto?"Mostrar na lista":"Ocultar da lista"}</button>`}${S.imoveis[cid]||preset?`<button class="btn ghost" type="button" id="f_sim">Simular financiamento</button>`:""}</div>
       <div class="r"><button class="btn" type="button" data-close>Cancelar</button><button class="btn primary" type="button" id="f_save">Salvar</button></div>
     </div>`;
   if(!(imgLimits))$("#ai_printsRow").hidden=true;
@@ -1113,6 +1124,7 @@ dlgIm.addEventListener("click",async e=>{
     if(assets&&d&&d.fotos)d.fotos.forEach(id=>assets.delete(id).catch(()=>{}));
     toast("Imóvel excluído.");return;
   }
+  if(t.id==="f_ocultar"){dlgIm.close();return ocultarCasa(draft.id,!(S.imoveis[draft.id]||{}).oculto)}
   if(t.id==="f_sim"){const p=parseNum($("#f_preco").value),pn=parseNum($("#f_precoNegociado").value);dlgIm.close();if(p)setCfg({valor:p,valorNeg:pn||null,entrada:Math.round((pn||p)*0.2)});setTab("orcamento");return}
   if(t.dataset.verfoto!=null)return abrirFotos(draft.fotos,(S.imoveis[draft.id]||{}).link,+t.dataset.verfoto);
   if(t.dataset.cover!=null){const i=+t.dataset.cover;const [x]=draft.fotos.splice(i,1);draft.fotos.unshift(x);renderThumbs();return}
@@ -1193,11 +1205,21 @@ $("#list").addEventListener("click",e=>{
   if(e.target.closest("[data-add]"))return openAdd();
   const s=e.target.closest("[data-star]");
   if(s){const id=s.dataset.star;if(readOnly)return toast("Seu acesso é só de leitura.");patch("imoveis",id,{favorito:!S.imoveis[id].favorito});return}
+  const o=e.target.closest("[data-ocultar]");
+  if(o){const id=o.dataset.ocultar;return ocultarCasa(id,!(S.imoveis[id]||{}).oculto)}
   if(e.target.closest("a"))return;
   const f=e.target.closest("[data-fotos]");
   if(f){const d=S.imoveis[f.dataset.fotos];if(d&&d.fotos&&d.fotos.length)return abrirFotos(d.fotos,d.link)}
   const c=e.target.closest("[data-id]");if(c)openDetail(c.dataset.id);
 });
+// ocultar tira a casa da lista sem apagar nada; "Mostrar ocultas" traz de volta
+function ocultarCasa(id,sim){
+  if(readOnly)return toast("Seu acesso é só de leitura.");
+  const d=S.imoveis[id];if(!d)return;
+  const novo={...d};if(sim)novo.oculto=true;else delete novo.oculto;
+  save("imoveis",id,novo);
+  toast(sim?`“${titleOf(d)}” foi ocultada. Para ver de novo, use “Mostrar ocultas”.`:`“${titleOf(d)}” voltou para a lista.`);
+}
 $("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))openDetail(e.target.dataset.id)});
 
 /* ---- novidades (crawler) ---- */
