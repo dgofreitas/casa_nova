@@ -348,9 +348,11 @@ details.ai[open] summary{margin-bottom:10px}
 .gal-mosaico button:focus-visible{outline:2px solid #9fd8c3;outline-offset:2px}
 .gal-mosaico img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .15s}
 .gal-mosaico button:hover img{transform:scale(1.04)}
-.gal-img{touch-action:pan-y;user-select:none;-webkit-user-select:none;overflow:hidden}
+.gal-img{touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
 .gal-img img{will-change:transform;cursor:grab}
 .gal-img.arrastando img{cursor:grabbing}
+.gal-img.zoom img{cursor:move}
+.gal-img.zoom .gal-nav{opacity:.35}
 .gal-img img.anima{transition:transform .2s ease-out,opacity .2s}
 .gal-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:28px;line-height:1;cursor:pointer}
 .gal-nav:hover{background:rgba(255,255,255,.32)}
@@ -1734,6 +1736,7 @@ function mostrarFoto(){
     return;
   }
   const img=$("#galImg");img.classList.remove("anima");img.style.transform="";img.style.opacity="";
+  if(dlgFotos.limparZoom)dlgFotos.limparZoom();
   img.src=n?blob(gal.lista[gal.i]):"";
   $("#galCont").textContent=n?`Foto ${gal.i+1} de ${n}`:"";
   $("#galPrev").hidden=$("#galNext").hidden=n<2;
@@ -1775,24 +1778,80 @@ dlgFotos.addEventListener("click",e=>{
   if(e.target.id==="galNext")irPara(1);
 });
 dlgFotos.addEventListener("keydown",e=>{if(gal.modo!=="grande"||gal.lista.length<2)return;if(e.key==="ArrowLeft")irPara(-1);if(e.key==="ArrowRight")irPara(1)});
-// arrastar a foto grande (dedo ou mouse): ela acompanha e, passando de um ponto, troca
+// foto grande: arrastar para o lado troca (dedo ou mouse); pinça, toque duplo ou a roda
+// do mouse dão zoom, e com zoom o dedo passeia pela foto em vez de trocar
 (()=>{
-  const area=$(".gal-img",dlgFotos),img=$("#galImg");let ini=null;
+  const area=$(".gal-img",dlgFotos),img=$("#galImg");
+  const dedos=new Map();let ini=null,pinca=null,toque=null,tipo="";
+  let z={s:1,x:0,y:0};
+  const MAX=5;
+  const centro=()=>{const r=area.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2}};
+  // a foto não sai da área: com zoom, a borda dela não passa da borda da área
+  function limitar(){
+    const mx=Math.max(0,(img.offsetWidth*z.s-area.clientWidth)/2),my=Math.max(0,(img.offsetHeight*z.s-area.clientHeight)/2);
+    z.x=Math.min(mx,Math.max(-mx,z.x));z.y=Math.min(my,Math.max(-my,z.y));
+  }
+  function aplicar(anima){
+    if(z.s<=1)z={s:1,x:0,y:0};else limitar();
+    img.classList.toggle("anima",!!anima);
+    img.style.transform=z.s>1?`translate(${z.x}px,${z.y}px) scale(${z.s})`:"";
+    area.classList.toggle("zoom",z.s>1);
+  }
+  // muda o zoom mantendo parado o ponto da tela (px,py) que está sob o dedo ou o mouse
+  function zoomEm(s,px,py,base=z){
+    const c=centro(),lx=(px-c.x-base.x)/base.s,ly=(py-c.y-base.y)/base.s;
+    s=Math.min(MAX,Math.max(1,s));z={s,x:px-c.x-s*lx,y:py-c.y-s*ly};
+  }
+  // trocar de foto volta sem zoom (mostrarFoto limpa o transform e chama isto)
+  dlgFotos.limparZoom=()=>{z={s:1,x:0,y:0};area.classList.remove("zoom")};
+  const meio=()=>{const [a,b]=[...dedos.values()];return {x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)||1}};
   area.addEventListener("pointerdown",e=>{
-    if(e.target.closest(".gal-nav")||gal.lista.length<2||(e.pointerType==="mouse"&&e.button!==0))return;
-    ini={x:e.clientX,y:e.clientY,id:e.pointerId,dx:0,horiz:null};img.classList.remove("anima");
+    tipo=e.pointerType;
+    if(e.target.closest(".gal-nav")||(e.pointerType==="mouse"&&e.button!==0))return;
+    dedos.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    area.setPointerCapture(e.pointerId);img.classList.remove("anima");
+    if(dedos.size===2){const m=meio();pinca={...m,z:{...z}};ini=null;area.classList.remove("arrastando");img.style.opacity="";return}
+    if(dedos.size>2)return;
+    ini={x:e.clientX,y:e.clientY,id:e.pointerId,dx:0,horiz:null,z:{...z},mexeu:false};
   });
   area.addEventListener("pointermove",e=>{
+    const d=dedos.get(e.pointerId);if(!d)return;
+    d.x=e.clientX;d.y=e.clientY;
+    if(pinca){
+      if(dedos.size<2)return;
+      const m=meio();zoomEm(pinca.z.s*m.d/pinca.d,pinca.x,pinca.y,pinca.z);
+      // o meio dos dois dedos também arrasta a foto
+      z.x+=m.x-pinca.x;z.y+=m.y-pinca.y;
+      aplicar();return;
+    }
     if(!ini||e.pointerId!==ini.id)return;
     const dx=e.clientX-ini.x,dy=e.clientY-ini.y;
-    if(ini.horiz===null&&Math.hypot(dx,dy)>8){ini.horiz=Math.abs(dx)>Math.abs(dy);if(ini.horiz){area.setPointerCapture(e.pointerId);area.classList.add("arrastando")}}
+    if(!ini.mexeu&&Math.hypot(dx,dy)>8)ini.mexeu=true;
+    if(z.s>1){if(ini.mexeu){z.x=ini.z.x+dx;z.y=ini.z.y+dy;aplicar()}return}
+    if(gal.lista.length<2)return;
+    if(ini.horiz===null&&ini.mexeu){ini.horiz=Math.abs(dx)>Math.abs(dy);if(ini.horiz)area.classList.add("arrastando")}
     if(!ini.horiz)return;
     ini.dx=dx;img.style.transform=`translateX(${dx}px)`;img.style.opacity=String(1-Math.min(Math.abs(dx)/area.clientWidth,1)*.5);
   });
   const fim=e=>{
+    if(!dedos.delete(e.pointerId))return;
+    if(pinca){
+      if(dedos.size===0){pinca=null;aplicar(true)}
+      // sobrou um dedo: ele continua passeando pela foto a partir dali
+      else if(dedos.size===1){pinca=null;const [[id,p]]=[...dedos];ini={x:p.x,y:p.y,id,dx:0,horiz:false,z:{...z},mexeu:true}}
+      toque=null;return;
+    }
     if(!ini||e.pointerId!==ini.id)return;
-    const {dx,horiz}=ini;ini=null;area.classList.remove("arrastando");
-    if(!horiz)return;
+    const {dx,horiz,mexeu}=ini;ini=null;area.classList.remove("arrastando");
+    // toque duplo: aproxima no ponto tocado, ou volta ao tamanho normal
+    if(!mexeu&&e.type==="pointerup"&&e.pointerType!=="mouse"){
+      const t=Date.now();
+      if(toque&&t-toque.t<300&&Math.hypot(e.clientX-toque.x,e.clientY-toque.y)<30){
+        toque=null;if(z.s>1)z={s:1,x:0,y:0};else zoomEm(2.5,e.clientX,e.clientY);aplicar(true);
+      }else toque={t,x:e.clientX,y:e.clientY};
+      return;
+    }
+    if(z.s>1||!horiz)return;
     if(Math.abs(dx)>Math.min(80,area.clientWidth*.18)){
       // sai pelo lado do arrasto e a outra entra pelo lado oposto
       img.classList.add("anima");img.style.transform=`translateX(${dx<0?-area.clientWidth:area.clientWidth}px)`;img.style.opacity="0";
@@ -1801,6 +1860,9 @@ dlgFotos.addEventListener("keydown",e=>{if(gal.modo!=="grande"||gal.lista.length
     }else{img.classList.add("anima");img.style.transform="";img.style.opacity=""}
   };
   area.addEventListener("pointerup",fim);area.addEventListener("pointercancel",fim);
+  // no computador: duplo clique e a roda do mouse
+  area.addEventListener("dblclick",e=>{if(tipo!=="mouse"||e.target.closest(".gal-nav"))return;if(z.s>1)z={s:1,x:0,y:0};else zoomEm(2.5,e.clientX,e.clientY);aplicar(true)});
+  area.addEventListener("wheel",e=>{e.preventDefault();zoomEm(z.s*Math.exp(-e.deltaY*.002),e.clientX,e.clientY);aplicar()},{passive:false});
   img.draggable=false;
 })();
 // foto que não carrega (apagada em Imóveis, por exemplo) some e fica o fundo
