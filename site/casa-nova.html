@@ -188,6 +188,35 @@ details.ai[open] summary{margin-bottom:10px}
 .ctgrp h4{margin:0 0 6px;font-size:14px;font-family:var(--display)}
 .check-row{display:flex;gap:8px;align-items:center;font-size:14px}
 
+/* anúncio (detalhe só para ler) */
+#dlgVer .dlg{padding-top:0}
+.ver-capa{position:relative;margin:0 -20px;aspect-ratio:16/9;max-height:52vh;background:var(--surface-2);display:flex;align-items:center;justify-content:center;color:var(--muted);overflow:hidden}
+.ver-capa.sem{aspect-ratio:auto;height:150px}
+.ver-capa img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
+.ver-capa .nfotos{position:absolute;right:12px;bottom:12px;border:0;background:rgba(10,16,14,.65);color:#fff;border-radius:8px;padding:5px 10px;font-size:13px;font-weight:700;cursor:pointer}
+.ver-capa .pill{position:absolute;top:12px;left:12px}
+.ver-capa .fechar{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(10,16,14,.55);color:#fff;font-size:16px;cursor:pointer}
+.ver-capa .star{top:10px;right:54px}
+.ver-tira{display:flex;gap:6px;overflow-x:auto;margin:8px -20px 0;padding:0 20px 4px;scrollbar-width:thin}
+.ver-tira button{flex:none;width:84px;height:62px;padding:0;border:0;border-radius:8px;overflow:hidden;background:var(--surface-2);cursor:zoom-in}
+.ver-tira img{width:100%;height:100%;object-fit:cover;display:block}
+.ver-tira .mais{font-weight:700;color:var(--muted);font-size:13px}
+.ver-topo{padding:16px 0 4px}
+.ver-topo h2{font-size:22px;margin-top:4px}
+.ver-topo .price{font-size:28px}
+.ver-sec{border-top:1px solid var(--line);padding:14px 0}
+.ver-sec h3{font-size:16px;margin-bottom:8px}
+.ver-num{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.ver-num div{background:var(--surface-2);border-radius:10px;padding:8px 10px}
+.ver-num span{display:block;font-size:12px;color:var(--muted);font-weight:600}
+.ver-num b{font-family:var(--display);font-size:18px;font-variant-numeric:tabular-nums}
+.ver-txt{white-space:pre-line;margin:0;font-size:14px}
+.ver-desc .ver-txt{max-height:340px;overflow:auto;background:var(--surface-2);border-radius:10px;padding:10px 12px}
+.ver-desc.solta .ver-txt{max-height:none}
+.ver-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.ver-cols h4{margin:0 0 4px;font-size:14px;font-family:var(--display)}
+.ver-links{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
+
 /* orçamento */
 .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:start}
 @media (max-width:860px){.two{grid-template-columns:1fr}}
@@ -631,6 +660,11 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
   <div class="dlg" id="imBody"></div>
 </dialog>
 
+<!-- Anúncio (só para ler) -->
+<dialog id="dlgVer" aria-labelledby="verTitle">
+  <div class="dlg" id="verBody"></div>
+</dialog>
+
 <!-- Galeria das novidades -->
 <dialog id="dlgFotos" aria-label="Fotos da casa">
   <div class="gal">
@@ -857,6 +891,7 @@ function render(){
   $("#c-documentos").textContent=Object.keys(S.documentos).length;
   $("#c-novidades").textContent=contaOlhar();
   if(UI.tab==="imoveis")renderImoveis();
+  const dv=$("#dlgVer");if(dv.open&&verId){if(S.imoveis[verId]){const y=$("#verBody").scrollTop;openVer(verId);$("#verBody").scrollTop=y}else dv.close()}
   if(UI.tab==="novidades"){renderNovidades();marcarVisto()}
   if(UI.tab==="orcamento")renderOrcamento();
   if(UI.tab==="checklist")renderChecklist();
@@ -938,7 +973,7 @@ function renderImoveis(){
     const foto=nf?`<img src="${mini(d.fotos[0])}" alt="" loading="lazy">${nf>1?`<span class="nfotos">${nf} fotos</span>`:""}`:houseSvg+(d.link?`<span class="dom">${esc(d.corretora||hostOf(d.link))}</span>`:"");
     const specs=[d.area&&`<li><b>${numIn(d.area)}</b> m²</li>`,d.quartos!=null&&`<li><b>${d.quartos}</b> quartos</li>`,d.suites&&`<li><b>${d.suites}</b> suítes</li>`,d.vagas!=null&&`<li><b>${d.vagas}</b> vagas</li>`].filter(Boolean).join("");
     return `<article class="card ${st==="descartado"?"descartado":""} ${d.oculto?"oculto":""}" data-id="${esc(d.id)}" tabindex="0">
-      <div class="ph ${nf?"com-fotos":""}" ${nf?`data-fotos="${esc(d.id)}" title="Ver as fotos"`:""}>${foto}<span class="pill st-${esc(st)}">${esc(STATUS[st]||"")}</span>
+      <div class="ph">${foto}<span class="pill st-${esc(st)}">${esc(STATUS[st]||"")}</span>
         <button class="star" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="${d.favorito?"Tirar das favoritas":"Marcar como favorita"}">★</button>${readOnly?"":`<button class="ocultar" type="button" data-ocultar="${esc(d.id)}" title="${d.oculto?"Mostrar de novo na lista":"Ocultar da lista"}" aria-label="${d.oculto?"Mostrar de novo na lista":"Ocultar da lista"}">${d.oculto?icoMostrar:icoOcultar}</button>`}</div>
       <div class="body">
         <div class="price">${d.preco?money(d.preco):'<span class="muted" style="font-size:16px">Preço a preencher</span>'}</div>
@@ -952,7 +987,64 @@ function renderImoveis(){
       </div></article>`}).join("")}</div>`;
 }
 
-/* ---- detalhe ---- */
+/* ---- anúncio: a casa com todos os detalhes, só para ler; "Editar" abre o formulário ---- */
+const dlgVer=$("#dlgVer");let verId=null;
+function openVer(id){
+  const d=S.imoveis[id];if(!d)return;
+  verId=id;
+  const st=d.status||"interesse",fotos=d.fotos||[],nf=fotos.length;
+  const mens=(d.condominio||0)+(d.iptu||0)/12;
+  const num=(l,v)=>v==null||v===""?"":`<div><span>${l}</span><b>${v}</b></div>`;
+  const valores=[num("R$/m²",ppm(d)?money(ppm(d)):null),num("Condomínio/mês",d.condominio?money(d.condominio):null),num("IPTU/ano",d.iptu?money(d.iptu):null),num("Cond. + IPTU/mês",mens?money(mens):null)].join("");
+  const carac=[num("Área construída",d.area?numIn(d.area)+" m²":null),num("Terreno",d.areaTerreno?numIn(d.areaTerreno)+" m²":null),num("Quartos",d.quartos),num("Suítes",d.suites),num("Banheiros",d.banheiros),num("Vagas",d.vagas),num("Tipo",d.tipo?esc(d.tipo):null)].join("");
+  const lazer=LAZER.map(([k,l])=>d[k]?`<div><span>${l}</span><b>${simNao(d[k])}</b></div>`:"").join("")+(d.alaga?`<div><span>Alagamento</span><b>${esc(ALAGA[d.alaga]||"")}</b></div>`:"");
+  const end=[d.endereco,d.bairro,d.cidade].filter(Boolean).join(" · ");
+  const contato=(nome,tel,email,obs)=>[nome&&`<b>${esc(nome)}</b>`,tel&&`<a href="tel:${esc(tel.replace(/[^\d+]/g,""))}">${esc(tel)}</a>`,email&&`<a href="mailto:${esc(email)}">${esc(email)}</a>`,obs&&`<span class="muted">${esc(obs)}</span>`].filter(Boolean).join("<br>");
+  const cts=[[ "Vendedor (dono)",contato(d.vendNome,d.vendTel,d.vendEmail)],["Vizinho",contato(d.vizNome,d.vizTel,d.vizEmail,d.vizObs)],["Corretor",contato(d.corretora,d.contatoCorretor)]].filter(x=>x[1]);
+  const opin=[["Prós",d.pros],["Contras",d.contras],["Observações",d.notas]].filter(x=>x[1]);
+  const desc=d.anuncioTexto||"";
+  const capa=nf?`<img src="${blob(fotos[0])}" alt="Foto de capa" data-vergal="0">${nf>1?`<button class="nfotos" type="button" data-vergal="">▦ Ver as ${nf} fotos</button>`:""}`:houseSvg;
+  const tira=nf>1?`<div class="ver-tira">${fotos.slice(1,13).map((f,i)=>`<button type="button" data-vergal="${i+1}" aria-label="Ver a foto ${i+2}"><img src="${mini(f)}" alt="" loading="lazy"></button>`).join("")}${nf>13?`<button type="button" class="mais" data-vergal="">+${nf-13}</button>`:""}</div>`:"";
+  $("#verBody").innerHTML=`
+    <div class="ver-capa ${nf?"":"sem"}">${capa}<span class="pill st-${esc(st)}">${esc(STATUS[st]||"")}</span>
+      <button class="star" type="button" data-verstar aria-pressed="${!!d.favorito}" aria-label="${d.favorito?"Tirar das favoritas":"Marcar como favorita"}">★</button>
+      <button class="fechar" type="button" data-close aria-label="Fechar">✕</button></div>
+    ${tira}
+    <div class="ver-topo">
+      <div class="price">${d.preco?money(d.preco):'<span class="muted" style="font-size:18px">Preço a preencher</span>'}</div>
+      ${d.precoNegociado?`<div class="neg">Achamos que fecha por <b>${money(d.precoNegociado)}</b>${d.preco?` <span>(${d.precoNegociado<=d.preco?"−":"+"}${Math.abs((1-d.precoNegociado/d.preco)*100).toFixed(0)}%)</span>`:""}</div>`:""}
+      <h2 id="verTitle">${esc(titleOf(d))}</h2>
+      ${end?`<div class="loc">${esc(end)}</div>`:""}
+      ${lazerBadges(d)}
+      <div class="meta">${d.extracao==="pendente"?`<span class="tag pend">Faltam dados</span>`:""}${d.nota?`<span class="dots" aria-label="Nota ${d.nota} de 5">${"●".repeat(d.nota)}${"○".repeat(5-d.nota)}</span>`:""}</div>
+    </div>
+    ${valores?`<section class="ver-sec"><h3>Valores</h3><div class="ver-num">${valores}</div></section>`:""}
+    ${carac?`<section class="ver-sec"><h3>Características</h3><div class="ver-num">${carac}</div></section>`:""}
+    ${lazer?`<section class="ver-sec"><h3>Lazer e alagamento</h3><div class="ver-num">${lazer}</div></section>`:""}
+    ${desc?`<section class="ver-sec ver-desc ${desc.length<900?"solta":""}"><h3>Descrição do anúncio</h3><p class="ver-txt">${esc(desc)}</p></section>`:""}
+    ${opin.length?`<section class="ver-sec"><h3>O que achamos</h3><div class="ver-cols">${opin.map(([l,t])=>`<div><h4>${l}</h4><p class="ver-txt">${esc(t)}</p></div>`).join("")}</div></section>`:""}
+    ${cts.length?`<section class="ver-sec"><h3>Contatos</h3><div class="ver-cols">${cts.map(([l,h])=>`<div><h4>${l}</h4><div class="small">${h}</div></div>`).join("")}</div></section>`:""}
+    <section class="ver-sec"><div class="ver-links">${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">Ver o anúncio na ${esc(d.corretora||hostOf(d.link))} ↗</a>`:""}${mapsUrl(d)?`<a href="${esc(mapsUrl(d))}" target="_blank" rel="noopener">${icoPin} Ver no Google Maps ↗</a>`:""}${d.preco?`<a href="#" data-versim>Simular financiamento</a>`:""}${readOnly?"":`<a href="#" data-verocultar>${d.oculto?"Mostrar de novo na lista":"Ocultar da lista"}</a>`}</div></section>
+    <div class="dlg-foot">
+      <span></span>
+      <div class="r"><button class="btn" type="button" data-close>Fechar</button>${readOnly?"":`<button class="btn primary" type="button" data-vereditar>Editar</button>`}</div>
+    </div>`;
+  if(!dlgVer.open){dlgVer.showModal();$("#verBody").scrollTop=0}
+}
+dlgVer.addEventListener("close",()=>{verId=null});
+dlgVer.addEventListener("click",e=>{
+  if(e.target===dlgVer||e.target.closest("[data-close]")){dlgVer.close();return}
+  const d=S.imoveis[verId];if(!d)return;
+  const g=e.target.closest("[data-vergal]");
+  if(g)return abrirFotos(d.fotos||[],d.link,g.dataset.vergal===""?null:+g.dataset.vergal);
+  if(e.target.closest("[data-verstar]")){if(readOnly)return toast("Seu acesso é só de leitura.");patch("imoveis",verId,{favorito:!d.favorito});return}
+  if(e.target.closest("[data-vereditar]")){const id=verId;dlgVer.close();openDetail(id,null,true);return}
+  if(e.target.closest("[data-verocultar],[data-versim]"))e.preventDefault();
+  if(e.target.closest("[data-verocultar]")){const id=verId;dlgVer.close();return ocultarCasa(id,!d.oculto)}
+  if(e.target.closest("[data-versim]")){dlgVer.close();setCfg({valor:d.preco,valorNeg:d.precoNegociado||null,entrada:Math.round((d.precoNegociado||d.preco)*0.2)});setTab("orcamento")}
+});
+
+/* ---- detalhe (edição) ---- */
 let draft=null;
 const dlgIm=$("#dlgImovel");
 function field(id,label,val,opts={}){
@@ -960,11 +1052,11 @@ function field(id,label,val,opts={}){
   const v=num?numIn(val):(val??"");
   return `<label class="f ${wide?"wide":""}">${label}<input type="${type}" id="${id}" ${num?'inputmode="decimal"':""} value="${esc(v)}" placeholder="${esc(ph)}"></label>`;
 }
-function openDetail(id,preset){
+function openDetail(id,preset,voltar){
   const isNew=!id||!S.imoveis[id];
   const cid=id||newId();
   const d={status:"interesse",...(S.imoveis[cid]||{}),...(preset||{})};
-  draft={id:cid,isNew,fotos:[...(d.fotos||[])],removed:[],palpites:[...(d.palpites||[])]};
+  draft={id:cid,isNew,fotos:[...(d.fotos||[])],removed:[],palpites:[...(d.palpites||[])],voltar:!!voltar};
   const pend=d.extracao==="pendente";
   $("#imBody").innerHTML=`
     <div class="dlg-head"><div><h2 id="imTitle">${isNew?"Novo imóvel":esc(titleOf(d))}</h2><div class="small" style="display:flex;gap:14px;flex-wrap:wrap">${d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">Abrir anúncio ↗</a>`:""}${mapsUrl(d)?`<a href="${esc(mapsUrl(d))}" target="_blank" rel="noopener">${icoPin} Ver no Google Maps</a>`:""}</div></div><button class="icon-btn" type="button" data-close aria-label="Fechar">✕</button></div>
@@ -1109,6 +1201,8 @@ async function runIA(){
   }catch(e){st.textContent=sampleErr(e)}
   finally{btn.disabled=false}
 }
+// edição aberta pelo anúncio: ao salvar ou cancelar, volta para o anúncio
+dlgIm.addEventListener("close",()=>{if(draft&&draft.voltar&&S.imoveis[draft.id])openVer(draft.id)});
 dlgIm.addEventListener("click",async e=>{
   if(e.target===dlgIm||e.target.closest("[data-close]")){dlgIm.close();return}
   const t=e.target;
@@ -1122,12 +1216,12 @@ dlgIm.addEventListener("click",async e=>{
   }
   if(t.id==="f_del"){
     if(!t.classList.contains("armed")){t.classList.add("armed");t.textContent="Confirmar exclusão";setTimeout(()=>{if(t.isConnected){t.classList.remove("armed");t.textContent="Excluir"}},4000);return}
-    const d=S.imoveis[draft.id];dlgIm.close();await remove("imoveis",draft.id);
+    const d=S.imoveis[draft.id];draft.voltar=false;dlgIm.close();await remove("imoveis",draft.id);
     if(assets&&d&&d.fotos)d.fotos.forEach(id=>assets.delete(id).catch(()=>{}));
     toast("Imóvel excluído.");return;
   }
-  if(t.id==="f_ocultar"){dlgIm.close();return ocultarCasa(draft.id,!(S.imoveis[draft.id]||{}).oculto)}
-  if(t.id==="f_sim"){const p=parseNum($("#f_preco").value),pn=parseNum($("#f_precoNegociado").value);dlgIm.close();if(p)setCfg({valor:p,valorNeg:pn||null,entrada:Math.round((pn||p)*0.2)});setTab("orcamento");return}
+  if(t.id==="f_ocultar"){draft.voltar=false;dlgIm.close();return ocultarCasa(draft.id,!(S.imoveis[draft.id]||{}).oculto)}
+  if(t.id==="f_sim"){const p=parseNum($("#f_preco").value),pn=parseNum($("#f_precoNegociado").value);draft.voltar=false;dlgIm.close();if(p)setCfg({valor:p,valorNeg:pn||null,entrada:Math.round((pn||p)*0.2)});setTab("orcamento");return}
   if(t.dataset.verfoto!=null)return abrirFotos(draft.fotos,(S.imoveis[draft.id]||{}).link,+t.dataset.verfoto);
   if(t.dataset.cover!=null){const i=+t.dataset.cover;const [x]=draft.fotos.splice(i,1);draft.fotos.unshift(x);renderThumbs();return}
   if(t.dataset.rmfoto!=null){const i=+t.dataset.rmfoto;draft.removed.push(draft.fotos[i]);draft.fotos.splice(i,1);renderThumbs();return}
@@ -1210,9 +1304,7 @@ $("#list").addEventListener("click",e=>{
   const o=e.target.closest("[data-ocultar]");
   if(o){const id=o.dataset.ocultar;return ocultarCasa(id,!(S.imoveis[id]||{}).oculto)}
   if(e.target.closest("a"))return;
-  const f=e.target.closest("[data-fotos]");
-  if(f){const d=S.imoveis[f.dataset.fotos];if(d&&d.fotos&&d.fotos.length)return abrirFotos(d.fotos,d.link)}
-  const c=e.target.closest("[data-id]");if(c)openDetail(c.dataset.id);
+  const c=e.target.closest("[data-id]");if(c)openVer(c.dataset.id);
 });
 // ocultar tira a casa da lista sem apagar nada; "Mostrar ocultas" traz de volta
 function ocultarCasa(id,sim){
@@ -1222,7 +1314,7 @@ function ocultarCasa(id,sim){
   save("imoveis",id,novo);
   toast(sim?`“${titleOf(d)}” foi ocultada. Para ver de novo, use “Mostrar ocultas”.`:`“${titleOf(d)}” voltou para a lista.`);
 }
-$("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))openDetail(e.target.dataset.id)});
+$("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))openVer(e.target.dataset.id)});
 
 /* ---- novidades (crawler) ---- */
 // O crawler roda no GitHub; um Apps Script copia o resultado para o Google Drive;
@@ -1877,7 +1969,7 @@ $("#p-novidades").addEventListener("click",e=>{
   if(e.target.closest("#nvSync"))return servidor?buscarAgora():syncDrive(true);
   const a=e.target.closest("[data-nva]");if(a){a.disabled=true;return decidir(a.dataset.gid,a.dataset.nva)}
   const gl=e.target.closest("[data-gal]");if(gl)return abrirGaleria(gl.dataset.gal);
-  const o=e.target.closest("[data-nvopen]");if(o){const id=o.dataset.nvopen;if(id&&S.imoveis[id])openDetail(id);else toast("Esse imóvel foi excluído de Imóveis.");return}
+  const o=e.target.closest("[data-nvopen]");if(o){const id=o.dataset.nvopen;if(id&&S.imoveis[id])openVer(id);else toast("Esse imóvel foi excluído de Imóveis.");return}
 });
 
 /* ---- orçamento ---- */
@@ -2176,7 +2268,7 @@ $("#p-agenda").addEventListener("click",e=>{
   const t=e.target;
   if(t.dataset.rmag)return remove("agenda",t.dataset.rmag);
   if(t.dataset.rmct)return remove("contatos",t.dataset.rmct);
-  if(t.dataset.openim){e.preventDefault();return openDetail(t.dataset.openim)}
+  if(t.dataset.openim){e.preventDefault();return openVer(t.dataset.openim)}
   if(t.dataset.copy!=null){
     const v=t.dataset.copy;
     navigator.clipboard.writeText(v).then(()=>toast("Copiado."),()=>{const r=document.createRange();r.selectNodeContents(t.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Texto selecionado. Use Ctrl+C para copiar.")});
