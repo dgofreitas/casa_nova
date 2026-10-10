@@ -174,13 +174,18 @@ dialog::backdrop{background:rgba(8,14,12,.55)}
 .note.warn{background:var(--warn-soft)}
 .status-line{font-size:14px;font-weight:600;color:var(--primary);min-height:1.5em}
 .thumbs{display:flex;gap:8px;flex-wrap:wrap}
-.thumb{position:relative;width:96px;height:72px;border-radius:8px;overflow:hidden;border:2px solid transparent;background:var(--surface-2)}
-.thumb.cover{border-color:var(--accent)}
-.thumb img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
+/* a foto, “tornar capa” e “remover” são alvos separados: no celular o toque na foto
+   não pode escorregar para um botão pequeno por cima dela */
+.thumb{width:116px;display:flex;flex-direction:column;gap:5px}
+.thumb .foto{all:unset;box-sizing:border-box;display:block;width:116px;height:87px;border-radius:8px;overflow:hidden;border:2px solid transparent;background:var(--surface-2);cursor:zoom-in}
+.thumb .foto:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.thumb.cover .foto{border-color:var(--accent)}
+.thumb .foto img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .acoes{display:flex;gap:6px}
+.thumb .capa{flex:1;min-width:0;white-space:nowrap;height:30px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink);font-size:12px;font-weight:600;padding:0 4px;cursor:pointer}
+.thumb.cover .capa{display:flex;align-items:center;justify-content:center;background:var(--accent);border-color:var(--accent);color:#1b1400;cursor:default}
+.thumb .rm{flex:none;width:30px;height:30px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--muted);font-size:13px;line-height:1;padding:0;cursor:pointer}
 .ph.com-fotos{cursor:zoom-in}
-.thumb .capa{position:absolute;left:2px;bottom:2px;border:0;border-radius:6px;padding:1px 6px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;cursor:pointer}
-.thumb.cover .capa{background:var(--accent);color:#1b1400;cursor:default}
-.thumb button[data-rmfoto]{position:absolute;top:2px;right:2px;border:0;border-radius:50%;width:22px;height:22px;background:rgba(0,0,0,.6);color:#fff;cursor:pointer;font-size:12px;line-height:1}
 details.ai{border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:18px}
 details.ai summary{cursor:pointer;font-weight:700;font-family:var(--display)}
 details.ai[open] summary{margin-bottom:10px}
@@ -1131,7 +1136,7 @@ function openDetail(id,preset,voltar){
     <fieldset><legend>Fotos</legend>
       <button class="btn" type="button" id="verFotos" style="margin-bottom:10px" hidden>Ver as fotos</button>
       <div class="thumbs" id="thumbs"></div>
-      <div style="margin-top:10px" id="fotoUp" ${assets?"":"hidden"}><label class="btn">+ Adicionar fotos<input type="file" id="f_fotos" multiple accept="image/png,image/jpeg,image/webp,image/gif" hidden></label> <span class="hint">Clique numa foto para ver grande; “★ capa” deixa ela como capa.</span></div>
+      <div style="margin-top:10px" id="fotoUp" ${assets?"":"hidden"}><label class="btn">+ Adicionar fotos<input type="file" id="f_fotos" multiple accept="image/png,image/jpeg,image/webp,image/gif" hidden></label> <span class="hint">Toque numa foto para ver grande; “Tornar capa” deixa ela como capa e ✕ tira a foto.</span></div>
       <div class="status-line" id="fotoStatus"></div>
     </fieldset>
     <div class="dlg-foot">
@@ -1145,7 +1150,7 @@ function openDetail(id,preset,voltar){
 function renderThumbs(){
   const t=$("#thumbs");if(!t)return;
   const vf=$("#verFotos");if(vf){vf.hidden=!draft.fotos.length;vf.textContent=draft.fotos.length>1?`Ver as ${draft.fotos.length} fotos`:"Ver a foto grande"}
-  t.innerHTML=draft.fotos.length?draft.fotos.map((id,i)=>`<div class="thumb ${i===0?"cover":""}"><img src="${mini(id)}" loading="lazy" alt="Foto ${i+1}" data-verfoto="${i}">${i===0?`<span class="capa">capa</span>`:readOnly?"":`<button type="button" class="capa" data-cover="${i}" title="Usar como capa">★ capa</button>`}${readOnly?"":`<button type="button" data-rmfoto="${i}" aria-label="Remover foto">✕</button>`}</div>`).join(""):`<span class="hint">Nenhuma foto ainda.</span>`;
+  t.innerHTML=draft.fotos.length?draft.fotos.map((id,i)=>`<div class="thumb ${i===0?"cover":""}"><button type="button" class="foto" data-verfoto="${i}" aria-label="Ver a foto ${i+1} grande"><img src="${mini(id)}" loading="lazy" alt=""></button><div class="acoes">${i===0?`<span class="capa">★ Capa</span>`:readOnly?"":`<button type="button" class="capa" data-cover="${i}">Tornar capa</button>`}${readOnly?"":`<button type="button" class="rm" data-rmfoto="${i}" title="Remover foto" aria-label="Remover a foto ${i+1}">✕</button>`}</div></div>`).join(""):`<span class="hint">Nenhuma foto ainda.</span>`;
 }
 function readForm(){
   const v=id=>$("#"+id).value.trim();
@@ -1222,7 +1227,8 @@ dlgIm.addEventListener("click",async e=>{
   }
   if(t.id==="f_ocultar"){draft.voltar=false;dlgIm.close();return ocultarCasa(draft.id,!(S.imoveis[draft.id]||{}).oculto)}
   if(t.id==="f_sim"){const p=parseNum($("#f_preco").value),pn=parseNum($("#f_precoNegociado").value);draft.voltar=false;dlgIm.close();if(p)setCfg({valor:p,valorNeg:pn||null,entrada:Math.round((pn||p)*0.2)});setTab("orcamento");return}
-  if(t.dataset.verfoto!=null)return abrirFotos(draft.fotos,(S.imoveis[draft.id]||{}).link,+t.dataset.verfoto);
+  const vf=t.closest("[data-verfoto]");
+  if(vf)return abrirFotos(draft.fotos,(S.imoveis[draft.id]||{}).link,+vf.dataset.verfoto);
   if(t.dataset.cover!=null){const i=+t.dataset.cover;const [x]=draft.fotos.splice(i,1);draft.fotos.unshift(x);renderThumbs();return}
   if(t.dataset.rmfoto!=null){const i=+t.dataset.rmfoto;draft.removed.push(draft.fotos[i]);draft.fotos.splice(i,1);renderThumbs();return}
 });
