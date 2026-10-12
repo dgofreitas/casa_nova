@@ -14,6 +14,7 @@ foto (hash visual), porque cada imobiliária reduz a foto para um tamanho difere
 import hashlib
 import io
 import json
+import re
 import sqlite3
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
@@ -58,6 +59,31 @@ def ocultas(dados):
     return set((_docs(dados, "config").get("novidades") or {}).get("ocultas") or [])
 
 
+def link_norm(u):
+    """O mesmo link com ou sem https, www, barra final ou #âncora (mesma regra do site)."""
+    u = re.sub(r"#.*$", "", str(u or "").strip())
+    u = re.sub(r"^https?://(www\.)?", "", u, flags=re.I)
+    return u.rstrip("/").lower()
+
+
+def excluidas(imoveis, dados):
+    """Anúncios das casas que vocês excluíram em Imóveis (config/excluidas e decisões marcadas).
+
+    Vale a casa inteira (o grupo): se outra imobiliária anunciar a mesma casa, ela
+    também fica de fora. Essas casas não geram aviso no Telegram nem ganham fotos.
+    """
+    links = set()
+    for x in (_docs(dados, "config").get("excluidas") or {}).get("casas") or []:
+        links.update(link_norm(u) for u in (x.get("links") or []) + [x.get("link")] if u)
+    ids = {i for i, x in imoveis.items() if link_norm(x.get("link")) in links}
+    for id_, d in _docs(dados, "novidades").items():
+        if d.get("excluida"):
+            ids.add(id_)
+            ids.update(d.get("anuncios") or [])
+    grupos = {(imoveis.get(i) or {}).get("grupo") or i for i in ids}
+    return {i for i, x in imoveis.items() if (x.get("grupo") or i) in grupos}
+
+
 def descartadas(imoveis, dados):
     """Anúncios das casas que vocês descartaram nas Novidades (lidos do banco do site).
 
@@ -73,7 +99,8 @@ def descartadas(imoveis, dados):
     grupos = {(imoveis.get(i) or {}).get("grupo") or i for i in ids}
     # anúncios das imobiliárias ocultas também ficam sem fotos (e sem abrir a página)
     oc = ocultas(dados)
-    return {i for i, x in imoveis.items() if (x.get("grupo") or i) in grupos or x.get("fonte") in oc}
+    return {i for i, x in imoveis.items() if (x.get("grupo") or i) in grupos or x.get("fonte") in oc} \
+        | excluidas(imoveis, dados)
 
 
 def completar_e_baixar(http, imoveis, espera_por_fonte, dados, salvar, andamento=None):

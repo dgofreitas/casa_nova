@@ -309,6 +309,11 @@ def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
             for k in ("novos", "tambem", "baixou", "subiu", "voltou", "saiu"):
                 eventos[k] = [e for e in eventos[k] if imoveis.get(e if isinstance(e, str) else e[0], {}).get("fonte") not in oc]
             eventos["fonteNova"] = {f: r for f, r in eventos["fonteNova"].items() if f not in oc}
+        # casas excluídas em Imóveis também não geram aviso, nem anunciadas por outra imobiliária
+        fora = fotos_servidor.excluidas(imoveis, dados)
+        if fora:
+            for k in ("novos", "tambem", "baixou", "subiu", "voltou", "saiu"):
+                eventos[k] = [e for e in eventos[k] if (e if isinstance(e, str) else e[0]) not in fora]
     # dados tirados da descrição (piscina, churrasqueira, condomínio…) para preencher o imóvel
     for x in imoveis.values():
         if x.get("descricao"):
