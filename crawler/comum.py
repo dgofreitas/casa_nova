@@ -11,8 +11,8 @@ import requests
 UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/128.0 Safari/537.36")
 
-PRECO_MAX = 2_100_000
-PRECO_MIN = 1_100_000
+PRECO_MAX = 2_500_000
+PRECO_MIN = 1_600_000
 QUARTOS_MIN = 3
 
 

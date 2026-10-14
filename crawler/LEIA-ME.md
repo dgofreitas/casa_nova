@@ -72,9 +72,9 @@ pronto em "Preencher com IA".
 ## Regras
 
 - **Só casas residenciais**: casa, casa em condomínio, sobrado, geminada.
-- **Preço**: de R$ 1.100.000 a R$ 2.100.000. Acima de R$ 1.900.000 aparece o selo "negociar".
+- **Preço**: de R$ 1.600.000 a R$ 2.500.000. Acima de R$ 1.900.000 aparece o selo "negociar".
 - **Quartos**: 3 ou mais. Anúncio sem preço ou sem número de quartos entra, para vocês olharem.
-  Casa que sai do perfil (baixou de R$ 1,1 mi ou o anúncio corrigiu os quartos) deixa de ser
+  Casa que sai do perfil (baixou de R$ 1,6 mi ou o anúncio corrigiu os quartos) deixa de ser
   acompanhada. Os limites ficam em `comum.py` (`PRECO_MIN`, `PRECO_MAX`, `QUARTOS_MIN`).
 - **Mesma casa em várias imobiliárias** vira um cartão só: mesmo bairro e quartos,
   área e preço até 5% de diferença e, quando os dois anúncios dizem a rua, a mesma
