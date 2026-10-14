@@ -276,7 +276,7 @@ def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
     for id_ in fora:
         del imoveis[id_]
     if fora:
-        print(f"[perfil] {len(fora)} anúncios fora do perfil (abaixo de R$ 1,1 mi ou menos de 3 quartos)")
+        print(f"[perfil] {len(fora)} anúncios fora do perfil (abaixo de R$ 1,6 mi ou menos de 3 quartos)")
 
     # esquece quem saiu há muito tempo
     limite = (datetime.now(FUSO) - timedelta(days=MANTER_SAIU_DIAS)).isoformat()
