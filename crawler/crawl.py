@@ -238,7 +238,7 @@ def rodar(so=None, pasta_fotos=None, dados=None, andamento=None):
             vistos.add(id_)
             velho = imoveis.get(id_)
             if velho is None:
-                # só entra de R$ 1,6 a 2,4 mi e com 3 quartos ou mais; sem preço entra para vocês olharem
+                # só entra de R$ 1,6 a 2,5 mi e com 3 quartos ou mais; sem preço entra para vocês olharem
                 if (c.get("preco") and c["preco"] > PRECO_MAX) or fora_do_perfil(c):
                     continue
                 c.update({"id": id_, "primeiroVisto": quando, "ultimoVisto": quando, "status": "ativo",
