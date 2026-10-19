@@ -5,7 +5,7 @@
 > GitHub Actions, Apps Script e Google Drive são da versão antiga.
 
 Procura casas à venda no Itacorubi, Santa Mônica, Parque São Jorge e Córrego Grande,
-de R$ 1,1 a 2,1 milhões e com 3 quartos ou mais, em 14 imobiliárias de Florianópolis e no portal Chaves na Mão. Roda sozinho no GitHub
+de R$ 1,1 a 2,1 milhões e com 3 quartos ou mais, em 15 imobiliárias de Florianópolis e no portal Chaves na Mão. Roda sozinho no GitHub
 Actions às 7h, 12h, 17h e 22h, avisa no Telegram e alimenta a aba **Novidades** do site.
 
 ```
@@ -35,6 +35,7 @@ Nada disso usa a IA do Claude, então não gasta tokens.
 | Duda Imóveis | Página de busca (Parque São Jorge não existe no site deles) |
 | Ponte Imóveis | Página de busca (Kenlo) |
 | Trindade Imóveis | Página de busca (Vista/Loft) |
+| Masvi Imóveis | Página de busca (Vista/Loft) |
 | **Chaves na Mão** (portal) | Página de busca, um bairro por vez: anúncios de muitas imobiliárias e corretores, com rua e número |
 
 Ficaram de fora porque bloqueiam robôs (desafio do Cloudflare, mesmo pelo WARP):
