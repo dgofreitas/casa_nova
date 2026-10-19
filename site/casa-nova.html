@@ -1371,7 +1371,7 @@ $("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("
 // O crawler roda no GitHub; um Apps Script copia o resultado para o Google Drive;
 // aqui o site lê esse arquivo pelo conector do Drive e guarda a lista em crawler/feed.
 // As decisões de vocês (interesse, ver depois, descartar) ficam em novidades/<id>.
-const DRIVE="Google Drive",ARQ_DRIVE="casa-nova-casas.json",ORCAMENTO_MAX=1900000;
+const DRIVE="Google Drive",ARQ_DRIVE="casa-nova-casas.json",ORCAMENTO_MAX=2100000;
 const NV_SIT={interesse:"Foi para Imóveis",depois:"Ver depois",descartada:"Descartada",excluida:"Excluída de Imóveis"};
 const NUI={f:"olhar",q:"",sort:"recentes"};
 let nvSync={estado:"",msg:""},nvVistoAntes=null,nvVistoGravado=false,nvSyncing=false;
@@ -1566,7 +1566,7 @@ function cardNv(c){
     c.saiu&&`<span class="lz saiu">Saiu do ar</span>`,
     c.precoAntes&&c.preco<c.precoAntes&&`<span class="lz baixou">Baixou ${mil(c.precoAntes-c.preco)}</span>`,
     c.precoAntes&&c.preco>c.precoAntes&&`<span class="lz subiu">Subiu ${mil(c.preco-c.precoAntes)}</span>`,
-    c.preco>ORCAMENTO_MAX&&`<span class="lz acima">Acima de 1,9 mi · negociar</span>`,
+    c.preco>ORCAMENTO_MAX&&`<span class="lz acima">Acima de 2,1 mi · negociar</span>`,
   ].filter(Boolean).join("");
   const nomes=[...new Set(c.anuncios.map(a=>a.fonteNome))];
   const pl=(n,um,varios)=>`<li><b>${n}</b> ${n===1?um:varios}</li>`;

@@ -34,7 +34,7 @@ FUSO = timezone(timedelta(hours=-3))
 ESPERA = {"lideranca": 4.0, "smolka": 4.0}
 AUSENCIAS_PARA_SAIR = 3      # rodadas seguidas sem aparecer até marcar "saiu do ar"
 MANTER_SAIU_DIAS = 60        # depois disso o imóvel que saiu deixa de ser acompanhado
-LIMITE_ORCAMENTO = 1_900_000
+LIMITE_ORCAMENTO = 2_100_000
 CAMPOS = ["titulo", "tipo", "preco", "condominio", "iptu", "area", "areaTerreno", "quartos",
           "suites", "banheiros", "vagas", "endereco", "bairro", "foto", "lat", "lng", "link", "anunciante"]
 
@@ -348,7 +348,7 @@ def linha(x):
         partes.append(f"{x['quartos']} quartos")
     if x.get("area"):
         partes.append(f"{x['area']:g} m²")
-    selo = " ⚠️ acima de 1,9 mi" if (x.get("preco") or 0) > LIMITE_ORCAMENTO else ""
+    selo = " ⚠️ acima de 2,1 mi" if (x.get("preco") or 0) > LIMITE_ORCAMENTO else ""
     nome = FONTES[x["fonte"]][0]
     return (f"• <a href=\"{html.escape(x['link'])}\">{html.escape(', '.join(partes))}</a> — "
             f"{html.escape(x['bairro'])} · <b>{brl(x.get('preco'))}</b>{selo} · {html.escape(nome)}")
