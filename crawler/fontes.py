@@ -81,7 +81,7 @@ def kenlo(base):
 
 # ---------------------------------------------------------------- Vista / Loft (Next.js)
 def vista_loft(base):
-    """Liderança, Smolka, Trindade e Masvi: dados completos embutidos na página de busca."""
+    """Liderança, Smolka, Trindade, Masvi e KWS Premier: dados completos embutidos na página de busca."""
     def ler(http):
         q = {"finalidade": "Venda", "cidade": "Florianópolis",
              "bairro": ",".join(BAIRROS_NOME + ["Itacorubi - Parque São Jorge"])}
@@ -545,5 +545,6 @@ FONTES = {
     "ponte": ("Ponte Imóveis", kenlo("https://www.ponteimoveis.com.br")),
     "trindade": ("Trindade Imóveis", vista_loft("https://trindadeimoveis.com.br")),
     "masvi": ("Masvi Imóveis", vista_loft("https://masvi.com.br")),
+    "kws": ("KWS Premier", vista_loft("https://kwspremier.com.br")),
     "chavesnamao": ("Chaves na Mão (portal)", chaves_na_mao),
 }
