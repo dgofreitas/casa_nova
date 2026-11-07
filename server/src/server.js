@@ -194,6 +194,34 @@ function aplicarFotosImoveis() {
 }
 setInterval(aplicarFotosImoveis, 5000);
 
+// links antigos da KWS (/imovel/<código>) não abrem o anúncio: troca pelo link que o
+// crawler guarda agora, com a descrição antes do código
+let marcaLinksKws = 0;
+function corrigirLinksKws() {
+  let st;
+  try { st = fs.statSync(path.join(DADOS, "casas.json")); } catch { return; }
+  if (st.mtimeMs === marcaLinksKws) return;
+  marcaLinksKws = st.mtimeMs;
+  const casas = lerJSON("casas.json");
+  if (!casas) return;
+  const novo = {};
+  for (const a of Object.values(casas.imoveis || {}))
+    if (a.fonte === "kws" && a.codigo && /\/imovel\/[^/]+-[^/-]+$/.test(a.link || "")) novo[String(a.codigo).toUpperCase()] = a.link;
+  let mudou = false;
+  for (const { id, data } of sql.lista.all("imoveis")) {
+    const d = JSON.parse(data);
+    const m = /^https?:\/\/(?:www\.)?kwspremier\.com\.br\/imovel\/([^/?#-]+)\/?$/i.exec((d.link || "").trim());
+    const link = m && novo[m[1].toUpperCase()];
+    if (!link) continue;
+    d.link = link;
+    sql.grava.run("imoveis", id, JSON.stringify(d), new Date().toISOString(), "crawler");
+    mudou = true;
+  }
+  if (mudou) avisar("imoveis");
+}
+corrigirLinksKws();
+setInterval(corrigirLinksKws, 60000);
+
 // o que o crawler grava: lista e fotos mudam pouco; o andamento muda a cada poucos segundos
 // e vai num aviso só dele, para a página não baixar a lista inteira de novo
 const marca = (n) => { try { return fs.statSync(path.join(DADOS, n)).mtimeMs; } catch { return 0; } };

@@ -80,8 +80,35 @@ def kenlo(base):
 
 
 # ---------------------------------------------------------------- Vista / Loft (Next.js)
-def vista_loft(base):
-    """Liderança, Smolka, Trindade, Masvi e KWS Premier: dados completos embutidos na página de busca."""
+def _slug(txt):
+    return re.sub(r"[^a-z0-9]+", "-", sem_acento(str(txt or "")).lower()).strip("-")
+
+
+def _links_loft(base, *textos):
+    """Links de anúncio que aparecem na página: /imovel/<descrição>-<código>, pelo código."""
+    out = {}
+    for t in textos:
+        for path in re.findall(r'/imovel/([A-Za-z0-9._-]+)', t or ""):
+            out.setdefault(path.rsplit("-", 1)[-1].upper(), f"{base}/imovel/{path}")
+    return out
+
+
+def _link_loft(base, o, cod):
+    """Monta o link como o site faz: casa-parque-sao-jorge-florianopolis-sc-4-quartos-KWS168."""
+    q = num(o.get("Dormitorios"))
+    partes = [o.get("Categoria"), o.get("BairroComercial") or o.get("Bairro"),
+              o.get("Cidade") or "Florianópolis", o.get("UF") or "SC",
+              f"{int(q)}-quartos" if q else None]
+    s = "-".join(x for x in (_slug(p) for p in partes) if x)
+    return f"{base}/imovel/{s}-{cod}" if s else f"{base}/imovel/{cod}"
+
+
+def vista_loft(base, montar_link=False):
+    """Liderança, Smolka, Trindade, Masvi e KWS Premier: dados completos embutidos na página de busca.
+
+    O link do anúncio vem da própria página. Se não vier, a KWS (montar_link) ganha o
+    endereço completo, porque lá /imovel/<código> sozinho não abre o anúncio.
+    """
     def ler(http):
         q = {"finalidade": "Venda", "cidade": "Florianópolis",
              "bairro": ",".join(BAIRROS_NOME + ["Itacorubi - Parque São Jorge"])}
@@ -89,7 +116,9 @@ def vista_loft(base):
         for pagina in range(1, MAX_PAGINAS + 1):
             qp = dict(q, **({"page": str(pagina)} if pagina > 1 else {}))
             html = http.html(f"{base}/busca?" + urllib.parse.urlencode(qp))
-            objs = objetos_json(next_flight(html), '{"Codigo":')
+            flight = next_flight(html)
+            objs = objetos_json(flight, '{"Codigo":')
+            links = _links_loft(base, html, flight)
             novos = 0
             for o in objs:
                 cod = str(o.get("Codigo"))
@@ -100,7 +129,8 @@ def vista_loft(base):
                 end = " ".join(x for x in [o.get("TipoEndereco"), o.get("Endereco")] if x)
                 out.append({
                     "codigo": cod,
-                    "link": f"{base}/imovel/{cod}",
+                    "link": links.get(cod.upper()) or (_link_loft(base, o, cod) if montar_link
+                                                       else f"{base}/imovel/{cod}"),
                     "titulo": (o.get("TituloSite") or "").strip().capitalize(),
                     "categoria": o.get("Categoria") or "",
                     "bairro": o.get("Bairro") or o.get("BairroComercial") or "",
@@ -545,6 +575,6 @@ FONTES = {
     "ponte": ("Ponte Imóveis", kenlo("https://www.ponteimoveis.com.br")),
     "trindade": ("Trindade Imóveis", vista_loft("https://trindadeimoveis.com.br")),
     "masvi": ("Masvi Imóveis", vista_loft("https://masvi.com.br")),
-    "kws": ("KWS Premier", vista_loft("https://kwspremier.com.br")),
+    "kws": ("KWS Premier", vista_loft("https://kwspremier.com.br", montar_link=True)),
     "chavesnamao": ("Chaves na Mão (portal)", chaves_na_mao),
 }
