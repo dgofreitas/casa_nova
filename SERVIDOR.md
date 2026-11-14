@@ -26,6 +26,9 @@ casa-nova-crawler ──► volume casa_nova_dados ◄── casa-nova-app ◄�
 - Em **Ver imobiliárias** (aba Novidades) dá para ocultar uma imobiliária: as casas que
   só ela anuncia somem das Novidades, não geram aviso no Telegram e não têm as fotos
   baixadas. A escolha vale para os dois, e marcar de novo traz tudo de volta.
+- A lixeira de **Imóveis** não apaga a casa na hora: ela vai para a aba **Apagadas**
+  (coleção `lixeira`), de onde pode ser restaurada como estava ou apagada de vez. Nos dois
+  casos (enquanto está lá ou depois de apagada de vez) ela continua fora das buscas.
 - **casa-nova-app** serve a página, o login (Diogo e Cinthia), o banco (SQLite) e as fotos.
   A página é a mesma `site/casa-nova.html` do Claude: o arquivo `server/public/shim.js`
   recria, sobre a API do servidor, as funções que ela usava do Claude.

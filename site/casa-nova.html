@@ -119,6 +119,9 @@ legend{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:1
 .ph .excluir{right:94px}
 .ocultar.armed,.tocultar.armed{background:var(--bad);color:#fff}
 .tocultar.armed{border-radius:6px}
+.ap-acoes{display:flex;gap:8px;margin-top:10px}
+.ap-acoes .btn{flex:1;justify-content:center;padding:7px 8px;font-size:13px}
+.ap-quando{color:var(--muted);font-size:12px}
 .card.oculto .ph img,.card.oculto .ph>svg{opacity:.55}
 .card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
 .price{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.15}
@@ -448,6 +451,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
   <nav class="tabs" role="tablist" id="tabs">
     <button class="tab" role="tab" data-tab="imoveis" id="t-imoveis">Imóveis<span class="count" id="c-imoveis">0</span></button>
     <button class="tab" role="tab" data-tab="seminteresse" id="t-seminteresse">Sem interesse<span class="count" id="c-seminteresse">0</span></button>
+    <button class="tab" role="tab" data-tab="apagadas" id="t-apagadas">Apagadas<span class="count" id="c-apagadas">0</span></button>
     <button class="tab" role="tab" data-tab="novidades" id="t-novidades">Novidades<span class="count" id="c-novidades">0</span></button>
     <button class="tab" role="tab" data-tab="orcamento" id="t-orcamento">Orçamento</button>
     <button class="tab" role="tab" data-tab="checklist" id="t-checklist">Checklist<span class="count" id="c-checklist">0/0</span></button>
@@ -476,6 +480,12 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     </div>
     <div class="chips" id="chips"></div>
     <div id="list"></div>
+  </section>
+
+  <!-- APAGADAS -->
+  <section class="panel" id="p-apagadas" role="tabpanel" hidden>
+    <p class="muted small" style="margin:0 0 14px">As casas que vocês apagam em Imóveis ficam aqui. <b>Restaurar</b> traz a casa de volta para Imóveis como estava. <b>Apagar de vez</b> tira a casa daqui para sempre. Enquanto estiverem aqui (ou depois de apagadas de vez), elas não voltam nas buscas do crawler.</p>
+    <div id="alist"></div>
   </section>
 
   <!-- NOVIDADES -->
@@ -715,7 +725,7 @@ const DOC_CATS=["Nossos documentos","Documentos do imóvel","Certidões","Propos
 const PAPEIS=["Corretor(a)","Banco","Cartório","Vendedor(a)","Advogado(a)","Vistoria","Mudança","Outro"];
 const CORRETORAS={"zapimoveis":"ZAP Imóveis","vivareal":"Viva Real","quintoandar":"QuintoAndar","imovelweb":"Imovelweb","olx":"OLX","lopes":"Lopes","chavesnamao":"Chaves na Mão","loft":"Loft","netimoveis":"Netimóveis","wimoveis":"Wimóveis","123i":"123i","mercadolivre":"Mercado Livre"};
 
-const S={imoveis:{},checklist:{},documentos:{},agenda:{},contatos:{},config:{},novidades:{},crawler:{}};
+const S={imoveis:{},lixeira:{},checklist:{},documentos:{},agenda:{},contatos:{},config:{},novidades:{},crawler:{}};
 const COLLS=Object.keys(S);
 let db=null,assets=null,sample=null,downloads=null,mcp=null,user=null,servidor=null,uid=null,imgLimits=null,readOnly=false;
 const UI={tab:"imoveis",q:"",status:"ativos",fav:false,ocultas:false,piscina:false,gourmet:false,semAlaga:false,comVend:false,comViz:false,sort:"recentes",view:store.get("cn_view")||"cards"};
@@ -898,12 +908,14 @@ function render(){
   const all=imoveisArr();
   $("#c-imoveis").textContent=all.filter(d=>d.status!=="descartado"&&!d.oculto).length;
   $("#c-seminteresse").textContent=all.filter(d=>d.oculto).length;
+  $("#c-apagadas").textContent=apagadas().length;
   const ck=Object.values(S.checklist);
   $("#c-checklist").textContent=ck.filter(x=>x.feito).length+"/"+ck.length;
   $("#c-documentos").textContent=Object.keys(S.documentos).length;
   $("#c-novidades").textContent=contaOlhar();
   if(UI.tab==="imoveis"||UI.tab==="seminteresse")renderImoveis();
   const dv=$("#dlgVer");if(dv.open&&verId){if(S.imoveis[verId]){const y=$("#verBody").scrollTop;openVer(verId);$("#verBody").scrollTop=y}else dv.close()}
+  if(UI.tab==="apagadas")renderApagadas();
   if(UI.tab==="novidades"){renderNovidades();marcarVisto()}
   if(UI.tab==="orcamento")renderOrcamento();
   if(UI.tab==="checklist")renderChecklist();
@@ -964,7 +976,7 @@ function renderImoveis(){
   const list=filtered();
   const box=$("#list");
   if(UI.ocultas&&!all.length){
-    box.innerHTML=`<div class="empty"><h3>Nenhuma casa sem interesse</h3><p>Quando uma casa não interessar, toquem no olho riscado dela em Imóveis. Ela vem para cá e pode voltar quando quiserem. Para tirar de vez, usem a lixeira: a casa é excluída e não volta nas próximas buscas do crawler.</p></div>`;
+    box.innerHTML=`<div class="empty"><h3>Nenhuma casa sem interesse</h3><p>Quando uma casa não interessar, toquem no olho riscado dela em Imóveis. Ela vem para cá e pode voltar quando quiserem. Para tirar de vez, usem a lixeira: a casa vai para “Apagadas”, de onde ainda pode ser restaurada, e não volta nas próximas buscas do crawler.</p></div>`;
     return;
   }
   if(!tudo.length){
@@ -975,7 +987,7 @@ function renderImoveis(){
   if(UI.view==="tabela"){
     box.innerHTML=`<div class="scroll-x"><table><thead><tr><th>★</th><th>Imóvel</th><th>Status</th><th class="n">Preço</th><th class="n">Fecha por</th><th class="n">m²</th><th class="n">R$/m²</th><th class="n">Quartos</th><th class="n">Vagas</th><th class="n">Cond. + IPTU/mês</th><th>Piscina</th><th>Churrasq.</th><th>Gourmet + piscina</th><th>Alagamento</th><th>Contatos</th><th class="n">Nota</th><th>Anúncio</th></tr></thead><tbody>${
       list.map(d=>{const mens=(d.condominio||0)+(d.iptu||0)/12;return `<tr data-id="${esc(d.id)}">
-        <td style="white-space:nowrap"><button class="tstar" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="Favorita">★</button>${readOnly?"":`<button class="tocultar" type="button" data-ocultar="${esc(d.id)}" title="${d.oculto?"Voltar para Imóveis":"Sem interesse"}" aria-label="${d.oculto?"Voltar para Imóveis":"Sem interesse"}">${d.oculto?icoMostrar:icoOcultar}</button><button class="tocultar" type="button" data-excluir="${esc(d.id)}" title="Excluir de vez" aria-label="Excluir de vez">${icoExcluir}</button>`}</td>
+        <td style="white-space:nowrap"><button class="tstar" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="Favorita">★</button>${readOnly?"":`<button class="tocultar" type="button" data-ocultar="${esc(d.id)}" title="${d.oculto?"Voltar para Imóveis":"Sem interesse"}" aria-label="${d.oculto?"Voltar para Imóveis":"Sem interesse"}">${d.oculto?icoMostrar:icoOcultar}</button><button class="tocultar" type="button" data-excluir="${esc(d.id)}" title="Apagar (vai para Apagadas)" aria-label="Apagar">${icoExcluir}</button>`}</td>
         <td><b>${esc(titleOf(d))}</b><div class="small muted">${esc(locOf(d))}</div></td>
         <td><span class="pill st-${esc(d.status||"interesse")}">${esc(STATUS[d.status]||STATUS.interesse)}</span></td>
         <td class="n">${money(d.preco)}</td><td class="n">${d.precoNegociado?money(d.precoNegociado):"—"}</td><td class="n">${d.area?numIn(d.area):"—"}</td><td class="n">${money(ppm(d))}</td>
@@ -993,7 +1005,7 @@ function renderImoveis(){
     const specs=[d.area&&`<li><b>${numIn(d.area)}</b> m²</li>`,d.quartos!=null&&`<li><b>${d.quartos}</b> quartos</li>`,d.suites&&`<li><b>${d.suites}</b> suítes</li>`,d.vagas!=null&&`<li><b>${d.vagas}</b> vagas</li>`].filter(Boolean).join("");
     return `<article class="card ${st==="descartado"?"descartado":""} ${d.oculto?"oculto":""}" data-id="${esc(d.id)}" tabindex="0">
       <div class="ph">${foto}<span class="pill st-${esc(st)}">${esc(STATUS[st]||"")}</span>
-        <button class="star" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="${d.favorito?"Tirar das favoritas":"Marcar como favorita"}">★</button>${readOnly?"":`<button class="ocultar" type="button" data-ocultar="${esc(d.id)}" title="${d.oculto?"Voltar para Imóveis":"Sem interesse"}" aria-label="${d.oculto?"Voltar para Imóveis":"Sem interesse"}">${d.oculto?icoMostrar:icoOcultar}</button><button class="ocultar excluir" type="button" data-excluir="${esc(d.id)}" title="Excluir de vez" aria-label="Excluir de vez">${icoExcluir}</button>`}</div>
+        <button class="star" type="button" data-star="${esc(d.id)}" aria-pressed="${!!d.favorito}" aria-label="${d.favorito?"Tirar das favoritas":"Marcar como favorita"}">★</button>${readOnly?"":`<button class="ocultar" type="button" data-ocultar="${esc(d.id)}" title="${d.oculto?"Voltar para Imóveis":"Sem interesse"}" aria-label="${d.oculto?"Voltar para Imóveis":"Sem interesse"}">${d.oculto?icoMostrar:icoOcultar}</button><button class="ocultar excluir" type="button" data-excluir="${esc(d.id)}" title="Apagar (vai para Apagadas)" aria-label="Apagar">${icoExcluir}</button>`}</div>
       <div class="body">
         <div class="price">${d.preco?money(d.preco):'<span class="muted" style="font-size:16px">Preço a preencher</span>'}</div>
         ${d.precoNegociado?`<div class="neg">Achamos que fecha por <b>${money(d.precoNegociado)}</b>${d.preco?` <span>(${d.precoNegociado<=d.preco?"−":"+"}${Math.abs((1-d.precoNegociado/d.preco)*100).toFixed(0)}%)</span>`:""}</div>`:""}
@@ -1340,12 +1352,13 @@ function ocultarCasa(id,sim){
 function armar(b,texto){
   if(b.classList.contains("armed"))return true;
   const antes=b.innerHTML;b.classList.add("armed");
-  if(texto)b.textContent=texto;else toast("Toque de novo na lixeira para excluir de vez.");
+  if(texto)b.textContent=texto;else toast("Toque de novo na lixeira para apagar. A casa vai para “Apagadas”.");
   setTimeout(()=>{if(b.isConnected){b.classList.remove("armed");b.innerHTML=antes}},4000);
   return false;
 }
-// excluir apaga a casa e guarda o anúncio numa lista de excluídas (config/excluidas):
-// as Novidades e o crawler pulam essa casa nas próximas buscas, mesmo vinda de outra imobiliária
+// excluir move a casa para a lixeira (aba "Apagadas", coleção lixeira) e guarda o anúncio numa
+// lista de excluídas (config/excluidas): as Novidades e o crawler pulam essa casa nas próximas
+// buscas, mesmo vinda de outra imobiliária. Na aba "Apagadas" dá para restaurar ou apagar de vez.
 async function excluirCasa(id){
   if(readOnly)return toast("Seu acesso é só de leitura.");
   const d=S.imoveis[id];if(!d)return;
@@ -1359,11 +1372,93 @@ async function excluirCasa(id){
   if(marca.link)marca.links=[...new Set([...(marca.links||[]),linkNorm(marca.link)])];
   const lista=excluidas().filter(x=>x.imovelId!==id);
   lista.push({imovelId:id,...marca});
+  const guardou=await save("lixeira",id,{...d,apagadaEm:nowISO(),apagadaPor:uid||null});if(!guardou)return;
   const ok=await save("config","excluidas",{casas:lista});if(!ok)return;
   if(nid&&anuncios.length)await save("novidades",nid,{anuncios,situacao:"descartada",excluida:true,por:uid||null,em:nowISO()});
   await remove("imoveis",id);
-  if(assets&&d.fotos)d.fotos.forEach(f=>assets.delete(f).catch(()=>{}));
-  toast(`“${titleOf(d)}” foi excluída. Ela não volta nas próximas buscas do crawler.`);
+  toast(`“${titleOf(d)}” foi para “Apagadas”. De lá ela pode ser restaurada.`);
+}
+
+/* ---- apagadas (lixeira) ---- */
+// cada item: {tipo:"lixeira", id, d} (casa guardada inteira) ou {tipo:"antiga", x} (apagada antes da
+// lixeira existir: só sobrou a marca em config/excluidas, com título, link, bairro, área, preço…)
+function apagadas(){
+  const lx=Object.entries(S.lixeira).map(([id,d])=>({tipo:"lixeira",id,d,em:d.apagadaEm||""}));
+  const antigas=excluidas().filter(x=>!x.definitiva&&!(x.imovelId&&(S.lixeira[x.imovelId]||S.imoveis[x.imovelId])))
+    .map(x=>({tipo:"antiga",x,id:x.imovelId||"",em:x.em||""}));
+  return [...lx,...antigas].sort((a,b)=>String(b.em).localeCompare(String(a.em)));
+}
+function casaDaMarca(x){return casas().find(c=>bateExcluida(x,c))||null}
+function renderApagadas(){
+  const box=$("#alist");const list=apagadas();
+  if(!list.length){box.innerHTML=`<div class="empty"><h3>Nenhuma casa apagada</h3><p>Quando vocês apagarem uma casa em Imóveis (na lixeira), ela vem para cá e pode ser restaurada.</p></div>`;return}
+  box.innerHTML=`<div class="grid">${list.map((it,i)=>{
+    const d=it.tipo==="lixeira"?it.d:it.x;
+    const c=it.tipo==="antiga"?casaDaMarca(it.x):null;
+    const fotos=it.tipo==="lixeira"?(d.fotos||[]):(c?[capaDe(c)].filter(Boolean):[]);
+    const foto=fotos.length?`<img src="${esc(mini(fotos[0]))}" alt="" loading="lazy">`:houseSvg;
+    const specs=[d.area&&`<li><b>${numIn(d.area)}</b> m²</li>`,d.quartos!=null&&`<li><b>${d.quartos}</b> quartos</li>`,d.suites&&`<li><b>${d.suites}</b> suítes</li>`].filter(Boolean).join("");
+    const aviso=it.tipo==="antiga"?`<div class="ap-quando">${c?"Apagada antes desta aba existir. Ao restaurar, ela volta com os dados e as fotos do anúncio; notas e fotos que vocês tinham posto se perderam.":"Apagada antes desta aba existir e o anúncio não está mais nas buscas. Ao restaurar, ela volta só com título, link, bairro, área e preço."}</div>`:"";
+    const link=d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">${esc(d.corretora||hostOf(d.link))} ↗</a>`:"";
+    return `<article class="card oculto" data-ap="${i}">
+      <div class="ph">${foto}</div>
+      <div class="body">
+        <div class="price">${d.preco?money(d.preco):'<span class="muted" style="font-size:16px">Sem preço</span>'}</div>
+        <div><b>${esc(titleOf(d))}</b></div>
+        <div class="small muted">${esc(locOf(d))}</div>
+        ${specs?`<ul class="specs">${specs}</ul>`:""}
+        <div class="ap-quando">Apagada ${it.em?esc(fmtQuando(it.em)):""}${link?" · "+link:""}</div>
+        ${aviso}
+        ${readOnly?"":`<div class="ap-acoes"><button class="btn primary" type="button" data-aprest="${i}">Restaurar</button><button class="btn danger" type="button" data-apdel="${i}">Apagar de vez</button></div>`}
+      </div></article>`}).join("")}</div>`;
+}
+$("#alist").addEventListener("click",async e=>{
+  const list=apagadas();
+  const r=e.target.closest("[data-aprest]");
+  if(r){const it=list[+r.dataset.aprest];if(it)await restaurarCasa(it);return}
+  const x=e.target.closest("[data-apdel]");
+  if(x){if(!armar(x,"Confirmar"))return;const it=list[+x.dataset.apdel];if(it)await apagarDeVez(it);return}
+});
+// tira a casa da lista de excluídas e desfaz a decisão "excluída" nas Novidades
+async function soltarDoCrawler(id,d){
+  const fica=excluidas().filter(x=>x.imovelId!==id);
+  if(fica.length!==excluidas().length)await save("config","excluidas",{casas:fica});
+  const nid=d&&d.novidadeId;
+  if(nid&&S.novidades[nid]&&S.novidades[nid].excluida)await save("novidades",nid,{anuncios:S.novidades[nid].anuncios||[],situacao:"interesse",imovelId:id,por:uid||null,em:nowISO()});
+}
+async function restaurarCasa(it){
+  if(readOnly)return toast("Seu acesso é só de leitura.");
+  if(it.tipo==="lixeira"){
+    const d={...it.d};delete d.apagadaEm;delete d.apagadaPor;
+    const ok=await save("imoveis",it.id,d);if(!ok)return;
+    await soltarDoCrawler(it.id,d);
+    await remove("lixeira",it.id);
+    return toast(`“${titleOf(d)}” voltou para Imóveis.`);
+  }
+  // apagada antes da lixeira: refaz pelo anúncio do crawler (com fotos e dados), ou pela marca
+  const x=it.x,c=casaDaMarca(x);
+  if(c){
+    if(!c.decisao||!c.decisao.excluida){const fica=excluidas().filter(y=>y!==x);await save("config","excluidas",{casas:fica})}
+    return decidir(c.gid,"interesse");
+  }
+  const id=x.imovelId||newId();
+  const im={status:"interesse",titulo:x.titulo,link:x.link,bairro:x.bairro,endereco:x.endereco,area:x.area,preco:x.preco,quartos:x.quartos,cidade:"Florianópolis - SC",criadoEm:nowISO(),atualizadoEm:nowISO()};
+  Object.keys(im).forEach(k=>{if(im[k]==null||im[k]==="")delete im[k]});
+  const ok=await save("imoveis",id,im);if(!ok)return;
+  await save("config","excluidas",{casas:excluidas().filter(y=>y!==x)});
+  toast(`“${titleOf(im)}” voltou para Imóveis.`);
+}
+// apagar de vez: some da aba e as fotos enviadas por vocês são apagadas; a casa continua
+// fora das buscas do crawler (a marca em config/excluidas fica, com definitiva:true)
+async function apagarDeVez(it){
+  if(readOnly)return toast("Seu acesso é só de leitura.");
+  const marca=it.tipo==="lixeira"?excluidas().find(x=>x.imovelId===it.id):it.x;
+  if(marca)await save("config","excluidas",{casas:excluidas().map(x=>x===marca?{...x,definitiva:true}:x)});
+  if(it.tipo==="lixeira"){
+    await remove("lixeira",it.id);
+    if(assets&&it.d.fotos)it.d.fotos.forEach(f=>{if(!/^f\//.test(f))assets.delete(f).catch(()=>{})});
+  }
+  toast(`“${titleOf(it.tipo==="lixeira"?it.d:it.x)}” foi apagada de vez.`);
 }
 $("#list").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches(".card"))openVer(e.target.dataset.id)});
 
@@ -1616,6 +1711,11 @@ async function decidir(gid,acao){
   const c=casas().find(x=>x.gid===gid);if(!c)return;
   const ids=c.anuncios.map(a=>a.id);
   const id=(c.decisao&&c.decisao.id)||docId(ids[0]);
+  // a casa ainda está em "Apagadas": trazer de volta restaura ela inteira (notas, fotos, status)
+  if(acao==="interesse"){
+    const lx=Object.entries(S.lixeira).find(([,d])=>d.novidadeId&&d.novidadeId===id);
+    if(lx)return restaurarCasa({tipo:"lixeira",id:lx[0],d:lx[1]});
+  }
   // uma casa excluída em Imóveis que vocês trazem de volta sai da lista de excluídas
   if(c.decisao&&c.decisao.excluida){const fica=excluidas().filter(x=>!bateExcluida(x,c));if(fica.length!==excluidas().length)await save("config","excluidas",{casas:fica})}
   if(acao==="voltar"){
@@ -2369,7 +2469,7 @@ $$(".tab").forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;e.preventDefault();if(dlgFotos.open)dlgFotos.close();else $$("dialog[open]").forEach(d=>d.close())});
 const savedTab=store.get("cn_tab");
 const hash=(location.hash||"").slice(1);
-setTab(["imoveis","seminteresse","novidades","orcamento","checklist","documentos","agenda"].includes(hash)?hash:(savedTab||"imoveis"));
+setTab(["imoveis","seminteresse","apagadas","novidades","orcamento","checklist","documentos","agenda"].includes(hash)?hash:(savedTab||"imoveis"));
 
 async function boot(){
   const C=window.claude;
