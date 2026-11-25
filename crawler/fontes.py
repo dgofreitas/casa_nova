@@ -559,6 +559,62 @@ def duda(http):
     return out
 
 
+# ---------------------------------------------------------------- Gralha Imóveis (Inforce)
+def gralha(http):
+    """API do site (Inforce): o mesmo JSON que a página de busca usa.
+
+    Os 4 bairros vão juntos no "suggest", do jeito que a caixa de localização manda.
+    Sem filtro de tipo, porque "casa" deixa de fora a "Casa de Condomínio"; o
+    filtro de casa fica em crawl.py, como nas outras.
+    """
+    base = "https://www.gralhaimoveis.com.br"
+    cab = {"X-Requested-With": "XMLHttpRequest", "Accept": "application/json"}
+    sugestoes = []
+    for nome in BAIRROS_NOME:
+        r = http.get(f"{base}/api/anuncios/suggest", params={"term": sem_acento(nome)}, headers=cab)
+        alvo = _slug(nome)
+        sugestoes += [x for x in r.json() or [] if x.get("tipo") == "Bairros"
+                      and x.get("cidade") == "Florianópolis" and _slug(x.get("bairro")) == alvo][:1]
+    if not sugestoes:
+        raise RuntimeError("a busca de bairros do site não devolveu nenhum dos 4 bairros")
+    out, vistos = [], set()
+    for pagina in range(1, MAX_PAGINAS + 1):
+        r = http.get(f"{base}/api/anuncios/search", headers=cab, params={
+            "finalidade": "venda", "suggest": json.dumps(sugestoes, ensure_ascii=False),
+            "pagesize": "100", "page": str(pagina)})
+        d = r.json() or {}
+        novos = 0
+        for o in d.get("items") or []:
+            cod = str(o.get("id") or "")
+            if not cod or cod in vistos or o.get("tipoAnuncio") not in (None, "Imovel"):
+                continue
+            vistos.add(cod)
+            novos += 1
+            imgs = o.get("imagens") or []
+            out.append({
+                "codigo": cod,
+                "link": f"{base}/imovel/{o.get('url')}/{cod}",
+                "titulo": f"{o.get('tipo') or 'Imóvel'} em {o.get('bairro') or ''}".strip(),
+                "categoria": o.get("tipo") or "",
+                "bairro": o.get("bairro") or "",
+                # às vezes o cadastro repete o tipo: "Rua Rua Itaipu"
+                "endereco": re.sub(r"^(\w+)\s+\1\b", r"\1", ", ".join(
+                    str(x).strip() for x in [o.get("logradouro"), o.get("numero")] if x), flags=re.I),
+                "preco": None if o.get("ocultarValor") else num(o.get("valorPromocional") or o.get("valorVenda")),
+                "area": num(o.get("areaConstruida")),
+                "quartos": num(o.get("quartos")),
+                "suites": num(o.get("suites")),
+                "banheiros": num(o.get("banheiros")),
+                "vagas": num(o.get("vagas")),
+                "lat": _coord(o.get("latitude")), "lng": _coord(o.get("longitude")),
+                "foto": f"https://gralha2.inforcedata.com.br/api/image/{imgs[0]}.jpg" if imgs else None,
+                "caracteristicas": [c for c in o.get("caracteristicas") or [] if isinstance(c, str)],
+            })
+        if novos == 0 or len(vistos) >= (d.get("total") or 0):
+            break
+    return out
+
+
 FONTES = {
     "daga": ("Daga Imóveis", tecimob("dagaimoveis.com.br")),
     "quadra": ("Quadra Imobiliária", kenlo("https://www.quadraimobiliaria.com.br")),
@@ -576,5 +632,6 @@ FONTES = {
     "trindade": ("Trindade Imóveis", vista_loft("https://trindadeimoveis.com.br")),
     "masvi": ("Masvi Imóveis", vista_loft("https://masvi.com.br")),
     "kws": ("KWS Premier", vista_loft("https://kwspremier.com.br", montar_link=True)),
+    "gralha": ("Gralha Imóveis", gralha),
     "chavesnamao": ("Chaves na Mão (portal)", chaves_na_mao),
 }
